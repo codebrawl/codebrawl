@@ -1,12 +1,10 @@
 require 'spec_helper'
 
-describe 'Contest' do
+describe Contest do
 
   context '.make' do
 
-    it 'creates a valid Contest' do
-      Contest.make.valid?.should be_true
-    end
+    it { Contest.make.should be_valid }
 
   end
 
@@ -14,19 +12,15 @@ describe 'Contest' do
 
     context 'when keeping all fields empty' do
 
-      it 'should have name' do
-        Contest.create.errors[:name].should include 'can\'t be blank'
-      end
+      it { should have_a_presence_error_on(:name) }
 
-      it 'should have a start date' do
-        Contest.create.errors[:starts_at].should include 'can\'t be blank'
-      end
+      it { should have_a_presence_error_on(:starts_at) }
 
     end
 
     context 'when creating a valid contest' do
 
-      it 'sets the state to open by default' do
+      it 'should set the state to \'open\' by default' do
         Contest.make.state.should == 'open'
       end
 
