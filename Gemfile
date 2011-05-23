@@ -14,6 +14,8 @@ gem 'jquery-rails'
 gem "mongoid", "~> 2.0"
 gem "bson_ext", "~> 1.3"
 
+gem 'kramdown'
+
 group :test do
   gem 'rspec-rails'
   gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git'

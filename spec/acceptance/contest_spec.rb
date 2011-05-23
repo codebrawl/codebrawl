@@ -11,14 +11,14 @@ feature 'Contests', %q{
     background(:all) do
       @contest = Contest.make(
         :name => 'RSpec extensions',
-        :description => 'Write an RSpec extension that solves a problem you\'re facing.'
+        :description => 'Write an [RSpec](http://relishapp.com/rspec) extension that solves a problem you are having.'
       )
     end
 
     background { visit "/contests/#{@contest.id}" }
 
-    scenario 'read the contest description' do
-      page.should have_content 'Write an RSpec extension that solves a problem you\'re facing.'
+    scenario 'read the markdown contest description' do
+      body.should include 'Write an <a href="http://relishapp.com/rspec">RSpec</a> extension that solves a problem you are having.'
     end
 
   end

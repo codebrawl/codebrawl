@@ -73,6 +73,7 @@ GEM
       thor (~> 0.14)
     json (1.5.1)
     json_pure (1.5.1)
+    kramdown (0.13.3)
     machinist (1.0.6)
     machinist_mongo (1.2.0)
       machinist (~> 1.0.6)
@@ -169,6 +170,7 @@ DEPENDENCIES
   haml
   jquery-rails
   json
+  kramdown
   machinist_mongo
   mocha
   mongoid (~> 2.0)
