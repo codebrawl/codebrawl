@@ -20,4 +20,6 @@ group :test do
 
   gem 'machinist_mongo', :require => 'machinist/mongoid'
   gem 'faker'
+
+  gem 'fuubar'
 end

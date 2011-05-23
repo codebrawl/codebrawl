@@ -60,6 +60,10 @@ GEM
       multi_json (~> 1.0)
     faker (0.3.1)
     ffi (1.0.9)
+    fuubar (0.0.5)
+      rspec (~> 2.0)
+      rspec-instafail (~> 0.1.4)
+      ruby-progressbar (~> 0.0.10)
     haml (3.0.25)
     hike (1.0.0)
     i18n (0.6.0)
@@ -116,12 +120,14 @@ GEM
     rspec-core (2.6.2)
     rspec-expectations (2.6.0)
       diff-lcs (~> 1.1.2)
+    rspec-instafail (0.1.7)
     rspec-mocks (2.6.0)
     rspec-rails (2.6.0)
       actionpack (~> 3.0)
       activesupport (~> 3.0)
       railties (~> 3.0)
       rspec (~> 2.6.0)
+    ruby-progressbar (0.0.10)
     rubyzip (0.9.4)
     sass (3.1.1)
     selenium-webdriver (0.2.0)
@@ -153,6 +159,7 @@ DEPENDENCIES
   capybara!
   coffee-script
   faker
+  fuubar
   haml
   jquery-rails
   json
