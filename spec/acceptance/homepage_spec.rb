@@ -6,9 +6,24 @@ feature 'Articles', %q{
   I want to see what it's all about
 } do
 
-  scenario 'visit the homepage' do
-    visit '/'
-    page.should have_content 'Codebrawl'
+  context "on the homepage" do
+
+    background do
+      ['Euler #74', 'Fun with ChunkyPNG'].each { |name| Contest.make(:name => name) }
+
+       visit '/'
+     end
+
+    scenario 'see the Codebrawl header' do
+      page.should have_content 'Codebrawl'
+    end
+
+    scenario 'see a list of contest names' do
+      ['Euler #74', 'Fun with ChunkyPNG'].each do |name|
+        page.should have_content name
+      end
+    end
+
   end
 
 end
