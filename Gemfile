@@ -21,5 +21,8 @@ group :test do
   gem 'machinist_mongo', :require => 'machinist/mongoid'
   gem 'faker'
 
+  gem 'spork', '~> 0.9.0.rc'
+  gem 'watchr'
+
   gem 'fuubar'
 end
