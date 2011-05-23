@@ -12,8 +12,12 @@ describe 'Contest' do
 
   context '.save!' do
 
-    it 'should have a name' do
-      Contest.create.errors[:name].should_not be_empty
+    it 'should have name' do
+      Contest.create.errors[:name].should include 'can\'t be blank'
+    end
+
+    it 'should have a start date' do
+      Contest.create.errors[:starts_at].should include 'can\'t be blank'
     end
 
   end
