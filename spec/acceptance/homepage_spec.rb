@@ -8,11 +8,12 @@ feature 'Articles', %q{
 
   context "on the homepage" do
 
-    background do
+    background :all do
       ['Euler #74', 'Fun with ChunkyPNG'].each { |name| Contest.make(:name => name) }
+      Contest.make(:name => 'RSpec extensions', :starting_on => 1.week.from_now.utc)
+    end
 
-       visit '/'
-     end
+    before { visit '/' }
 
     scenario 'see the Codebrawl header' do
       page.should have_content 'Codebrawl'
@@ -22,6 +23,8 @@ feature 'Articles', %q{
       ['Euler #74', 'Fun with ChunkyPNG'].each do |name|
         page.should have_content name
       end
+
+      page.should have_no_content 'RSpec extensions'
     end
 
   end

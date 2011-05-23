@@ -54,6 +54,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.1.1)
+    database_cleaner (0.6.4)
     diff-lcs (1.1.2)
     erubis (2.7.0)
     execjs (1.0.0)
@@ -80,6 +81,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
+    mocha (0.9.12)
     mongo (1.3.1)
       bson (>= 1.3.1)
     mongoid (2.0.2)
@@ -161,12 +163,14 @@ DEPENDENCIES
   bson_ext (~> 1.3)
   capybara!
   coffee-script
+  database_cleaner
   faker
   fuubar
   haml
   jquery-rails
   json
   machinist_mongo
+  mocha
   mongoid (~> 2.0)
   rails (= 3.1.0.rc1)
   rspec-rails

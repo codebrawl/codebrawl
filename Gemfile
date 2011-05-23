@@ -18,8 +18,11 @@ group :test do
   gem 'rspec-rails'
   gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git'
 
+  gem 'mocha'
+
   gem 'machinist_mongo', :require => 'machinist/mongoid'
   gem 'faker'
+  gem 'database_cleaner'
 
   gem 'spork', '~> 0.9.0.rc'
   gem 'watchr'
