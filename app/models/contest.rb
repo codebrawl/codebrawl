@@ -1,5 +1,6 @@
 class Contest
   include Mongoid::Document
+  include Mongoid::Slug
 
   field :name, :type => String
   field :description, :type => String
@@ -7,6 +8,8 @@ class Contest
   field :starting_on, :type => Date
   field :voting_on, :type => Date
   field :closing_on, :type => Date
+
+  slug :name
 
   validates :name, :description, :starting_on, :presence => true
 

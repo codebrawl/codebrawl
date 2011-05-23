@@ -5,7 +5,7 @@ class ContestsController < ApplicationController
   end
 
   def show
-    @contest = Contest.find(params[:id])
+    @contest = Contest.find_by_slug(params[:id])
   end
 
 end
