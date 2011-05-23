@@ -9,8 +9,8 @@ module Mongoid::Document
     state == 'open'
   end
 
-  def has_a_duration_of?(duration)
-    self.duration == duration
+  def has_a_voting_state_after?(date)
+    self.voting_on == date
   end
 
 end

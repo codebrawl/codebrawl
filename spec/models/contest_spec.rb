@@ -24,6 +24,8 @@ describe Contest do
 
       it { should be_open }
 
+      it { should have_a_voting_state_after Date.parse('May 30 2011') }
+
     end
 
   end
