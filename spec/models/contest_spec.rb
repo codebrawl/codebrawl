@@ -14,7 +14,7 @@ describe Contest do
 
       it { should have_a_presence_error_on(:name) }
 
-      it { should have_a_presence_error_on(:starts_at) }
+      it { should have_a_presence_error_on(:starts_on) }
 
     end
 
@@ -23,8 +23,6 @@ describe Contest do
       subject { Contest.make }
 
       it { should be_open }
-
-      it { should have_a_duration_of(1.week) }
 
     end
 
