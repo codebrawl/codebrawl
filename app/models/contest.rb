@@ -2,12 +2,13 @@ class Contest
   include Mongoid::Document
 
   field :name, :type => String
+  field :description, :type => String
 
   field :starting_on, :type => Date
   field :voting_on, :type => Date
   field :closing_on, :type => Date
 
-  validates :name, :starting_on, :presence => true
+  validates :name, :description, :starting_on, :presence => true
 
   before_create :set_voting_and_closing_dates
 

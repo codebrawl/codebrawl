@@ -1,6 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature 'Articles', %q{
+feature 'Homepage', %q{
   In order to be introduced to Codebrawl
   As a visitor
   I want to see what it's all about
@@ -25,12 +25,6 @@ feature 'Articles', %q{
       end
 
       page.should have_no_content 'RSpec extensions'
-    end
-
-    scenario 'visit a contest page' do
-      click_link 'Euler #74'
-      page.should have_content 'Euler #74'
-      page.should have_no_content 'Fun with ChunkyPNG'
     end
 
   end
