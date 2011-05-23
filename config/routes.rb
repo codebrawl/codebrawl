@@ -1,5 +1,7 @@
 Codebrawl::Application.routes.draw do
 
-  root :to => 'application#index'
+  resources :contests
+
+  root :to => 'contests#index'
 
 end

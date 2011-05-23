@@ -21,10 +21,16 @@ feature 'Articles', %q{
 
     scenario 'see a list of contest names' do
       ['Euler #74', 'Fun with ChunkyPNG'].each do |name|
-        page.should have_content name
+        page.should have_link name
       end
 
       page.should have_no_content 'RSpec extensions'
+    end
+
+    scenario 'visit a contest page' do
+      click_link 'Euler #74'
+      page.should have_content 'Euler #74'
+      page.should have_no_content 'Fun with ChunkyPNG'
     end
 
   end
