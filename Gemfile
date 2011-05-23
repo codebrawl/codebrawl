@@ -19,4 +19,5 @@ group :test do
   gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git'
 
   gem 'machinist_mongo', :require => 'machinist/mongoid'
+  gem 'faker'
 end
