@@ -2,5 +2,5 @@ require 'machinist/mongoid'
 
 Contest.blueprint do
   name 'Contest!'
-  starts_on Date.parse('May 23 2011')
+  starting_on Date.parse('May 23 2011')
 end

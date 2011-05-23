@@ -9,8 +9,12 @@ module Mongoid::Document
     state == 'open'
   end
 
-  def has_a_voting_state_after?(date)
+  def has_a_voting_date_of?(date)
     self.voting_on == date
+  end
+
+  def has_a_closing_date_of?(date)
+    self.closing_on == date
   end
 
 end
