@@ -20,9 +20,11 @@ describe Contest do
 
     context 'when creating a valid contest' do
 
-      it 'should set the state to \'open\' by default' do
-        Contest.make.state.should == 'open'
-      end
+      subject { Contest.make }
+
+      it { should be_open }
+
+      it { should have_a_duration_of(1.week) }
 
     end
 

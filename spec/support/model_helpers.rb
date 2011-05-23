@@ -5,4 +5,12 @@ module Mongoid::Document
     errors[field].include? 'can\'t be blank'
   end
 
+  def open?
+    state == 'open'
+  end
+
+  def has_a_duration_of?(duration)
+    self.duration == duration
+  end
+
 end
