@@ -8,7 +8,13 @@ feature 'Contests' do
     background :all do
       @contest = Contest.make(
         :name => 'RSpec extensions',
-        :description => 'Write an [RSpec](http://relishapp.com/rspec) extension that solves a problem you are having.'
+        :description => 'Write an [RSpec](http://relishapp.com/rspec) extension that solves a problem you are having.',
+        :entries => [
+
+          Entry.make(
+            :description => 'I wrote an RSpec formatter to show the test run\'s progress instead of just showing how many specs passed and failed up to now. It\'s [on Github](http://github.com/jeffkreeftmeijer/fuubar)'
+          )
+        ]
       )
     end
 
@@ -21,6 +27,11 @@ feature 'Contests' do
     scenario 'go to the entry form' do
       click_link 'Enter'
       page.should have_content 'Submit your entry for “RSpec extensions”'
+    end
+
+    scenario 'see the contest entries' do
+      page.should have_content 'I wrote an RSpec formatter to show the test run’s progress instead of just showing how many specs passed and failed up to now.'
+      body.should include('<a href="http://github.com/jeffkreeftmeijer/fuubar">on Github</a>')
     end
 
   end
