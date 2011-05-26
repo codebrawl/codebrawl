@@ -1,0 +1,8 @@
+%h2= "Submit your entry for “#{@contest.name}”"
+
+= form_for [@contest, @entry] do |f|
+
+  = f.label :description
+  = f.text_area :description
+
+  = f.submit 'Submit your entry'

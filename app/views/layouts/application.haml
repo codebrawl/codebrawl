@@ -8,4 +8,8 @@
 
   %body
     %h1 Codebrawl
+
+    - if flash
+      #notice= flash[:notice]
+
     = yield
