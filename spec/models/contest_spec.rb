@@ -76,4 +76,13 @@ describe Contest do
 
   end
 
+  context '#entries' do
+
+    it 'should have a list of entries' do
+      entries = [Entry.make]
+      Contest.make(:entries => entries).entries.should == entries
+    end
+
+  end
+
 end
