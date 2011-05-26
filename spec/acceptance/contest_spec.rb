@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'acceptance/acceptance_helper'
 
 feature 'Contests', %q{
@@ -19,6 +20,11 @@ feature 'Contests', %q{
 
     scenario 'read the markdown contest description' do
       body.should include 'Write an <a href="http://relishapp.com/rspec">RSpec</a> extension that solves a problem you are having.'
+    end
+
+    scenario 'go to the entry form' do
+      click_link 'Enter'
+      page.should have_content 'Submit your entry for “RSpec extensions”'
     end
 
   end

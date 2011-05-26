@@ -1,3 +1,5 @@
 %h2= @contest.name
 
 %p= raw Kramdown::Document.new(@contest.description).to_html
+
+= link_to 'Enter', [:new, @contest, :entry]
