@@ -6,3 +6,5 @@ Contest.blueprint do
   description { Faker::Lorem.sentence(25) }
   starting_on { Date.parse('May 23 2011') }
 end
+
+Entry.blueprint {}

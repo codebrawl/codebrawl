@@ -15,6 +15,8 @@ class Contest
 
   before_create :set_voting_and_closing_dates
 
+  embeds_many :entries
+
   def set_voting_and_closing_dates
     self.voting_on = starting_on + 1.week
     self.closing_on = voting_on + 1.week

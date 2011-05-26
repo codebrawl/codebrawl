@@ -1,10 +1,6 @@
 require 'acceptance/acceptance_helper'
 
-feature 'Homepage', %q{
-  In order to be introduced to Codebrawl
-  As a visitor
-  I want to see what it's all about
-} do
+feature 'Homepage' do
 
   context "on the homepage" do
 

@@ -1,11 +1,7 @@
 # encoding: utf-8
 require 'acceptance/acceptance_helper'
 
-feature 'Contests', %q{
-  In order to read about contests, participate and vote
-  As a visitor
-  I want to see information about contests
-} do
+feature 'Contests' do
 
   context 'on a contest page' do
 
