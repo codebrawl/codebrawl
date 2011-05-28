@@ -12,4 +12,7 @@
     - if flash
       #notice= flash[:notice]
 
+    - if current_user
+      %p= "logged in as #{current_user.login}"
+
     = yield

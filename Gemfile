@@ -17,9 +17,11 @@ gem "bson_ext", "~> 1.3"
 gem 'kramdown'
 gem 'mongoid_slug', :require => 'mongoid/slug'
 
+gem 'omniauth'
+
 group :test do
   gem 'rspec-rails'
-  gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git'
+  gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git', :ref => '549e6733'
 
   gem 'mocha'
 
