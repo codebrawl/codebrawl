@@ -1,8 +1,14 @@
 %h2= "Submit your entry for “#{@contest.name}”"
 
-= form_for [@contest, @entry] do |f|
+- if logged_in?
 
-  = f.label :description
-  = f.text_area :description
+  = form_for [@contest, @entry] do |f|
 
-  = f.submit 'Submit your entry'
+    = f.label :description
+    = f.text_area :description
+
+    = f.submit 'Submit your entry'
+
+- else
+
+  = link_to 'Log in via Github', '/auth/github'

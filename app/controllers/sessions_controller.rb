@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     user = User.first(:conditions => parameters) || User.create(parameters)
     session[:user_id] = user.id
 
-    redirect_to root_path
+    redirect_to request.env['omniauth.origin'] || root_path
   end
 
 end
