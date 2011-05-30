@@ -16,4 +16,24 @@ describe Entry do
     end
 
   end
+
+  context '#user' do
+
+    it 'should have a user' do
+      user = User.make
+      Entry.make(:user => user).user.should == user
+    end
+
+  end
+
+  context '.save!' do
+
+    context 'when keeping all fields empty' do
+
+      it { should have_a_presence_error_on(:user) }
+
+    end
+
+  end
+
 end

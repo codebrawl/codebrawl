@@ -7,4 +7,9 @@ Contest.blueprint do
   starting_on { Date.parse('May 23 2011') }
 end
 
-Entry.blueprint {}
+Entry.blueprint do
+  user { User.make }
+end
+
+User.blueprint {}
+
