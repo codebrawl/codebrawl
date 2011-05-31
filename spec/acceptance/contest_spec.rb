@@ -9,6 +9,7 @@ feature 'Contests' do
       @contest = Contest.make(
         :name => 'RSpec extensions',
         :description => 'Write an [RSpec](http://relishapp.com/rspec) extension that solves a problem you are having.',
+        :starting_on => Date.yesterday.to_time,
         :entries => [
           Entry.make(
             :description => 'I wrote an RSpec formatter to show the test run\'s progress instead of just showing how many specs passed and failed up to now. It\'s [on Github](http://github.com/jeffkreeftmeijer/fuubar)',
@@ -29,13 +30,62 @@ feature 'Contests' do
       page.should have_content 'Submit your entry for “RSpec extensions”'
     end
 
-    scenario 'see the contest entries' do
-      page.should have_content 'I wrote an RSpec formatter to show the test run’s progress instead of just showing how many specs passed and failed up to now.'
-      body.should include('<a href="http://github.com/jeffkreeftmeijer/fuubar">on Github</a>')
+    context 'when the contest is open for entries' do
+
+      background do
+        visit "/contests/#{@contest.slug}"
+      end
+
+      scenario 'do not see the contest entries' do
+        page.should have_no_content 'I wrote an RSpec formatter to show the test run’s progress instead of just showing how many specs passed and failed up to now.'
+      end
+
+      scenario 'do not see the names of the contestants' do
+        page.should have_no_content 'bob'
+      end
+
     end
 
-    scenario 'see the names of the contestants with the entries' do
-      page.should have_content 'bob'
+    context 'when the contest is open for voting' do
+
+      background do
+        # TODO: stub `Contest#state` instead of overwriting the voting and
+        # closing dates.
+
+        @contest.update_attributes(:voting_on => Date.yesterday.to_time)
+        visit "/contests/#{@contest.slug}"
+      end
+
+      scenario 'see the contest entries' do
+        page.should have_content 'I wrote an RSpec formatter to show the test run’s progress instead of just showing how many specs passed and failed up to now.'
+        body.should include('<a href="http://github.com/jeffkreeftmeijer/fuubar">on Github</a>')
+      end
+
+      scenario 'do not see the names of the contestants' do
+        page.should have_no_content 'bob'
+      end
+
+    end
+
+    context 'when the contest is closed' do
+
+      background do
+        # TODO: stub `Contest#state` instead of overwriting the voting and
+        # closing dates.
+
+        @contest.update_attributes(:closing_on => Date.yesterday.to_time)
+        visit "/contests/#{@contest.slug}"
+      end
+
+      scenario 'see the contest entries' do
+        page.should have_content 'I wrote an RSpec formatter to show the test run’s progress instead of just showing how many specs passed and failed up to now.'
+        body.should include('<a href="http://github.com/jeffkreeftmeijer/fuubar">on Github</a>')
+      end
+
+      scenario 'see the names of the contestants' do
+        page.should have_content 'bob'
+      end
+
     end
 
   end
