@@ -5,22 +5,6 @@ module Mongoid::Document
     errors[field].include? 'can\'t be blank'
   end
 
-  def pending?
-    state == 'pending'
-  end
-
-  def open?
-    state == 'open'
-  end
-
-  def voting?
-    state == 'voting'
-  end
-
-  def closed?
-    state == 'closed'
-  end
-
   def has_a_starting_date_of?(date)
     starting_on == date
   end

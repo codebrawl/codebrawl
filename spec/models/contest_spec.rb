@@ -8,7 +8,7 @@ describe Contest do
 
   end
 
-  context '.save!' do
+  context '#save!' do
 
     context 'when keeping all fields empty' do
 
@@ -81,6 +81,118 @@ describe Contest do
     it 'should have a list of entries' do
       entries = [Entry.make]
       Contest.make(:entries => entries).entries.should == entries
+    end
+
+  end
+
+  context '#pending?' do
+
+    before { @contest = Contest.make }
+
+    context 'when the contest is pending for entries' do
+
+      subject do
+        @contest.stubs(:state).returns('pending')
+        @contest.pending?
+      end
+
+      it { should be_true }
+
+    end
+
+    context 'when the contest is not pending' do
+
+      subject do
+        @contest.stubs(:state).returns('notpending')
+        @contest.pending?
+      end
+
+      it { should be_false }
+
+    end
+
+  end
+
+  context '#open?' do
+
+    before { @contest = Contest.make }
+
+    context 'when the contest is open for entries' do
+
+      subject do
+        @contest.stubs(:state).returns('open')
+        @contest.open?
+      end
+
+      it { should be_true }
+
+    end
+
+    context 'when the contest is not open for entries' do
+
+      subject do
+        @contest.stubs(:state).returns('notopen')
+        @contest.open?
+      end
+
+      it { should be_false }
+
+    end
+
+  end
+
+  context '#voting?' do
+
+    before { @contest = Contest.make }
+
+    context 'when the contest is open for voting' do
+
+      subject do
+        @contest.stubs(:state).returns('voting')
+        @contest.voting?
+      end
+
+      it { should be_true }
+
+    end
+
+    context 'when the contest is not open for voting' do
+
+      subject do
+        @contest.stubs(:state).returns('notvoting')
+        @contest.voting?
+      end
+
+      it { should be_false }
+
+    end
+
+  end
+
+  context '#closed?' do
+
+    before { @contest = Contest.make }
+
+    context 'when the contest is closed' do
+
+      subject do
+        @contest.stubs(:state).returns('closed')
+        @contest.closed?
+      end
+
+      it { should be_true }
+
+    end
+
+    context 'when the contest is not closed' do
+
+      subject do
+        @contest.stubs(:state).returns('notclosed')
+        @contest.closed?
+      end
+
+      it { should be_false }
+
     end
 
   end
