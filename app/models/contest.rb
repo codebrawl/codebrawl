@@ -35,4 +35,20 @@ class Contest
     end
   end
 
+  def pending?
+    state == 'pending'
+  end
+
+  def open?
+    state == 'open'
+  end
+
+  def voting?
+    state == 'voting'
+  end
+
+  def closed?
+    state == 'closed'
+  end
+
 end
