@@ -10,6 +10,14 @@ share_examples_for 'a contest with visible entries' do
 
 end
 
+share_examples_for 'a contest with hidden contestant names' do
+
+  scenario 'do not see the names of the contestants' do
+    page.should have_no_content 'bob'
+  end
+
+end
+
 feature 'Contests' do
 
   context 'on a contest page' do
@@ -49,9 +57,7 @@ feature 'Contests' do
         page.should have_no_content 'I wrote an RSpec formatter to show the test run’s progress instead of just showing how many specs passed and failed up to now.'
       end
 
-      scenario 'do not see the names of the contestants' do
-        page.should have_no_content 'bob'
-      end
+      it_should_behave_like 'a contest with hidden contestant names'
 
     end
 
@@ -67,9 +73,7 @@ feature 'Contests' do
 
       it_should_behave_like 'a contest with visible entries'
 
-      scenario 'do not see the names of the contestants' do
-        page.should have_no_content 'bob'
-      end
+      it_should_behave_like 'a contest with hidden contestant names'
 
     end
 
