@@ -1,6 +1,15 @@
 # encoding: utf-8
 require 'acceptance/acceptance_helper'
 
+share_examples_for 'a contest with visible entries' do
+
+  scenario 'see the contest entries' do
+    page.should have_content 'I wrote an RSpec formatter to show the test run’s progress instead of just showing how many specs passed and failed up to now.'
+    body.should include('<a href="http://github.com/jeffkreeftmeijer/fuubar">on Github</a>')
+  end
+
+end
+
 feature 'Contests' do
 
   context 'on a contest page' do
@@ -56,10 +65,7 @@ feature 'Contests' do
         visit "/contests/#{@contest.slug}"
       end
 
-      scenario 'see the contest entries' do
-        page.should have_content 'I wrote an RSpec formatter to show the test run’s progress instead of just showing how many specs passed and failed up to now.'
-        body.should include('<a href="http://github.com/jeffkreeftmeijer/fuubar">on Github</a>')
-      end
+      it_should_behave_like 'a contest with visible entries'
 
       scenario 'do not see the names of the contestants' do
         page.should have_no_content 'bob'
@@ -77,10 +83,7 @@ feature 'Contests' do
         visit "/contests/#{@contest.slug}"
       end
 
-      scenario 'see the contest entries' do
-        page.should have_content 'I wrote an RSpec formatter to show the test run’s progress instead of just showing how many specs passed and failed up to now.'
-        body.should include('<a href="http://github.com/jeffkreeftmeijer/fuubar">on Github</a>')
-      end
+      it_should_behave_like 'a contest with visible entries'
 
       scenario 'see the names of the contestants' do
         page.should have_content 'bob'
