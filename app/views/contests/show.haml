@@ -2,8 +2,6 @@
 
 %p= raw Kramdown::Document.new(@contest.description).to_html
 
-= @contest.state.inspect
-
 = render @contest.entries unless @contest.open?
 
 = link_to 'Enter', [:new, @contest, :entry]
