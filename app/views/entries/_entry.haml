@@ -1,4 +1,3 @@
-- if entry.contest.state == 'closed'
-  = entry.user.login 
+= entry.user.login  if entry.contest.closed?
 
 %p= raw Kramdown::Document.new(entry.description).to_html

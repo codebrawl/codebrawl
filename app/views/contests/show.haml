@@ -4,7 +4,6 @@
 
 = @contest.state.inspect
 
-- unless @contest.state == 'open'
-  = render @contest.entries
+= render @contest.entries unless @contest.open?
 
 = link_to 'Enter', [:new, @contest, :entry]
