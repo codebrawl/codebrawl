@@ -8,6 +8,16 @@ describe Entry do
 
   end
 
+  context '#save!' do
+
+    context 'when keeping all fields empty' do
+
+      it { should have_a_presence_error_on(:description) }
+
+    end
+
+  end
+
   context '#contest' do
 
     it 'should have a contest' do

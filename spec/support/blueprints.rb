@@ -8,6 +8,7 @@ Contest.blueprint do
 end
 
 Entry.blueprint do
+  description { Faker::Lorem.sentence(25) }
   user { User.make }
 end
 
