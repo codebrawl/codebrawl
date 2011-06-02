@@ -4,6 +4,8 @@ Codebrawl::Application.routes.draw do
     resources :entries, :only => [:new, :create]
   end
 
+  resource :session
+
   match '/auth/:provider/callback', :to => 'sessions#create'
 
   root :to => 'contests#index'

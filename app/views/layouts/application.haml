@@ -15,7 +15,10 @@
     #container
       #menu
         - if current_user
-          %p= current_user.login
+          %p
+            = current_user.login
+            :erb
+              (<%= link_to('log out', [:session], :method => :delete)%>)
 
       #main
       - if flash.present?
