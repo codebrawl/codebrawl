@@ -18,6 +18,14 @@ share_examples_for 'a contest with hidden contestant names' do
 
 end
 
+share_examples_for 'a contest closed for further entries' do
+
+  scenario 'do not see the entry button' do
+    page.should have_no_link 'Enter'
+  end
+
+end
+
 feature 'Contests' do
 
   context 'on a contest page' do
@@ -59,6 +67,10 @@ feature 'Contests' do
 
       it_should_behave_like 'a contest with hidden contestant names'
 
+      scenario 'be able to enter' do
+        page.should have_link 'Enter'
+      end
+
     end
 
     context 'when the contest is open for voting' do
@@ -74,6 +86,8 @@ feature 'Contests' do
       it_should_behave_like 'a contest with visible entries'
 
       it_should_behave_like 'a contest with hidden contestant names'
+
+      it_should_behave_like 'a contest closed for further entries'
 
     end
 
@@ -92,6 +106,8 @@ feature 'Contests' do
       scenario 'see the names of the contestants' do
         page.should have_content 'bob'
       end
+
+      it_should_behave_like 'a contest closed for further entries'
 
     end
 

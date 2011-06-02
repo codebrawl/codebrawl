@@ -4,4 +4,4 @@
 
 = render @contest.entries unless @contest.open?
 
-= link_to 'Enter', [:new, @contest, :entry]
+= link_to 'Enter', [:new, @contest, :entry] if @contest.open?
