@@ -13,10 +13,12 @@
       %code if ( ready? && set? ) { fight! };
 
     #container
-      - if flash
-        #notice= flash[:notice]
+      #menu
+        - if current_user
+          %p= "logged in as #{current_user.login}"
 
-      - if current_user
-        %p= "logged in as #{current_user.login}"
+      #main
+      - if flash.present?
+        #notice= flash[:notice]
 
       = yield
