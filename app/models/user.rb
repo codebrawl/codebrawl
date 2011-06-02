@@ -4,6 +4,7 @@ class User
 
   field 'login', :type => String
   field 'email', :type => String
+  field 'name', :type => String
   field 'github_id', :type => Integer
 
   validates :login, :presence => true

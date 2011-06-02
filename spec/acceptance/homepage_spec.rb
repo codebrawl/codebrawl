@@ -22,13 +22,24 @@ feature 'Homepage' do
         page.should have_link name
       end
     end
-
+    
     scenario 'see a list of contest names' do
       ['Euler #74', 'Fun with ChunkyPNG'].each do |name|
         page.should have_link name
       end
 
       page.should have_no_content 'RSpec extensions'
+    end
+    
+    context 'after logging in' do
+      
+      background { login_via_github }
+      
+      scenario 'visit my profile page' do
+        click_link 'alice'
+        page.should have_content 'Alice'
+      end
+      
     end
 
   end
