@@ -12,5 +12,7 @@ Entry.blueprint do
   user { User.make }
 end
 
-User.blueprint {}
+User.blueprint do
+  login { Faker::Internet.user_name }
+end
 

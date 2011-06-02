@@ -8,4 +8,14 @@ describe User do
 
   end
 
+  context '#save!' do
+
+    context 'when keeping all fields empty' do
+
+      it { should have_a_presence_error_on(:login) }
+
+    end
+
+  end
+
 end
