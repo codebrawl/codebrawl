@@ -9,7 +9,7 @@
   %body
 
     #header
-      %h1 Codebrawl
+      %h1= link_to 'Codebrawl', root_path
       %code if ( ready? && set? ) { fight! };
 
     #container
