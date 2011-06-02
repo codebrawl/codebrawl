@@ -7,12 +7,16 @@
     = csrf_meta_tags
 
   %body
-    %h1 Codebrawl
 
-    - if flash
-      #notice= flash[:notice]
+    #header
+      %h1 Codebrawl
+      %code if ( ready? && set? ) { fight! };
 
-    - if current_user
-      %p= "logged in as #{current_user.login}"
+    #container
+      - if flash
+        #notice= flash[:notice]
 
-    = yield
+      - if current_user
+        %p= "logged in as #{current_user.login}"
+
+      = yield
