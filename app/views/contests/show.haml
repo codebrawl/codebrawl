@@ -2,6 +2,10 @@
 
 %p= raw Kramdown::Document.new(@contest.description).to_html
 
-= render @contest.entries unless @contest.open?
+- unless @contest.open?
+
+  %h3 Entries
+
+  = render @contest.entries
 
 = link_to 'Enter', [:new, @contest, :entry] if @contest.open?
