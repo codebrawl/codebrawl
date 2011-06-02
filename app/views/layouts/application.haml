@@ -14,12 +14,14 @@
 
     #container
       #menu
-        - if current_user
-          %p
+        %p
+          - if current_user
             = image_tag current_user.gravatar_url(:size => 20)
             = current_user.login
             :erb
               (<%= link_to('log out', [:session], :method => :delete)%>)
+          - else
+            = link_to('log in via Github', '/auth/github')
 
       #main
       - if flash.present?

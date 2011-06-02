@@ -3,7 +3,7 @@ require 'acceptance/acceptance_helper'
 feature 'Log in' do
 
   scenario 'log in via Github' do
-    login_via_github
+    click_link 'log in via Github'
     page.should have_content 'alice'
   end
 
