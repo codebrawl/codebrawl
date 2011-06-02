@@ -19,6 +19,8 @@ gem 'mongoid_slug', :require => 'mongoid/slug'
 
 gem 'omniauth'
 
+gem 'gravtastic'
+
 group :test do
   gem 'rspec-rails'
   gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git', :ref => '549e6733'

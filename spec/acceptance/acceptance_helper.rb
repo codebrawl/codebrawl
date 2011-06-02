@@ -7,7 +7,7 @@ OmniAuth.config.test_mode = true
 OmniAuth.config.mock_auth[:github] = {
   'provider' => 'github',
   'uid' => '12345',
-  'user_info' => { 'nickname' => 'alice' }
+  'user_info' => { 'nickname' => 'alice', 'email' => 'alice@email.com' }
 }
 
 def login_via_github

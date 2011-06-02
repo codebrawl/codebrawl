@@ -71,6 +71,7 @@ GEM
       rspec (~> 2.0)
       rspec-instafail (~> 0.1.4)
       ruby-progressbar (~> 0.0.10)
+    gravtastic (3.1.0)
     haml (3.0.25)
     hike (1.0.0)
     i18n (0.6.0)
@@ -227,6 +228,7 @@ DEPENDENCIES
   database_cleaner
   faker
   fuubar
+  gravtastic
   haml
   jquery-rails
   json
