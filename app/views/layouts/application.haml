@@ -15,7 +15,7 @@
     #container
       #menu
         - if current_user
-          %p= "logged in as #{current_user.login}"
+          %p= current_user.login
 
       #main
       - if flash.present?
