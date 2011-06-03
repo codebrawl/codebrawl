@@ -1,5 +1,5 @@
 require "#{Rails.root}/spec/support/blueprints"
-Contest.delete_all
+[Contest, User].each { |model| model.delete_all }
 
 3.times do |i|
   Contest.make(
