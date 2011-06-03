@@ -45,12 +45,37 @@ describe Entry do
 
   end
 
-
   context '.save!' do
 
     context 'when keeping all fields empty' do
 
       it { should have_a_presence_error_on(:user) }
+
+    end
+
+  end
+
+  context '#score' do
+
+    context 'when the score attribute is set' do
+
+      subject { Entry.make(:score => 4.3).score }
+
+      it { should == 4.3 }
+
+    end
+
+    context 'when not having a score attribute' do
+
+      subject do
+        Entry.make(:votes => [
+          Vote.make(:score => 2),
+          Vote.make(:score => 4),
+          Vote.make(:score => 1)
+        ]).score
+      end
+
+      it { should == 2.3 }
 
     end
 

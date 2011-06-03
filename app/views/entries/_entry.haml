@@ -16,4 +16,4 @@
 
   - if entry.contest.closed?
 
-    = "#{sprintf("%.1f", entry.votes.map(&:score).inject { |sum, el| sum + el }.to_f / entry.votes.length)}/5"
+    = "#{entry.score}/5"
