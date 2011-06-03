@@ -4,11 +4,8 @@
 
   - if entry.contest.voting?
 
-    - votes = entry.votes.select { |vote| vote.user_id == current_user.id }
-
-    - if votes.present?
-      = "You voted #{votes.first.score}/5"
-
+    - if vote = entry.votes.select { |vote| vote.user_id == current_user.id }.first
+      = "You voted #{vote.score}/5"
     - else
       = form_for [@contest, entry, Vote.new] do |f|
         - (1..5).to_a.each do |score|
