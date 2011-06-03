@@ -121,6 +121,18 @@ feature 'Contests' do
 
       it_should_behave_like 'a contest closed for further entries'
 
+      scenario 'do not see the voting controls' do
+        within "#entry_#{@entry.id}" do
+
+          page.should have_no_field '1'
+          page.should have_no_field '2'
+          page.should have_no_field '3'
+          page.should have_no_field '4'
+          page.should have_no_field '5'
+
+        end
+      end
+
     end
 
   end
