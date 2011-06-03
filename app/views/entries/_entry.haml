@@ -3,7 +3,16 @@
   %p= raw Kramdown::Document.new(entry.description).to_html
 
   - if entry.contest.voting?
-    = form_for [@contest, entry, Vote.new] do |f|
-      - (1..5).to_a.each do |score|
-        = f.label "score_#{score}", score
-        = f.radio_button :score, score
+
+    - votes = entry.votes.select { |vote| vote.user_id == current_user.id }
+
+    - if votes.present?
+      = "You voted #{votes.first.score}/5"
+
+    - else
+      = form_for [@contest, entry, Vote.new] do |f|
+        - (1..5).to_a.each do |score|
+          = f.label "score_#{score}", score
+          = f.radio_button :score, score
+
+        = f.submit
