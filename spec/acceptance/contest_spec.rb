@@ -33,7 +33,8 @@ feature 'Contests' do
     background :all do
       @entry = Entry.make(
         :description => 'I wrote an RSpec formatter to show the test run\'s progress instead of just showing how many specs passed and failed up to now. It\'s [on Github](http://github.com/jeffkreeftmeijer/fuubar)',
-        :user => User.make(:login => 'bob')
+        :user => User.make(:login => 'bob'),
+        :votes => [ Vote.make(:score => 1), Vote.make(:score => 3), Vote.make(:score => 4) ]
       )
 
       @contest = Contest.make(
@@ -91,13 +92,7 @@ feature 'Contests' do
 
       scenario 'see the voting controls' do
         within "#entry_#{@entry.id}" do
-
-          page.should have_field '1'
-          page.should have_field '2'
-          page.should have_field '3'
-          page.should have_field '4'
-          page.should have_field '5'
-
+          (1..5).to_a.each { |i| page.should have_field i.to_s }
         end
       end
 
@@ -123,13 +118,15 @@ feature 'Contests' do
 
       scenario 'do not see the voting controls' do
         within "#entry_#{@entry.id}" do
+          (1..5).to_a.each { |i| page.should have_no_field i.to_s }
+        end
+      end
 
-          page.should have_no_field '1'
-          page.should have_no_field '2'
-          page.should have_no_field '3'
-          page.should have_no_field '4'
-          page.should have_no_field '5'
+      scenario 'see the voting result' do
+        visit "/contests/#{@contest.slug}"
 
+        within "#entry_#{@entry.id}" do
+          page.should have_content '2.7/5'
         end
       end
 

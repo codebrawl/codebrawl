@@ -4,7 +4,7 @@
 
   - if entry.contest.voting?
 
-    - if vote = entry.votes.select { |vote| vote.user_id == current_user.id }.first
+    - if current_user && vote = entry.votes.select { |vote| vote.user_id == current_user.id }.first
       = "You voted #{vote.score}/5"
     - else
       = form_for [@contest, entry, Vote.new] do |f|
@@ -13,3 +13,7 @@
           = f.radio_button :score, score
 
         = f.submit
+
+  - if entry.contest.closed?
+
+    = "#{sprintf("%.1f", entry.votes.map(&:score).inject { |sum, el| sum + el }.to_f / entry.votes.length)}/5"
