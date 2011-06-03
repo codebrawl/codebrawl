@@ -36,6 +36,16 @@ describe Entry do
 
   end
 
+  context '#votes' do
+
+    it 'should have a list of votes' do
+      votes = [Vote.make]
+      Entry.make(:votes => votes).votes.should == votes
+    end
+
+  end
+
+
   context '.save!' do
 
     context 'when keeping all fields empty' do

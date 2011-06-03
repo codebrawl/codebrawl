@@ -16,3 +16,4 @@ User.blueprint do
   login { Faker::Internet.user_name }
 end
 
+Vote.blueprint {}

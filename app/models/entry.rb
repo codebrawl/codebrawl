@@ -6,5 +6,6 @@ class Entry
   validates :user, :description, :presence => true
 
   embedded_in :contest
+  embeds_many :votes
   belongs_to :user
 end

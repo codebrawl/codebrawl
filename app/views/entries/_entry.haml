@@ -1,3 +1,8 @@
-= entry.user.login  if entry.contest.closed?
+%div{ :id => dom_id(entry) }
+  = entry.user.login  if entry.contest.closed?
+  %p= raw Kramdown::Document.new(entry.description).to_html
 
-%p= raw Kramdown::Document.new(entry.description).to_html
+  = form_for [@contest, entry, Vote.new] do |f|
+    - (1..5).to_a.each do |score|
+      = f.label "score_#{score}", score
+      = f.radio_button :score, score

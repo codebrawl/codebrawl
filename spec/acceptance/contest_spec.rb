@@ -31,16 +31,16 @@ feature 'Contests' do
   context 'on a contest page' do
 
     background :all do
+      @entry = Entry.make(
+        :description => 'I wrote an RSpec formatter to show the test run\'s progress instead of just showing how many specs passed and failed up to now. It\'s [on Github](http://github.com/jeffkreeftmeijer/fuubar)',
+        :user => User.make(:login => 'bob')
+      )
+
       @contest = Contest.make(
         :name => 'RSpec extensions',
         :description => 'Write an [RSpec](http://relishapp.com/rspec) extension that solves a problem you are having.',
         :starting_on => Date.yesterday.to_time,
-        :entries => [
-          Entry.make(
-            :description => 'I wrote an RSpec formatter to show the test run\'s progress instead of just showing how many specs passed and failed up to now. It\'s [on Github](http://github.com/jeffkreeftmeijer/fuubar)',
-            :user => User.make(:login => 'bob')
-          )
-        ]
+        :entries => [@entry]
       )
     end
 
@@ -88,6 +88,18 @@ feature 'Contests' do
       it_should_behave_like 'a contest with hidden contestant names'
 
       it_should_behave_like 'a contest closed for further entries'
+
+      scenario 'see the voting controls' do
+        within "#entry_#{@entry.id}" do
+
+          page.should have_field '1'
+          page.should have_field '2'
+          page.should have_field '3'
+          page.should have_field '4'
+          page.should have_field '5'
+
+        end
+      end
 
     end
 
