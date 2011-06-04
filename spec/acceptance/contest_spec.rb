@@ -41,7 +41,7 @@ feature 'Contests' do
         :name => 'RSpec extensions',
         :description => 'Write an [RSpec](http://relishapp.com/rspec) extension that solves a problem you are having.',
         :starting_on => Date.yesterday.to_time,
-        :entries => [@entry]
+        :entries => [ Entry.make, @entry ]
       )
     end
 
@@ -94,6 +94,26 @@ feature 'Contests' do
         within "#entry_#{@entry.id}" do
           (1..5).to_a.each { |i| page.should have_field i.to_s }
         end
+      end
+
+      scenario 'the entries are ordered randomly' do
+        random = false
+
+        10.times do |i|
+          visit "/contests/#{@contest.slug}"
+          entries = all(:xpath, "//div[@class='entry']").map { |field| field.text }
+
+          visit "/contests/#{@contest.slug}"
+          entries2 = all(:xpath, "//div[@class='entry']").map { |field| field.text }
+
+          unless entries == entries2
+            random = true
+            break
+          end
+        end
+
+        raise NotRandomError unless random
+
       end
 
     end

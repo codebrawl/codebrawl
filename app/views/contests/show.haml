@@ -6,6 +6,6 @@
 
   %h3 Entries
 
-  = render @contest.entries
+  = render @contest.entries.shuffle
 
 = link_to 'Enter', [:new, @contest, :entry] if @contest.open?

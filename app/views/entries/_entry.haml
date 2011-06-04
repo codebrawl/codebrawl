@@ -1,4 +1,4 @@
-%div{ :id => dom_id(entry) }
+%div{ :id => dom_id(entry), :class => 'entry' }
   = entry.user.login  if entry.contest.closed?
   %p= raw Kramdown::Document.new(entry.description).to_html
 

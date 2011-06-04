@@ -17,3 +17,5 @@ OmniAuth.config.mock_auth[:github] = {
 def login_via_github
   visit '/auth/github/'
 end
+
+class NotRandomError < StandardError; end
