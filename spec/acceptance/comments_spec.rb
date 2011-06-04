@@ -3,7 +3,6 @@ require 'acceptance/acceptance_helper'
 feature 'Comments' do
 
   background(:all) do
-    #@user = User.make(:login => 'alice', :github_id => 12345)
 
     @contest = Contest.make(
       :entries => [

@@ -77,19 +77,31 @@ describe Entry do
     context 'when not having a score attribute' do
 
       subject do
-        @entry = Entry.make(
-          :votes => [
-            Vote.make(:score => 2),
-            Vote.make(:score => 4),
-            Vote.make(:score => 1)
-          ]
-        )
+        @entry = Entry.make
         @entry.score
       end
 
-      it { should == 2.3333333333333335 }
+      it { should == 0.0 }
 
       it { should == @entry.read_attribute(:score) }
+
+      context 'when having some votes' do
+        subject do
+          @entry = Entry.make(
+            :votes => [
+              Vote.make(:score => 2),
+              Vote.make(:score => 4),
+              Vote.make(:score => 1)
+            ]
+          )
+          @entry.score
+        end
+
+        it { should == 2.3333333333333335 }
+
+        it { should == @entry.read_attribute(:score) }
+
+      end
 
     end
 
