@@ -3,6 +3,7 @@ class Contest
   include Mongoid::Slug
 
   field :name, :type => String
+  field :tagline, :type => String
   field :description, :type => String
 
   field :starting_on, :type => Date
