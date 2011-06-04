@@ -45,7 +45,10 @@ feature 'Contests' do
       )
     end
 
-    background { visit "/contests/#{@contest.slug}" }
+    background do
+      visit "/contests/#{@contest.slug}"
+      login_via_github
+    end
 
     scenario 'read the markdown contest description' do
       body.should include 'Write an <a href="http://relishapp.com/rspec">RSpec</a> extension that solves a problem you are having.'

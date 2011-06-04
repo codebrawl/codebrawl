@@ -2,9 +2,9 @@
   = entry.user.login  if entry.contest.closed?
   %p= raw Kramdown::Document.new(entry.description).to_html
 
-  - if entry.contest.voting?
+  - if entry.contest.voting? && logged_in?
 
-    - if current_user && vote = entry.votes.select { |vote| vote.user_id == current_user.id }.first
+    - if vote = entry.votes.select { |vote| vote.user_id == current_user.id }.first
       = "You voted #{vote.score}/5"
       = render entry.comments
 
