@@ -45,6 +45,15 @@ describe Entry do
 
   end
 
+  context '#comments' do
+
+    it 'should have a list of comments' do
+      comments = [Comment.make]
+      Entry.make(:comments => comments).comments.should == comments
+    end
+
+  end
+
   context '.save!' do
 
     context 'when keeping all fields empty' do

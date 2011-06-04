@@ -17,3 +17,4 @@ User.blueprint do
 end
 
 Vote.blueprint {}
+Comment.blueprint {}

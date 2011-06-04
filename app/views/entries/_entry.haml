@@ -6,6 +6,8 @@
 
     - if current_user && vote = entry.votes.select { |vote| vote.user_id == current_user.id }.first
       = "You voted #{vote.score}/5"
+      = render entry.comments
+
     - else
       = form_for [@contest, entry, Vote.new] do |f|
         - (1..5).to_a.each do |score|
@@ -14,6 +16,5 @@
 
         = f.submit
 
-  - if entry.contest.closed?
+  = "#{sprintf("%.1f", entry.score)}/5" if entry.contest.closed?
 
-    = "#{sprintf("%.1f", entry.score)}/5"

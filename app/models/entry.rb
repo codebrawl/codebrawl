@@ -8,6 +8,7 @@ class Entry
 
   embedded_in :contest
   embeds_many :votes
+  embeds_many :comments
   belongs_to :user
 
   def calculate_scrore
