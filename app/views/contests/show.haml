@@ -1,6 +1,6 @@
 %h2= @contest.name
 
-%p= raw Kramdown::Document.new(@contest.description).to_html
+= raw Kramdown::Document.new(@contest.description).to_html
 
 - unless @contest.open?
 
@@ -8,4 +8,7 @@
 
   = render @contest.entries.shuffle
 
-= link_to 'Enter', [:new, @contest, :entry] if @contest.open?
+- if @contest.open?
+  = link_to [:new, @contest, :entry], :class => 'button' do
+    %h3 Enter
+    = "We'll send you to Github to log in first" unless logged_in?

@@ -4,6 +4,39 @@ body
   font-size: 14px
   color: #222
 
+h2
+  font-size: 24px
+  font-weight: 900
+
+h3
+  font-size: 18px
+  font-weight: 900
+
+a
+  font-weight: 900
+  color: #880000
+  text-decoration: none
+
+a.button
+  display: block
+  text-align: center
+  background-color: #222
+  margin-top: 20px
+  padding: 20px
+  font-weight: 500
+  color: #666
+  -webkit-border-radius: 2px
+  -webkit-box-shadow: 0 -1px 0 #fff, 0 1px 0 #000
+
+  &:hover h3
+    color: #eee
+
+  h3
+    color: #ccc
+
+p
+  margin: 10px 0
+
 #header
   text-align: center
   margin: 25px auto
@@ -21,18 +54,31 @@ body
   code
     color: #888
 
+#wrapper
+  margin: auto
+  max-width: 700px
+
 #container
   background-color: #eee
-  margin: auto
   padding: 20px
-  width: 680px
+  margin: 0 10px
 
-  #menu p
+  -webkit-border-radius: 2px
+  -webkit-box-shadow: 0 0px 5px #000
+
+  #menu span
     float: right
-    margin: 0
+    margin-bottom: 10px
 
     img
       vertical-align: middle
 
   #main
     clear: both
+
+ul
+  padding: 0
+  list-style: none
+
+  li
+    margin-bottom: 20px

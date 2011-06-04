@@ -8,23 +8,25 @@
 
   %body
 
-    #header
-      %h1= link_to 'Codebrawl', root_path
-      %code if ( ready? && set? ) { fight! };
+    #wrapper
 
-    #container
-      #menu
-        %p
-          - if current_user
-            = image_tag current_user.gravatar_url(:size => 20)
-            = link_to current_user.login, user_path(current_user.login)
-            :erb
-              (<%= link_to('log out', [:session], :method => :delete)%>)
-          - else
-            = link_to('log in via Github', '/auth/github')
+      #header
+        %h1= link_to 'Codebrawl', root_path
+        %code if ( ready? && set? ) { fight! };
 
-      #main
-      - if flash.present?
-        #notice= flash[:notice]
+      #container
+        #menu
+          %span
+            - if current_user
+              = image_tag current_user.gravatar_url(:size => 20)
+              = link_to current_user.login, user_path(current_user.login)
+              :erb
+                (<%= link_to('log out', [:session], :method => :delete)%>)
+            - else
+              = link_to('log in via Github', '/auth/github')
 
-      = yield
+        #main
+        - if flash.present?
+          #notice= flash[:notice]
+
+        = yield
