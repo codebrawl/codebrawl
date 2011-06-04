@@ -99,26 +99,6 @@ feature 'Contests' do
         end
       end
 
-      scenario 'the entries are ordered randomly' do
-        random = false
-
-        10.times do |i|
-          visit "/contests/#{@contest.slug}"
-          entries = all(:xpath, "//div[@class='entry']").map { |field| field.text }
-
-          visit "/contests/#{@contest.slug}"
-          entries2 = all(:xpath, "//div[@class='entry']").map { |field| field.text }
-
-          unless entries == entries2
-            random = true
-            break
-          end
-        end
-
-        raise NotRandomError unless random
-
-      end
-
     end
 
     context 'when the contest is closed' do
