@@ -1,3 +1,7 @@
 %h2= @user.name
 
 = image_tag @user.gravatar_url(:size => 220)
+
+%ul
+  - @contests.reject{ |contest| contest.open? }.each do |contest|
+    %li= contest.name
