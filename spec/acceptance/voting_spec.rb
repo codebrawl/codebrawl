@@ -16,8 +16,9 @@ feature 'Voting' do
 
     within "#entry_#{contest.entries.first.id}" do
       choose '4'
-      click_button 'Create Vote'
     end
+
+    click_button 'Submit your votes'
 
     within "#entry_#{contest.entries.first.id}" do
       page.should have_content 'You voted 4/5'

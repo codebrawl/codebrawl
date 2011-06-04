@@ -1,8 +1,10 @@
 body
   background-color: #222
-  font-family: Arial
   font-size: 14px
   color: #222
+
+body, input
+  font-family: Arial
 
 h2
   font-size: 24px
@@ -17,22 +19,29 @@ a
   color: #880000
   text-decoration: none
 
-a.button
+a.button, input[type='submit']
   display: block
   text-align: center
   background-color: #222
   margin-top: 20px
   padding: 20px
   font-weight: 500
-  color: #666
+  font-size: 18px
+  font-weight: 900
+  color: #ccc
   -webkit-border-radius: 2px
   -webkit-box-shadow: 0 -1px 0 #fff, 0 1px 0 #000
 
-  &:hover h3
+  &:hover
     color: #eee
 
-  h3
-    color: #ccc
+input[type='submit']
+  border: none
+  display: block
+  width: 100%
+
+  &:hover
+    cursor: pointer
 
 p
   margin: 10px 0

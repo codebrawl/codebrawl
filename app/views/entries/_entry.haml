@@ -9,12 +9,9 @@
       = render entry.comments
 
     - else
-      = form_for [@contest, entry, Vote.new] do |f|
-        - (1..5).to_a.each do |score|
-          = f.label "score_#{score}", score
-          = f.radio_button :score, score
-
-        = f.submit
+      - (1..5).to_a.each do |score|
+        = fields_for "votes[#{entry.id}]" do |entry_f|
+          = entry_f.label "score_#{score}", score
+          = entry_f.radio_button :score, score
 
   = "#{sprintf("%.1f", entry.score)}/5" if entry.contest.closed?
-

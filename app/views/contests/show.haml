@@ -6,9 +6,11 @@
 
   %h3 Entries
 
-  = render @contest.entries.shuffle
+  = form_for [@contest, Vote.new] do |f|
+    = render :partial => "entries/entry", :collection => @contest.entries.shuffle, :locals => { :f => f }
+
+    = f.submit 'Submit your votes'
 
 - if @contest.open?
   = link_to [:new, @contest, :entry], :class => 'button' do
     %h3 Enter
-    = "We'll send you to Github to log in first" unless logged_in?
