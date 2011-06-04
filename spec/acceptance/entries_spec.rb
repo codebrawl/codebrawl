@@ -11,18 +11,9 @@ feature 'Entries' do
 
     background { visit "/contests/#{@contest.slug}/entries/new" }
 
-    scenario 'be asked to log in' do
-
-      page.should have_link 'Log in via Github'
-      page.should have_no_field 'Description'
-
-    end
-
-    scenario 'log in to access the form' do
-
-      click_link 'Log in via Github'
+    scenario 'be logged in via Github automatically' do
+      page.should have_content 'alice'
       page.should have_field 'Description'
-
     end
 
 

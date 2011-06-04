@@ -1,6 +1,7 @@
 class EntriesController < ApplicationController
 
   def new
+    redirect_to "/auth/github?origin=#{request.env['PATH_INFO']}" unless logged_in?
     @contest = Contest.find_by_slug(params[:contest_id])
     @entry = @contest.entries.new
   end
