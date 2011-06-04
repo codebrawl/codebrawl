@@ -16,4 +16,4 @@
 
   - if entry.contest.closed?
 
-    = "#{entry.score}/5"
+    = "#{sprintf("%.1f", entry.score)}/5"

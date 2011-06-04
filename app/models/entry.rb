@@ -2,6 +2,7 @@ class Entry
   include Mongoid::Document
 
   field :description, :type => String
+  field :score, :type => Float, :default => 0.0
 
   validates :user, :description, :presence => true
 
@@ -9,7 +10,11 @@ class Entry
   embeds_many :votes
   belongs_to :user
 
+  def calculate_scrore
+    votes.map(&:score).inject { |sum, el| sum + el }.to_f / votes.length
+  end
+
   def score
-    read_attribute(:score) || sprintf("%.1f", votes.map(&:score).inject { |sum, el| sum + el }.to_f / votes.length).to_f
+    read_attribute(:score).nonzero? || write_attribute(:score, calculate_scrore).last
   end
 end
