@@ -1,21 +1,17 @@
-%div{ :id => dom_id(entry), :class => 'entry' }
+%li{ :id => dom_id(entry), :class => 'entry' }
   = entry.user.login  if entry.contest.closed?
   = raw Kramdown::Document.new(entry.description).to_html
 
   - if entry.contest.voting? && logged_in?
+    - if vote = entry.votes.select { |vote| vote.user_id == current_user.id }.first
+      = "You voted #{vote.score}/5"
+      = render entry.comments
 
-    .voting
-
-      - if vote = entry.votes.select { |vote| vote.user_id == current_user.id }.first
-        = "You voted #{vote.score}/5"
-        = render entry.comments
-
-      - else
-        - (1..5).to_a.each do |score|
-          = fields_for "votes[#{entry.id}]" do |entry_f|
-            = entry_f.label "score_#{score}", score
-            = entry_f.radio_button :score, score
+    - else
+      - (1..5).to_a.each do |score|
+        = fields_for "votes[#{entry.id}]" do |entry_f|
+          = entry_f.label "score_#{score}", score
+          = entry_f.radio_button :score, score
 
   - if entry.contest.closed?
-    .voting
-      = "#{sprintf("%.1f", entry.score)}/5"
+    = "#{sprintf("%.1f", entry.score)}/5"
