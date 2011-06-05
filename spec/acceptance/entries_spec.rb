@@ -24,13 +24,14 @@ feature 'Entries' do
       end
 
       scenario 'successfully add an entry' do
-        fill_in 'Description', :with => 'I wrote an RSpec formatter to show the
-        test run\'s instead of just showing how many specs passed and failed up
-        to now. It\'s [on Github](http://github.com/jeffkreeftmeijer/fuubar)'
+        fill_in 'Description', :with => 'I did the most amazing thing ever'
 
+        fill_in 'Gist id', :with => '12345'
         click_button 'Submit your entry'
 
         page.should have_content 'Thank you for entering!'
+        find_field('Description').value.should == 'I did the most amazing thing ever'
+        find_field('Gist id').value.should == '12345'
       end
 
     end

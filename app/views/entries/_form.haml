@@ -3,6 +3,9 @@
   = f.label :description
   = f.text_area :description
 
+  = f.label :gist_id, 'Gist id'
+  = f.text_field :gist_id
+
   - if params[:action] == 'new'
     = f.submit 'Submit your entry'
   - else
