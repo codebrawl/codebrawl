@@ -107,4 +107,36 @@ describe Entry do
 
   end
 
+  context '#files' do
+    subject do
+      @entry = Entry.make(:gist_id => '72a0a6a9aa63d1eb64d6')
+      @entry.files
+    end
+
+    it 'should get the gist contents from github' do
+      VCR.use_cassette('gist') do
+        should == {
+          "2.txt" => {
+            "content" => "2",
+            "raw_url" => "https://gist.github.com/raw/72a0a6a9aa63d1eb64d6/d8263ee9860594d2806b0dfd1bfd17528b0ba2a4/2.txt",
+            "size" => 1,
+            "filename" => "2.txt"
+          },
+          "3.txt" => {
+            "content" => "3",
+            "raw_url" => "https://gist.github.com/raw/72a0a6a9aa63d1eb64d6/e440e5c842586965a7fb77deda2eca68612b1f53/3.txt",
+            "size" => 1,
+            "filename" => "3.txt"
+          },
+          "1.txt" => {
+            "content" => "1",
+            "raw_url" => "https://gist.github.com/raw/72a0a6a9aa63d1eb64d6/56a6051ca2b02b04ef92d5150c9ef600403cb1de/1.txt",
+            "size" => 1,
+            "filename" => "1.txt"
+          }
+        }
+      end
+    end
+  end
+
 end

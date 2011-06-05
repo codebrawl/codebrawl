@@ -20,4 +20,9 @@ class Entry
     write_attribute(:score, calculate_scrore) unless read_attribute(:score).nonzero?
     read_attribute(:score)
   end
+
+  def files
+    HTTParty.get("https://api.github.com/gists/#{gist_id}")['files']
+  end
+
 end

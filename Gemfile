@@ -20,6 +20,7 @@ gem 'mongoid_slug', :require => 'mongoid/slug'
 gem 'omniauth'
 
 gem 'gravtastic'
+gem 'httparty'
 
 group :test do
   gem 'rspec-rails'
@@ -35,6 +36,8 @@ group :test do
   gem 'watchr'
 
   gem 'timecop'
+  gem 'fakeweb'
 
   gem 'fuubar'
+  gem 'vcr'
 end
