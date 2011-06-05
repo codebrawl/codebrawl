@@ -9,7 +9,7 @@
   = form_for [@contest, Vote.new] do |f|
     = render :partial => "entries/entry", :collection => @contest.entries, :locals => { :f => f }
 
-    = f.submit 'Submit your votes' if logged_in?
+    = f.submit 'Submit your votes' if logged_in? && @contest.voting?
 
 - if @contest.open?
   - if @entry

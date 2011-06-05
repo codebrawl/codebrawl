@@ -94,9 +94,8 @@ feature 'Contests' do
       it_should_behave_like 'a contest closed for further entries'
 
       scenario 'see the voting controls' do
-        within "#entry_#{@entry.id}" do
-          (1..5).to_a.each { |i| page.should have_field i.to_s }
-        end
+        (1..5).to_a.each { |i| page.should have_field i.to_s }
+        page.should have_button 'Submit your votes'
       end
 
     end
@@ -120,9 +119,8 @@ feature 'Contests' do
       it_should_behave_like 'a contest closed for further entries'
 
       scenario 'do not see the voting controls' do
-        within "#entry_#{@entry.id}" do
-          (1..5).to_a.each { |i| page.should have_no_field i.to_s }
-        end
+        (1..5).to_a.each { |i| page.should have_no_field i.to_s }
+        page.should have_no_button 'Submit your votes'
       end
 
       scenario 'see the voting result' do
