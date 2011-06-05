@@ -3,4 +3,8 @@
   = f.label :description
   = f.text_area :description
 
-  = f.submit params[:action] == 'new' ? 'Submit your entry' : 'Update your entry'
+  - if params[:action] == 'new'
+    = f.submit 'Submit your entry'
+  - else
+    = f.submit 'Update your entry'
+    = button_to('Delete your entry', [@contest, @entry], :method => :delete)

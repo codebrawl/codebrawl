@@ -2,7 +2,7 @@ Codebrawl::Application.routes.draw do
 
   resources :contests, :only => [:index, :show] do
     resources :votes, :only => [:create]
-    resources :entries, :only => [:new, :create, :update]
+    resources :entries, :only => [:new, :create, :update, :destroy]
   end
 
   resources :users, :only => :show

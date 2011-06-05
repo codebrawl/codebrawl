@@ -16,7 +16,6 @@ feature 'Entries' do
       page.should have_field 'Description'
     end
 
-
     context 'when logged in' do
 
       background do
@@ -60,6 +59,12 @@ feature 'Entries' do
 
         page.should have_content 'Your entry has been updated.'
         find_field('Description').value.should == 'I did the most amazing thing ever'
+      end
+
+      scenario 'delete my entry' do
+        click_button 'Delete your entry'
+        page.should have_content 'Your entry has been deleted.'
+        page.should have_link 'Enter'
       end
 
     end

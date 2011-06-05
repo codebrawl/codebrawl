@@ -25,4 +25,11 @@ class EntriesController < ApplicationController
     redirect_to @contest, :notice => 'Your entry has been updated.'
   end
 
+  def destroy
+    @contest = Contest.find_by_slug(params[:contest_id])
+    @entry = @contest.entries.find(params[:id])
+    @entry.destroy
+    redirect_to @contest, :notice => 'Your entry has been deleted.'
+  end
+
 end
