@@ -13,7 +13,8 @@
 
 - if @contest.open?
   - if @entry
+    %h3 Your entry
     = render 'entries/form'
   - else
-    = link_to [:new, @contest, :entry], :class => 'button' do
-      %h3 Enter
+    = link_to 'Enter', [:new, @contest, :entry], :class => 'button'
+
