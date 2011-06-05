@@ -27,7 +27,7 @@
               = link_to('log in via Github', '/auth/github')
 
         #main
-          - if flash.present?
-            #notice= flash[:notice]
+          - flash.each do |type, message|
+            %div{:id => type}= message
 
           = yield

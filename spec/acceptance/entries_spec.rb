@@ -41,17 +41,29 @@ feature 'Entries' do
   context 'on the contest page' do
     background do
       @contest.update_attributes(:entries => [Entry.make(:user => User.last)])
-      login_via_github
+
       visit "/contests/#{@contest.slug}"
     end
 
-    scenario 'successfully update my entry' do
-      fill_in 'Description', :with => 'I did the most amazing thing ever'
-      click_button 'Update your entry'
-
-      page.should have_content 'Your entry has been updated.'
-      find_field('Description').value.should == 'I did the most amazing thing ever'
+    scenario 'fail to add another entry' do
+      click_link 'Enter'
+      page.should have_content 'You already have an entry for this contest.'
     end
+
+    context 'when logged in' do
+
+      background { login_via_github }
+
+      scenario 'successfully update my entry' do
+        fill_in 'Description', :with => 'I did the most amazing thing ever'
+        click_button 'Update your entry'
+
+        page.should have_content 'Your entry has been updated.'
+        find_field('Description').value.should == 'I did the most amazing thing ever'
+      end
+
+    end
+
   end
 
 end
