@@ -41,7 +41,7 @@ feature 'Homepage' do
 
       background { login_via_github }
 
-      scenario 'visit my profile page' do
+      pending 'visit my profile page' do
         click_link 'alice'
         page.should have_content 'Alice'
       end

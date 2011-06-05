@@ -3,9 +3,6 @@ require 'acceptance/acceptance_helper'
 feature 'Log in' do
 
   scenario 'log in via Github' do
-    # TODO: make sure the session gets reset successully
-    click_link 'log out'
-    
     click_link 'log in via Github'
     page.should have_content 'alice'
   end
