@@ -61,4 +61,11 @@ class Contest
     closing_on.to_time.utc + 16.hours
   end
 
+  def next_state_at
+    case state
+    when 'open' then voting_at
+    when 'voting' then closing_at
+    end
+  end
+
 end

@@ -230,7 +230,32 @@ describe Contest do
     end
 
     it { should == Time.parse('Jun 5 2011 14:00 UTC') }
-
   end
 
+  context '#next_state_at' do
+
+    before { @contest = Contest.make }
+
+    context 'when the contest is open' do
+      before { @contest.stubs(:state).returns('open') }
+      subject { @contest.next_state_at }
+
+      it { should == @contest.voting_at }
+    end
+
+    context 'when the contest is open for voting' do
+      before { @contest.stubs(:state).returns('voting') }
+      subject { @contest.next_state_at }
+
+      it { should == @contest.closing_at }
+    end
+
+    context 'when the contest is closed' do
+      before { @contest.stubs(:state).returns('closed') }
+      subject { @contest.next_state_at }
+
+      it { should be_nil }
+    end
+
+  end
 end
