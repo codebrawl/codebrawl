@@ -1,0 +1,6 @@
+= form_for [@contest, @entry] do |f|
+
+  = f.label :description
+  = f.text_area :description
+
+  = f.submit params[:action] == 'new' ? 'Submit your entry' : 'Update your entry'

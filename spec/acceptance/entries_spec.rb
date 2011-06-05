@@ -4,7 +4,7 @@ require 'acceptance/acceptance_helper'
 feature 'Entries' do
 
   background :all do
-    @contest = Contest.make(:name => 'RSpec extensions')
+    @contest = Contest.make(:name => 'RSpec extensions', :starting_on => Date.yesterday.to_time)
   end
 
   context 'on the new entry form' do
@@ -36,6 +36,22 @@ feature 'Entries' do
 
     end
 
+  end
+
+  context 'on the contest page' do
+    background do
+      @contest.update_attributes(:entries => [Entry.make(:user => User.last)])
+      login_via_github
+      visit "/contests/#{@contest.slug}"
+    end
+
+    scenario 'successfully update my entry' do
+      fill_in 'Description', :with => 'I did the most amazing thing ever'
+      click_button 'Update your entry'
+
+      page.should have_content 'Your entry has been updated.'
+      find_field('Description').value.should == 'I did the most amazing thing ever'
+    end
   end
 
 end

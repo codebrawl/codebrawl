@@ -12,4 +12,11 @@ class EntriesController < ApplicationController
     redirect_to @contest, :notice => 'Thank you for entering!'
   end
 
+  def update
+    @contest = Contest.find_by_slug(params[:contest_id])
+    @entry = @contest.entries.find(params[:id])
+    @entry.update_attributes(params[:entry])
+    redirect_to @contest, :notice => 'Your entry has been updated.'
+  end
+
 end

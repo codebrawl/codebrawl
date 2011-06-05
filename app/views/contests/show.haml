@@ -12,5 +12,8 @@
     = f.submit 'Submit your votes' if logged_in?
 
 - if @contest.open?
-  = link_to [:new, @contest, :entry], :class => 'button' do
-    %h3 Enter
+  - if @entry
+    = render 'entries/form'
+  - else
+    = link_to [:new, @contest, :entry], :class => 'button' do
+      %h3 Enter
