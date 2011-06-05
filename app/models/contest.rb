@@ -19,18 +19,15 @@ class Contest
   embeds_many :entries
 
   def set_voting_and_closing_dates
-    self.voting_on = starting_on + 1.week
-    self.closing_on = voting_on + 1.week
+    self.voting_on = starting_on + 1.week if self.voting_on.blank?
+    self.closing_on = voting_on + 1.week if self.closing_on.blank?
   end
 
   def state
     case
-    when Time.now.utc >= closing_on.to_time.utc + 16.hours
-      'closed'
-    when Time.now.utc >= voting_on.to_time.utc + 16.hours
-      'voting'
-    when Time.now.utc >= starting_on.to_time.utc + 16.hours
-      'open'
+    when Time.now.utc >= closing_at then 'closed'
+    when Time.now.utc >= voting_at then 'voting'
+    when Time.now.utc >= starting_at then 'open'
     else
       'pending'
     end
@@ -50,6 +47,18 @@ class Contest
 
   def closed?
     state == 'closed'
+  end
+
+  def starting_at
+    starting_on.to_time.utc + 16.hours
+  end
+
+  def voting_at
+    voting_on.to_time.utc + 16.hours
+  end
+
+  def closing_at
+    closing_on.to_time.utc + 16.hours
   end
 
 end

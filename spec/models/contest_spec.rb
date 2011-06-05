@@ -197,4 +197,40 @@ describe Contest do
 
   end
 
+  context '#starting_at' do
+    around { |example| Timecop.freeze { example.run } }
+
+    subject do
+      @contest = Contest.make(:starting_on => Date.parse('Jun 5 2011').to_time)
+      @contest.starting_at
+    end
+
+    it { should == Time.parse('Jun 5 2011 14:00 UTC') }
+
+  end
+
+  context '#voting_at' do
+    around { |example| Timecop.freeze { example.run } }
+
+    subject do
+      @contest = Contest.make(:voting_on => Date.parse('Jun 5 2011').to_time)
+      @contest.voting_at
+    end
+
+    it { should == Time.parse('Jun 5 2011 14:00 UTC') }
+
+  end
+
+  context '#closing_at' do
+    around { |example| Timecop.freeze { example.run } }
+
+    subject do
+      @contest = Contest.make(:voting_on => Date.parse('Jun 5 2011').to_time)
+      @contest.voting_at
+    end
+
+    it { should == Time.parse('Jun 5 2011 14:00 UTC') }
+
+  end
+
 end
