@@ -108,13 +108,33 @@ describe Entry do
   end
 
   context '#files' do
-    subject do
-      @entry = Entry.make(:gist_id => '72a0a6a9aa63d1eb64d6')
-      @entry.files
+
+    context 'when the files attribute is set' do
+      subject do
+        Entry.make(:files => {'1.txt' => {}}).files
+      end
+
+      it { should == {'1.txt' => {}} }
     end
 
-    it 'should get the gist contents from github' do
-      VCR.use_cassette('gist') do
+    context 'when not having a files attribute' do
+      subject do
+        @entry = Entry.make
+        @entry.files
+      end
+
+      it { should == {} }
+
+      it { should == @entry.read_attribute(:files) }
+    end
+
+    context 'when having a gist_id attribute' do
+      subject do
+        @entry = Entry.make(:gist_id => '72a0a6a9aa63d1eb64d6')
+        VCR.use_cassette('gist'){ @entry.files }
+      end
+
+      it 'should get the gist contents from github' do
         should == {
           "2.txt" => {
             "content" => "2",
@@ -136,7 +156,10 @@ describe Entry do
           }
         }
       end
+
+      it { should == @entry.read_attribute(:files) }
     end
+
   end
 
 end

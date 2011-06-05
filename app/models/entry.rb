@@ -2,6 +2,8 @@ class Entry
   include Mongoid::Document
 
   field :description, :type => String
+  field :gist_id, :type => String
+  field :files, :type => Hash, :default => {}
   field :score, :type => Float, :default => 0.0
 
   validates :user, :description, :presence => true
@@ -21,8 +23,14 @@ class Entry
     read_attribute(:score)
   end
 
-  def files
+  def get_files_from_gist
+    return {} unless gist_id
     HTTParty.get("https://api.github.com/gists/#{gist_id}")['files']
+  end
+
+  def files
+    write_attribute(:files, get_files_from_gist) if read_attribute(:files).empty?
+    read_attribute(:files)
   end
 
 end
