@@ -43,7 +43,7 @@ feature 'Comments' do
         visit "contests/#{@contest.slug}"
       end
 
-      scenario 'see the comments' do
+      pending 'see the comments' do
         page.should have_content 'Amazing work!'
         page.should have_content 'Looks good, but how do I get it to run?'
       end
