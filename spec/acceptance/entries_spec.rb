@@ -36,14 +36,28 @@ feature 'Entries' do
 
   context 'on the contest page' do
     background do
-      @contest.update_attributes(:entries => [Entry.make(:user => User.last)])
-
+      @contest.update_attributes(:entries => [Entry.make(:user => User.last, :gist_id => '12345')])
       visit "/contests/#{@contest.slug}"
     end
 
     scenario 'fail to add another entry' do
       click_link 'Enter'
       page.should have_content 'You already have an entry for this contest.'
+    end
+
+    context 'when logged in' do
+
+      background { login_via_github }
+
+      scenario 'see the "you entered"-message' do
+        page.should have_content 'You entered gist 12345'
+        page.should have_link 'gist 12345'
+        body.should include 'https://gist.github.com/12345'
+      end
+
+      scenario 'do not see the "enter"-button' do
+        page.should have_no_link 'Enter'
+      end
     end
 
     pending 'when logged in' do
