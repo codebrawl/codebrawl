@@ -13,7 +13,7 @@ feature 'Entries' do
 
     scenario 'be logged in via Github automatically' do
       page.should have_content 'alice'
-      page.should have_field 'Description'
+      page.should have_field 'Gist id'
     end
 
     context 'when logged in' do
@@ -24,13 +24,10 @@ feature 'Entries' do
       end
 
       scenario 'successfully add an entry' do
-        fill_in 'Description', :with => 'I did the most amazing thing ever'
-
         fill_in 'Gist id', :with => '12345'
         click_button 'Submit your entry'
 
         page.should have_content 'Thank you for entering!'
-        find_field('Description').value.should == 'I did the most amazing thing ever'
         find_field('Gist id').value.should == '12345'
       end
 
@@ -55,11 +52,11 @@ feature 'Entries' do
       background { login_via_github }
 
       scenario 'successfully update my entry' do
-        fill_in 'Description', :with => 'I did the most amazing thing ever'
+        fill_in 'Gist id', :with => '54321'
         click_button 'Update your entry'
 
         page.should have_content 'Your entry has been updated.'
-        find_field('Description').value.should == 'I did the most amazing thing ever'
+        find_field('Gist id').value.should == '54321'
       end
 
       scenario 'delete my entry' do

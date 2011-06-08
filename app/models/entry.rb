@@ -1,7 +1,6 @@
 class Entry
   include Mongoid::Document
 
-  field :description, :type => String
   field :gist_id, :type => String
   field :files, :type => Hash, :default => {}
   field :score, :type => Float, :default => 0.0
