@@ -3,9 +3,12 @@ require 'acceptance/acceptance_helper'
 
 share_examples_for 'a contest with visible entries' do
 
-  scenario 'see the contest entries' do
-    page.should have_content 'I wrote an RSpec formatter to show the test run’s progress instead of just showing how many specs passed and failed up to now.'
-    body.should include('<a href="http://github.com/jeffkreeftmeijer/fuubar">on Github</a>')
+  scenario 'see the entry files' do
+    page.should have_content 'I wrote an RSpec formatter'
+  end
+
+  scenario 'see the entry filenames' do
+    page.should have_content 'README'
   end
 
 end
@@ -32,7 +35,9 @@ feature 'Contests' do
 
     background :all do
       @entry = Entry.make(
-        :description => 'I wrote an RSpec formatter to show the test run\'s progress instead of just showing how many specs passed and failed up to now. It\'s [on Github](http://github.com/jeffkreeftmeijer/fuubar)',
+        :files => {
+          'README' => { 'content' => 'I wrote an RSpec formatter.'}
+        },
         :user => User.make(:login => 'bob'),
         :votes => [ Vote.make(:score => 1), Vote.make(:score => 3), Vote.make(:score => 4) ]
       )
@@ -65,8 +70,12 @@ feature 'Contests' do
         visit "/contests/#{@contest.slug}"
       end
 
-      scenario 'do not see the contest entries' do
-        page.should have_no_content 'I wrote an RSpec formatter to show the test run’s progress instead of just showing how many specs passed and failed up to now.'
+      scenario 'do not see the entry files' do
+        page.should have_no_content 'I wrote an RSpec formatter.'
+      end
+
+      scenario 'do not see the entry filenames' do
+        page.should have_no_content 'README'
       end
 
       it_should_behave_like 'a contest with hidden contestant names'

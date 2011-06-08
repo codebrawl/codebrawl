@@ -1,6 +1,9 @@
 %li{ :id => dom_id(entry), :class => 'entry' }
-  = entry.user.login  if entry.contest.closed?
-  = raw Kramdown::Document.new(entry.description).to_html
+  = entry.user.login if entry.contest.closed?
+
+  - entry.files.each do |name,file|
+    = name
+    = file['content']
 
   - if entry.contest.voting? && logged_in?
     - if vote = entry.votes.select { |vote| vote.user_id == current_user.id }.first
