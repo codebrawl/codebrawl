@@ -9,8 +9,14 @@ Contest.blueprint do
 end
 
 Entry.blueprint do
-  description { Faker::Lorem.sentence(25) }
+  gist_id { (rand * 100000).to_i }
   user { User.make }
+end
+
+Entry.blueprint(:with_files) do
+  files {
+    { 'README' => { 'content' => description { Faker::Lorem.sentence(25) } }}
+  }
 end
 
 User.blueprint do

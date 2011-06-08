@@ -6,7 +6,7 @@ feature 'Voting' do
     # TODO: stub `Contest#state` instead setting the voting date
     @contest = Contest.make(
       :name => 'Rspec extensions',
-      :entries => [Entry.make],
+      :entries => [Entry.make(:with_files)],
       :voting_on => Date.yesterday.to_time
     )
 

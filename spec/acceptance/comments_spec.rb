@@ -6,7 +6,7 @@ feature 'Comments' do
 
     @contest = Contest.make(
       :entries => [
-        Entry.make(
+        Entry.make(:with_files,
           :comments => [
             Comment.make(:content => 'Amazing work!'),
             Comment.make(:content => 'Looks good, but how do I get it to run?')

@@ -6,7 +6,7 @@ class Entry
   field :files, :type => Hash, :default => {}
   field :score, :type => Float, :default => 0.0
 
-  validates :user, :description, :presence => true
+  validates :user, :gist_id, :presence => true
 
   embedded_in :contest
   embeds_many :votes

@@ -12,7 +12,9 @@ describe Entry do
 
     context 'when keeping all fields empty' do
 
-      it { should have_a_presence_error_on(:description) }
+      it { should have_a_presence_error_on(:user) }
+
+      it { should have_a_presence_error_on(:gist_id) }
 
     end
 
@@ -115,17 +117,6 @@ describe Entry do
       end
 
       it { should == {'1.txt' => {}} }
-    end
-
-    context 'when not having a files attribute' do
-      subject do
-        @entry = Entry.make
-        @entry.files
-      end
-
-      it { should == {} }
-
-      it { should == @entry.read_attribute(:files) }
     end
 
     context 'when having a gist_id attribute' do

@@ -46,7 +46,7 @@ feature 'Contests' do
         :name => 'RSpec extensions',
         :description => 'Write an [RSpec](http://relishapp.com/rspec) extension that solves a problem you are having.',
         :starting_on => Date.yesterday.to_time,
-        :entries => [ Entry.make, @entry ]
+        :entries => [ Entry.make(:with_files), @entry ]
       )
     end
 
