@@ -6,7 +6,7 @@ class EntriesController < ApplicationController
     @contest = Contest.find_by_slug(params[:contest_id])
 
     unless @contest.entries.select{ |entry| entry.user == current_user }.blank?
-      redirect_to @contest, :alert => 'You already have an entry for this contest. Don\'t worry, though. You can always update your entry using the form below.'
+      redirect_to @contest, :alert => 'You already have an entry for this contest.'
     end
 
     @entry = @contest.entries.new

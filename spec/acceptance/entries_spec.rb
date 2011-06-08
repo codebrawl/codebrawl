@@ -28,7 +28,6 @@ feature 'Entries' do
         click_button 'Submit your entry'
 
         page.should have_content 'Thank you for entering!'
-        find_field('Gist id').value.should == '12345'
       end
 
     end
@@ -47,7 +46,7 @@ feature 'Entries' do
       page.should have_content 'You already have an entry for this contest.'
     end
 
-    context 'when logged in' do
+    pending 'when logged in' do
 
       background { login_via_github }
 
