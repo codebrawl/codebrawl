@@ -58,22 +58,9 @@ feature 'Entries' do
       scenario 'do not see the "enter"-button' do
         page.should have_no_link 'Enter'
       end
-    end
-
-    pending 'when logged in' do
-
-      background { login_via_github }
-
-      scenario 'successfully update my entry' do
-        fill_in 'Gist id', :with => '54321'
-        click_button 'Update your entry'
-
-        page.should have_content 'Your entry has been updated.'
-        find_field('Gist id').value.should == '54321'
-      end
 
       scenario 'delete my entry' do
-        click_button 'Delete your entry'
+        click_link 'delete your entry'
         page.should have_content 'Your entry has been deleted.'
         page.should have_link 'Enter'
       end
