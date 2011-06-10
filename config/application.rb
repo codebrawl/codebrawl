@@ -39,7 +39,7 @@ module Codebrawl
     #
     # JavaScript files you want as :defaults (application.js is always included).
     # config.action_view.javascript_expansions[:defaults] = %w(prototype prototype_ujs)
-
+    Haml::Template.options[:ugly] = true
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
