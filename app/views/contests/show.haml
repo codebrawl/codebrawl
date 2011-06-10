@@ -15,11 +15,13 @@
 
 - if @contest.open?
   - if @entry
-    %h3
-      :erb
-        You entered <%= link_to "gist #{@entry.gist_id}", "https://gist.github.com/#{@entry.gist_id}" %>
-    :erb
-      You can keep updating your gist, we'll take a snapshot of it when the voting period begins. If you want, you can always <%= link_to "delete your entry", [@contest, @entry], :method => :delete %>.
+    #entry
+      %h3
+        :erb
+          You entered <%= link_to "gist #{@entry.gist_id}", "https://gist.github.com/#{@entry.gist_id}" %>
+      %p
+        :erb
+          You can keep updating your gist, we'll take a snapshot of it when the voting period begins. If you want, you can always <%= link_to "delete your entry", [@contest, @entry], :method => :delete %>.
   - else
     = link_to 'Enter', [:new, @contest, :entry], :class => 'button'
 
