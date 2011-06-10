@@ -4,6 +4,8 @@ require "#{Rails.root}/spec/support/blueprints"
 3.times do |i|
   Contest.make(
     :starting_on => (i.weeks + 1.day).ago.to_time,
-    :entries => [Entry.make, Entry.make, Entry.make]
+    :entries => [
+      Entry.make(:with_files), Entry.make(:with_files), Entry.make(:with_files)
+    ]
   )
 end

@@ -15,7 +15,7 @@ end
 
 Entry.blueprint(:with_files) do
   files {
-    { 'README' => { 'content' => description { Faker::Lorem.sentence(25) } }}
+    { 'README' => { 'content' => Faker::Lorem.sentence(25) } }
   }
 end
 
