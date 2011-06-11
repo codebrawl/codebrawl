@@ -5,8 +5,26 @@ feature 'Homepage' do
   context "on the homepage" do
 
     background :all do
-      Contest.make(:name => 'Euler #74', :tagline => 'Get your Euler on')
-      Contest.make(:name => 'Fun with ChunkyPNG', :tagline => 'Image manipulation! Woo!')
+      @open = Contest.make(
+        :name => 'Euler #74',
+        :tagline => 'Get your Euler on',
+        :starting_on => Date.yesterday.to_time
+      )
+      @voting = Contest.make(
+        :name => 'Fun with ChunkyPNG',
+        :tagline => 'Image manipulation! Woo!',
+        :voting_on => Date.yesterday.to_time
+      )
+      @closed = Contest.make(
+        :name => 'Improving Ruby',
+        :tagline => 'Everything you ever wanted',
+        :closing_on => Date.yesterday.to_time
+      )
+      @pending = Contest.make(
+        :name => 'RSpec extensions',
+        :tagline => 'Giving back to RSpec',
+        :starting_on => Date.tomorrow.to_time
+      )
     end
 
     before { visit '/' }
@@ -24,7 +42,7 @@ feature 'Homepage' do
     end
 
     scenario 'see a list of contest names' do
-      ['Euler #74', 'Fun with ChunkyPNG'].each do |name|
+      ['Euler #74', 'Fun with ChunkyPNG', 'Improving Ruby'].each do |name|
         page.should have_link name
       end
 
@@ -32,8 +50,22 @@ feature 'Homepage' do
     end
 
     scenario 'see the contest taglines' do
-      ['Get your Euler on', 'Image manipulation! Woo!'].each do |tagline|
+      ['Get your Euler on', 'Image manipulation! Woo!', 'Everything you ever wanted'].each do |tagline|
         page.should have_content tagline
+      end
+    end
+
+    scenario 'see the contest states' do
+      within "li#contest_#{@open.id}" do
+        page.should have_content 'Open'
+      end
+
+      within "li#contest_#{@voting.id}" do
+        page.should have_content 'Voting'
+      end
+
+      within "li#contest_#{@closed.id}" do
+        page.should have_content 'Closed'
       end
     end
 
