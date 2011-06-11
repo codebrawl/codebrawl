@@ -5,9 +5,9 @@
 
   .state
     %span= contest.state.capitalize
-    %br
     - if contest.next_state_at
-      = "#{distance_of_time_in_words(Time.now, contest.next_state_at, true)} left"
-      %br
-      = contest.next_state_at.strftime("%B %d %H:%M (UTC)")
+      %span.time_left
+        = "#{distance_of_time_in_words(Time.now, contest.next_state_at, true)} left"
+      %span.next_state
+        = "until #{contest.next_state_at.strftime("%B %d %H:%M (UTC)")}"
   %hr
