@@ -22,7 +22,7 @@ gem 'omniauth'
 gem 'gravtastic'
 gem 'httparty'
 
-gem 'gust', :path => '~/opensource/gust'
+gem 'gust', :path => 'vendor/gems/gust'
 
 group :test do
   gem 'rspec-rails'
