@@ -11,7 +11,8 @@
 
   - if entry.contest.voting? && logged_in?
     - if vote = entry.votes.select { |vote| vote.user_id == current_user.id }.first
-      = "You voted #{vote.score}/5"
+      :erb
+        You voted <strong><%= vote.score %>/5</strong>.
       = render entry.comments
 
     - else
@@ -21,4 +22,5 @@
           = entry_f.radio_button :score, score
 
   - if entry.contest.closed?
-    = "#{sprintf("%.1f", entry.score)}/5"
+    :erb
+      Finished in <strong><%= (entry_counter + 1).ordinalize %> place</strong> with a final score of <strong><%= sprintf("%.1f", entry.score) %>/5</strong>.
