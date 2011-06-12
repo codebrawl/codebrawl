@@ -1,7 +1,9 @@
 class ContestsController < ApplicationController
 
   def index
-    @contests = Contest.all.reject { |contest| contest.state == 'pending' }
+    @contests = Contest.all.order_by([:starting_on, :desc]).reject do |contest|
+      contest.state == 'pending'
+    end
   end
 
   def show
