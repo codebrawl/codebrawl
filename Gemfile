@@ -24,6 +24,8 @@ gem 'httparty'
 
 gem 'gust', :path => 'vendor/gems/gust'
 
+gem 'hoptoad_notifier'
+
 group :test do
   gem 'rspec-rails'
   gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git', :ref => '549e6733'
