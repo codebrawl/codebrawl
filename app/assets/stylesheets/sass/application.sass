@@ -30,8 +30,8 @@ a.button, input[type='submit']
   font-size: 18px
   font-weight: 900
   color: #ccc
-  -webkit-border-radius: 2px
-  -webkit-box-shadow: 0 -1px 0 #fff, 0 1px 0 #000
+  border-radius: 2px
+  box-shadow: 0 -1px 0 #fff, 0 1px 0 #000
 
   &:hover
     color: #eee
@@ -48,6 +48,7 @@ img#gravatar
   width: 20px
   height: 20px
   border: 1px solid #ddd
+  vertical-align: middle
 
 p
   margin: 10px 0
@@ -68,7 +69,7 @@ form
     font-size: 24px
 
 #notice, #alert
-  -webkit-border-radius: 2px
+  border-radius: 2px
   padding: 10px
   margin: 10px 0 20px 0
 
@@ -106,35 +107,39 @@ form
   padding: 20px
   margin: 0 10px 10px 10px
 
-  -webkit-border-radius: 2px
-  -webkit-box-shadow: 0 0px 5px #000
+  border-radius: 2px
+  box-shadow: 0 0px 5px #000
 
   #menu span
     float: right
     margin-bottom: 20px
 
-    img
-      vertical-align: middle
-
   #main
     clear: both
 
     .entry
-      margin-bottom: 20px
+      margin: 20px 0
 
 #contests, #entries
   margin-bottom: -20px
 
+#contests li, #entry
+  padding: 20px 10px
+
+#entries li.entry
+  padding: 10px
+
 #contests li, #entries li.entry, #entry
   background-color: #ddd
-  padding: 20px 10px
-  -webkit-border-radius: 2px
-  -webkit-box-shadow: 0 -1px 0 #ccc, 0 1px 0 #fff
+  border-radius: 2px
+  box-shadow: 0 -1px 0 #ccc, 0 1px 0 #fff
   margin-bottom: 20px
 
   .description
     width: 60%
     float: left
+
+
 
   .state
     text-align: right
@@ -151,17 +156,26 @@ form
     .next_state
       font-size: 10px
 
-#entry
-  margin-top: 20px
-
 form ul
   margin-bottom: 0
+
+.filename
+  background-color: #222
+  color: #eee
+  font-size: 12px
+  padding: 5px 10px
+  margin: 10px 0 0 0
+  font-family: monospace
+  text-shadow: #000 1px 1px 1px
+  border-top-left-radius: 2px
+  border-top-right-radius: 2px
 
 .highlight, .markup
   overflow: auto
   padding: 10px
-  margin: 10px 0
-  -webkit-border-radius: 2px
+  margin: 0 0 10px 0
+  border-bottom-left-radius: 2px
+  border-bottom-right-radius: 2px
 
 hr
   visibility: hidden

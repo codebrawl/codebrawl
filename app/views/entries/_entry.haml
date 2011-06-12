@@ -1,8 +1,12 @@
 %li{ :id => dom_id(entry), :class => 'entry' }
-  = entry.user.login if entry.contest.closed?
+  - if entry.contest.closed?
+    .owner
+      = image_tag entry.user.gravatar_url(:size => 20), :id => 'gravatar'
+      = entry.user.login
 
   - entry.files.each do |name, file|
-    = name
+    .filename
+      = name
     = raw Gust.parse(file['content'], :filename => name)
 
   - if entry.contest.voting? && logged_in?
