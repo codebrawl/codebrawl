@@ -38,6 +38,21 @@ feature 'Voting' do
       end
 
     end
+
+    context 'after voting for every entry' do
+
+      before do
+        within("#entry_#{@contest.entries.first.id}"){ choose '4' }
+        click_button 'Submit your votes'
+      end
+
+      scenario 'do not see the voting controls anymore' do
+        (1..5).to_a.each { |i| page.should have_no_field i.to_s }
+        page.should have_no_button 'Submit your votes'
+      end
+
+    end
+
   end
 
 end

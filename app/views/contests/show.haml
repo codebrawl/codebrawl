@@ -11,7 +11,7 @@
     %ul#entries
       = render :partial => "entries/entry", :collection => @contest.entries, :locals => { :f => f }
 
-    = f.submit 'Submit your votes' if logged_in? && @contest.voting?
+    = f.submit 'Submit your votes' if logged_in? && @contest.voting? && @voted_entries != @contest.entries
 
 - if @contest.open?
   - if @entry
