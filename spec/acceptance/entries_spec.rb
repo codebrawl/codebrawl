@@ -23,6 +23,11 @@ feature 'Entries' do
         visit "/contests/#{@contest.slug}/entries/new"
       end
 
+      scenario 'fail to add an entry when forgetting the Gist id' do
+        click_button 'Submit your entry'
+        page.should have_content 'Gist can\'t be blank'
+      end
+
       scenario 'successfully add an entry' do
         fill_in 'Gist id', :with => '12345'
         click_button 'Submit your entry'

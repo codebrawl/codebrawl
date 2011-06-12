@@ -1,10 +1,9 @@
 = form_for [@contest, @entry] do |f|
 
+  - @entry.errors.full_messages.each do |message|
+    %div{:id => 'alert'}= message
+
   = f.label :gist_id, 'Gist id'
   = f.text_field :gist_id
 
-  - if params[:action] == 'new'
-    = f.submit 'Submit your entry'
-  - else
-    = f.submit 'Update your entry'
-    = button_to('Delete your entry', [@contest, @entry], :method => :delete)
+  = f.submit 'Submit your entry'
