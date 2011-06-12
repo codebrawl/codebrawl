@@ -14,6 +14,7 @@ class ContestsController < ApplicationController
       end
       @entry = @contest.entries.select{ |entry| entry.user == current_user }.first
     end
+    @voted_entries ||= []
   end
 
 end

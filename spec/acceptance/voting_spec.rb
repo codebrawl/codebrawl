@@ -6,7 +6,7 @@ feature 'Voting' do
     # TODO: stub `Contest#state` instead setting the voting date
     @contest = Contest.make(
       :name => 'Rspec extensions',
-      :entries => [Entry.make(:with_files)],
+      :entries => [Entry.make(:with_files, :user => User.make(:login => 'bob'))],
       :voting_on => Date.yesterday.to_time
     )
 
@@ -49,6 +49,10 @@ feature 'Voting' do
       scenario 'do not see the voting controls anymore' do
         (1..5).to_a.each { |i| page.should have_no_field i.to_s }
         page.should have_no_button 'Submit your votes'
+      end
+
+      scenario 'see the contestant names' do
+        page.should have_content 'bob'
       end
 
     end

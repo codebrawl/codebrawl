@@ -1,5 +1,5 @@
 %li{ :id => dom_id(entry), :class => 'entry' }
-  - if entry.contest.closed?
+  - if entry.contest.closed? || @voted_entries.include?(entry)
     .owner
       = image_tag entry.user.gravatar_url(:size => 20), :id => 'gravatar'
       = entry.user.login
