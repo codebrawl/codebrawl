@@ -19,7 +19,7 @@
         #menu
           %span
             - if current_user
-              = image_tag current_user.gravatar_url(:size => 20), :id => 'gravatar'
+              = image_tag current_user.gravatar_url(:size => 20), :class => 'gravatar'
               //= link_to current_user.login, user_path(current_user.login)
               = current_user.login
               :erb

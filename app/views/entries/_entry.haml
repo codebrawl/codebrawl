@@ -1,7 +1,7 @@
 %li{ :id => dom_id(entry), :class => 'entry' }
   - if entry.contest.closed? || @voted_entries.include?(entry)
     .owner
-      = image_tag entry.user.gravatar_url(:size => 20), :id => 'gravatar'
+      = image_tag entry.user.gravatar_url(:size => 20), :class => 'gravatar'
       = entry.user.login
 
   - entry.files.each do |name, file|
@@ -13,7 +13,9 @@
     - if vote = entry.votes.select { |vote| vote.user_id == current_user.id }.first
       :erb
         You voted <strong><%= vote.score %>/5</strong>.
-      = render entry.comments
+
+      .comments{'data-gist_id' => entry.gist_id}
+
 
     - else
       - (1..5).to_a.each do |score|

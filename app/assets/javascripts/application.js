@@ -7,3 +7,28 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+function get_gist_comments(gist_id, element){
+  converter = new Showdown.converter();
+
+  $.getJSON(
+    'https://gist.github.com/api/v1/json/' + gist_id + '?callback=?', function(response){
+
+      $.each(response['gists'][0]['comments'], function(key, val) {
+        element.append(
+          '<div>' +
+          '<img class="gravatar" src="http://gravatar.com/avatar/' + val.gravatar_id + '.png?r=PG&s=20"/> ' +
+          val.user + converter.makeHtml(val.body) +
+          '</div>'
+        )
+      });
+
+    }
+  );
+}
+
+$(document).ready(function(){
+  $('.comments').each(function(){
+    get_gist_comments($(this).data('gist_id'), $(this))
+  })
+})
