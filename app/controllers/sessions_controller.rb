@@ -16,4 +16,8 @@ class SessionsController < ApplicationController
     redirect_to root_path
   end
 
+  def failure
+    redirect_to '/', :alert => 'Something went wrong while trying to log you in.'
+  end
+
 end
