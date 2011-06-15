@@ -18,6 +18,8 @@ set :rvm_ruby_string, 'ruby-1.9.2'
 
 default_run_options[:pty] = true
 
+before :"deploy:symlink", :"deploy:assets";
+
 namespace :deploy do
   task :start, :roles => :app do
     run "touch #{current_release}/tmp/restart.txt"
@@ -32,4 +34,8 @@ namespace :deploy do
     run "touch #{current_release}/tmp/restart.txt"
   end
 
+  desc "Compile asets"
+  task :assets do
+    run "cd #{release_path}; RAILS_ENV=production bundle exec rake assets:precompile"
+  end
 end
