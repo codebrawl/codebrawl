@@ -1,4 +1,4 @@
-%li{ :id => dom_id(entry), :class => 'entry' }
+%li{ :id => dom_id(entry), :class => entry.contest.closed? ? [%w{gold silver bronze}[entry_counter], 'entry'].join(' ') : 'entry'  }
   - if entry.contest.closed? || @voted_entries.include?(entry)
     .owner
       = image_tag entry.user.gravatar_url(:size => 20), :class => 'gravatar'
