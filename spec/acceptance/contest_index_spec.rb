@@ -5,22 +5,26 @@ feature 'Homepage' do
   context "on the homepage" do
 
     background :all do
-      @open = Contest.make(
+      @open = Fabricate(
+        :contest,
         :name => 'Euler #74',
         :tagline => 'Get your Euler on',
         :starting_on => Date.yesterday.to_time
       )
-      @voting = Contest.make(
+      @voting = Fabricate(
+        :contest,
         :name => 'Fun with ChunkyPNG',
         :tagline => 'Image manipulation! Woo!',
         :voting_on => Date.yesterday.to_time
       )
-      @closed = Contest.make(
+      @closed = Fabricate(
+        :contest,
         :name => 'Improving Ruby',
         :tagline => 'Everything you ever wanted',
         :closing_on => Date.yesterday.to_time
       )
-      @pending = Contest.make(
+      @pending = Fabricate(
+        :contest,
         :name => 'RSpec extensions',
         :tagline => 'Giving back to RSpec',
         :starting_on => Date.tomorrow.to_time

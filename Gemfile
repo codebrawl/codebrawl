@@ -32,7 +32,7 @@ group :test do
 
   gem 'mocha'
 
-  gem 'machinist_mongo', :require => 'machinist/mongoid'
+  gem 'fabrication'
   gem 'faker'
   gem 'database_cleaner'
 

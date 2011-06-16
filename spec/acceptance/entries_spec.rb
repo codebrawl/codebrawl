@@ -4,7 +4,8 @@ require 'acceptance/acceptance_helper'
 feature 'Entries' do
 
   background :all do
-    @contest = Contest.make(:name => 'RSpec extensions', :starting_on => Date.yesterday.to_time)
+    @contest = Fabricate(:contest, :name => 'RSpec extensions', :starting_on => Date.yesterday.to_time)
+    @user = Fabricate(:user, :github_id => 12345, :login => "alice")
   end
 
   context 'on the new entry form' do
@@ -41,7 +42,7 @@ feature 'Entries' do
 
   context 'on the contest page' do
     background do
-      @contest.update_attributes(:entries => [Entry.make(:user => User.last, :gist_id => '12345')])
+      @contest.entries << Fabricate(:entry, :user => @user, :gist_id => '12345')
       visit "/contests/#{@contest.slug}"
     end
 

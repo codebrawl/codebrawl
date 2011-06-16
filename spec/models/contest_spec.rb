@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe Contest do
 
-  context '.make' do
+  context 'fabrication' do
 
-    it { Contest.make.should be_valid }
+    it { Fabricate(:contest).should be_valid }
 
   end
 
@@ -22,7 +22,7 @@ describe Contest do
 
     context 'when creating a valid contest' do
       around { |example| Timecop.travel(Time.parse('May 23 2011 10:00 UTC')) { example.run } }
-      subject { Contest.make }
+      subject { Fabricate(:contest) }
 
       it { should be_pending }
 
@@ -79,15 +79,15 @@ describe Contest do
   context '#entries' do
 
     it 'should have a list of entries' do
-      entries = [Entry.make]
-      Contest.make(:entries => entries).entries.should == entries
+      entries = [Fabricate.build(:entry)]
+      Fabricate(:contest, :entries => entries).entries.should == entries
     end
 
   end
 
   context '#pending?' do
 
-    before { @contest = Contest.make }
+    before { @contest = Fabricate(:contest) }
 
     context 'when the contest is pending for entries' do
 
@@ -115,7 +115,7 @@ describe Contest do
 
   context '#open?' do
 
-    before { @contest = Contest.make }
+    before { @contest = Fabricate(:contest) }
 
     context 'when the contest is open for entries' do
 
@@ -143,7 +143,7 @@ describe Contest do
 
   context '#voting?' do
 
-    before { @contest = Contest.make }
+    before { @contest = Fabricate(:contest) }
 
     context 'when the contest is open for voting' do
 
@@ -171,7 +171,7 @@ describe Contest do
 
   context '#closed?' do
 
-    before { @contest = Contest.make }
+    before { @contest = Fabricate(:contest) }
 
     context 'when the contest is closed' do
 
@@ -201,7 +201,7 @@ describe Contest do
     around { |example| Timecop.freeze { example.run } }
 
     subject do
-      @contest = Contest.make(:starting_on => Date.parse('Jun 5 2011').to_time)
+      @contest = Fabricate(:contest, :starting_on => Date.parse('Jun 5 2011').to_time)
       @contest.starting_at
     end
 
@@ -213,7 +213,7 @@ describe Contest do
     around { |example| Timecop.freeze { example.run } }
 
     subject do
-      @contest = Contest.make(:voting_on => Date.parse('Jun 5 2011').to_time)
+      @contest = Fabricate(:contest, :voting_on => Date.parse('Jun 5 2011').to_time)
       @contest.voting_at
     end
 
@@ -225,7 +225,7 @@ describe Contest do
     around { |example| Timecop.freeze { example.run } }
 
     subject do
-      @contest = Contest.make(:voting_on => Date.parse('Jun 5 2011').to_time)
+      @contest = Fabricate(:contest, :voting_on => Date.parse('Jun 5 2011').to_time)
       @contest.voting_at
     end
 
@@ -234,7 +234,7 @@ describe Contest do
 
   context '#next_state_at' do
 
-    before { @contest = Contest.make }
+    before { @contest = Fabricate(:contest) }
 
     context 'when the contest is open' do
       before { @contest.stubs(:state).returns('open') }

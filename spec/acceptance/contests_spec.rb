@@ -34,19 +34,21 @@ feature 'Contests' do
   context 'on a contest page' do
 
     background :all do
-      @entry = Entry.make(
+      @entry = Fabricate.build(
+        :entry,
         :files => {
           'README' => { 'content' => 'I wrote an RSpec formatter.'}
         },
-        :user => User.make(:login => 'bob'),
-        :votes => [ Vote.make(:score => 1), Vote.make(:score => 3), Vote.make(:score => 4) ]
+        :user => Fabricate(:user, :login => 'bob'),
+        :votes => [ Fabricate(:vote, :score => 1), Fabricate(:vote, :score => 3), Fabricate(:vote, :score => 4) ]
       )
 
-      @contest = Contest.make(
+      @contest = Fabricate(
+        :contest,
         :name => 'RSpec extensions',
         :description => 'Write an [RSpec](http://relishapp.com/rspec) extension that solves a problem you are having.',
         :starting_on => Date.yesterday.to_time,
-        :entries => [ Entry.make(:with_files), @entry ]
+        :entries => [ Fabricate(:entry_with_files), @entry ]
       )
     end
 

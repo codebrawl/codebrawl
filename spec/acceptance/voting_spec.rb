@@ -4,9 +4,10 @@ feature 'Voting' do
 
   background do
     # TODO: stub `Contest#state` instead setting the voting date
-    @contest = Contest.make(
+    @contest = Fabricate(
+      :contest,
       :name => 'Rspec extensions',
-      :entries => [Entry.make(:with_files, :user => User.make(:login => 'bob'))],
+      :entries => [Fabricate.build(:entry_with_files, :user => Fabricate(:user, :login => 'bob'))],
       :voting_on => Date.yesterday.to_time
     )
 

@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe Entry do
 
-  context '.make' do
+  context 'fabrication' do
 
-    it { Entry.make.should be_valid }
+    it { Fabricate(:entry).should be_valid }
 
   end
 
@@ -23,8 +23,8 @@ describe Entry do
   context '#contest' do
 
     it 'should have a contest' do
-      contest = Contest.make
-      Entry.make(:contest => contest).contest.should == contest
+      contest = Fabricate.build(:contest)
+      Fabricate(:entry, :contest => contest).contest.should == contest
     end
 
   end
@@ -32,8 +32,8 @@ describe Entry do
   context '#user' do
 
     it 'should have a user' do
-      user = User.make
-      Entry.make(:user => user).user.should == user
+      user = Fabricate.build(:user)
+      Fabricate(:entry, :user => user).user.should == user
     end
 
   end
@@ -41,17 +41,8 @@ describe Entry do
   context '#votes' do
 
     it 'should have a list of votes' do
-      votes = [Vote.make]
-      Entry.make(:votes => votes).votes.should == votes
-    end
-
-  end
-
-  context '#comments' do
-
-    it 'should have a list of comments' do
-      comments = [Comment.make]
-      Entry.make(:comments => comments).comments.should == comments
+      votes = [Fabricate.build(:user)]
+      Fabricate(:entry, :votes => votes).votes.should == votes
     end
 
   end
@@ -70,7 +61,7 @@ describe Entry do
 
     context 'when the score attribute is set' do
 
-      subject { Entry.make(:score => 4.3).score }
+      subject { Fabricate(:entry, :score => 4.3).score }
 
       it { should == 4.3 }
 
@@ -79,7 +70,7 @@ describe Entry do
     context 'when not having a score attribute' do
 
       subject do
-        @entry = Entry.make
+        @entry = Fabricate(:entry)
         @entry.score
       end
 
@@ -89,11 +80,12 @@ describe Entry do
 
       context 'when having some votes' do
         subject do
-          @entry = Entry.make(
+          @entry = Fabricate(
+            :entry,
             :votes => [
-              Vote.make(:score => 2),
-              Vote.make(:score => 4),
-              Vote.make(:score => 1)
+              Fabricate.build(:vote, :score => 2),
+              Fabricate.build(:vote, :score => 4),
+              Fabricate.build(:vote, :score => 1)
             ]
           )
           @entry.score
@@ -113,7 +105,7 @@ describe Entry do
 
     context 'when the files attribute is set' do
       subject do
-        Entry.make(:files => {'1.txt' => {}}).files
+        Fabricate(:entry, :files => {'1.txt' => {}}).files
       end
 
       it { should == {'1.txt' => {}} }
@@ -121,7 +113,7 @@ describe Entry do
 
     context 'when having a gist_id attribute' do
       subject do
-        @entry = Entry.make(:gist_id => '72a0a6a9aa63d1eb64d6')
+        @entry = Fabricate(:entry, :gist_id => '72a0a6a9aa63d1eb64d6')
         VCR.use_cassette('gist'){ @entry.files }
       end
 

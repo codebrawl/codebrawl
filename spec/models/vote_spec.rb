@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe Vote do
 
-  context '.make' do
+  context 'fabrication' do
 
-    it { Vote.make.should be_valid }
+    it { Fabricate(:vote).should be_valid }
 
   end
 

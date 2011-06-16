@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe User do
 
-  context '.make' do
+  context 'fabrication' do
 
-    it { User.make.should be_valid }
+    it { Fabricate(:user).should be_valid }
 
   end
 

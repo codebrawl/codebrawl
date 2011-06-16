@@ -2,25 +2,23 @@ require 'acceptance/acceptance_helper'
 
 feature 'Users' do
   background(:all) do
-    @user = User.make(:login => 'alice', :name => 'Alice', :email => 'alice@email.com')
+    @user = Fabricate(:user, :login => 'alice', :name => 'Alice', :email => 'alice@email.com')
 
     # TODO: stub `Contest#state` instead of setting the voting and closing
     # dates.
 
-    Contest.make(
+    Fabricate(
+      :contest,
       :name => 'RSpec extensions',
       :voting_on => Date.yesterday.to_time,
-      :entries => [
-        Entry.make(:user => @user)
-      ]
+      :entries => [ Fabricate.build(:entry, :user => @user) ]
     )
 
-    Contest.make(
+    Fabricate(
+      :contest,
       :name => 'Fun with ChunkyPNG',
       :starting_on => Date.yesterday.to_time,
-      :entries => [
-        Entry.make(:user => @user)
-      ]
+      :entries => [ Fabricate.build(:entry, :user => @user) ]
     )
 
     visit '/users/alice'
