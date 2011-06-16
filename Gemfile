@@ -45,8 +45,3 @@ group :test do
   gem 'fuubar'
   gem 'vcr'
 end
-
-group :development do
-  gem 'memprof', :require => 'memprof/tracer'
-  gem 'hotspots', :git => 'git://github.com/tmm1/hotspots.git'
-end

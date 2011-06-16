@@ -11,22 +11,6 @@ GIT
       selenium-webdriver (>= 0.0.27)
       xpath (~> 0.1.3)
 
-GIT
-  remote: git://github.com/tmm1/hotspots.git
-  revision: 4b3a26a10f1c2e8ec46d80e56481b462197fd841
-  specs:
-    hotspots (0.1.0)
-      coffee-script
-      compass
-      fssm
-      haml
-      json
-      sass
-      thin
-      trollop (>= 1.16.2)
-      uglifier
-      yajl-ruby
-
 PATH
   remote: vendor/gems/gust
   specs:
@@ -78,15 +62,10 @@ GEM
     builder (3.0.0)
     childprocess (0.1.9)
       ffi (~> 1.0.6)
-    chunky_png (1.2.0)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
     coffee-script-source (1.1.1)
-    compass (0.11.3)
-      chunky_png (~> 1.2)
-      fssm (>= 0.2.7)
-      sass (~> 3.1)
     crack (0.1.8)
     daemons (1.1.3)
     database_cleaner (0.6.4)
@@ -103,7 +82,6 @@ GEM
       multipart-post (~> 1.1.0)
       rack (>= 1.1.0, < 2)
     ffi (1.0.9)
-    fssm (0.2.7)
     fuubar (0.0.5)
       rspec (~> 2.0)
       rspec-instafail (~> 0.1.4)
@@ -127,9 +105,6 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    memprof (0.3.10)
-      rest-client (>= 1.4.2)
-      term-ansicolor
     mime-types (1.16)
     mocha (0.9.12)
     mongo (1.3.1)
@@ -251,7 +226,6 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     stringex (1.2.1)
-    term-ansicolor (1.0.5)
     thin (1.2.11)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -261,7 +235,6 @@ GEM
     timecop (0.3.5)
     treetop (1.4.9)
       polyglot (>= 0.3.1)
-    trollop (1.16.2)
     tzinfo (0.3.27)
     uglifier (0.5.4)
       execjs (>= 0.3.0)
@@ -270,7 +243,6 @@ GEM
     watchr (0.7)
     xpath (0.1.4)
       nokogiri (~> 1.3)
-    yajl-ruby (0.8.2)
 
 PLATFORMS
   ruby
@@ -288,12 +260,10 @@ DEPENDENCIES
   gust!
   haml
   hoptoad_notifier
-  hotspots!
   httparty
   jquery-rails
   json
   kramdown
-  memprof
   mocha
   mongoid (~> 2.0)
   mongoid_slug
