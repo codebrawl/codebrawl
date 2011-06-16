@@ -86,14 +86,20 @@ form
   margin: 25px auto
   width: 375px
 
-  h1
-    margin: 0
+  h1 a
+    background-image: url(<%= asset_path 'logo_transparant.png' %>)
+    text-indent: -9999px
+    height: 100px
+    display: block
+    background-position: center
+    background-repeat: no-repeat
 
-    a
-      background-image: url(<%= asset_path 'logo_transparant.png' %>)
-      text-indent: -9999px
-      height: 100px
-      display: block
+  @media screen and (max-width: 480px)
+    font-size: 10px
+
+    h1 a
+      height: 75px
+      background-size: 75%
 
   code
     color: #888
