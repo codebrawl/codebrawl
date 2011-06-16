@@ -27,7 +27,7 @@ feature 'Homepage' do
       )
     end
 
-    before { visit '/' }
+    before { visit '/contests' }
 
     scenario 'see the Codebrawl header' do
       page.should have_content 'Codebrawl'
