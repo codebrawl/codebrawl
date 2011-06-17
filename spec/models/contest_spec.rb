@@ -12,11 +12,11 @@ describe Contest do
 
     context 'when keeping all fields empty' do
 
-      it { should have_a_presence_error_on(:name) }
+      it { should have(1).error_on(:name) }
 
-      it { should have_a_presence_error_on(:description) }
+      it { should have(1).error_on(:description) }
 
-      it { should have_a_presence_error_on(:starting_on) }
+      it { should have(1).error_on(:starting_on) }
 
     end
 

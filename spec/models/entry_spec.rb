@@ -12,9 +12,9 @@ describe Entry do
 
     context 'when keeping all fields empty' do
 
-      it { should have_a_presence_error_on(:user) }
+      it { should have(1).error_on(:user) }
 
-      it { should have_a_presence_error_on(:gist_id) }
+      it { should have(1).error_on(:gist_id) }
 
     end
 
@@ -51,7 +51,7 @@ describe Entry do
 
     context 'when keeping all fields empty' do
 
-      it { should have_a_presence_error_on(:user) }
+      it { should have(1).error_on(:user) }
 
     end
 

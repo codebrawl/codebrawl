@@ -12,7 +12,7 @@ describe User do
 
     context 'when keeping all fields empty' do
 
-      it { should have_a_presence_error_on(:login) }
+      it { should have(1).error_on(:login) }
 
     end
 
