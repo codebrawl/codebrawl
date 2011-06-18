@@ -18,13 +18,33 @@ describe Entry do
 
     end
 
+    context 'when filling in an invalid gist id' do
+
+      around { |example| VCR.use_cassette('404_gist'){ example.run } }
+
+      subject { Fabricate.build(:entry, :gist_id => 'omgfake') }
+
+      it { should have(1).error_on(:gist_id) }
+
+    end
+
+    context 'when filling in an id of a gist that does not belong to the user' do
+
+      around { |example| VCR.use_cassette('gist_with_files'){ example.run } }
+
+      subject { Fabricate.build(:entry, :gist_id => '72a0a6a9aa63d1eb64d6') }
+
+      it { should have(1).error_on(:gist_id) }
+
+    end
+
   end
 
   context '#contest' do
 
     it 'should have a contest' do
       contest = Fabricate.build(:contest)
-      Fabricate(:entry, :contest => contest).contest.should == contest
+      Fabricate.build(:entry, :contest => contest).contest.should == contest
     end
 
   end
@@ -33,7 +53,7 @@ describe Entry do
 
     it 'should have a user' do
       user = Fabricate.build(:user)
-      Fabricate(:entry, :user => user).user.should == user
+      Fabricate.build(:entry, :user => user).user.should == user
     end
 
   end
@@ -42,7 +62,7 @@ describe Entry do
 
     it 'should have a list of votes' do
       votes = [Fabricate.build(:user)]
-      Fabricate(:entry, :votes => votes).votes.should == votes
+      Fabricate.build(:entry, :votes => votes).votes.should == votes
     end
 
   end
@@ -113,8 +133,14 @@ describe Entry do
 
     context 'when having a gist_id attribute' do
       subject do
-        @entry = Fabricate(:entry, :gist_id => '72a0a6a9aa63d1eb64d6')
-        VCR.use_cassette('gist'){ @entry.files }
+        VCR.use_cassette('gist_with_files') do
+          @entry = Fabricate(
+            :entry,
+            :user => Fabricate(:user, :github_id => '43621'),
+            :gist_id => '72a0a6a9aa63d1eb64d6'
+          )
+          @entry.files
+        end
       end
 
       it 'should get the gist contents from github' do

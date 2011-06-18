@@ -16,6 +16,7 @@ Spork.prefork do
     end
 
     config.before(:all){ DatabaseCleaner.clean }
+    config.around { |example| VCR.use_cassette('existing_gist'){ example.run } }
 
     config.mock_with :mocha
   end

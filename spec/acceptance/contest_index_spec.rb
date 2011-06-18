@@ -78,7 +78,7 @@ feature 'Homepage' do
       background { login_via_github }
 
       pending 'visit my profile page' do
-        click_link 'alice'
+        click_link 'charlie'
         page.should have_content 'Alice'
       end
 

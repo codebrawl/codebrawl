@@ -1,3 +1,11 @@
+class GistValidator < ActiveModel::EachValidator
+  def validate_each(record, attribute, value)
+    response = HTTParty.get("https://api.github.com/gists/#{value}")
+    return record.errors[attribute] << "is not valid" unless response.code == 200
+    record.errors[attribute] << "is not yours" unless record.user.github_id == response['user']['id']
+  end
+end
+
 class Entry
   include Mongoid::Document
 
@@ -6,11 +14,16 @@ class Entry
   field :score, :type => Float, :default => 0.0
 
   validates :user, :gist_id, :presence => true
+  validates :gist_id, :gist => true, :unless => :errors?
 
   embedded_in :contest
   embeds_many :votes
   embeds_many :comments
   belongs_to :user
+
+  def errors?
+    errors.any?
+  end
 
   def calculate_scrore
     return 0.0 if votes.length.zero?

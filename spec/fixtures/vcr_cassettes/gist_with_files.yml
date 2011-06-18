@@ -1,0 +1,82 @@
+--- 
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :get
+    uri: https://api.github.com:443/gists/72a0a6a9aa63d1eb64d6
+    body: 
+    headers: 
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    headers: 
+      x-ratelimit-limit: 
+      - "5000"
+      content-type: 
+      - application/json
+      date: 
+      - Sat, 18 Jun 2011 09:51:47 GMT
+      server: 
+      - nginx/0.7.67
+      content-length: 
+      - "1689"
+      x-ratelimit-remaining: 
+      - "4995"
+      status: 
+      - 200 OK
+    body: "{\"description\":\"\",\"html_url\":\"https://gist.github.com/72a0a6a9aa63d1eb64d6\",\"git_push_url\":\"git@gist.github.com:72a0a6a9aa63d1eb64d6.git\",\"comments\":0,\"public\":false,\"history\":[{\"version\":\"ce2ad37193d3595d65bdd636e5906ca2afd542c3\",\"url\":\"https://api.github.com/gists/72a0a6a9aa63d1eb64d6/ce2ad37193d3595d65bdd636e5906ca2afd542c3\",\"change_status\":{\"deletions\":0,\"additions\":3,\"total\":3},\"committed_at\":\"2011-06-05T17:27:09Z\",\"user\":{\"avatar_url\":\"https://secure.gravatar.com/avatar/f03f4ce7b507aede386263d218228b6a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png\",\"url\":\"https://api.github.com/users/jeffkreeftmeijer\",\"login\":\"jeffkreeftmeijer\",\"id\":43621}}],\"forks\":[],\"url\":\"https://api.github.com/gists/72a0a6a9aa63d1eb64d6\",\"user\":{\"avatar_url\":\"https://secure.gravatar.com/avatar/f03f4ce7b507aede386263d218228b6a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png\",\"url\":\"https://api.github.com/users/jeffkreeftmeijer\",\"login\":\"jeffkreeftmeijer\",\"id\":43621},\"files\":{\"2.txt\":{\"content\":\"2\",\"raw_url\":\"https://gist.github.com/raw/72a0a6a9aa63d1eb64d6/d8263ee9860594d2806b0dfd1bfd17528b0ba2a4/2.txt\",\"size\":1,\"filename\":\"2.txt\"},\"3.txt\":{\"content\":\"3\",\"raw_url\":\"https://gist.github.com/raw/72a0a6a9aa63d1eb64d6/e440e5c842586965a7fb77deda2eca68612b1f53/3.txt\",\"size\":1,\"filename\":\"3.txt\"},\"1.txt\":{\"content\":\"1\",\"raw_url\":\"https://gist.github.com/raw/72a0a6a9aa63d1eb64d6/56a6051ca2b02b04ef92d5150c9ef600403cb1de/1.txt\",\"size\":1,\"filename\":\"1.txt\"}},\"id\":\"72a0a6a9aa63d1eb64d6\",\"updated_at\":\"2011-06-08T11:31:46Z\",\"created_at\":\"2011-06-05T17:27:09Z\",\"git_pull_url\":\"git://gist.github.com/72a0a6a9aa63d1eb64d6.git\"}"
+    http_version: "1.1"
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :get
+    uri: https://api.github.com:443/gists/72a0a6a9aa63d1eb64d6
+    body: 
+    headers: 
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    headers: 
+      x-ratelimit-limit: 
+      - "5000"
+      content-type: 
+      - application/json
+      date: 
+      - Sat, 18 Jun 2011 09:51:48 GMT
+      server: 
+      - nginx/0.7.67
+      content-length: 
+      - "1689"
+      x-ratelimit-remaining: 
+      - "4994"
+      status: 
+      - 200 OK
+    body: "{\"description\":\"\",\"comments\":0,\"public\":false,\"history\":[{\"change_status\":{\"deletions\":0,\"additions\":3,\"total\":3},\"committed_at\":\"2011-06-05T17:27:09Z\",\"version\":\"ce2ad37193d3595d65bdd636e5906ca2afd542c3\",\"url\":\"https://api.github.com/gists/72a0a6a9aa63d1eb64d6/ce2ad37193d3595d65bdd636e5906ca2afd542c3\",\"user\":{\"url\":\"https://api.github.com/users/jeffkreeftmeijer\",\"avatar_url\":\"https://secure.gravatar.com/avatar/f03f4ce7b507aede386263d218228b6a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png\",\"id\":43621,\"login\":\"jeffkreeftmeijer\"}}],\"forks\":[],\"html_url\":\"https://gist.github.com/72a0a6a9aa63d1eb64d6\",\"url\":\"https://api.github.com/gists/72a0a6a9aa63d1eb64d6\",\"git_pull_url\":\"git://gist.github.com/72a0a6a9aa63d1eb64d6.git\",\"user\":{\"url\":\"https://api.github.com/users/jeffkreeftmeijer\",\"avatar_url\":\"https://secure.gravatar.com/avatar/f03f4ce7b507aede386263d218228b6a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png\",\"id\":43621,\"login\":\"jeffkreeftmeijer\"},\"files\":{\"2.txt\":{\"content\":\"2\",\"raw_url\":\"https://gist.github.com/raw/72a0a6a9aa63d1eb64d6/d8263ee9860594d2806b0dfd1bfd17528b0ba2a4/2.txt\",\"size\":1,\"filename\":\"2.txt\"},\"3.txt\":{\"content\":\"3\",\"raw_url\":\"https://gist.github.com/raw/72a0a6a9aa63d1eb64d6/e440e5c842586965a7fb77deda2eca68612b1f53/3.txt\",\"size\":1,\"filename\":\"3.txt\"},\"1.txt\":{\"content\":\"1\",\"raw_url\":\"https://gist.github.com/raw/72a0a6a9aa63d1eb64d6/56a6051ca2b02b04ef92d5150c9ef600403cb1de/1.txt\",\"size\":1,\"filename\":\"1.txt\"}},\"git_push_url\":\"git@gist.github.com:72a0a6a9aa63d1eb64d6.git\",\"id\":\"72a0a6a9aa63d1eb64d6\",\"updated_at\":\"2011-06-08T11:31:46Z\",\"created_at\":\"2011-06-05T17:27:09Z\"}"
+    http_version: "1.1"
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :get
+    uri: https://api.github.com:443/gists/72a0a6a9aa63d1eb64d6
+    body: 
+    headers: 
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    headers: 
+      x-ratelimit-limit: 
+      - "5000"
+      content-type: 
+      - application/json
+      date: 
+      - Sat, 18 Jun 2011 09:51:50 GMT
+      server: 
+      - nginx/0.7.67
+      content-length: 
+      - "1689"
+      x-ratelimit-remaining: 
+      - "4993"
+      status: 
+      - 200 OK
+    body: "{\"git_push_url\":\"git@gist.github.com:72a0a6a9aa63d1eb64d6.git\",\"description\":\"\",\"html_url\":\"https://gist.github.com/72a0a6a9aa63d1eb64d6\",\"comments\":0,\"public\":false,\"history\":[{\"change_status\":{\"deletions\":0,\"additions\":3,\"total\":3},\"version\":\"ce2ad37193d3595d65bdd636e5906ca2afd542c3\",\"url\":\"https://api.github.com/gists/72a0a6a9aa63d1eb64d6/ce2ad37193d3595d65bdd636e5906ca2afd542c3\",\"committed_at\":\"2011-06-05T17:27:09Z\",\"user\":{\"login\":\"jeffkreeftmeijer\",\"url\":\"https://api.github.com/users/jeffkreeftmeijer\",\"id\":43621,\"avatar_url\":\"https://secure.gravatar.com/avatar/f03f4ce7b507aede386263d218228b6a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png\"}}],\"url\":\"https://api.github.com/gists/72a0a6a9aa63d1eb64d6\",\"forks\":[],\"user\":{\"login\":\"jeffkreeftmeijer\",\"url\":\"https://api.github.com/users/jeffkreeftmeijer\",\"id\":43621,\"avatar_url\":\"https://secure.gravatar.com/avatar/f03f4ce7b507aede386263d218228b6a?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png\"},\"files\":{\"2.txt\":{\"content\":\"2\",\"raw_url\":\"https://gist.github.com/raw/72a0a6a9aa63d1eb64d6/d8263ee9860594d2806b0dfd1bfd17528b0ba2a4/2.txt\",\"size\":1,\"filename\":\"2.txt\"},\"3.txt\":{\"content\":\"3\",\"raw_url\":\"https://gist.github.com/raw/72a0a6a9aa63d1eb64d6/e440e5c842586965a7fb77deda2eca68612b1f53/3.txt\",\"size\":1,\"filename\":\"3.txt\"},\"1.txt\":{\"content\":\"1\",\"raw_url\":\"https://gist.github.com/raw/72a0a6a9aa63d1eb64d6/56a6051ca2b02b04ef92d5150c9ef600403cb1de/1.txt\",\"size\":1,\"filename\":\"1.txt\"}},\"git_pull_url\":\"git://gist.github.com/72a0a6a9aa63d1eb64d6.git\",\"id\":\"72a0a6a9aa63d1eb64d6\",\"updated_at\":\"2011-06-08T11:31:46Z\",\"created_at\":\"2011-06-05T17:27:09Z\"}"
+    http_version: "1.1"

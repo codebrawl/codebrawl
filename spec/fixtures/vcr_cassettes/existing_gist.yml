@@ -1,0 +1,55 @@
+--- 
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :get
+    uri: https://api.github.com:443/gists/866948
+    body: 
+    headers: 
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    headers: 
+      x-ratelimit-limit: 
+      - "5000"
+      content-type: 
+      - application/json
+      date: 
+      - Sat, 18 Jun 2011 09:39:43 GMT
+      server: 
+      - nginx/0.7.67
+      content-length: 
+      - "3106"
+      x-ratelimit-remaining: 
+      - "4999"
+      status: 
+      - 200 OK
+    body: "{\"description\":\"\",\"html_url\":\"https://gist.github.com/866948\",\"git_push_url\":\"git@gist.github.com:866948.git\",\"comments\":0,\"public\":true,\"history\":[{\"version\":\"f872880cbe1fbc00d2f667a549fc718303ba8e47\",\"url\":\"https://api.github.com/gists/866948/f872880cbe1fbc00d2f667a549fc718303ba8e47\",\"change_status\":{\"deletions\":47,\"additions\":47,\"total\":94},\"committed_at\":\"2011-03-12T01:55:04Z\",\"user\":{\"avatar_url\":\"https://secure.gravatar.com/avatar/a9c5c1b094da12f51a66b43056493222?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png\",\"url\":\"https://api.github.com/users/charlie\",\"login\":\"charlie\",\"id\":1763}},{\"version\":\"cb28fa08d3be86fb95452083bba18e8900c61ff4\",\"url\":\"https://api.github.com/gists/866948/cb28fa08d3be86fb95452083bba18e8900c61ff4\",\"change_status\":{\"deletions\":0,\"additions\":47,\"total\":47},\"committed_at\":\"2011-03-12T01:54:50Z\",\"user\":{\"avatar_url\":\"https://secure.gravatar.com/avatar/a9c5c1b094da12f51a66b43056493222?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png\",\"url\":\"https://api.github.com/users/charlie\",\"login\":\"charlie\",\"id\":1763}}],\"forks\":[],\"url\":\"https://api.github.com/gists/866948\",\"user\":{\"avatar_url\":\"https://secure.gravatar.com/avatar/a9c5c1b094da12f51a66b43056493222?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png\",\"url\":\"https://api.github.com/users/charlie\",\"login\":\"charlie\",\"id\":1763},\"files\":{\"gistfile1.rb\":{\"content\":\"require 'rubygems'\\nrequire \\\"test/unit\\\"\\nrequire \\\"active_record\\\"\\nrequire \\\"sqlite3\\\"\\n\\nmodule Test::Unit\\n  class TestCase\\n    def setup\\n      $VERBOSE = nil\\n      ActiveRecord::Base.establish_connection(:adapter => \\\"sqlite3\\\", :database => \\\"./.test.sqlite3\\\")\\n      ActiveRecord::Base.logger = Logger.new(File.join(File.dirname(__FILE__), \\\"test.log\\\"))\\n\\n      ActiveRecord::Base.silence do\\n        ActiveRecord::Migration.verbose = false\\n        ActiveRecord::Schema.define :version => 0 do\\n          create_table \\\"users\\\", :force => true do |t|\\n            t.integer \\\"id\\\"\\n          end\\n          create_table \\\"toys\\\", :force => true do |t|\\n            t.integer \\\"id\\\"\\n            t.integer \\\"user_id\\\"\\n            t.text \\\"name\\\"\\n            t.text \\\"model\\\"\\n          end\\n        end\\n      end\\n    end\\n  end\\nend\\n\\nclass User < ActiveRecord::Base\\n  has_many :toys\\nend\\n\\nclass Toy < ActiveRecord::Base\\n  belongs_to :user\\n  attr_accessible :name, :model\\nend\\n\\nclass TheTest < Test::Unit::TestCase\\n  def test_find_or_create_by_this_and_that\\n    u = User.create\\n    software_engineer_barbie = u.toys.create(:name => \\\"Barbie\\\", :model => \\\"Software Engineer\\\")\\n    result = u.toys.find_or_create_by_name_and_model(\\\"Barbie\\\", \\\"Software Engineer\\\")\\n    assert result.id == software_engineer_barbie.id\\n  end\\nend\\n\",\"raw_url\":\"https://gist.github.com/raw/866948/c2df47e7228de05a3a2371f28c6bf804603a7ac6/gistfile1.rb\",\"size\":1280,\"filename\":\"gistfile1.rb\"}},\"id\":\"866948\",\"updated_at\":\"2011-03-12T01:55:07Z\",\"created_at\":\"2011-03-12T01:54:50Z\",\"git_pull_url\":\"git://gist.github.com/866948.git\"}"
+    http_version: "1.1"
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :get
+    uri: https://api.github.com:443/gists/866948
+    body: 
+    headers: 
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    headers: 
+      x-ratelimit-limit: 
+      - "5000"
+      content-type: 
+      - application/json
+      date: 
+      - Sat, 18 Jun 2011 09:39:44 GMT
+      server: 
+      - nginx/0.7.67
+      content-length: 
+      - "3106"
+      x-ratelimit-remaining: 
+      - "4998"
+      status: 
+      - 200 OK
+    body: "{\"description\":\"\",\"comments\":0,\"public\":true,\"history\":[{\"change_status\":{\"deletions\":47,\"additions\":47,\"total\":94},\"committed_at\":\"2011-03-12T01:55:04Z\",\"version\":\"f872880cbe1fbc00d2f667a549fc718303ba8e47\",\"url\":\"https://api.github.com/gists/866948/f872880cbe1fbc00d2f667a549fc718303ba8e47\",\"user\":{\"url\":\"https://api.github.com/users/charlie\",\"avatar_url\":\"https://secure.gravatar.com/avatar/a9c5c1b094da12f51a66b43056493222?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png\",\"id\":1763,\"login\":\"charlie\"}},{\"change_status\":{\"deletions\":0,\"additions\":47,\"total\":47},\"committed_at\":\"2011-03-12T01:54:50Z\",\"version\":\"cb28fa08d3be86fb95452083bba18e8900c61ff4\",\"url\":\"https://api.github.com/gists/866948/cb28fa08d3be86fb95452083bba18e8900c61ff4\",\"user\":{\"url\":\"https://api.github.com/users/charlie\",\"avatar_url\":\"https://secure.gravatar.com/avatar/a9c5c1b094da12f51a66b43056493222?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png\",\"id\":1763,\"login\":\"charlie\"}}],\"forks\":[],\"html_url\":\"https://gist.github.com/866948\",\"url\":\"https://api.github.com/gists/866948\",\"git_pull_url\":\"git://gist.github.com/866948.git\",\"user\":{\"url\":\"https://api.github.com/users/charlie\",\"avatar_url\":\"https://secure.gravatar.com/avatar/a9c5c1b094da12f51a66b43056493222?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png\",\"id\":1763,\"login\":\"charlie\"},\"files\":{\"gistfile1.rb\":{\"content\":\"require 'rubygems'\\nrequire \\\"test/unit\\\"\\nrequire \\\"active_record\\\"\\nrequire \\\"sqlite3\\\"\\n\\nmodule Test::Unit\\n  class TestCase\\n    def setup\\n      $VERBOSE = nil\\n      ActiveRecord::Base.establish_connection(:adapter => \\\"sqlite3\\\", :database => \\\"./.test.sqlite3\\\")\\n      ActiveRecord::Base.logger = Logger.new(File.join(File.dirname(__FILE__), \\\"test.log\\\"))\\n\\n      ActiveRecord::Base.silence do\\n        ActiveRecord::Migration.verbose = false\\n        ActiveRecord::Schema.define :version => 0 do\\n          create_table \\\"users\\\", :force => true do |t|\\n            t.integer \\\"id\\\"\\n          end\\n          create_table \\\"toys\\\", :force => true do |t|\\n            t.integer \\\"id\\\"\\n            t.integer \\\"user_id\\\"\\n            t.text \\\"name\\\"\\n            t.text \\\"model\\\"\\n          end\\n        end\\n      end\\n    end\\n  end\\nend\\n\\nclass User < ActiveRecord::Base\\n  has_many :toys\\nend\\n\\nclass Toy < ActiveRecord::Base\\n  belongs_to :user\\n  attr_accessible :name, :model\\nend\\n\\nclass TheTest < Test::Unit::TestCase\\n  def test_find_or_create_by_this_and_that\\n    u = User.create\\n    software_engineer_barbie = u.toys.create(:name => \\\"Barbie\\\", :model => \\\"Software Engineer\\\")\\n    result = u.toys.find_or_create_by_name_and_model(\\\"Barbie\\\", \\\"Software Engineer\\\")\\n    assert result.id == software_engineer_barbie.id\\n  end\\nend\\n\",\"raw_url\":\"https://gist.github.com/raw/866948/c2df47e7228de05a3a2371f28c6bf804603a7ac6/gistfile1.rb\",\"size\":1280,\"filename\":\"gistfile1.rb\"}},\"git_push_url\":\"git@gist.github.com:866948.git\",\"id\":\"866948\",\"updated_at\":\"2011-03-12T01:55:07Z\",\"created_at\":\"2011-03-12T01:54:50Z\"}"
+    http_version: "1.1"

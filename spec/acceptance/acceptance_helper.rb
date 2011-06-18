@@ -8,11 +8,11 @@ RSpec.configure do |config|
   config.before(:each) do
     OmniAuth.config.mock_auth[:github] = {
       'provider' => 'github',
-      'uid' => '12345',
+      'uid' => '1763',
       'user_info' => {
-        'nickname' => 'alice',
-        'email' => 'alice@email.com',
-        'name' => 'Alice'
+        'nickname' => 'charlie',
+        'email' => 'charlie@email.com',
+        'name' => 'Charlie'
       }
     }
   end

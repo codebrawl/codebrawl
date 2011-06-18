@@ -5,7 +5,6 @@ feature 'Entries' do
 
   background :all do
     @contest = Fabricate(:contest, :name => 'RSpec extensions', :starting_on => Date.yesterday.to_time)
-    @user = Fabricate(:user, :github_id => 12345, :login => "alice")
   end
 
   context 'on the new entry form' do
@@ -13,7 +12,7 @@ feature 'Entries' do
     background { visit "/contests/#{@contest.slug}/entries/new" }
 
     scenario 'be logged in via Github automatically' do
-      page.should have_content 'alice'
+      page.should have_content 'charlie'
       page.should have_field 'Gist id'
     end
 
@@ -30,7 +29,7 @@ feature 'Entries' do
       end
 
       scenario 'successfully add an entry' do
-        fill_in 'Gist id', :with => '12345'
+        fill_in 'Gist id', :with => '866948'
         click_button 'Submit your entry'
 
         page.should have_content 'Thank you for entering!'
@@ -42,7 +41,7 @@ feature 'Entries' do
 
   context 'on the contest page' do
     background do
-      @contest.entries << Fabricate(:entry, :user => @user, :gist_id => '12345')
+      @contest.entries << Fabricate(:entry)
       visit "/contests/#{@contest.slug}"
     end
 
@@ -56,9 +55,9 @@ feature 'Entries' do
       background { login_via_github }
 
       scenario 'see the "you entered"-message' do
-        page.should have_content 'You entered gist 12345'
-        page.should have_link 'gist 12345'
-        body.should include 'https://gist.github.com/12345'
+        page.should have_content 'You entered gist 866948'
+        page.should have_link 'gist 866948'
+        body.should include 'https://gist.github.com/866948'
       end
 
       scenario 'do not see the "enter"-button' do

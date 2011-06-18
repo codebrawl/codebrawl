@@ -16,7 +16,7 @@ end
 share_examples_for 'a contest with hidden contestant names' do
 
   scenario 'do not see the names of the contestants' do
-    page.should have_no_content 'bob'
+    within('#main') { page.should have_no_content 'charlie' }
   end
 
 end
@@ -34,22 +34,23 @@ feature 'Contests' do
   context 'on a contest page' do
 
     background :all do
-      @entry = Fabricate.build(
-        :entry,
-        :files => {
-          'README' => { 'content' => 'I wrote an RSpec formatter.'}
-        },
-        :user => Fabricate(:user, :login => 'bob'),
-        :votes => [ Fabricate(:vote, :score => 1), Fabricate(:vote, :score => 3), Fabricate(:vote, :score => 4) ]
-      )
+      VCR.use_cassette('existing_gist') do
+        @entry = Fabricate.build(
+          :entry,
+          :files => {
+            'README' => { 'content' => 'I wrote an RSpec formatter.'}
+          },
+          :votes => [ Fabricate(:vote, :score => 1), Fabricate(:vote, :score => 3), Fabricate(:vote, :score => 4) ]
+        )
 
-      @contest = Fabricate(
-        :contest,
-        :name => 'RSpec extensions',
-        :description => 'Write an [RSpec](http://relishapp.com/rspec) extension that solves a problem you are having.',
-        :starting_on => Date.yesterday.to_time,
-        :entries => [ Fabricate(:entry_with_files), @entry ]
-      )
+        @contest = Fabricate(
+          :contest,
+          :name => 'RSpec extensions',
+          :description => 'Write an [RSpec](http://relishapp.com/rspec) extension that solves a problem you are having.',
+          :starting_on => Date.yesterday.to_time,
+          :entries => [ Fabricate(:entry_with_files), @entry ]
+        )
+      end
     end
 
     background do
@@ -124,7 +125,7 @@ feature 'Contests' do
       it_should_behave_like 'a contest with visible entries'
 
       scenario 'see the names of the contestants' do
-        page.should have_content 'bob'
+        within('#main') { page.should have_content 'charlie' }
       end
 
       it_should_behave_like 'a contest closed for further entries'

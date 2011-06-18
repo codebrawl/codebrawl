@@ -5,7 +5,7 @@ feature 'Log in' do
   scenario 'log in via Github' do
     visit '/contests'
     click_link 'log in via Github'
-    page.should have_content 'alice'
+    page.should have_content 'charlie'
   end
 
   scenario 'fail to log in using invalid credentials' do
@@ -20,12 +20,12 @@ feature 'Log in' do
     background { login_via_github }
 
     scenario 'see my gravatar' do
-      body.should include 'http://gravatar.com/avatar/c3fbd1a1111b724ab3f1aa2dc3229a36.png'
+      body.should include 'http://gravatar.com/avatar/1dae832a3c5ae2702f34ed50a40010e8.png'
     end
 
     scenario 'log out' do
       click_link 'log out'
-      page.should have_no_content 'alice'
+      page.should have_no_content 'charlie'
     end
 
   end

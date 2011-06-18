@@ -1,5 +1,5 @@
 Fabricator(:entry) do
-  gist_id { (rand * 100000).to_i }
+  gist_id { '866948' }
   user
   contest
 end
