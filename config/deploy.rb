@@ -6,7 +6,7 @@ set :application, "codebrawl"
 set :repository,  "git@github.com:jeffkreeftmeijer/codebrawl.git"
 
 set :scm, :git
-set :branch, "develop"
+set :branch, "master"
 set :ssh_options, { :forward_agent => true }
 
 role :web, "204.62.15.57"
