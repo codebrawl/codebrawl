@@ -28,6 +28,17 @@ feature 'Log in' do
       page.should have_no_content 'charlie'
     end
 
+    context 'when my user gets deleted' do
+
+      background { User.delete_all }
+
+      scenario 'see the login link' do
+        visit '/contests'
+        page.should have_content 'log in via Github'
+      end
+
+    end
+
   end
 
 end
