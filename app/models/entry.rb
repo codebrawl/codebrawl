@@ -1,8 +1,19 @@
+require "net/https"
+require "uri"
+
 class GistValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
-    response = HTTParty.get("https://api.github.com/gists/#{value}")
-    return record.errors[attribute] << "is not valid" unless response.code == 200
-    record.errors[attribute] << "is not yours" unless record.user.github_id == response['user']['id']
+    uri = URI.parse("https://api.github.com/gists/#{value}")
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+    request = Net::HTTP::Get.new(uri.request_uri)
+
+    response = http.request(request)
+
+    return record.errors[attribute] << "is not valid" unless response.code == '200'
+    record.errors[attribute] << "is not yours" unless record.user.github_id == MultiJson.decode(response.body)['user']['id']
   end
 end
 
