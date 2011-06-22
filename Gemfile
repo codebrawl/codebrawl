@@ -23,7 +23,7 @@ gem 'gravtastic'
 
 gem 'gust', :path => 'vendor/gems/gust'
 
-gem 'newrelic_rpm'
+gem 'rpm_contrib'
 gem 'hoptoad_notifier'
 
 group :test do
