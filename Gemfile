@@ -20,7 +20,6 @@ gem 'mongoid_slug', :require => 'mongoid/slug'
 gem 'omniauth'
 
 gem 'gravtastic'
-gem 'httparty'
 
 gem 'gust', :path => 'vendor/gems/gust'
 

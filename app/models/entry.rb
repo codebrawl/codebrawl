@@ -1,19 +1,11 @@
-require "net/https"
-require "uri"
+require "#{Rails.root}/lib/gist"
 
 class GistValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
-    uri = URI.parse("https://api.github.com/gists/#{value}")
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    gist = Gist.fetch(value)
 
-    request = Net::HTTP::Get.new(uri.request_uri)
-
-    response = http.request(request)
-
-    return record.errors[attribute] << "is not valid" unless response.code == '200'
-    record.errors[attribute] << "is not yours" unless record.user.github_id == MultiJson.decode(response.body)['user']['id']
+    return record.errors[attribute] << "is not valid" unless gist.code == 200
+    record.errors[attribute] << "is not yours" unless record.user.github_id == gist['user']['id']
   end
 end
 
@@ -48,7 +40,7 @@ class Entry
 
   def get_files_from_gist
     return {} unless gist_id
-    HTTParty.get("https://api.github.com/gists/#{gist_id}")['files']
+    Gist.fetch(gist_id)['files']
   end
 
   def files
