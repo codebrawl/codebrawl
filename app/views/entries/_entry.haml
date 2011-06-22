@@ -1,7 +1,7 @@
 %li{ :id => dom_id(entry), :class => entry.contest.closed? ? [%w{gold silver bronze}[entry_counter], 'entry'].join(' ') : 'entry'  }
   - if entry.contest.closed? || @voted_entries.include?(entry)
     .owner
-      = image_tag entry.user.gravatar_url(:size => 20), :class => 'gravatar'
+      = image_tag entry.user.gravatar_url(:size => 20, :default => avatar_url), :class => 'gravatar'
       = entry.user.login
 
   - entry.files.each do |name, file|

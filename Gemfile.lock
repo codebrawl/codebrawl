@@ -189,6 +189,8 @@ GEM
     rake (0.9.2)
     rest-client (1.6.1)
       mime-types (>= 1.16)
+    rpm_contrib (1.0.13)
+      newrelic_rpm (>= 2.13.1)
     rspec (2.6.0)
       rspec-core (~> 2.6.0)
       rspec-expectations (~> 2.6.0)
@@ -264,9 +266,9 @@ DEPENDENCIES
   mocha
   mongoid (~> 2.0)
   mongoid_slug
-  newrelic_rpm
   omniauth
   rails (= 3.1.0.rc1)
+  rpm_contrib
   rspec-rails
   sass
   spork (~> 0.9.0.rc)
