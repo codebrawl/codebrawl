@@ -89,14 +89,13 @@ feature 'Contests' do
         page.should have_no_content 'README'
       end
 
-      it_should_behave_like 'a contest with hidden contestant names'
-
       scenario 'be able to enter' do
         page.should have_link 'Enter'
       end
 
-      scenario 'see the contestant box' do
+      scenario 'see the contestants list' do
         within'#main' do
+          page.should have_content 'charlie'
           body.should include 'http://gravatar.com/avatar/1dae832a3c5ae2702f34ed50a40010e8.png'
         end
       end

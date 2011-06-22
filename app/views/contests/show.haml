@@ -6,7 +6,10 @@
 
   %h3 Contestants
   - @contest.entries.map(&:user).each do |contestant|
-    = image_tag(contestant.gravatar_url, :class => 'gravatar contestant', :alt => contestant.login, :title => contestant.login)
+    %ul.contestants
+      %li
+        = image_tag(contestant.gravatar_url(:default => avatar_url), :class => 'gravatar', :alt => contestant.login, :title => contestant.login)
+        = link_to contestant.login, "https://github.com/#{contestant.login}"
 
 - unless @contest.open?
 
