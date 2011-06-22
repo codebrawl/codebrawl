@@ -29,14 +29,6 @@ share_examples_for 'a contest closed for further entries' do
 
 end
 
-share_examples_for 'a contest without a contestants box' do
-
-  scenario 'do not see the contestant box' do
-    page.should have_no_content 'Contestants'
-  end
-
-end
-
 feature 'Contests' do
 
   context 'on a contest page' do
@@ -80,6 +72,8 @@ feature 'Contests' do
       background do
         visit "/contests/#{@contest.slug}"
       end
+      
+      it_should_behave_like 'a contest with hidden contestant names'
 
       scenario 'do not see the entry files' do
         page.should have_no_content 'I wrote an RSpec formatter.'
@@ -92,12 +86,9 @@ feature 'Contests' do
       scenario 'be able to enter' do
         page.should have_link 'Enter'
       end
-
-      scenario 'see the contestants list' do
-        within'#main' do
-          page.should have_content 'charlie'
-          body.should include 'http://gravatar.com/avatar/1dae832a3c5ae2702f34ed50a40010e8.png'
-        end
+      
+      scenario 'show the entry count' do
+        page.should have_content '2 entries'
       end
 
       context 'on a contest page that has no entries' do
@@ -106,10 +97,30 @@ feature 'Contests' do
           contest = Fabricate(:contest, :starting_on => Date.yesterday.to_time)
           visit "/contests/#{contest.slug}"
         end
-
-        it_should_behave_like 'a contest without a contestants box'
+        
+        scenario 'do not show the entry count' do
+          page.should have_no_content '0 entries'
+        end
 
       end
+      
+      context 'on a contest page that has only one entry' do
+
+        background do
+          contest = Fabricate(
+            :contest,
+            :starting_on => Date.yesterday.to_time,
+            :entries => [Fabricate(:entry)]
+          )
+          visit "/contests/#{contest.slug}"
+        end
+        
+        scenario 'show the entry count' do
+          page.should have_content '1 entry'
+        end
+
+      end
+      
 
     end
 
@@ -128,8 +139,6 @@ feature 'Contests' do
       it_should_behave_like 'a contest with hidden contestant names'
 
       it_should_behave_like 'a contest closed for further entries'
-
-      it_should_behave_like 'a contest without a contestants box'
 
       scenario 'see the voting controls' do
         (1..5).to_a.each { |i| page.should have_field i.to_s }
@@ -155,8 +164,6 @@ feature 'Contests' do
       end
 
       it_should_behave_like 'a contest closed for further entries'
-
-      it_should_behave_like 'a contest without a contestants box'
 
       scenario 'do not see the voting controls' do
         (1..5).to_a.each { |i| page.should have_no_field i.to_s }
