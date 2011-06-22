@@ -100,6 +100,18 @@ feature 'Contests' do
           body.should include 'http://gravatar.com/avatar/1dae832a3c5ae2702f34ed50a40010e8.png'
         end
       end
+
+      context 'on a contest page that has no entries' do
+
+        background do
+          contest = Fabricate(:contest, :starting_on => Date.yesterday.to_time)
+          visit "/contests/#{contest.slug}"
+        end
+
+        it_should_behave_like 'a contest without a contestants box'
+
+      end
+
     end
 
     context 'when the contest is open for voting' do
