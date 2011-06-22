@@ -4,12 +4,9 @@
 
 - if @contest.open? && @contest.entries.any?
 
-  %h3 Contestants
-  - @contest.entries.map(&:user).each do |contestant|
-    %ul.contestants
-      %li
-        = image_tag(contestant.gravatar_url(:default => avatar_url), :class => 'gravatar', :alt => contestant.login, :title => contestant.login)
-        = link_to contestant.login, "https://github.com/#{contestant.login}"
+  %h3= "This contest has #{@contest.entries.length} #{@contest.entries.length > 1 ? 'entries' : 'entry'} already"
+  %p The entries will become visible when the voting period begins. Until that, you can still submit yours!
+
 
 - unless @contest.open?
 
