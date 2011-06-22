@@ -30,7 +30,7 @@ feature 'Users' do
   end
 
   scenario 'see the user gravatar' do
-    body.should include 'http://gravatar.com/avatar/1dae832a3c5ae2702f34ed50a40010e8.png?r=PG&amp;s=220'
+    body.should include 'http://gravatar.com/avatar/1dae832a3c5ae2702f34ed50a40010e8.png'
   end
 
   scenario 'see the list of entered contests' do
