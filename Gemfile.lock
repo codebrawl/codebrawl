@@ -117,6 +117,7 @@ GEM
     multi_xml (0.2.2)
     multipart-post (1.1.2)
     net-ldap (0.2.2)
+    newrelic_rpm (2.14.1)
     nokogiri (1.4.4)
     oa-basic (0.2.6)
       oa-core (= 0.2.6)
@@ -263,6 +264,7 @@ DEPENDENCIES
   mocha
   mongoid (~> 2.0)
   mongoid_slug
+  newrelic_rpm
   omniauth
   rails (= 3.1.0.rc1)
   rspec-rails
