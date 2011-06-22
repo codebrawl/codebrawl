@@ -2,7 +2,13 @@
 
 = raw Kramdown::Document.new(@contest.description).to_html
 
-- unless @contest.open?
+- if @contest.open?
+
+  %h3 Contestants
+  - @contest.entries.map(&:user).each do |contestant|
+    = image_tag(contestant.gravatar_url, :class => 'gravatar contestant', :alt => contestant.login, :title => contestant.login)
+
+- else
 
   %h3 Entries
 

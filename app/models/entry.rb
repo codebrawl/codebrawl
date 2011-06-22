@@ -1,3 +1,5 @@
+require "#{Rails.root}/lib/gist"
+
 class GistValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     gist = Gist.fetch(value)

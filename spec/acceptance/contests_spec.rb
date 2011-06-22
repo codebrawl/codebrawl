@@ -29,6 +29,14 @@ share_examples_for 'a contest closed for further entries' do
 
 end
 
+share_examples_for 'a contest without a contestants box' do
+
+  scenario 'do not see the contestant box' do
+    page.should have_no_content 'Contestants'
+  end
+
+end
+
 feature 'Contests' do
 
   context 'on a contest page' do
@@ -87,6 +95,11 @@ feature 'Contests' do
         page.should have_link 'Enter'
       end
 
+      scenario 'see the contestant box' do
+        within'#main' do
+          body.should include 'http://gravatar.com/avatar/1dae832a3c5ae2702f34ed50a40010e8.png'
+        end
+      end
     end
 
     context 'when the contest is open for voting' do
@@ -104,6 +117,8 @@ feature 'Contests' do
       it_should_behave_like 'a contest with hidden contestant names'
 
       it_should_behave_like 'a contest closed for further entries'
+
+      it_should_behave_like 'a contest without a contestants box'
 
       scenario 'see the voting controls' do
         (1..5).to_a.each { |i| page.should have_field i.to_s }
@@ -129,6 +144,8 @@ feature 'Contests' do
       end
 
       it_should_behave_like 'a contest closed for further entries'
+
+      it_should_behave_like 'a contest without a contestants box'
 
       scenario 'do not see the voting controls' do
         (1..5).to_a.each { |i| page.should have_no_field i.to_s }
