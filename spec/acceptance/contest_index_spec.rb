@@ -1,6 +1,12 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Homepage' do
+  
+  scenario 'be redirected to the homepage when accessing /contests' do
+    # TODO: Move this one to a controller spec
+    visit '/contests'
+    URI.parse(current_url).path.should == '/'
+  end
 
   context "on the homepage" do
 
@@ -31,7 +37,7 @@ feature 'Homepage' do
       )
     end
 
-    before { visit '/contests' }
+    before { visit '/' }
 
     scenario 'see the Codebrawl header' do
       page.should have_content 'Codebrawl'
