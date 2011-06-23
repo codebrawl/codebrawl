@@ -19,11 +19,8 @@
         #menu
           %span
             - if current_user
-              = image_tag current_user.gravatar_url(:size => 20, :default => avatar_url), :class => 'gravatar'
-              //= link_to current_user.login, user_path(current_user.login)
-              = current_user.login
-              :erb
-                (<%= link_to('log out', [:session], :method => :delete)%>)
+              = link_to_profile(current_user)
+              = "(#{link_to('log out', [:session], :method => :delete)})".html_safe
             - else
               = link_to('log in via Github', '/auth/github')
 

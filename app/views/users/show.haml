@@ -2,6 +2,8 @@
 
 = image_tag @user.gravatar_url(:size => 220, :default => avatar_url)
 
-%ul
-  - @contests.reject{ |contest| contest.open? }.each do |contest|
-    %li= contest.name
+- if @contests.any?
+  %h3 Contests
+  %ul
+    - @contests.each do |contest|
+      %li= link_to contest.name, contest
