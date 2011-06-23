@@ -2,7 +2,9 @@
 %html
   %head
     %meta{:name => 'viewport', :content => 'width=385', 'maximum-scale' => '1.0' }
-    %title Codebrawl
+    %title
+      = yield(:title).empty? ? 'Codebrawl' : "#{yield(:title)} - Codebrawl"
+
     = stylesheet_link_tag    "application"
     = javascript_include_tag "application"
     = csrf_meta_tags

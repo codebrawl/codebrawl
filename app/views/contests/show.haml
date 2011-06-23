@@ -1,3 +1,5 @@
+- content_for(:title){ @contest.name }
+
 %h2= @contest.name
 
 = raw Kramdown::Document.new(@contest.description).to_html
