@@ -2,7 +2,10 @@
 %html
   %head
     %meta{:name => 'viewport', :content => 'width=385', 'maximum-scale' => '1.0' }
-    %title Codebrawl
+    %title= "#{yield(:title)} #{yield(:title).present? ? ' - ' : ''} Codebrawl"
+    -if yield(:description).present?
+      %meta{:name => 'description', :content => yield(:description) }
+
     = stylesheet_link_tag    "application"
     = javascript_include_tag "application"
     = csrf_meta_tags
@@ -12,7 +15,7 @@
     #wrapper
 
       #header
-        %h1= link_to 'Codebrawl', contests_path
+        %h1= link_to 'Codebrawl', root_path
         %code if ( ready? && set? ) { fight! };
 
       #container

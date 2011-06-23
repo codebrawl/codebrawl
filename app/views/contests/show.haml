@@ -1,14 +1,32 @@
+- content_for(:title){ @contest.name }
+- content_for(:description){ @contest.tagline }
+
 %h2= @contest.name
 
 = raw Kramdown::Document.new(@contest.description).to_html
 
-- if @contest.open? && @contest.entries.any?
+- if @contest.open?
 
-  %h3= "This contest has #{@contest.entries.length} #{@contest.entries.length > 1 ? 'entries' : 'entry'} already"
-  %p The entries will become visible when the voting period begins. Until that, you can still submit yours!
+  #entry
 
+    - if @contest.entries.any?
 
-- unless @contest.open?
+      %h3= "This contest has #{@contest.entries.length} #{@contest.entries.length > 1 ? 'entries' : 'entry'} already"
+      %p The entries will become visible when the voting period begins.
+
+    - if @entry
+
+      %h3
+        :erb
+          You entered <%= link_to "gist #{@entry.gist_id}", "https://gist.github.com/#{@entry.gist_id}" %>
+      %p
+        :erb
+          You can keep updating your gist, we'll take a snapshot of it when the voting period begins. If you want, you can always <%= link_to "delete your entry", [@contest, @entry], :method => :delete %>.
+
+  - if @entry.nil?
+    = link_to 'Enter', [:new, @contest, :entry], :class => 'button'
+
+- else
 
   %h3 Entries
 
@@ -18,16 +36,4 @@
       = render :partial => "entries/entry", :collection => @contest.entries.order_by([:score, :desc]), :locals => { :f => f }
 
     = f.submit 'Submit your votes' if logged_in? && @contest.voting? && @voted_entries != @contest.entries
-
-- if @contest.open?
-  - if @entry
-    #entry
-      %h3
-        :erb
-          You entered <%= link_to "gist #{@entry.gist_id}", "https://gist.github.com/#{@entry.gist_id}" %>
-      %p
-        :erb
-          You can keep updating your gist, we'll take a snapshot of it when the voting period begins. If you want, you can always <%= link_to "delete your entry", [@contest, @entry], :method => :delete %>.
-  - else
-    = link_to 'Enter', [:new, @contest, :entry], :class => 'button'
 

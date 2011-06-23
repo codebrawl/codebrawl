@@ -1,6 +1,7 @@
 class ContestsController < ApplicationController
 
   def index
+    redirect_to root_path unless request.path == root_path
     @contests = Contest.all.order_by([:starting_on, :desc]).reject do |contest|
       contest.state == 'pending'
     end
