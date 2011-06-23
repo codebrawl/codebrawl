@@ -12,7 +12,7 @@ RSpec.configure do |config|
       'user_info' => {
         'nickname' => 'charlie',
         'email' => 'charlie@email.com',
-        'name' => 'Charlie'
+        'name' => 'Charlie Chaplin'
       }
     }
   end
