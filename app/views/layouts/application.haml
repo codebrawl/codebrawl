@@ -2,8 +2,9 @@
 %html
   %head
     %meta{:name => 'viewport', :content => 'width=385', 'maximum-scale' => '1.0' }
-    %title
-      = yield(:title).empty? ? 'Codebrawl' : "#{yield(:title)} - Codebrawl"
+    %title= "#{yield(:title)} #{yield(:title).present? ? ' - ' : ''} Codebrawl"
+    -if yield(:description).present?
+      %meta{:name => 'description', :content => yield(:description) }
 
     = stylesheet_link_tag    "application"
     = javascript_include_tag "application"
