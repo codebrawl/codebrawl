@@ -19,7 +19,6 @@
       %p
         :erb
           You can keep updating your gist, we'll take a snapshot of it when the voting period begins. If you want, you can always <%= link_to "delete your entry", [@contest, @entry], :method => :delete %>.
-    - else
 
   - if @entry.nil?
     = link_to 'Enter', [:new, @contest, :entry], :class => 'button'
