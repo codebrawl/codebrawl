@@ -3,14 +3,14 @@ require 'acceptance/acceptance_helper'
 feature 'Log in' do
 
   scenario 'log in via Github' do
-    visit '/contests'
+    visit '/'
     click_link 'log in via Github'
     page.should have_content 'charlie'
   end
 
   scenario 'fail to log in using invalid credentials' do
     OmniAuth.config.mock_auth[:github] = :invalid_credentials
-    visit '/contests'
+    visit '/'
     click_link 'log in via Github'
     page.should have_content 'Something went wrong while trying to log you in.'
   end
@@ -33,7 +33,7 @@ feature 'Log in' do
       background { User.delete_all }
 
       scenario 'see the login link' do
-        visit '/contests'
+        visit '/'
         page.should have_content 'log in via Github'
       end
 
