@@ -31,6 +31,29 @@ end
 
 feature 'Contests' do
 
+  context 'on the new contest page' do
+
+    background do
+      login_via_github
+      visit "/contests/new"
+    end
+
+    scenario 'create a new contest' do
+      fill_in 'Name', :with => 'Synchtube'
+      fill_in 'Tagline', :with => 'Lets watch youtube together :)'
+      fill_in 'Description', :with => 'Create a tool to watch youtube video synchronously with others'
+      fill_in 'Starting Date', :with => 'June 23 2011'
+      click_button 'Submit your contest'
+      
+      log_out
+      visit "/"
+      
+      page.should have_content('Synchtube')
+      click_link 'Synchtube'
+      page.should have_content('Create a tool to watch youtube video synchronously with others')
+    end
+  end
+
   context 'on a contest page' do
 
     background :all do

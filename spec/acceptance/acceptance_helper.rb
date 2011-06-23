@@ -22,4 +22,8 @@ def login_via_github
   visit '/auth/github/'
 end
 
+def log_out
+  delete '/session'
+end
+
 class NotRandomError < StandardError; end
