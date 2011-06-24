@@ -9,6 +9,6 @@
   - if @contests.any?
     %h3 Contests
     %ul
-      - @contests.each do |contest|
+      - @contests.all.each do |contest|
         %li= link_to contest.name, contest
   %hr
