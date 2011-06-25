@@ -1,6 +1,18 @@
 %h2 Submit your contest idea
 
 = form_tag '/submissions' do
+  :textile
+    To suggest a contest idea, just fill in the form below. If you need an idea of what we're looking for, check out the "previous contests":/. Here are some guidelines:
+
+    * Your problem shouldn't take more than about an hour to solve
+    * Ideally, your challenge is to solve an actual problem, or improve an existing solution
+    * Keep your problem open-ended. Don't ask for a @Hash#subset@ method, ask for an improvement for @Hash@, to allow some creativity
+    * It's okay to ask for improvements to your open source project, that's what Codebrawl is for
+    * The solution should fit in a Gist with only a couple of files, so don't ask for complete Rails applications
+    * It should be fun!
+
+    If you're not sure your contest fits these guidelines, please submit it anyway. Remember, they're guidelines.
+
   = text_area_tag :idea
 
-  = submit_tag 'Submit'
+  = submit_tag 'Submit your idea'
