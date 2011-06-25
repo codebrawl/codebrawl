@@ -17,6 +17,8 @@ describe Contest do
       it { should have(1).error_on(:description) }
 
       it { should have(1).error_on(:starting_on) }
+      
+      it { should have(1).error_on(:user) }
 
     end
 
@@ -81,6 +83,15 @@ describe Contest do
     it 'should have a list of entries' do
       entries = [Fabricate.build(:entry)]
       Fabricate(:contest, :entries => entries).entries.should == entries
+    end
+
+  end
+  
+  context '#user' do
+
+    it 'should have a user' do
+      user = Fabricate.build(:user)
+      Fabricate.build(:contest, :user => user).user.should == user
     end
 
   end

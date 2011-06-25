@@ -48,7 +48,8 @@ feature 'Contests' do
           :name => 'RSpec extensions',
           :description => 'Write an [RSpec](http://relishapp.com/rspec) extension that solves a problem you are having.',
           :starting_on => Date.yesterday.to_time,
-          :entries => [ Fabricate(:entry_with_files), @entry ]
+          :entries => [ Fabricate(:entry_with_files), @entry ],
+          :user => Fabricate(:user, :login => 'bob')
         )
       end
     end
@@ -57,7 +58,13 @@ feature 'Contests' do
       visit "/contests/#{@contest.slug}"
       login_via_github
     end
-
+    
+    scenario 'see the contest submitter' do
+      page.should have_content 'Submitted by bob'
+      page.should have_link 'bob'
+      body.should include 'href="/users/bob"'
+    end
+    
     scenario 'read the markdown contest description' do
       body.should include 'Write an <a href="http://relishapp.com/rspec">RSpec</a> extension that solves a problem you are having.'
     end
