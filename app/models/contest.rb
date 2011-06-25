@@ -12,11 +12,12 @@ class Contest
 
   slug :name
 
-  validates :name, :description, :starting_on, :presence => true
+  validates :user, :name, :description, :starting_on, :presence => true
 
   before_create :set_voting_and_closing_dates
 
   embeds_many :entries
+  belongs_to :user
 
   def set_voting_and_closing_dates
     self.voting_on = starting_on + 1.week if self.voting_on.blank?
