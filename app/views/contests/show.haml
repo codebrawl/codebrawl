@@ -2,6 +2,9 @@
 - content_for(:description){ @contest.tagline }
 
 %h2= @contest.name
+%span#submitter
+  Submitted by
+  =link_to @contest.user.login, @contest.user
 
 = raw Kramdown::Document.new(@contest.description).to_html
 
