@@ -229,20 +229,29 @@ strong
   font-weight: 900
 
 #footer
-  margin: 10px 5px
-  font-size: 10px
-  color: #eee
+  color: #666
+  padding: 0 10px 0 5px
 
-  span
-    padding-left: 5px
-    color: #666
+  .left
+    width: 50%
+    float: left
 
-  a
-    background-image: url(<%= asset_path '6sync.png' %>)
-    text-indent: -9999px
-    height: 28px
-    width: 73px
-    display: block
+    span
+      font-size: 10px
+      padding-left: 5px
+
+    a
+      background-image: url(<%= asset_path '6sync.png' %>)
+      text-indent: -9999px
+      height: 28px
+      width: 73px
+      display: block
+
+  .right
+    width: 50%
+    float: right
+    text-align: right
+    padding-top: 5px
 
 span#submitter
   font-size: 12px
