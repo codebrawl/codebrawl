@@ -6,7 +6,7 @@ feature 'Submissions' do
   scenario 'successfully submit a submission' do
     VCR.use_cassette(:wufoo) do
       fill_in 'idea', :with => 'Building an RSpec formatter'
-      click_button 'Submit'
+      click_button 'Submit your idea'
     end
     
     page.should have_content 'Thanks for your submission! We\'ll check it out and let you know if we decide to use it.'
