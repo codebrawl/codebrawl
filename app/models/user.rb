@@ -10,4 +10,6 @@ class User
   validates :login, :presence => true
 
   has_gravatar
+
+  alias_method :to_param, :login
 end

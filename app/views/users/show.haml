@@ -1,7 +1,14 @@
 %h2= @user.name
 
-= image_tag @user.gravatar_url(:size => 220, :default => avatar_url)
+#profile
 
-%ul
-  - @contests.reject{ |contest| contest.open? }.each do |contest|
-    %li= contest.name
+  = image_tag @user.gravatar_url(:size => 140, :default => avatar_url)
+
+  = link_to("#{@user.login} on Github", "https://github.com/#{@user.login}")
+
+  - if @contests.any?
+    %h3 Contests
+    %ul
+      - @contests.all.each do |contest|
+        %li= link_to contest.name, contest
+  %hr

@@ -4,4 +4,10 @@ module ApplicationHelper
     "http://#{request.domain}#{request.local? ? ":#{request.port}" : ''}#{asset_path('avatar.png')}"
   end
 
+  def link_to_profile(user)
+    link_text = image_tag(user.gravatar_url(:size => 20, :default => avatar_url), :class => 'gravatar')
+    link_text << " " << user.login
+    link_to link_text, user_path(user)
+  end
+
 end
