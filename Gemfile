@@ -21,6 +21,7 @@ gem 'omniauth'
 
 gem 'gravtastic'
 
+gem 'wufoo'
 gem 'gust', :path => 'vendor/gems/gust'
 
 gem 'rpm_contrib'

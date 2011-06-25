@@ -1,0 +1,4 @@
+wufoo:
+  url: 'http://codebrawl.wufoo.com'
+  api_key: '8LIS-8G83-GDCD-TVY6'
+  form: 'contest-submission'
