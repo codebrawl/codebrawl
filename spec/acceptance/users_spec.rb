@@ -32,6 +32,11 @@ feature 'Users' do
   scenario 'see the user gravatar' do
     body.should include 'http://gravatar.com/avatar/1dae832a3c5ae2702f34ed50a40010e8.png'
   end
+  
+  scenario 'see the link to the users github profile' do
+    page.should have_link 'charlie on Github'
+    body.should include 'https://github.com/charlie'
+  end
 
   scenario 'see the list of entered contests' do
     page.should have_content 'RSpec extensions'

@@ -18,4 +18,10 @@ describe User do
 
   end
 
+  describe "#to_param" do
+    it "should use the login field" do
+      User.new(:login => 'pete').to_param.should eql('pete')
+    end
+  end
+
 end
