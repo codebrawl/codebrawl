@@ -1,0 +1,35 @@
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :post
+    uri: http://codebrawl.wufoo.com:80/api/insert/?1=charlie&103=Building%20an%20RSpec%20formatter&w_form=contest-submission&w_api_key=8LIS-8G83-GDCD-TVY6
+    body: 1=charlie&103=Building%20an%20RSpec%20formatter&w_form=contest-submission&w_api_key=8LIS-8G83-GDCD-TVY6
+    headers: !!null 
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Sat, 25 Jun 2011 13:42:47 GMT
+      server:
+      - Apache
+      x-powered-by:
+      - PHP/5.2.16
+      set-cookie:
+      - PHPSESSID=qpv7igrbff9frcbiua3mjidd11; path=/; domain=.wufoo.com
+      expires:
+      - Thu, 19 Nov 1981 08:52:00 GMT
+      cache-control:
+      - no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+      pragma:
+      - no-cache
+      vary:
+      - Accept-Encoding
+      content-length:
+      - '154'
+      content-type:
+      - text/xml
+    body: ! '{"wufoo_submit":[{"success":"true", "entry_id":"4", "redirect_url":"",
+      "confirmation_message":"Success! Thanks for filling out my form!", "merchant":""}]}'
+    http_version: '1.1'

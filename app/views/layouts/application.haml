@@ -34,8 +34,13 @@
           = yield
 
       #footer
-        %span hosted by
-        %a{:href => 'http://6sync.com'} 6Sync
+        .left
+          %span
+            hosted by
+            =link_to '6sync', 'http://6sync.com'
+        .right
+          =link_to 'Submit a contest idea', [:new, :submission]
+        %hr
 
       :javascript
         var woo_settings = {idle_timeout:'300000', domain:'codebrawl.com'};
