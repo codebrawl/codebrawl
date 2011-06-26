@@ -55,15 +55,15 @@ class Contest
   end
 
   def starting_at
-    starting_on.to_time.utc + 16.hours
+    starting_on.to_time.utc + 14.hours
   end
 
   def voting_at
-    voting_on.to_time.utc + 16.hours
+    voting_on.to_time.utc + 14.hours
   end
 
   def closing_at
-    closing_on.to_time.utc + 16.hours
+    closing_on.to_time.utc + 14.hours
   end
 
   def next_state_at
