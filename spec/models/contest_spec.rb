@@ -8,6 +8,24 @@ describe Contest do
 
   end
 
+  context '.not_open' do
+    
+    before do
+      @open = Fabricate(:contest, :starting_on => Date.yesterday.to_time)
+      @voting = Fabricate(:contest, :voting_on => Date.yesterday.to_time)
+      @closed = Fabricate(:contest, :closing_on => Date.yesterday.to_time)
+    end
+    
+    subject { Contest.not_open }
+    
+    it { should include @closed }
+    
+    it { should include @voting }
+    
+    it { should_not include @open }
+    
+  end
+
   context '#save!' do
 
     context 'when keeping all fields empty' do
