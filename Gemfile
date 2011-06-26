@@ -22,7 +22,7 @@ gem 'omniauth'
 gem 'gravtastic'
 
 gem 'wufoo'
-gem 'gust', :path => 'vendor/gems/gust'
+gem 'gust'
 
 gem 'rpm_contrib'
 gem 'hoptoad_notifier'

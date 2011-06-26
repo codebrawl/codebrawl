@@ -19,6 +19,10 @@ class Contest
   embeds_many :entries
   belongs_to :user
 
+  def self.not_open
+    Contest.all.reject { |contest| contest.open? }
+  end
+
   def set_voting_and_closing_dates
     self.voting_on = starting_on + 1.week if self.voting_on.blank?
     self.closing_on = voting_on + 1.week if self.closing_on.blank?
