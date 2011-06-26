@@ -3,7 +3,7 @@ require "rvm/capistrano"
 require 'bundler/capistrano'
 
 set :application, "codebrawl"
-set :repository,  "git@github.com:jeffkreeftmeijer/codebrawl.git"
+set :repository,  "git@github.com:codebrawl/codebrawl.git"
 
 set :scm, :git
 set :branch, "master"
