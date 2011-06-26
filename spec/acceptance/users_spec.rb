@@ -4,14 +4,14 @@ feature 'Users' do
   background(:all) do
     # TODO: stub `Contest#state` instead of setting the voting and closing
     # dates.
-    
+
     user = Fabricate(:user)
-    
+
     VCR.use_cassette('existing_gist') do
       Fabricate(
         :contest,
         :name => 'RSpec extensions',
-        :voting_on => Date.yesterday.to_time,
+        :closing_on => Date.yesterday.to_time,
         :entries => [ Fabricate.build(:entry, :user => user) ]
       )
 
@@ -19,6 +19,13 @@ feature 'Users' do
         :contest,
         :name => 'Fun with ChunkyPNG',
         :starting_on => Date.yesterday.to_time,
+        :entries => [ Fabricate.build(:entry, :user => user) ]
+      )
+
+      Fabricate(
+        :contest,
+        :name => 'Terminal Twitter clients',
+        :voting_on => Date.yesterday.to_time,
         :entries => [ Fabricate.build(:entry, :user => user) ]
       )
 
@@ -50,8 +57,9 @@ feature 'Users' do
     page.should have_content 'RSpec extensions'
   end
 
-  scenario 'do not see contests that are still open' do
+  scenario 'do not see any entered contests that are still open' do
     page.should have_no_content 'Fun with ChunkyPNG'
+    page.should have_no_content 'Terminal Twitter clients'
   end
 
   scenario 'see the list of submitted contests' do
