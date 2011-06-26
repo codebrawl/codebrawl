@@ -6,9 +6,15 @@
 
   = link_to("#{@user.login} on Github", "https://github.com/#{@user.login}")
 
-  - if @contests.any?
-    %h3 Contests
+  - if @entered_contests.any?
+    %h3 Entered contests
     %ul
-      - @contests.all.each do |contest|
+      - @entered_contests.all.each do |contest|
+        %li= link_to contest.name, contest
+
+  - if @submitted_contests.any?
+    %h3 Submitted contests
+    %ul
+      - @submitted_contests.all.each do |contest|
         %li= link_to contest.name, contest
   %hr
