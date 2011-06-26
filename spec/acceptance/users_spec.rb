@@ -4,26 +4,29 @@ feature 'Users' do
   background(:all) do
     # TODO: stub `Contest#state` instead of setting the voting and closing
     # dates.
+    
+    user = Fabricate(:user)
+    
     VCR.use_cassette('existing_gist') do
       Fabricate(
         :contest,
         :name => 'RSpec extensions',
         :voting_on => Date.yesterday.to_time,
-        :entries => [ Fabricate.build(:entry) ]
+        :entries => [ Fabricate.build(:entry, :user => user) ]
       )
 
       Fabricate(
         :contest,
         :name => 'Fun with ChunkyPNG',
         :starting_on => Date.yesterday.to_time,
-        :entries => [ Fabricate.build(:entry) ]
+        :entries => [ Fabricate.build(:entry, :user => user) ]
       )
 
       Fabricate(
         :contest,
         :name => 'Ruby metaprogramming',
         :starting_on => Date.yesterday.to_time,
-        :user => User.where(:login => 'charlie').first
+        :user => user
       )
     end
 

@@ -9,7 +9,7 @@
   - if @entered_contests.any?
     %h3 Entered contests
     %ul
-      - @entered_contests.all.each do |contest|
+      - @entered_contests.all.reject {|contest| contest.state == 'open'}.each do |contest|
         %li= link_to contest.name, contest
 
   - if @submitted_contests.any?
