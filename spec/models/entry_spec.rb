@@ -134,12 +134,16 @@ describe Entry do
     context 'when having a gist_id attribute' do
       subject do
         VCR.use_cassette('gist_with_files') do
-          @entry = Fabricate(
-            :entry,
-            :user => Fabricate(:user, :github_id => '43621'),
-            :gist_id => '72a0a6a9aa63d1eb64d6'
+          @contest = Fabricate(:contest, :entries => [
+              Fabricate.build(
+                :entry,
+                :user => Fabricate(:user, :github_id => '43621'),
+                :gist_id => '72a0a6a9aa63d1eb64d6'
+              )
+            ]
           )
-          @entry.files
+
+          @contest.entries.first.files
         end
       end
 
@@ -166,7 +170,7 @@ describe Entry do
         }
       end
 
-      it { should == @entry.read_attribute(:files) }
+      it { should == @contest.reload.entries.first.read_attribute(:files) }
     end
 
   end
