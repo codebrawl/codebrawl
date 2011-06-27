@@ -6,7 +6,8 @@
   - entry.files.each do |name, file|
     .filename
       = name
-    = raw Gust.parse(file['content'], :filename => name)
+    - cache "#{entry.id}_#{name}" do
+      = raw Gust.parse(file['content'], :filename => name)
 
   - if entry.contest.voting? && logged_in?
     - if vote = entry.votes.select { |vote| vote.user_id == current_user.id }.first
