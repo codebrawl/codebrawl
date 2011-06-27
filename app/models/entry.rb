@@ -48,7 +48,11 @@ class Entry
   end
 
   def files
-    write_attribute(:files, get_files_from_gist) if read_attribute(:files).empty?
+    if read_attribute(:files).empty?
+      write_attribute(:files, get_files_from_gist)
+      save
+      contest.save
+    end
     result = {}
     read_attribute(:files).each { |filename, file| result[filename.gsub('*', '.')] = file }
     result
