@@ -40,12 +40,18 @@ class Entry
 
   def get_files_from_gist
     return {} unless gist_id
-    Gist.fetch(gist_id)['files']
+    response = Gist.fetch(gist_id)['files']
+    result = {}
+    response.each { |filename, file| result[filename.gsub('.', '*')] = file }
+    result
+
   end
 
   def files
     write_attribute(:files, get_files_from_gist) if read_attribute(:files).empty?
-    read_attribute(:files)
+    result = {}
+    read_attribute(:files).each { |filename, file| result[filename.gsub('*', '.')] = file }
+    result
   end
 
 end
