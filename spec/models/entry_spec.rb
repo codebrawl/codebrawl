@@ -170,7 +170,14 @@ describe Entry do
         }
       end
 
-      it { should == @contest.reload.entries.first.read_attribute(:files) }
+      it 'should persist the files hash' do
+        should == Hash[
+          @contest.reload.entries.first.read_attribute(:files).map do |k, v|
+            [k.gsub('*', '.'), v]
+          end
+        ]
+      end
+
     end
 
   end
