@@ -143,6 +143,10 @@ form
       background-repeat: no-repeat
       background-position: top right
 
+      a.extend
+        &:hover
+          cursor: pointer
+
     .gold
       background-image: url(<%= asset_path 'gold.png' %>)
 
@@ -222,12 +226,36 @@ form ul
   border-top-left-radius: 2px
   border-top-right-radius: 2px
 
-.highlight, .markup
-  overflow: auto
+.files
+  height: 120px
+  overflow: hidden
+  margin-bottom: 10px
+  position: relative
+
+  div
+    height: auto
+
+  a
+    bottom: 0px
+    padding: 20px 0 10px 10px
+    height: 20px
+    position: absolute
+    width: 100%
+    background-image: url(<%= asset_path 'gradient.png' %>)
+
+    span
+      display: none
+
+  &:hover a span
+    display: block
+
+.highlight, .markup, .image
+  overflow-x: auto
+  overflow-y: hidden
   padding: 10px
-  margin: 0 0 10px 0
   border-bottom-left-radius: 2px
   border-bottom-right-radius: 2px
+  height: 100px
 
 hr
   visibility: hidden
