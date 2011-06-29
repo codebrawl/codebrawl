@@ -21,7 +21,7 @@ share_examples_for 'a contest with hidden contestant names' do
 
 end
 
-share_examples_for 'a contest closed for further entries' do
+share_examples_for 'a finished contest' do
 
   scenario 'do not see the entry button' do
     page.should have_no_link 'Enter'
@@ -162,7 +162,7 @@ feature 'Contests' do
 
       it_should_behave_like 'a contest with hidden contestant names'
 
-      it_should_behave_like 'a contest closed for further entries'
+      it_should_behave_like 'a finished contest'
 
       scenario 'see the voting controls' do
         (1..5).to_a.each { |i| page.should have_field i.to_s }
@@ -171,7 +171,7 @@ feature 'Contests' do
 
     end
 
-    context 'when the contest is closed' do
+    context 'when the contest is finished' do
 
       background do
         # TODO: stub `Contest#state` instead of overwriting the voting and
@@ -187,7 +187,7 @@ feature 'Contests' do
         within('#main') { page.should have_content 'charlie' }
       end
 
-      it_should_behave_like 'a contest closed for further entries'
+      it_should_behave_like 'a finished contest'
 
       scenario 'do not see the voting controls' do
         (1..5).to_a.each { |i| page.should have_no_field i.to_s }

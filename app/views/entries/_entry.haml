@@ -1,5 +1,5 @@
-%li{ :id => dom_id(entry), :class => entry.contest.closed? ? [%w{gold silver bronze}[entry_counter], 'entry'].join(' ') : 'entry'  }
-  - if entry.contest.closed? || @voted_entries.include?(entry)
+%li{ :id => dom_id(entry), :class => entry.contest.finished? ? [%w{gold silver bronze}[entry_counter], 'entry'].join(' ') : 'entry'  }
+  - if entry.contest.finished? || @voted_entries.include?(entry)
     .owner
       = link_to_profile(entry.user)
 
@@ -28,6 +28,6 @@
           = entry_f.label "score_#{score}", score
           = entry_f.radio_button :score, score
 
-  - if entry.contest.closed?
+  - if entry.contest.finished?
     :erb
       Finished in <strong><%= (entry_counter + 1).ordinalize %> place</strong> with a final score of <strong><%= sprintf("%.1f", entry.score) %>/5</strong>.
