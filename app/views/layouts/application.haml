@@ -5,7 +5,6 @@
     %title= "#{yield(:title)} #{yield(:title).present? ? ' - ' : ''} Codebrawl"
     -if yield(:description).present?
       %meta{:name => 'description', :content => yield(:description) }
-
     = stylesheet_link_tag    "application"
     = javascript_include_tag "application"
     = csrf_meta_tags

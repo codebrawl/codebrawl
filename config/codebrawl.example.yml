@@ -2,3 +2,5 @@ wufoo:
   url: 'http://subdomain.wufoo.com'
   api_key: '1111-1111-1111-1111'
   form: 'my-form'
+hoptoad:
+  key: hoptoad_api_key
