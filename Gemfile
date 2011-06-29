@@ -3,7 +3,6 @@ source 'http://rubygems.org'
 gem 'rails', '3.1.0.rc4' # :git => 'git://github.com/rails/rails.git'
 
 gem 'thin'
-gem 'rake'
 
 gem 'json'
 gem 'haml'
