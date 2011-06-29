@@ -5,7 +5,7 @@ atom_feed do |feed|
   @contests.each do |contest|
     feed.entry(contest) do |entry|
       entry.title(contest.name)
-      entry.content(contest.description, :type => 'html')
+      entry.content(Kramdown::Document.new(contest.description).to_html, :type => 'html')
       entry.author do |author|
         author.name(contest.user.name)
       end

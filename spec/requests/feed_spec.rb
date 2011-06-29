@@ -4,7 +4,7 @@ describe 'Feed' do
   
   context 'when having a single contest' do
     before do
-      Fabricate(:contest, :name => 'RSpec formatters', :description => 'Write your own RSpec formatter...')
+      Fabricate(:contest, :name => 'RSpec formatters', :description => 'Write your own _RSpec_ formatter.')
       Fabricate(:contest)
       get 'contests.atom'
       @contests = Hash.from_xml(response.body)['feed']['entry']
@@ -18,8 +18,8 @@ describe 'Feed' do
       @contests.first['title'].should == 'RSpec formatters'
     end
     
-    it 'should have the contest description' do
-      @contests.first['content'].should == 'Write your own RSpec formatter...'
+    it 'should have the contest description, parsed with markdown' do
+      @contests.first['content'].should == "<p>Write your own <em>RSpec</em> formatter.</p>\n"
     end
     
     it 'should have the author' do
