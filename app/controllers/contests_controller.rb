@@ -1,21 +1,25 @@
 class ContestsController < ApplicationController
+  before_filter :require_login, :only => [:new, :create, :edit, :update]
+  before_filter :build_contest, :only => [:new, :create]
+  before_filter :find_contest_from_user, :only => [:edit, :update]
 
   def create
-    @contest = Contest.new(params[:contest])
     if @contest.save
       redirect_to @contest
     end
   end
 
-  def new
-    @contest = Contest.new
+  def update
+    if @contest.update_attributes(params[:contest])
+      redirect_to @contest
+    else
+      edit
+    end
   end
 
   def index
     redirect_to root_path unless request.path == root_path
-    @contests = Contest.all.order_by([:starting_on, :desc]).reject do |contest|
-      contest.state == 'pending'
-    end
+    @contests = Contest.all.order_by([:starting_on, :desc]).reject(&:pending?)
   end
 
   def show
@@ -24,9 +28,18 @@ class ContestsController < ApplicationController
       @voted_entries = @contest.entries.select do |entry|
         entry.votes.map(&:user_id).include? current_user.id
       end
-      @entry = @contest.entries.select{ |entry| entry.user == current_user }.first
+      @entry = @contest.entries.detect{ |entry| current_user.created?(entry) }
     end
     @voted_entries ||= []
   end
 
+  private
+
+    def build_contest
+      @contest = current_user.contests.build(params[:contest])
+    end
+
+    def find_contest_from_user
+      head :unauthorized unless @contest = current_user.contests.find_by_slug(params[:id])
+    end
 end

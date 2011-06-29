@@ -6,10 +6,15 @@ class User
   field 'email', :type => String
   field 'name', :type => String
   field 'github_id', :type => Integer
+  has_many :contests
 
   validates :login, :presence => true
 
   has_gravatar
 
   alias_method :to_param, :login
+
+  def created?(object)
+    object.respond_to?(:user) && object.user == self
+  end
 end

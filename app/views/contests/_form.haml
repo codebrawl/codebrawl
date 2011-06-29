@@ -1,19 +1,16 @@
-= form_for @contest do |f|
-  = f.label :name, 'Name'
-  = f.text_field :name
+%ul.contests
+  %li
+    = form_for @contest do |f|
+      = f.label :name, 'Name'
+      = f.text_field :name
 
-  = f.label :description, 'Description'
-  = f.text_area :description
+      = f.label :description, 'Description'
+      = f.text_area :description
 
-  = f.label :tagline, 'Tagline'
-  = f.text_field :tagline
+      = f.label :tagline, 'Tagline'
+      = f.text_field :tagline
 
-  = f.label :starting_on, 'Starting Date'
-  = f.text_field :starting_on
+      = f.label :starting_on, 'Starting Date'
+      = f.text_field :starting_on
 
-  = f.submit 'Submit your contest'
-
-:javascript
-  $(function(){
-    
-  });
+      = f.submit 'Submit your contest'

@@ -80,6 +80,7 @@ feature 'Homepage' do
     end
 
     scenario 'visit the submissions page' do
+      login_via_github
       click_link 'Submit a contest idea'
       page.should have_content 'Submit your contest idea'
       page.should have_content 'charlie'

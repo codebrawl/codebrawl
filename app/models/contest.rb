@@ -9,6 +9,7 @@ class Contest
   field :starting_on, :type => Date
   field :voting_on, :type => Date
   field :closing_on, :type => Date
+  belongs_to :user
 
   slug :name
 

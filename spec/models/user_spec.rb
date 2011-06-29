@@ -24,4 +24,18 @@ describe User do
     end
   end
 
+  describe "#created?" do
+    it "should tell if the object belongs to this user" do
+      user = Fabricate(:user)
+      contest = user.contests.create
+      user.created?(contest).should be_true
+    end
+
+    it "should be false if the object does not belong to this user" do
+      user = Fabricate(:user)
+      other = Fabricate(:user)
+      contest = user.contests.create
+      other.created?(contest).should be_false
+    end
+  end
 end

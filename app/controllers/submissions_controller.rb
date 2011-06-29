@@ -1,9 +1,7 @@
 require 'wufoo'
 
 class SubmissionsController < ApplicationController
-  def new
-    redirect_to "/auth/github?origin=#{request.env['PATH_INFO']}" unless logged_in?
-  end
+  before_filter :require_login
 
   def create
     if Submission.create(:user => current_user, :idea => params['idea'])

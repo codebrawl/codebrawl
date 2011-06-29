@@ -9,6 +9,7 @@ body, input
 
 h2,h3
   font-weight: 900
+  margin: 10px 0
 
 h2
   font-size: 24px
@@ -156,10 +157,10 @@ form
     .bronze
       background-image: url(<%= asset_path 'bronze.png' %>)
 
-#contests, #entries
+.contests:last, #entries
   margin-bottom: -20px
 
-#contests li, #entry
+.contests li, #entry
   padding: 20px 10px
 
 .contestants
@@ -168,12 +169,12 @@ form
 #entries li.entry, .contestants li
   padding: 10px
 
-#contests li, #entries li.entry, #entry
+.contests li, #entries li.entry, #entry
   background-color: #ddd
   border-radius: 2px
   box-shadow: 0 -1px 0 #ccc, 0 1px 0 #fff
 
-#contests li, #entries li.entry
+.contests li, #entries li.entry
   margin-bottom: 20px
 
   .description

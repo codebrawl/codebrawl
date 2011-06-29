@@ -12,4 +12,8 @@ class ApplicationController < ActionController::Base
     end
 
     helper_method :current_user, :logged_in?
+
+    def require_login
+      redirect_to "/auth/github?origin=#{request.path}" unless logged_in?
+    end
 end

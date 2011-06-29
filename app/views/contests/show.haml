@@ -1,7 +1,11 @@
 - content_for(:title){ @contest.name }
 - content_for(:description){ @contest.tagline }
 
-%h2= @contest.name
+%h2
+  = @contest.name
+  - if logged_in? && current_user.created?(@contest)
+    = link_to 'edit', edit_contest_path(@contest)
+
 %span#submitter
   Submitted by
   =link_to @contest.user.login, @contest.user

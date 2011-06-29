@@ -31,7 +31,7 @@ end
 
 feature 'Contests' do
 
-  context 'on the new contest page' do
+  context 'on the new contest page' do 
 
     background do
       login_via_github
@@ -54,6 +54,43 @@ feature 'Contests' do
     end
   end
 
+  context 'on a contest page created by a user' do
+    background do
+      @user = Fabricate(:user, :login => 'sven')
+      @contest = Fabricate(
+        :contest,
+        :name => 'Write an alternate command line client for travis-ci.org',
+        :description => 'Foobar',
+        :user => @user
+      )
+    end
+
+    scenario 'the creator may edit his contest' do
+      login_via_github @user
+      visit "/contests/#{@contest.to_param}"
+      click_link "edit"
+      fill_in "Description", :with => 'Preconditions, the client may have a small feature set but must fully integrate in the command line.'
+      click_button 'Submit your contest'
+      page.should have_content 'Preconditions, the client may have a small feature set but must fully integrate in the command line.'
+    end
+
+    scenario 'visitors are not able to edit the users contest' do
+      log_out
+      visit "/contests/#{@contest.to_param}"
+      page.should_not have_content 'edit'
+      visit "/contests/#{@contest.to_param}/edit"
+      response.should_not be_success
+    end
+
+    scenario 'others users are not able to edit the users contest' do
+      login_via_github Fabricate(:user, :github_id => '1998', :login => 'Pete')
+      visit "/contests/#{@contest.to_param}"
+      page.should_not have_content 'edit'
+      visit "/contests/#{@contest.to_param}/edit"
+      response.should_not be_success
+    end
+  end
+
   context 'on a contest page' do
 
     background :all do
@@ -72,7 +109,7 @@ feature 'Contests' do
           :description => 'Write an [RSpec](http://relishapp.com/rspec) extension that solves a problem you are having.',
           :starting_on => Date.yesterday.to_time,
           :entries => [ Fabricate(:entry_with_files), @entry ],
-          :user => Fabricate(:user, :login => 'bob')
+          :user => Fabricate(:user, :login => 'bob', :github_id => '1998')
         )
       end
     end
@@ -81,7 +118,7 @@ feature 'Contests' do
       visit "/contests/#{@contest.slug}"
       login_via_github
     end
-    
+
     scenario 'see the contest submitter' do
       page.should have_content 'Submitted by bob'
       page.should have_link 'bob'
