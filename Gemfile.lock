@@ -275,7 +275,6 @@ DEPENDENCIES
   mongoid_slug
   omniauth
   rails (= 3.1.0.rc4)
-  rake
   rpm_contrib
   rspec-rails
   sass
