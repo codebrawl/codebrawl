@@ -20,7 +20,7 @@ function get_gist_comments(gist_id, element){
           '<img class="gravatar" src="http://gravatar.com/avatar/' + val.gravatar_id + '.png?r=PG&s=20"/> ' +
           val.user + converter.makeHtml(val.body) +
           '</div>'
-        )
+        );
       });
 
     }
@@ -28,7 +28,14 @@ function get_gist_comments(gist_id, element){
 }
 
 $(document).ready(function(){
+
   $('.comments').each(function(){
-    get_gist_comments($(this).data('gist_id'), $(this))
-  })
-})
+    get_gist_comments($(this).data('gist_id'), $(this));
+  });
+
+  $('a.extend').click(function(){
+    $(this).parent().css('height', 'auto');
+    $(this).remove();
+  });
+
+});

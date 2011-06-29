@@ -3,11 +3,16 @@
     .owner
       = link_to_profile(entry.user)
 
-  - entry.files.each do |name, file|
-    .filename
-      = name
-    - cache "#{entry.id}_#{name}" do
-      = raw Gust.parse(file['content'], :filename => name, :url => file['raw_url'])
+  .files
+    - entry.files.each do |name, file|
+      .filename
+        = name
+      - cache "#{entry.id}_#{name}" do
+        = raw Gust.parse(file['content'], :filename => name, :url => file['raw_url'])
+
+    %a{:class=>"extend"}
+      %span
+        View full entry
 
   - if entry.contest.voting? && logged_in?
     - if vote = entry.votes.select { |vote| vote.user_id == current_user.id }.first
