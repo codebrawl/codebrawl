@@ -5,7 +5,7 @@
     %title= "#{yield(:title)} #{yield(:title).present? ? ' - ' : ''} Codebrawl"
     -if yield(:description).present?
       %meta{:name => 'description', :content => yield(:description) }
-    = auto_discovery_link_tag(:atom, contests_path(:atom))
+    = auto_discovery_link_tag(:atom, 'http://feeds.feedburner.com/codebrawl')
     = stylesheet_link_tag    "application"
     = javascript_include_tag "application"
     = csrf_meta_tags
