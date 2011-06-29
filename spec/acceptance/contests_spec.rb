@@ -128,6 +128,23 @@ feature 'Contests' do
 
       end
       
+      context 'on a contest page that has thirty entries' do
+
+        background do
+          contest = Fabricate(
+            :contest,
+            :starting_on => Date.yesterday.to_time,
+            :entries => [Fabricate(:entry)] * 30
+          )
+          visit "/contests/#{contest.slug}"
+        end
+        
+        scenario 'show the "maximum entries"-message' do
+          page.should have_content 'This contest has 30 entries, which is the maximum'
+        end
+
+      end
+      
 
     end
 

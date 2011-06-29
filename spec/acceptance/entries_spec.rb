@@ -2,11 +2,17 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Entries' do
-
+  
   background :all do
-    @contest = Fabricate(:contest, :name => 'RSpec extensions', :starting_on => Date.yesterday.to_time)
+    @user = Fabricate(:user)
+    @contest = Fabricate(
+      :contest,
+      :name => 'RSpec extensions',
+      :starting_on => Date.yesterday.to_time,
+      :user => @user
+    )
   end
-
+  
   context 'on the new entry form' do
 
     background { visit "/contests/#{@contest.slug}/entries/new" }
@@ -18,7 +24,7 @@ feature 'Entries' do
 
     context 'when logged in' do
 
-      background do
+      background :all do
         login_via_github
         visit "/contests/#{@contest.slug}/entries/new"
       end
@@ -40,8 +46,14 @@ feature 'Entries' do
   end
 
   context 'on the contest page' do
-    background do
-      @contest.entries << Fabricate(:entry)
+    background(:all) do
+      VCR.use_cassette('existing_gist') do
+        @contest.entries << Fabricate(
+          :entry,
+          :user => @user
+        )
+      end
+      
       visit "/contests/#{@contest.slug}"
     end
 
@@ -51,8 +63,11 @@ feature 'Entries' do
     end
 
     context 'when logged in' do
-
-      background { login_via_github }
+      
+      background(:all) do
+        login_via_github
+        visit "/contests/#{@contest.slug}"
+      end
 
       scenario 'see the "you entered"-message' do
         page.should have_content 'You entered gist 866948'
