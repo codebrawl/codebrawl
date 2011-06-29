@@ -1,6 +1,6 @@
 class ContestsController < ApplicationController
   def index
-    redirect_to root_path unless [ root_path, "/contests.atom" ].include? request.path
+    return redirect_to root_path if request.path == '/contests'
 
     @contests = Contest.all.order_by([:starting_on, :desc]).reject do |contest|
       contest.state == 'pending'
