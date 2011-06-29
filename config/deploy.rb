@@ -3,7 +3,7 @@ require "rvm/capistrano"
 require 'bundler/capistrano'
 
 set :application, "codebrawl"
-set :repository,  "git@github.com:jeffkreeftmeijer/codebrawl.git"
+set :repository,  "git@github.com:codebrawl/codebrawl.git"
 
 set :scm, :git
 set :branch, "master"
@@ -18,7 +18,8 @@ set :rvm_ruby_string, 'ruby-1.9.2'
 
 default_run_options[:pty] = true
 
-before :"deploy:symlink", :"deploy:assets";
+before 'deploy:symlink', 'deploy:assets';
+after 'deploy:update_code', 'deploy:symlink_settings'
 
 namespace :deploy do
   task :start, :roles => :app do
@@ -38,4 +39,10 @@ namespace :deploy do
   task :assets do
     run "cd #{release_path}; RAILS_ENV=production bundle exec rake assets:precompile"
   end
+
+  desc 'Symlink the settings file'
+  task :symlink_settings, :roles => :app do
+    run "ln -s #{shared_path}/codebrawl.yml #{current_release}/config/codebrawl.yml"
+  end
+
 end

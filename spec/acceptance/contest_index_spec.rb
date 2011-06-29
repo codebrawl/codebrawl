@@ -2,6 +2,12 @@ require 'acceptance/acceptance_helper'
 
 feature 'Homepage' do
 
+  scenario 'be redirected to the homepage when accessing /contests' do
+    # TODO: Move this one to a controller spec
+    visit '/contests'
+    URI.parse(current_url).path.should == '/'
+  end
+
   context "on the homepage" do
 
     background :all do
@@ -31,7 +37,7 @@ feature 'Homepage' do
       )
     end
 
-    before { visit '/contests' }
+    before { visit '/' }
 
     scenario 'see the Codebrawl header' do
       page.should have_content 'Codebrawl'
@@ -71,6 +77,12 @@ feature 'Homepage' do
       within "li#contest_#{@closed.id}" do
         page.should have_content 'Closed'
       end
+    end
+
+    scenario 'visit the submissions page' do
+      click_link 'Submit a contest idea'
+      page.should have_content 'Submit your contest idea'
+      page.should have_content 'charlie'
     end
 
     context 'after logging in' do

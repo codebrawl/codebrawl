@@ -2,7 +2,10 @@
 %html
   %head
     %meta{:name => 'viewport', :content => 'width=385', 'maximum-scale' => '1.0' }
-    %title Codebrawl
+    %title= "#{yield(:title)} #{yield(:title).present? ? ' - ' : ''} Codebrawl"
+    -if yield(:description).present?
+      %meta{:name => 'description', :content => yield(:description) }
+
     = stylesheet_link_tag    "application"
     = javascript_include_tag "application"
     = csrf_meta_tags
@@ -12,17 +15,15 @@
     #wrapper
 
       #header
-        %h1= link_to 'Codebrawl', contests_path
+        %h1= link_to 'Codebrawl', root_path
         %code if ( ready? && set? ) { fight! };
 
       #container
         #menu
           %span
             - if current_user
-              = image_tag current_user.gravatar_url(:size => 20, :default => avatar_url), :class => 'gravatar'
-              = link_to current_user.login, user_path(current_user.login)
-              :erb
-                (<%= link_to('log out', [:session], :method => :delete)%>)
+              = link_to_profile(current_user)
+              = "(#{link_to('log out', [:session], :method => :delete)})".html_safe
             - else
               = link_to('log in via Github', '/auth/github')
 
@@ -33,8 +34,15 @@
           = yield
 
       #footer
-        %span hosted by
-        %a{:href => 'http://6sync.com'} 6Sync
+        .left
+          %span
+            hosted by
+            =link_to '6sync', 'http://6sync.com'
+        .right
+          =link_to 'Fork me on Github', 'https://github.com/codebrawl/codebrawl'
+          &bull;
+          =link_to 'Submit a contest idea', [:new, :submission]
+        %hr
 
       :javascript
         var woo_settings = {idle_timeout:'300000', domain:'codebrawl.com'};

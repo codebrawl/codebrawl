@@ -12,11 +12,16 @@ class Contest
 
   slug :name
 
-  validates :name, :description, :starting_on, :presence => true
+  validates :user, :name, :description, :starting_on, :presence => true
 
   before_create :set_voting_and_closing_dates
 
   embeds_many :entries
+  belongs_to :user
+
+  def self.not_open
+    Contest.all.reject { |contest| contest.open? }
+  end
 
   def set_voting_and_closing_dates
     self.voting_on = starting_on + 1.week if self.voting_on.blank?
@@ -50,15 +55,15 @@ class Contest
   end
 
   def starting_at
-    starting_on.to_time.utc + 16.hours
+    starting_on.to_time.utc + 14.hours
   end
 
   def voting_at
-    voting_on.to_time.utc + 16.hours
+    voting_on.to_time.utc + 14.hours
   end
 
   def closing_at
-    closing_on.to_time.utc + 16.hours
+    closing_on.to_time.utc + 14.hours
   end
 
   def next_state_at

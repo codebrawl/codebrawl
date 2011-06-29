@@ -2,6 +2,7 @@ body
   background-color: #222
   font-size: 14px
   color: #222
+  line-height: 150%
 
 body, input
   font-family: Arial
@@ -50,6 +51,20 @@ img.gravatar
   border: 1px solid #ddd
   vertical-align: middle
 
+#profile
+  margin-top: 10px
+
+  img
+    width: 220px
+    margin: 0 20px 20px 0
+    float: left
+
+    @media screen and (max-width: 460px)
+      width: 100%
+
+  h3
+    margin: 10px 0
+
 p
   margin: 10px 0
 
@@ -94,7 +109,7 @@ form
     background-position: center
     background-repeat: no-repeat
 
-  @media screen and (max-width: 480px)
+  @media screen and (max-width: 460px)
     font-size: 10px
 
     h1 a
@@ -106,7 +121,7 @@ form
 
 #wrapper
   margin: auto
-  max-width: 760px
+  max-width: 680px
 
 #container
   background-color: #eee
@@ -186,6 +201,13 @@ form
     .next_state
       font-size: 10px
 
+#contest_description img
+  float: left
+  margin: 10px 10px 10px 0
+
+  @media screen and (max-width: 460px)
+    width: 100%
+
 form ul
   margin-bottom: 0
 
@@ -215,20 +237,42 @@ strong
   font-weight: 900
 
 #footer
-  margin: 10px 5px
-  font-size: 10px
-  color: #eee
-
-  span
-    padding-left: 5px
-    color: #666
+  color: #666
+  padding: 0 10px 0 5px
 
   a
-    background-image: url(<%= asset_path '6sync.png' %>)
-    text-indent: -9999px
-    height: 28px
-    width: 73px
-    display: block
+    color: #eee
+
+  .left
+    width: 50%
+    float: left
+
+    span
+      font-size: 10px
+      padding-left: 5px
+
+    a
+      background-image: url(<%= asset_path '6sync.png' %>)
+      text-indent: -9999px
+      height: 28px
+      width: 73px
+      display: block
+
+  .right
+    width: 50%
+    float: right
+    text-align: right
+    padding-top: 5px
+
+span#submitter
+  font-size: 12px
+  color: #666
 
 em
   font-style: italic
+
+form#submissions ul
+  list-style: disc inside none
+
+  li
+    margin: 10px

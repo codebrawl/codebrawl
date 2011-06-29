@@ -1,6 +1,12 @@
-%h2= @contest.name
+- content_for(:title){ @contest.name }
+- content_for(:description){ @contest.tagline }
 
-= raw Kramdown::Document.new(@contest.description).to_html
+%h2= @contest.name
+%span#submitter
+  Submitted by
+  =link_to @contest.user.login, @contest.user
+
+#contest_description= raw Kramdown::Document.new(@contest.description).to_html
 
 - if @contest.open?
 
@@ -8,8 +14,16 @@
 
     - if @contest.entries.any?
 
-      %h3= "This contest has #{@contest.entries.length} #{@contest.entries.length > 1 ? 'entries' : 'entry'} already"
-      %p The entries will become visible when the voting period begins.
+      - if @contest.entries.count >= 30
+        %h3= "This contest has 30 entries, which is the maximum"
+        %p
+          :textile
+            Sorry, but you can't enter this contest anymore. If you want, you can help us out by "suggesting a next contest":/submissions/new. The entries for this one will become visible when the voting period begins.
+
+      - else
+
+        %h3= "This contest has #{@contest.entries.length} #{@contest.entries.length > 1 ? 'entries' : 'entry'} already"
+        %p The entries will become visible when the voting period begins.
 
     - if @entry
 
@@ -20,8 +34,10 @@
         :erb
           You can keep updating your gist, we'll take a snapshot of it when the voting period begins. If you want, you can always <%= link_to "delete your entry", [@contest, @entry], :method => :delete %>.
 
-  - if @entry.nil?
-    = link_to 'Enter', [:new, @contest, :entry], :class => 'button'
+
+
+    - if @entry.nil? && @contest.entries.count < 30
+      = link_to 'Enter', [:new, @contest, :entry], :class => 'button'
 
 - else
 

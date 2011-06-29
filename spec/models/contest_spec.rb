@@ -8,6 +8,24 @@ describe Contest do
 
   end
 
+  context '.not_open' do
+    
+    before do
+      @open = Fabricate(:contest, :starting_on => Date.yesterday.to_time)
+      @voting = Fabricate(:contest, :voting_on => Date.yesterday.to_time)
+      @closed = Fabricate(:contest, :closing_on => Date.yesterday.to_time)
+    end
+    
+    subject { Contest.not_open }
+    
+    it { should include @closed }
+    
+    it { should include @voting }
+    
+    it { should_not include @open }
+    
+  end
+
   context '#save!' do
 
     context 'when keeping all fields empty' do
@@ -17,6 +35,8 @@ describe Contest do
       it { should have(1).error_on(:description) }
 
       it { should have(1).error_on(:starting_on) }
+      
+      it { should have(1).error_on(:user) }
 
     end
 
@@ -81,6 +101,15 @@ describe Contest do
     it 'should have a list of entries' do
       entries = [Fabricate.build(:entry)]
       Fabricate(:contest, :entries => entries).entries.should == entries
+    end
+
+  end
+  
+  context '#user' do
+
+    it 'should have a user' do
+      user = Fabricate.build(:user)
+      Fabricate.build(:contest, :user => user).user.should == user
     end
 
   end
