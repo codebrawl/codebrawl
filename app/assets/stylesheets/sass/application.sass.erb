@@ -124,9 +124,10 @@ form
   max-width: 680px
 
 #container
-  background-image: url(<%= asset_path 'gradient.png' %>), url(<%= asset_path 'lukas.jpg' %>)
-  background-position: left 150px, left top
+  background-image: url(<%= asset_path 'gradient.png' %>), url(<%= asset_path 'steven.jpg' %>)
+  background-position: left 170px, right top
   background-repeat: repeat-x, no-repeat
+  background-size: auto 30px, auto auto
 
   background-color: #eee
   padding: 20px
@@ -140,13 +141,25 @@ form
 
     span
       float: right
+      height: 20px
+      text-shadow: 0 1px 5px #000
+      color: #eee
 
       a
         color: #eee
-        text-shadow: 0 1px 5px #000
 
         &:hover
           text-shadow: 0 1px 5px #880000
+
+    span#who
+      width: 100%
+      visibility: hidden
+      padding-top: 100px
+      text-align: right
+      font-size: 10px
+
+    &:hover span#who
+      visibility: visible
 
   #main
     clear: both
