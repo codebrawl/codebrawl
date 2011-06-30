@@ -23,7 +23,7 @@ feature 'Homepage' do
         :tagline => 'Image manipulation! Woo!',
         :voting_on => Date.yesterday.to_time
       )
-      @closed = Fabricate(
+      @finished = Fabricate(
         :contest,
         :name => 'Improving Ruby',
         :tagline => 'Everything you ever wanted',
@@ -74,8 +74,8 @@ feature 'Homepage' do
         page.should have_content 'Voting'
       end
 
-      within "li#contest_#{@closed.id}" do
-        page.should have_content 'Closed'
+      within "li#contest_#{@finished.id}" do
+        page.should have_content 'Finished'
       end
     end
 

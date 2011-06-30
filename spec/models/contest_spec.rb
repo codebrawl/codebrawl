@@ -8,6 +8,24 @@ describe Contest do
 
   end
 
+  context '.not_open' do
+    
+    before do
+      @open = Fabricate(:contest, :starting_on => Date.yesterday.to_time)
+      @voting = Fabricate(:contest, :voting_on => Date.yesterday.to_time)
+      @finished = Fabricate(:contest, :closing_on => Date.yesterday.to_time)
+    end
+    
+    subject { Contest.not_open }
+    
+    it { should include @finished }
+    
+    it { should include @voting }
+    
+    it { should_not include @open }
+    
+  end
+
   context '#save!' do
 
     context 'when keeping all fields empty' do
@@ -68,7 +86,7 @@ describe Contest do
 
         around { |example| Timecop.travel(Time.parse('June 6 2011 17:00 UTC')) { example.run } }
 
-        it { should be_closed }
+        it { should be_finished }
 
       end
 
@@ -169,26 +187,26 @@ describe Contest do
 
   end
 
-  context '#closed?' do
+  context '#finished?' do
 
     before { @contest = Fabricate(:contest) }
 
-    context 'when the contest is closed' do
+    context 'when the contest is finished' do
 
       subject do
-        @contest.stubs(:state).returns('closed')
-        @contest.closed?
+        @contest.stubs(:state).returns('finished')
+        @contest.finished?
       end
 
       it { should be_true }
 
     end
 
-    context 'when the contest is not closed' do
+    context 'when the contest is not finished' do
 
       subject do
-        @contest.stubs(:state).returns('notclosed')
-        @contest.closed?
+        @contest.stubs(:state).returns('notfinished')
+        @contest.finished?
       end
 
       it { should be_false }
@@ -250,8 +268,8 @@ describe Contest do
       it { should == @contest.closing_at }
     end
 
-    context 'when the contest is closed' do
-      before { @contest.stubs(:state).returns('closed') }
+    context 'when the contest is finished' do
+      before { @contest.stubs(:state).returns('finished') }
       subject { @contest.next_state_at }
 
       it { should be_nil }

@@ -31,7 +31,7 @@ class Contest
 
   def state
     case
-    when Time.now.utc >= closing_at then 'closed'
+    when Time.now.utc >= closing_at then 'finished'
     when Time.now.utc >= voting_at then 'voting'
     when Time.now.utc >= starting_at then 'open'
     else
@@ -51,8 +51,8 @@ class Contest
     state == 'voting'
   end
 
-  def closed?
-    state == 'closed'
+  def finished?
+    state == 'finished'
   end
 
   def starting_at
