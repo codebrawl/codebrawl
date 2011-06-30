@@ -124,6 +124,10 @@ form
   max-width: 680px
 
 #container
+  background-image: url(<%= asset_path 'gradient.png' %>), url(<%= asset_path 'lukas.jpg' %>)
+  background-position: left 150px, left top
+  background-repeat: repeat-x, no-repeat
+
   background-color: #eee
   padding: 20px
   margin: 0 10px 10px 10px
@@ -131,9 +135,18 @@ form
   border-radius: 2px
   box-shadow: 0 0px 5px #000
 
-  #menu span
-    float: right
-    margin-bottom: 20px
+  #menu
+    height: 150px
+
+    span
+      float: right
+
+      a
+        color: #eee
+        text-shadow: 0 1px 5px #000
+
+        &:hover
+          text-shadow: 0 1px 5px #880000
 
   #main
     clear: both
