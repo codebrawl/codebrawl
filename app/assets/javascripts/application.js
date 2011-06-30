@@ -29,6 +29,10 @@ function get_gist_comments(gist_id, element){
 
 $(document).ready(function(){
 
+  if($('.home').length > 0) {
+    $('#menu').append('<span id="who"><em>Steven Bristol</em> Cofounder of Less Everything</span>')
+  }
+
   $('.comments').each(function(){
     get_gist_comments($(this).data('gist_id'), $(this));
   });
