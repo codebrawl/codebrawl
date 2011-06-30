@@ -29,9 +29,21 @@ function get_gist_comments(gist_id, element){
 
 $(document).ready(function(){
 
-  if($('.home').length > 0) {
-    $('#menu').append('<span id="who"><em>Steven Bristol</em> Cofounder of Less Everything</span>')
-  }
+  $('#menu').hover(function() {
+    var fade = $('span#who');
+    if (fade.is(':animated')) {
+      fade.stop().fadeTo(200, 1);
+    } else {
+      fade.fadeIn(200);
+    }
+  }, function () {
+    var fade = $('span#who');
+    if (fade.is(':animated')) {
+      fade.stop().fadeTo(200, 0);
+    } else {
+      fade.fadeOut(200);
+    }
+  })
 
   $('.comments').each(function(){
     get_gist_comments($(this).data('gist_id'), $(this));

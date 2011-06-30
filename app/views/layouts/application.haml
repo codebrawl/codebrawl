@@ -44,6 +44,11 @@
           =link_to 'Submit a contest idea', [:new, :submission]
         %hr
 
+      - if request.path == root_path
+        %span#who
+          %em Steven Bristol
+          Cofounder of Less Everything
+
       :javascript
         var woo_settings = {idle_timeout:'300000', domain:'codebrawl.com'};
         (function(){
