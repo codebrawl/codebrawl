@@ -42,7 +42,10 @@ class Entry
     return {} unless gist_id
     response = Gist.fetch(gist_id)['files']
     result = {}
-    response.each { |filename, file| result[filename.gsub('.', '*')] = file }
+    response.each do |filename, file|
+      file['content'] = nil if filename =~ /.*\.png$/
+      result[filename.gsub('.', '*')] = file
+    end
     result
 
   end

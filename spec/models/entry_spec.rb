@@ -177,6 +177,34 @@ describe Entry do
           end
         ]
       end
+      
+      context 'when there is a .png file in the Gist' do
+        subject do
+          VCR.use_cassette('gist_with_files') do
+            @contest = Fabricate(:contest, :entries => [
+                Fabricate.build(
+                  :entry,
+                  :user => Fabricate(:user, :github_id => '43621'),
+                  :gist_id => '72a0a6a9aa63d1eb64d6'
+                )
+              ]
+            )
+          end
+          
+          Gist.stubs(:fetch).returns(
+            Gist.new(
+              200,
+              '{ "user": { "id": 43621 }, "files": { "image.png": { "content": "png" } } }'
+            )
+          )
+
+          @contest.entries.first.files['image.png']['content']
+        end
+        
+        it 'should not save the file content' do
+          should == nil
+        end
+      end
 
     end
 

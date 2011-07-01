@@ -132,18 +132,28 @@ form
 #wrapper
   margin: auto
   max-width: 680px
+  position: relative
 
 #container
   background-color: #eee
-  padding: 20px
+  padding: 0px 20px 0px 20px
   margin: 0 10px 10px 10px
-
   border-radius: 2px
   box-shadow: 0 0px 5px #000
 
-  #menu span
-    float: right
+  #menu
     margin-bottom: 20px
+    background-color: #222
+    margin: 0px -20px 20px -20px
+    padding: 10px 20px
+
+    span
+      height: 20px
+      text-shadow: 0 1px 5px #000
+      color: #eee
+
+      a
+        color: #eee
 
   #main
     clear: both
@@ -166,7 +176,17 @@ form
     .bronze
       background-image: url(<%= asset_path 'bronze.png' %>)
 
-.contests:last, #entries
+#container.home
+  background-image: url(<%= asset_path 'gradient.png' %>), url(<%= asset_path 'steven.jpg' %>)
+  background-position: left 170px, right top
+  background-repeat: repeat-x, no-repeat
+  background-size: auto 30px, auto auto
+
+  #menu
+    height: 130px
+    background-color: transparent
+
+#contests:last, #entries
   margin-bottom: -20px
 
 .contests li, #entry
@@ -245,7 +265,7 @@ form ul
   div
     height: auto
 
-  a
+  a.extend
     bottom: 0px
     padding: 20px 0 10px 10px
     height: 20px
@@ -321,3 +341,21 @@ form#submissions ul
 
 #starting_on_parser
   margin-bottom: 5px
+
+span#who
+  color: #eee
+  text-shadow: 0 1px 10px #000
+  display: none
+  font-size: 10px
+  line-height: 10px
+  font-style: italic
+  font-family: Georgia, serif
+  text-align: right
+  position: absolute
+  top: 280px
+  right: 30px
+
+  em
+    font-size: 11px
+    display: block
+    font-style: normal
