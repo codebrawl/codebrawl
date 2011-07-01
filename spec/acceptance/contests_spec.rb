@@ -149,7 +149,7 @@ feature 'Contests' do
 
       scenario 'see the voting controls' do
         (1..5).to_a.each { |i| page.should have_field i.to_s }
-        page.should have_button 'Submit your votes'
+        page.should have_button 'Vote'
       end
 
     end

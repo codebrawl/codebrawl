@@ -33,10 +33,5 @@
 
   %h3 Entries
 
-  = form_for [@contest, Vote.new] do |f|
-
-    %ul#entries
-      = render :partial => "entries/entry", :collection => @contest.entries.order_by([:score, :desc]), :locals => { :f => f }
-
-    = f.submit 'Submit your votes' if logged_in? && @contest.voting? && @voted_entries != @contest.entries
-
+  %ul#entries
+    = render :partial => "entries/entry", :collection => @contest.entries.order_by([:score, :desc])
