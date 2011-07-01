@@ -11,6 +11,13 @@ feature 'Homepage' do
   context "on the homepage" do
 
     background :all do
+      @featured = Fabricate(
+        :contest,
+        :name => 'Twitter push to Google+',
+        :tagline => 'Continue using twitter during the Google+ hype',
+        :starting_on => 1.week.ago,
+        :featured => true
+      )
       @open = Fabricate(
         :contest,
         :name => 'Euler #74',
@@ -49,6 +56,10 @@ feature 'Homepage' do
       ['Euler #74', 'Fun with ChunkyPNG'].each do |name|
         page.should have_link name
       end
+    end
+
+    scenario 'list featured contests on top' do
+      page.source.should =~ /<body>.*#{Regexp.escape(@featured.name)}.*#{Regexp.escape(@open.name)}.*<\/body>/m
     end
 
     scenario 'see a list of contest names' do

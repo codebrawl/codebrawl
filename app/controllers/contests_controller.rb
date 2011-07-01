@@ -18,7 +18,7 @@ class ContestsController < ApplicationController
   end
 
   def index
-    @contests = Contest.all.order_by([:starting_on, :desc]).reject(&:pending?)
+    @contests = Contest.all.order_by([[:featured, :desc], [:starting_on, :desc]]).reject(&:pending?)
 
     respond_to do |format|
       format.html { redirect_to root_path unless request.path == root_path }
