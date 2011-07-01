@@ -71,7 +71,7 @@ p
 
 form
   margin: 10px 0 0 0
-
+  
   textarea, input[type='text']
     width: 100%
     border: 1px solid #ddd
@@ -83,6 +83,15 @@ form
 
   input[type='text']
     font-size: 24px
+
+  .field_with_errors
+    input[type='text'], textarea
+      border: 1px dashed #ce8686
+
+  ul.errors
+    list-style-type: square
+    padding-left: 1.5em
+    margin-bottom: 20px
 
 #notice, #alert
   border-radius: 2px

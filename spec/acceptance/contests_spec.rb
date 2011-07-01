@@ -31,26 +31,36 @@ end
 
 feature 'Contests' do
 
-  context 'on the new contest page' do 
+  context 'on the new contest page' do
 
     background :all do
       login_via_github
     end
 
+    background { visit "/contests/new" }
+
     scenario 'create a new contest' do
-      visit "/contests/new"
       fill_in 'Name', :with => 'Synchtube'
       fill_in 'Tagline', :with => 'Lets watch youtube together :)'
       fill_in 'Description', :with => 'Create a tool to watch youtube video synchronously with others'
       fill_in 'Starting Date', :with => 'June 23 2011'
       click_button 'Submit your contest'
-      
+
       log_out
       visit "/"
-      
+
       page.should have_content('Synchtube')
       click_link 'Synchtube'
       page.should have_content('Create a tool to watch youtube video synchronously with others')
+    end
+
+    scenario 'creating a new contest with missing input' do
+      click_button 'Submit your contest'
+
+      page.should have_content("Ups, couldn't save your contest because of erroneous input.")
+      page.should have_content("Name can't be blank")
+      page.should have_content("Description can't be blank")
+      page.should have_content("Starting on can't be blank")
     end
   end
 
@@ -87,10 +97,10 @@ feature 'Contests' do
       log_out
       visit "/contests/#{@contest.to_param}/edit"
       page.should_not have_content "delete this contest"
-      
+
       delete contest_path(@contest)
       response.should_not be_success
-      
+
       visit "/"
       page.should have_content @contest.name
     end
@@ -107,10 +117,10 @@ feature 'Contests' do
       login_via_github @user
       visit "/contests/#{@contest.to_param}/edit"
       page.should_not have_content "delete this contest"
-      
+
       delete contest_path(@contest)
       response.should_not be_success
-      
+
       visit "/"
       page.should have_content @contest.name
     end
@@ -120,7 +130,7 @@ feature 'Contests' do
       visit "/contests/#{@contest.to_param}"
       click_link "edit"
       click_button "delete this contest"
-      
+
       visit "/"
       page.should_not have_content @contest.name
     end
@@ -159,7 +169,7 @@ feature 'Contests' do
       page.should have_link 'bob'
       body.should include 'href="/users/bob"'
     end
-    
+
     scenario 'read the markdown contest description' do
       body.should include 'Write an <a href="http://relishapp.com/rspec">RSpec</a> extension that solves a problem you are having.'
     end
@@ -174,7 +184,7 @@ feature 'Contests' do
       background do
         visit "/contests/#{@contest.slug}"
       end
-      
+
       it_should_behave_like 'a contest with hidden contestant names'
 
       scenario 'do not see the entry files' do
@@ -188,7 +198,7 @@ feature 'Contests' do
       scenario 'be able to enter' do
         page.should have_link 'Enter'
       end
-      
+
       scenario 'show the entry count' do
         page.should have_content '2 entries'
       end
@@ -199,13 +209,13 @@ feature 'Contests' do
           contest = Fabricate(:contest, :starting_on => Date.yesterday.to_time)
           visit "/contests/#{contest.slug}"
         end
-        
+
         scenario 'do not show the entry count' do
           page.should have_no_content '0 entries'
         end
 
       end
-      
+
       context 'on a contest page that has only one entry' do
 
         background do
@@ -216,13 +226,13 @@ feature 'Contests' do
           )
           visit "/contests/#{contest.slug}"
         end
-        
+
         scenario 'show the entry count' do
           page.should have_content '1 entry'
         end
 
       end
-      
+
 
     end
 

@@ -6,6 +6,9 @@ class ContestsController < ApplicationController
   def create
     if @contest.save
       redirect_to @contest
+    else
+      flash[:alert] = "Ups, couldn't save your contest because of erroneous input."
+      render :new
     end
   end
 

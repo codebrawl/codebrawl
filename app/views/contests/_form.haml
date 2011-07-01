@@ -1,16 +1,20 @@
-%ul.contests
-  %li
-    = form_for @contest do |f|
-      = f.label :name, 'Name'
-      = f.text_field :name
+#entry
+  = form_for @contest do |f|
+    - if @contest.errors.any?
+      %ul.errors
+        - @contest.errors.full_messages.each do |message|
+          %li= message
 
-      = f.label :description, 'Description'
-      = f.text_area :description
+    = f.label :name, 'Name'
+    = f.text_field :name
 
-      = f.label :tagline, 'Tagline'
-      = f.text_field :tagline
+    = f.label :starting_on, 'Starting Date'
+    = f.text_field :starting_on
 
-      = f.label :starting_on, 'Starting Date'
-      = f.text_field :starting_on
+    = f.label :description, 'Description'
+    = f.text_area :description
 
-      = f.submit 'Submit your contest'
+    = f.label :tagline, 'Tagline'
+    = f.text_field :tagline
+
+    = f.submit 'Submit your contest'
