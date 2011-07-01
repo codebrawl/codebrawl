@@ -26,6 +26,20 @@ describe Contest do
     
   end
 
+  context '#editable_by?' do
+    before do
+      @admin = Fabricate(:user, :admin => true)
+      @creator = Fabricate(:user)
+      @user = Fabricate(:user)
+    end
+    
+    subject { Fabricate(:contest, :user => @creator) }
+    
+    it { should be_editable_by(@admin) }
+    it { should be_editable_by(@creator) }
+    it { should_not be_editable_by(@user) }
+  end
+
   context '#save!' do
 
     context 'when keeping all fields empty' do

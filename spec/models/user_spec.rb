@@ -8,6 +8,18 @@ describe User do
 
   end
 
+  context 'as admin' do
+    it "should not be admin by default" do
+      Fabricate(:user).should_not be_admin
+    end
+    
+    it "should not allow mass assignement of the admin flag" do
+      user = Fabricate(:user)
+      user.update_attributes(:admin => true)
+      user.reload.should_not be_admin
+    end
+  end
+
   context '#save!' do
 
     context 'when keeping all fields empty' do

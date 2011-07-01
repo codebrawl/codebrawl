@@ -3,7 +3,7 @@
 
 %h2
   = @contest.name
-  - if logged_in? && current_user.created?(@contest)
+  - if logged_in? && @contest.editable_by?(current_user)
     = link_to 'edit', edit_contest_path(@contest)
 
 %span#submitter

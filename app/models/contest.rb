@@ -30,6 +30,10 @@ class Contest
     self.closing_on = voting_on + 1.week if self.closing_on.blank?
   end
 
+  def editable_by?(user)
+    user.admin? || self.user == user
+  end
+
   def state
     case
     when Time.now.utc >= closing_at then 'finished'

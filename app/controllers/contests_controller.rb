@@ -44,6 +44,7 @@ class ContestsController < ApplicationController
     end
 
     def find_contest_from_user
-      head :unauthorized unless @contest = current_user.contests.find_by_slug(params[:id])
+      scope = current_user.admin? ? Contest : current_user.contests
+      head :unauthorized unless @contest = scope.find_by_slug(params[:id])
     end
 end
