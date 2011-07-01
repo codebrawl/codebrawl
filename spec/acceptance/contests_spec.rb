@@ -33,12 +33,12 @@ feature 'Contests' do
 
   context 'on the new contest page' do 
 
-    background do
+    background :all do
       login_via_github
-      visit "/contests/new"
     end
 
     scenario 'create a new contest' do
+      visit "/contests/new"
       fill_in 'Name', :with => 'Synchtube'
       fill_in 'Tagline', :with => 'Lets watch youtube together :)'
       fill_in 'Description', :with => 'Create a tool to watch youtube video synchronously with others'
@@ -55,18 +55,19 @@ feature 'Contests' do
   end
 
   context 'on a contest page created by a user' do
-    background do
-      @user = Fabricate(:user, :login => 'sven')
+    background :all do
+      @creator = Fabricate(:user, :login => 'sven')
       @contest = Fabricate(
         :contest,
         :name => 'Write an alternate command line client for travis-ci.org',
         :description => 'Foobar',
-        :user => @user
+        :user => @creator
       )
+      @user = Fabricate(:user, :login => 'Pete', :github_id => '1998')
     end
 
     scenario 'the creator may edit his contest' do
-      login_via_github @user
+      login_via_github @creator
       visit "/contests/#{@contest.to_param}"
       click_link "edit"
       fill_in "Description", :with => 'Preconditions, the client may have a small feature set but must fully integrate in the command line.'
@@ -82,12 +83,46 @@ feature 'Contests' do
       response.should_not be_success
     end
 
-    scenario 'others users are not able to edit the users contest' do
-      login_via_github Fabricate(:user, :github_id => '1998', :login => 'Pete')
+    scenario 'visitors may not delete the users contest' do
+      log_out
+      visit "/contests/#{@contest.to_param}/edit"
+      page.should_not have_content "delete this contest"
+      
+      delete contest_path(@contest)
+      response.should_not be_success
+      
+      visit "/"
+      page.should have_content @contest.name
+    end
+
+    scenario 'other users are not able to edit the users contest' do
+      login_via_github @user
       visit "/contests/#{@contest.to_param}"
       page.should_not have_content 'edit'
       visit "/contests/#{@contest.to_param}/edit"
       response.should_not be_success
+    end
+
+    scenario 'other users may not delete the users contest' do
+      login_via_github @user
+      visit "/contests/#{@contest.to_param}/edit"
+      page.should_not have_content "delete this contest"
+      
+      delete contest_path(@contest)
+      response.should_not be_success
+      
+      visit "/"
+      page.should have_content @contest.name
+    end
+
+    scenario 'the creator may delete his contest' do
+      login_via_github @creator
+      visit "/contests/#{@contest.to_param}"
+      click_link "edit"
+      click_button "delete this contest"
+      
+      visit "/"
+      page.should_not have_content @contest.name
     end
   end
 

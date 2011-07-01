@@ -1,7 +1,7 @@
 class ContestsController < ApplicationController
   before_filter :require_login, :only => [:new, :create, :edit, :update]
   before_filter :build_contest, :only => [:new, :create]
-  before_filter :find_contest_from_user, :only => [:edit, :update]
+  before_filter :find_contest_from_user, :only => [:edit, :update, :destroy]
 
   def create
     if @contest.save
@@ -37,6 +37,12 @@ class ContestsController < ApplicationController
     @voted_entries ||= []
   end
 
+  def destroy
+    if @contest && @contest.destroy
+      redirect_to root_path
+    end
+  end
+
   private
 
     def build_contest
@@ -44,6 +50,6 @@ class ContestsController < ApplicationController
     end
 
     def find_contest_from_user
-      head :unauthorized unless @contest = current_user.contests.find_by_slug(params[:id])
+      head :unauthorized unless @contest = current_user && current_user.contests.find_by_slug(params[:id])
     end
 end

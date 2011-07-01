@@ -1,1 +1,2 @@
 = render 'form'
+= button_to 'delete this contest', contest_path(@contest), :method => :delete, :confirm => 'Are you really sure you want to delete this contest?'
