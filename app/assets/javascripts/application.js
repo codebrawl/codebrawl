@@ -38,4 +38,42 @@ $(document).ready(function(){
     $(this).remove();
   });
 
+  // using datejs to allow for more human readable date input on contest starting on
+  var contestStartingOn = $('input#contest_starting_on'),
+    hidden,
+    parser,
+    hint,
+    defaultHintText;
+  if (contestStartingOn.get(0)) {
+    parser          = $('<input id="starting_on_parser" name="starting_on_parser" type="text" />');
+    hint            = $('#starting_on_parser_hint');
+    defaultHintText = hint.text();
+    hidden          = $('<input type="hidden" />');
+
+    hidden.attr({
+      id: contestStartingOn.attr('id'),
+      name: contestStartingOn.attr('name'),
+      value: contestStartingOn.attr('value')
+    });
+
+    // whenver the user inputs something into the parser, it updates the display and the hidden field
+    parser
+      .bind('change keyup blur', function(){
+        var parsedDate = Date.parse(this.value);
+        if (parsedDate) {
+          parsedDate = parsedDate.toString("d MMM yyyy");
+          hint.text(parsedDate);
+          hidden.val(parsedDate);
+        } else {
+          hint.text(defaultHintText)
+        }
+      })
+      .val(contestStartingOn.val());
+
+    // replace the input with the hidden actual element as hidden form input and put the parser element in place
+    contestStartingOn
+      .after(parser)
+      .replaceWith(hidden);
+    hint.insertAfter(parser);
+  }
 });

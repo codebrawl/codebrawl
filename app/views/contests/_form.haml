@@ -10,6 +10,8 @@
 
     = f.label :starting_on, 'Starting Date'
     = f.text_field :starting_on
+    %p#starting_on_parser_hint
+      You can input things like 'today', 'tomorrow', 'monday next week' or just '12 Jul 2020'
 
     = f.label :description, 'Description'
     = f.text_area :description
