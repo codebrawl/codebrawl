@@ -45,4 +45,9 @@ namespace :deploy do
     run "ln -s #{shared_path}/codebrawl.yml #{current_release}/config/codebrawl.yml"
   end
 
+  desc 'Symlink app/blog' do
+  task :symlink_blog, :roles => :app do
+    run "ln -s #{shared_path}/blog #{current_release}/app/blog"
+  end
+
 end
