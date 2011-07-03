@@ -16,7 +16,9 @@
 
       #header
         %h1= link_to 'Codebrawl', root_path
-        %code if ( ready? && set? ) { fight! };
+        %pre
+          :erb
+            if ( <span>ready?</span> && <span>set?</span> ) then <span>fight!</span> end
 
       #container{:class => request.path == root_path ? 'home' : 'container'}
         #menu
