@@ -59,7 +59,9 @@ $(document).ready(function(){
 
     if(lis.length >= 1){
       lis.append('<a class="skip">Skip</a>')
+      lis.append('<span class="left">' + lis.length + ' entries left to judge.</span>')
     }
+
     $('ul.voting').addClass('voting_box')
     $('ul.voting').after('<div class="overlay"/>')
 
@@ -76,8 +78,12 @@ $(document).ready(function(){
 
     $('.new_vote').bind('ajax:success', function() {
       lis.splice(index, 1);
+
       if(lis.length <= 1){
         $('a.skip').hide();
+        $('span.left').text('You\'re at the last entry')
+      } else {
+        $('span.left').text(lis.length + ' entries left to judge.');
       }
       index ++
       if(index >= lis.length){ index = 0; }
