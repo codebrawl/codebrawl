@@ -6,9 +6,10 @@ Codebrawl::Application.routes.draw do
   end
 
   resources :users, :only => :show
+  resource :session, :only => [:create, :destroy]
   resources :submissions, :only => [:new, :create]
 
-  resource :session, :only => [:create, :destroy]
+  resources :articles, :only => [:show]
 
   match '/auth/:provider/callback', :to => 'sessions#create'
   match '/auth/failure', :to => 'sessions#failure'
