@@ -33,5 +33,5 @@
 
   %h3 Entries
 
-  %ul#entries
+  %ul#entries{:class => @contest.state}
     = render :partial => "entries/entry", :collection => @contest.entries.order_by([:score, :desc])
