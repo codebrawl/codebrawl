@@ -37,5 +37,10 @@ $(document).ready(function(){
     $(this).parent().css('height', 'auto');
     $(this).remove();
   });
+  
+  $('.new_vote input[type="submit"]').hide();
+  $('.new_vote input').change(function(){
+    $(this).parent().submit();
+  })
 
 });
