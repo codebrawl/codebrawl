@@ -34,5 +34,3 @@
   %ul#entries{:class => @contest.state}
     = render :partial => "entries/entry", :collection => @contest.entries.order_by([:score, :desc])
 
-  - if @contest.entries != @voted_entries
-    %a{:class => 'button vote'} Vote
