@@ -58,8 +58,9 @@ $(document).ready(function(){
     var li = lis[index];
 
     lis.append('<a class="skip">Skip</a>')
+    $('ul.voting').addClass('voting_box')
+    $('ul.voting').after('<div class="overlay"/>')
 
-    $(this).hide();
     $('ul#entries li').hide();
     $(li).show();
 
