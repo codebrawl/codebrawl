@@ -18,8 +18,9 @@ set :rvm_ruby_string, 'ruby-1.9.2'
 
 default_run_options[:pty] = true
 
-before 'deploy:symlink', 'deploy:assets';
+before 'deploy:symlink', 'deploy:assets'
 after 'deploy:update_code', 'deploy:symlink_settings'
+after 'deploy:update_code', 'deploy:symlink_blog'
 
 namespace :deploy do
   task :start, :roles => :app do
@@ -45,7 +46,7 @@ namespace :deploy do
     run "ln -s #{shared_path}/codebrawl.yml #{current_release}/config/codebrawl.yml"
   end
 
-  desc 'Symlink app/blog' do
+  desc 'Symlink app/blog'
   task :symlink_blog, :roles => :app do
     run "ln -s #{shared_path}/blog #{current_release}/app/blog"
   end
