@@ -57,7 +57,9 @@ $(document).ready(function(){
     var index = 0;
     var li = lis[index];
 
-    lis.append('<a class="skip">Skip</a>')
+    if(lis.length >= 1){
+      lis.append('<a class="skip">Skip</a>')
+    }
     $('ul.voting').addClass('voting_box')
     $('ul.voting').after('<div class="overlay"/>')
 
@@ -74,6 +76,9 @@ $(document).ready(function(){
 
     $('.new_vote').bind('ajax:success', function() {
       lis.splice(index, 1);
+      if(lis.length <= 1){
+        $('a.skip').hide();
+      }
       index ++
       if(index >= lis.length){ index = 0; }
       next_li = lis[index]
