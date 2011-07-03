@@ -21,6 +21,9 @@ a
   color: #880000
   text-decoration: none
 
+  &:hover
+    cursor: pointer
+
 a.button, input[type='submit']
   display: block
   text-align: center
@@ -162,7 +165,7 @@ form
   #main
     clear: both
 
-    .entry
+    #entries li
       margin: 20px 0
       background-repeat: no-repeat
       background-position: top right
@@ -190,7 +193,6 @@ form
     height: 130px
     background-color: transparent
 
-
 #contests, #entries
   margin-bottom: -20px
 
@@ -200,15 +202,15 @@ form
 .contestants
   margin-top: 10px
 
-#entries li.entry, .contestants li
+#entries li, .contestants li
   padding: 10px
 
-#contests li, #entries li.entry, #entry
+#contests li, #entries li, #entry
   background-color: #ddd
   border-radius: 2px
   box-shadow: 0 -1px 0 #ccc, 0 1px 0 #fff
 
-#contests li, #entries li.entry
+#contests li, #entries li
   margin-bottom: 20px
 
   .description

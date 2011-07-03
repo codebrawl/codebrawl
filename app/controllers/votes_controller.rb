@@ -7,7 +7,10 @@ class VotesController < ApplicationController
       @entry.votes.create!(params[:vote].merge({:user_id => current_user.id}))
     end
 
-    redirect_to @contest
+    respond_to do |format|
+      format.html { redirect_to @contest }
+      format.js { render :nothing => true }
+    end
   end
 
 end

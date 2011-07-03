@@ -46,4 +46,41 @@ $(document).ready(function(){
     $(this).parent().submit();
   })
 
+  $('li.unvoted').hide();
+
+  $('a.vote').click(function(){
+    var lis = $('ul#entries li.unvoted');
+    var index = 0;
+    var li = lis[index];
+
+    lis.append('<a class="skip">Skip</a>')
+
+    $(this).hide();
+    $('ul#entries li').hide();
+    $(li).show();
+
+    $('ul#entries a.skip').click(function(){
+      $(li).hide()
+      index ++
+      if(index >= lis.length){ index = 0; }
+      li = lis[index]
+      $(li).show()
+    })
+
+    $('.new_vote').bind('ajax:success', function() {
+      lis.splice(index, 1);
+      index ++
+      if(index >= lis.length){ index = 0; }
+      next_li = lis[index]
+
+      if($(next_li).length > 0) {
+        $(li).hide()
+        $(next_li).show()
+        li = next_li
+      } else {
+        window.location.reload()
+      }
+
+    });
+  });
 });
