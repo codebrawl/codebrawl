@@ -68,7 +68,7 @@ $(document).ready(function(){
     $('div.overlay').click(function(){
       window.location.reload();
     })
-
+    $(this).css('margin-top', '20px')
     $('ul#entries li').hide();
     $(li).show();
 
@@ -89,6 +89,7 @@ $(document).ready(function(){
       } else {
         $('span.left').text(lis.length + ' entries left to judge.');
       }
+
       index ++
       if(index >= lis.length){ index = 0; }
       next_li = lis[index]
