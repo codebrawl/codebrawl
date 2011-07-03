@@ -73,4 +73,13 @@ class Contest
     end
   end
 
+  def get_entry_files
+    entries.each do |entry|
+      puts entry.id
+      entry.files = entry.get_files_from_gist
+    end
+
+    save!
+  end
+
 end
