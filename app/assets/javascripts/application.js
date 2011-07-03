@@ -65,6 +65,10 @@ $(document).ready(function(){
     $('ul.voting').addClass('voting_box')
     $('ul.voting').after('<div class="overlay"/>')
 
+    $('div.overlay').click(function(){
+      window.location.reload();
+    })
+
     $('ul#entries li').hide();
     $(li).show();
 
