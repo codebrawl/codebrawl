@@ -16,7 +16,9 @@
 
       #header
         %h1= link_to 'Codebrawl', root_path
-        %code if ( ready? && set? ) { fight! };
+        %pre
+          :erb
+            if ( <span>ready?</span> && <span>set?</span> ) then <span>fight!</span> end
 
       #container{:class => request.path == root_path ? 'home' : 'container'}
         #menu
@@ -43,11 +45,6 @@
           &bull;
           =link_to 'Submit a contest idea', [:new, :submission]
         %hr
-
-      - if request.path == root_path
-        %span#who
-          %em Steven Bristol
-          Cofounder of Less Everything
 
       :javascript
         var woo_settings = {idle_timeout:'300000', domain:'codebrawl.com'};

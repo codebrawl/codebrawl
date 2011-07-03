@@ -115,9 +115,16 @@ form
     h1 a
       height: 75px
       background-size: 75%
+  pre
+    font-family: "Courier New", Courier, monospace
+    font-size: 13px
+    color: #444
 
-  code
-    color: #888
+    span
+      font-size: 14px
+      color: #888
+      font-weight: 900
+      text-shadow: 0 1px 1px #000
 
 #wrapper
   margin: auto
@@ -126,16 +133,24 @@ form
 
 #container
   background-color: #eee
-  padding: 20px
+  padding: 0px 20px 20px 20px
   margin: 0 10px 10px 10px
   border-radius: 2px
   box-shadow: 0 0px 5px #000
 
   #menu
     margin-bottom: 20px
+    background-color: #222
+    margin: 0px -20px 20px -20px
+    padding: 10px 20px
 
     span
       height: 20px
+      text-shadow: 0 1px 5px #000
+      color: #eee
+
+      a
+        color: #eee
 
   #main
     clear: both
@@ -166,13 +181,8 @@ form
 
   #menu
     height: 130px
+    background-color: transparent
 
-    span
-      text-shadow: 0 1px 5px #000
-      color: #eee
-
-      a
-        color: #eee
 
 #contests, #entries
   margin-bottom: -20px
@@ -234,13 +244,12 @@ form ul
   margin-bottom: 0
 
 .filename
-  background-color: #222
-  color: #eee
+  background-color: #eee
+  color: #666
   font-size: 12px
   padding: 5px 10px
   margin: 10px 0 0 0
   font-family: monospace
-  text-shadow: #000 1px 1px 1px
   border-top-left-radius: 2px
   border-top-right-radius: 2px
 
