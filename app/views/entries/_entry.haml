@@ -4,7 +4,7 @@
       = link_to_profile(entry.user)
 
   .files
-    - entry.files.each do |name, file|
+    - entry.files.sort {|a,b| a.first.split('.').last <=> b.first.split('.').last }.each do |name, file|
       .filename
         = name
       - cache "#{entry.id}_#{name}" do

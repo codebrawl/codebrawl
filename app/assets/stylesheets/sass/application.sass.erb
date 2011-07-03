@@ -115,25 +115,49 @@ form
     h1 a
       height: 75px
       background-size: 75%
+  pre
+    font-family: "Courier New", Courier, monospace
+    font-size: 13px
+    color: #444
 
-  code
-    color: #888
+    @media screen and (max-width: 460px)
+      font-size: 10px
+
+    span
+      font-size: 14px
+      color: #888
+      font-weight: 900
+      text-shadow: 0 1px 1px #000
+
+      @media screen and (max-width: 460px)
+        font-size: 11px
 
 #wrapper
   margin: auto
   max-width: 680px
+  position: relative
 
 #container
   background-color: #eee
-  padding: 20px
+  padding: 0px 20px 20px 20px
   margin: 0 10px 10px 10px
-
   border-radius: 2px
   box-shadow: 0 0px 5px #000
 
-  #menu span
-    float: right
+  #menu
     margin-bottom: 20px
+    background-color: #222
+    margin: 0px -20px 20px -20px
+    padding: 10px 20px
+    text-align: right
+
+    span
+      height: 20px
+      text-shadow: 0 1px 5px #000
+      color: #eee
+
+      a
+        color: #eee
 
   #main
     clear: both
@@ -155,6 +179,17 @@ form
 
     .bronze
       background-image: url(<%= asset_path 'bronze.png' %>)
+
+#container.home
+  background-image: url(<%= asset_path 'gradient.png' %>), url(<%= asset_path 'steven.jpg' %>)
+  background-position: left 170px, right top
+  background-repeat: repeat-x, no-repeat
+  background-size: auto 30px, auto auto
+
+  #menu
+    height: 130px
+    background-color: transparent
+
 
 #contests, #entries
   margin-bottom: -20px
@@ -216,13 +251,12 @@ form ul
   margin-bottom: 0
 
 .filename
-  background-color: #222
-  color: #eee
+  background-color: #eee
+  color: #666
   font-size: 12px
   padding: 5px 10px
   margin: 10px 0 0 0
   font-family: monospace
-  text-shadow: #000 1px 1px 1px
   border-top-left-radius: 2px
   border-top-right-radius: 2px
 
@@ -235,7 +269,7 @@ form ul
   div
     height: auto
 
-  a
+  a.extend
     bottom: 0px
     padding: 20px 0 10px 10px
     height: 20px
@@ -304,3 +338,21 @@ form#submissions ul
 
   li
     margin: 10px
+
+span#who
+  color: #eee
+  text-shadow: 0 1px 10px #000
+  display: none
+  font-size: 10px
+  line-height: 10px
+  font-style: italic
+  font-family: Georgia, serif
+  text-align: right
+  position: absolute
+  top: 280px
+  right: 30px
+
+  em
+    font-size: 11px
+    display: block
+    font-style: normal
