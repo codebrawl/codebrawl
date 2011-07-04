@@ -28,13 +28,13 @@ class Entry
     errors.any?
   end
 
-  def calculate_scrore
+  def calculate_score
     return 0.0 if votes.length.zero?
     votes.map(&:score).inject { |sum, el| sum + el }.to_f / votes.length
   end
 
   def score
-    write_attribute(:score, calculate_scrore) unless read_attribute(:score).nonzero?
+    write_attribute(:score, calculate_score) unless read_attribute(:score).nonzero?
     read_attribute(:score)
   end
 
