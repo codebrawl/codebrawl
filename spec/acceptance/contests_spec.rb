@@ -1,6 +1,18 @@
 # encoding: utf-8
 require 'acceptance/acceptance_helper'
 
+share_examples_for 'a contest with hidden entries' do
+  
+  scenario 'do not see the entry files' do
+    page.should have_no_content 'I wrote an RSpec formatter.'
+  end
+  
+  scenario 'do not see the entry filenames' do
+    page.should have_no_content 'README'
+  end
+  
+end
+
 share_examples_for 'a contest with visible entries' do
 
   scenario 'see the entry files' do
@@ -81,14 +93,8 @@ feature 'Contests' do
       end
       
       it_should_behave_like 'a contest with hidden contestant names'
-
-      scenario 'do not see the entry files' do
-        page.should have_no_content 'I wrote an RSpec formatter.'
-      end
-
-      scenario 'do not see the entry filenames' do
-        page.should have_no_content 'README'
-      end
+      
+      it_should_behave_like 'a contest with hidden entries'
 
       scenario 'be able to enter' do
         page.should have_link 'Enter'
@@ -127,7 +133,6 @@ feature 'Contests' do
         end
 
       end
-      
 
     end
 
@@ -150,6 +155,20 @@ feature 'Contests' do
       scenario 'see the voting controls' do
         (1..5).to_a.each { |i| page.should have_field i.to_s }
         page.should have_button 'Vote'
+      end
+      
+      context 'when not logged in' do
+        background do
+          click_link 'log out'
+          visit "/contests/#{@contest.slug}"
+        end
+        
+        it_should_behave_like 'a contest with hidden entries'
+        
+        scenario 'see the "log in to vote"-link' do
+          page.should have_link 'Log in to vote'
+        end
+        
       end
 
     end
