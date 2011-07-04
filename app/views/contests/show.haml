@@ -30,7 +30,7 @@
     = link_to 'Enter', [:new, @contest, :entry], :class => 'button'
 
 - else
-  - if logged_in?
+  - if @contest.finished? || logged_in?
     %ul#entries{:class => @contest.state}
       = render :partial => "entries/entry", :collection => @contest.entries.order_by([:score, :desc])
   - else
