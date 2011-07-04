@@ -168,17 +168,11 @@ form
       background-position: top right
 
       form
-        display: inline
-        background-position: right
-        background-image: url(<%= asset_path 'happyface.png' %>)
+        display: inline-block
+        background-image: url(<%= asset_path 'happyface.png' %>), url(<%= asset_path 'sadface.png' %>)
+        background-position: right, left
         background-repeat: no-repeat
-        padding-right: 20px
-        margin-right: 5px
-
-        label[for="vote_score_1"]
-          background-image: url(<%= asset_path 'sadface.png' %>)
-          background-repeat: no-repeat
-          padding-left: 20px
+        padding: 0 20px
 
       span.entries_left
         float: right
