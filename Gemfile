@@ -46,4 +46,6 @@ group :test do
 
   gem 'fuubar'
   gem 'vcr'
+
+  gem 'simplecov', :require => false
 end

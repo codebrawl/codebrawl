@@ -6,3 +6,4 @@ tmp/
 hotspots-report
 .DS_Store
 config/codebrawl.yml
+coverage
