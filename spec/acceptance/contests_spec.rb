@@ -1,6 +1,18 @@
 # encoding: utf-8
 require 'acceptance/acceptance_helper'
 
+share_examples_for 'a contest with hidden entries' do
+
+  scenario 'do not see the entry files' do
+    page.should have_no_content 'I wrote an RSpec formatter.'
+  end
+
+  scenario 'do not see the entry filenames' do
+    page.should have_no_content 'README'
+  end
+
+end
+
 share_examples_for 'a contest with visible entries' do
 
   scenario 'see the entry files' do
@@ -58,13 +70,13 @@ feature 'Contests' do
       visit "/contests/#{@contest.slug}"
       login_via_github
     end
-    
+
     scenario 'see the contest submitter' do
       page.should have_content 'Submitted by bob'
       page.should have_link 'bob'
       body.should include 'href="/users/bob"'
     end
-    
+
     scenario 'read the markdown contest description' do
       body.should include 'Write an <a href="http://relishapp.com/rspec">RSpec</a> extension that solves a problem you are having.'
     end
@@ -79,21 +91,15 @@ feature 'Contests' do
       background do
         visit "/contests/#{@contest.slug}"
       end
-      
+
       it_should_behave_like 'a contest with hidden contestant names'
 
-      scenario 'do not see the entry files' do
-        page.should have_no_content 'I wrote an RSpec formatter.'
-      end
-
-      scenario 'do not see the entry filenames' do
-        page.should have_no_content 'README'
-      end
+      it_should_behave_like 'a contest with hidden entries'
 
       scenario 'be able to enter' do
         page.should have_link 'Enter'
       end
-      
+
       scenario 'show the entry count' do
         page.should have_content '2 entries'
       end
@@ -104,13 +110,13 @@ feature 'Contests' do
           contest = Fabricate(:contest, :starting_on => Date.yesterday.to_time)
           visit "/contests/#{contest.slug}"
         end
-        
+
         scenario 'do not show the entry count' do
           page.should have_no_content '0 entries'
         end
 
       end
-      
+
       context 'on a contest page that has only one entry' do
 
         background do
@@ -121,13 +127,12 @@ feature 'Contests' do
           )
           visit "/contests/#{contest.slug}"
         end
-        
+
         scenario 'show the entry count' do
           page.should have_content '1 entry'
         end
 
       end
-      
 
     end
 
@@ -149,7 +154,21 @@ feature 'Contests' do
 
       scenario 'see the voting controls' do
         (1..5).to_a.each { |i| page.should have_field i.to_s }
-        page.should have_button 'Submit your votes'
+        page.should have_button 'Vote'
+      end
+
+      context 'when not logged in' do
+        background do
+          click_link 'log out'
+          visit "/contests/#{@contest.slug}"
+        end
+
+        it_should_behave_like 'a contest with hidden entries'
+
+        scenario 'see the "log in to vote"-link' do
+          page.should have_link 'logging in'
+        end
+
       end
 
     end
@@ -183,6 +202,20 @@ feature 'Contests' do
         within "#entry_#{@entry.id}" do
           page.should have_content '2.7/5'
         end
+      end
+
+      context 'when not logged in' do
+        background do
+          click_link 'log out'
+          visit "/contests/#{@contest.slug}"
+        end
+
+        it_should_behave_like 'a contest with visible entries'
+
+        scenario 'do not see the "log in to vote"-link' do
+          page.should have_no_link 'logging in'
+        end
+
       end
 
     end

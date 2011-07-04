@@ -1,4 +1,4 @@
-%li{ :id => dom_id(entry), :class => entry.contest.finished? ? [%w{gold silver bronze}[entry_counter], 'entry'].join(' ') : 'entry'  }
+%li{ :id => dom_id(entry), :class => entry.contest.finished? ? %w{gold silver bronze}[entry_counter] : @voted_entries.include?(entry) ? 'voted' : 'unvoted' }
   - if entry.contest.finished? || @voted_entries.include?(entry)
     .owner
       = link_to_profile(entry.user)
@@ -21,12 +21,12 @@
 
       .comments{'data-gist_id' => entry.gist_id}
 
-
     - else
-      - (1..5).to_a.each do |score|
-        = fields_for "votes[#{entry.id}]" do |entry_f|
-          = entry_f.label "score_#{score}", score
-          = entry_f.radio_button :score, score
+      = form_for [@contest, entry, Vote.new], :remote => true do |f|
+        - (1..5).to_a.each do |score|
+          = f.label "score_#{score}", score
+          = f.radio_button :score, score
+        = f.submit 'Vote'
 
   - if entry.contest.finished?
     :erb
