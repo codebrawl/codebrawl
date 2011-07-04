@@ -7,7 +7,7 @@ require 'simplecov'
 #
 #   rspec spec -f SpecCoverage -fd
 #
-class SpecCoverage < ::RSpec::Core::Formatters::BaseFormatter
+class CoverageFormatter < ::RSpec::Core::Formatters::BaseFormatter
 
   def initialize(*)
     super

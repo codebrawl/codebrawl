@@ -1,3 +1,4 @@
 --format documentation
+--format CoverageFormatter
 --colour
 --drb
