@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Feed' do
   
   context 'when having a single contest' do
-    before do
+    before(:all) do
       Fabricate(:contest, :name => 'RSpec formatters', :description => 'Write your own _RSpec_ formatter.')
       Fabricate(:contest)
       get 'contests.atom'
