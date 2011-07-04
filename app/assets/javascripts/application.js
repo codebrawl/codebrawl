@@ -54,6 +54,8 @@ $(document).ready(function(){
 
   $('a.vote').click(function(){
     var lis = $('ul#entries li.unvoted');
+    lis.sort(function() { return 0.5 - Math.random() })
+
     var index = 0;
     var li = lis[index];
 
