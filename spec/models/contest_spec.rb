@@ -291,4 +291,21 @@ describe Contest do
     end
 
   end
+
+  context '#get_entry_files' do
+
+    before do
+      @contest = Fabricate(:contest, :entries => [Fabricate(:entry)] * 3)
+      Entry.any_instance.stubs(:get_files_from_gist).returns({'file*txt' => {}})
+      @contest.get_entry_files
+    end
+
+    it 'should the "file" attribute for every contest' do
+      @contest.entries.each do |entry|
+        entry.read_attribute(:files).should == {'file*txt' => {}}
+      end
+    end
+
+  end
+
 end
