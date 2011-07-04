@@ -10,7 +10,7 @@
 
 - if @contest.open?
 
-  #entry
+  .message
 
     - if @contest.entries.any?
 
@@ -31,9 +31,22 @@
 
 - else
   - if @contest.finished? || logged_in?
+
+    - if @contest.voting? && (@contest.entries - @voted_entries).length > 0
+      .message
+        %h3 This contest is open for voting
+        %p
+          The entries can be viewed and rated after pressing the big black &ldquo;Vote&rdquo;-button below, which will open the voting box to show you the entries in random order. You'll find out who wrote which entry after voting.
+          - if @voted_entries.length > 0
+            The entries you already rated will appear on this page. After voting for the rest, they'll all become visible.
+
     %ul#entries{:class => @contest.state}
       = render :partial => "entries/entry", :collection => @contest.entries.order_by([:score, :desc])
+
   - else
-    = link_to 'Log in to vote', '/auth/github'
+    .message
+      %h3 This contest is open for voting
+      :textile
+        After "logging in":/auth/github, you can view and rate the entries of this contest.
 
 

@@ -166,7 +166,7 @@ feature 'Contests' do
         it_should_behave_like 'a contest with hidden entries'
 
         scenario 'see the "log in to vote"-link' do
-          page.should have_link 'Log in to vote'
+          page.should have_link 'logging in'
         end
 
       end
@@ -213,7 +213,7 @@ feature 'Contests' do
         it_should_behave_like 'a contest with visible entries'
 
         scenario 'do not see the "log in to vote"-link' do
-          page.should have_no_link 'Log in to vote'
+          page.should have_no_link 'logging in'
         end
 
       end

@@ -49,7 +49,7 @@ $(document).ready(function(){
   var unvoted = $('li.unvoted')
   unvoted.hide();
   if(unvoted.length > 0) {
-    $('ul.voting').after('<a class="button vote">Vote</a>');
+    $('#main').append('<a class="button vote">Vote</a>');
   }
 
   $('a.vote').click(function(){
