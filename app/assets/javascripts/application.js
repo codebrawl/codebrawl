@@ -58,8 +58,15 @@ $(document).ready(function(){
     var li = lis[index];
 
     if(lis.length >= 1){
-      lis.append('<a class="skip">Skip</a>')
-      lis.append('<span class="left">' + lis.length + ' entries left to judge.</span>')
+      lis.append('<span class="skip">or <a>skip this entry</a></span>')
+
+      lis.append('<span class="entries_left"/>')
+      if(lis.length <= 1){
+        $('span.skip').hide();
+        $('span.entries_left').text('You\'re at the last entry')
+      } else {
+        $('span.entries_left').text(lis.length + ' entries left to judge');
+      }
     }
 
     $('ul.voting').addClass('voting_box')
@@ -72,7 +79,7 @@ $(document).ready(function(){
     $('ul#entries li').hide();
     $(li).show();
 
-    $('ul#entries a.skip').click(function(){
+    $('ul#entries span.skip a').click(function(){
       $(li).hide()
       index ++
       if(index >= lis.length){ index = 0; }
@@ -84,10 +91,10 @@ $(document).ready(function(){
       lis.splice(index, 1);
 
       if(lis.length <= 1){
-        $('a.skip').hide();
-        $('span.left').text('You\'re at the last entry')
+        $('span.skip').hide();
+        $('span.entries_left').text('You\'re at the last entry')
       } else {
-        $('span.left').text(lis.length + ' entries left to judge.');
+        $('span.entries_left').text(lis.length + ' entries left to judge');
       }
 
       index ++
