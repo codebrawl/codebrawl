@@ -1,4 +1,4 @@
---format documentation
+--format BossFormatter
 --format CoverageFormatter
 --colour
 --drb
