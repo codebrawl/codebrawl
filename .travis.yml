@@ -1,4 +1,7 @@
 before_script:
   - 'cp config/codebrawl.example.yml config/config.yml'
 
+rvm:
+  - 1.9.2
+
 script: 'bundle exec rspec spec'
