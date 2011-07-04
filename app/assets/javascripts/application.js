@@ -38,8 +38,8 @@ $(document).ready(function(){
     $(this).remove();
   });
 
-  $('ul#entries.voting div.files').css('height', 'auto');
-  $('ul#entries.voting a.extend').hide();
+  $('ul#entries.voting li.unvoted div.files').css('height', 'auto');
+  $('ul#entries.voting li.unvoted a.extend').hide();
 
   $('.new_vote input[type="submit"]').hide();
   $('.new_vote input').change(function(){
@@ -65,7 +65,7 @@ $(document).ready(function(){
         $('span.skip').hide();
         $('span.entries_left').text('You\'re at the last entry')
       } else {
-        $('span.entries_left').text(lis.length + ' entries left to judge');
+        $('span.entries_left').text(lis.length + ' entries left to rate');
       }
     }
 
@@ -94,7 +94,7 @@ $(document).ready(function(){
         $('span.skip').hide();
         $('span.entries_left').text('You\'re at the last entry')
       } else {
-        $('span.entries_left').text(lis.length + ' entries left to judge');
+        $('span.entries_left').text(lis.length + ' entries left to rate');
       }
 
       index ++
