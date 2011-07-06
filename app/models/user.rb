@@ -6,6 +6,7 @@ class User
   field 'email', :type => String
   field 'name', :type => String
   field 'github_id', :type => Integer
+  field 'participations', :type => Array, :default => []
 
   validates :login, :presence => true
 
