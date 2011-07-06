@@ -118,6 +118,7 @@ GEM
     multi_json (1.0.3)
     multi_xml (0.2.2)
     multipart-post (1.1.2)
+    mustang (0.2.2)
     net-ldap (0.2.2)
     newrelic_rpm (2.14.1)
     nokogiri (1.4.4)
@@ -276,6 +277,7 @@ DEPENDENCIES
   mocha
   mongoid (~> 2.0)
   mongoid_slug
+  mustang
   omniauth
   rails (= 3.1.0.rc4)
   rpm_contrib

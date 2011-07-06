@@ -29,6 +29,7 @@ gem 'hoptoad_notifier'
 
 group :test do
   gem 'rspec-rails'
+  gem 'simplecov', :require => false
   gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git', :ref => '549e6733'
   gem 'launchy'
 
@@ -47,5 +48,5 @@ group :test do
   gem 'fuubar'
   gem 'vcr'
 
-  gem 'simplecov', :require => false
+  gem 'mustang'
 end
