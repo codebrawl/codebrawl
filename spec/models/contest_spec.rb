@@ -307,9 +307,9 @@ describe Contest do
     end
 
   end
-  
+
   context '#add_participations_to_contestants!' do
-    
+
     before do
       @contest = Fabricate(
         :contest,
@@ -322,33 +322,47 @@ describe Contest do
       )
       @contest.add_participations_to_contestants!
     end
-    
+
     it 'should create a participation for every contestant' do
       @contest.entries.each do |entry|
         entry.user.reload.participations.should have(1).item
       end
     end
-    
+
     it 'should set the contest ids' do
       @contest.entries.each do |entry|
         entry.user.reload.participations.first['contest_id'].should == @contest.id
       end
     end
-    
+
     it 'should set the contest scores' do
       @contest.entries[0].user.reload.participations.first['score'].should == 5.0
       @contest.entries[1].user.reload.participations.first['score'].should == 4.0
       @contest.entries[2].user.reload.participations.first['score'].should == 3.0
       @contest.entries[3].user.reload.participations.first['score'].should == 2.0
     end
-    
+
     it 'should set the contest points' do
       @contest.entries[0].user.reload.participations.first['points'].should == 10 + 30
       @contest.entries[1].user.reload.participations.first['points'].should == 10 + 20
       @contest.entries[2].user.reload.participations.first['points'].should == 10 + 10
       @contest.entries[3].user.reload.participations.first['points'].should == 10
     end
-    
+
+    context 'when already having a participation for this contest' do
+
+      before do
+        @contest.add_participations_to_contestants!
+      end
+
+      it 'should not add another participation' do
+        @contest.entries.each do |entry|
+          entry.user.reload.participations.should have(1).item
+        end
+      end
+
+    end
+
   end
 
 end
