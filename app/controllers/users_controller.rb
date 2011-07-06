@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   def index
-    @users = User.all.order_by([:points, :desc]).select { |user| user.points > 0 }
+    @users = User.all.order_by([:points, :desc]).select { |user| user.points && user.points > 0 }
   end
 
   def show
