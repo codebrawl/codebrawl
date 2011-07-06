@@ -24,4 +24,36 @@ describe User do
     end
   end
 
+  describe '#calculate_points' do
+
+    subject do
+      Fabricate(
+        :user,
+        :participations => [
+          {'points' => 10}, {'points' => 20}, {'points' => 30}
+        ]
+      ).calculate_points
+    end
+
+    it 'should add the participation points together' do
+      should == 60
+    end
+
+  end
+
+  describe '#calculate_points!' do
+
+    subject do
+      @user = Fabricate(:user)
+      @user.stubs(:calculate_points).returns(60)
+      @user.calculate_points!
+      @user.reload.points
+    end
+
+    it 'should save the points' do
+      should == 60
+    end
+
+  end
+
 end

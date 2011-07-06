@@ -6,7 +6,7 @@ Codebrawl::Application.routes.draw do
     end
   end
 
-  resources :users, :only => :show
+  resources :users, :only => [:index, :show]
   resource :session, :only => [:create, :destroy]
   resources :submissions, :only => [:new, :create]
 

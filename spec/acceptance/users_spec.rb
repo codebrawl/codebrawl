@@ -1,69 +1,115 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Users' do
-  background(:all) do
-    # TODO: stub `Contest#state` instead of setting the voting and closing
-    # dates.
-    user = Fabricate(:user, :login => 'david')
+    
+  context 'on the user index' do
+    background(:all) do
+      %w{ alice bob charlie david }.each_with_index do |login, index|
+        Fabricate(
+          :user,
+          :login => login,
+          :points => index * 100
+        )
+      end
+      visit '/users'
+    end
+    
+    scenario 'see the user logins, as links' do
+      %w{ bob charlie david }.each { |login| page.should have_link login }
+    end
+    
+    scenario 'see the users, ordered by points' do
+      
+      within(:xpath, '//tr[1]') do
+        page.should have_content '#1'
+        page.should have_content 'david'
+      end
+      
+      within(:xpath, '//tr[2]') do
+        page.should have_content '#2'
+        page.should have_content 'charlie'
+      end
+      
+      within(:xpath, '//tr[3]') do
+        page.should have_content '#3'
+        page.should have_content 'bob'
+      end
+      
+    end
+    
+    scenario 'do not see users without any points' do
+      page.should have_no_content 'alice'
+    end
+    
+  end
+  
+  context 'on a user profile' do
+    
+    background(:all) do
+      # TODO: stub `Contest#state` instead of setting the voting and closing
+      # dates.
+      user = Fabricate(:user, :login => 'eric')
 
-    VCR.use_cassette('existing_gist') do
-      Fabricate(
-        :contest,
-        :name => 'RSpec extensions',
-        :closing_on => Date.yesterday.to_time,
-        :entries => [ Fabricate.build(:entry, :user => user) ]
-      )
+      VCR.use_cassette('existing_gist') do
+        Fabricate(
+          :contest,
+          :name => 'RSpec extensions',
+          :closing_on => Date.yesterday.to_time,
+          :entries => [ Fabricate.build(:entry, :user => user) ]
+        )
 
-      Fabricate(
-        :contest,
-        :name => 'Fun with ChunkyPNG',
-        :starting_on => Date.yesterday.to_time,
-        :entries => [ Fabricate.build(:entry, :user => user) ]
-      )
+        Fabricate(
+          :contest,
+          :name => 'Fun with ChunkyPNG',
+          :starting_on => Date.yesterday.to_time,
+          :entries => [ Fabricate.build(:entry, :user => user) ]
+        )
 
-      Fabricate(
-        :contest,
-        :name => 'Terminal Twitter clients',
-        :voting_on => Date.yesterday.to_time,
-        :entries => [ Fabricate.build(:entry, :user => user) ]
-      )
+        Fabricate(
+          :contest,
+          :name => 'Terminal Twitter clients',
+          :voting_on => Date.yesterday.to_time,
+          :entries => [ Fabricate.build(:entry, :user => user) ]
+        )
 
-      Fabricate(
-        :contest,
-        :name => 'Ruby metaprogramming',
-        :starting_on => Date.yesterday.to_time,
-        :user => user
-      )
+        Fabricate(
+          :contest,
+          :name => 'Ruby metaprogramming',
+          :starting_on => Date.yesterday.to_time,
+          :user => user
+        )
+      end
+      
+      visit '/users/eric'
+
     end
 
-    visit '/users/david'
-  end
+    scenario 'view a user profile' do
+      page.should have_content 'eric'
+    end
 
-  scenario 'view a user profile' do
-    page.should have_content 'david'
-  end
+    scenario 'see the user gravatar' do
+      body.should include 'http://gravatar.com/avatar/1dae832a3c5ae2702f34ed50a40010e8.png'
+    end
 
-  scenario 'see the user gravatar' do
-    body.should include 'http://gravatar.com/avatar/1dae832a3c5ae2702f34ed50a40010e8.png'
-  end
+    scenario 'see the link to the users github profile' do
+      page.should have_link 'eric on Github'
+      body.should include 'https://github.com/eric'
+    end
 
-  scenario 'see the link to the users github profile' do
-    page.should have_link 'david on Github'
-    body.should include 'https://github.com/david'
-  end
+    scenario 'see the list of entered contests' do
+      page.should have_content 'RSpec extensions'
+    end
 
-  scenario 'see the list of entered contests' do
-    page.should have_content 'RSpec extensions'
-  end
+    scenario 'do not see any entered contests that are still open' do
+      page.should have_no_content 'Fun with ChunkyPNG'
+      page.should have_no_content 'Terminal Twitter clients'
+    end
 
-  scenario 'do not see any entered contests that are still open' do
-    page.should have_no_content 'Fun with ChunkyPNG'
-    page.should have_no_content 'Terminal Twitter clients'
+    scenario 'see the list of submitted contests' do
+      page.should have_content 'Ruby metaprogramming'
+    end
+    
   end
-
-  scenario 'see the list of submitted contests' do
-    page.should have_content 'Ruby metaprogramming'
-  end
-
 
 end
