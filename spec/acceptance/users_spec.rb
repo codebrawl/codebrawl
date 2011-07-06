@@ -11,6 +11,7 @@ feature 'Users' do
           :points => index * 100
         )
       end
+      Fabricate(:user, :login => 'frank')
       visit '/users'
     end
     
