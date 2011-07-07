@@ -10,7 +10,7 @@ Codebrawl::Application.routes.draw do
   resource :session, :only => [:create, :destroy]
   resources :submissions, :only => [:new, :create]
 
-  resources :articles, :only => [:show]
+  resources :articles, :only => [:index, :show]
 
   match '/auth/:provider/callback', :to => 'sessions#create'
   match '/auth/failure', :to => 'sessions#failure'
