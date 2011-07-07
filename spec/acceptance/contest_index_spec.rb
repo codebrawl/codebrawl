@@ -50,6 +50,14 @@ feature 'Homepage' do
         page.should have_link name
       end
     end
+    
+    scenario 'return to the homepage after clicking the "Contests" menu item' do
+      click_link 'Fun with ChunkyPNG'
+      click_link 'Contests'
+      ['Euler #74', 'Fun with ChunkyPNG'].each do |name|
+        page.should have_link name
+      end
+    end
 
     scenario 'see a list of contest names' do
       ['Euler #74', 'Fun with ChunkyPNG', 'Improving Ruby'].each do |name|
@@ -83,6 +91,11 @@ feature 'Homepage' do
       click_link 'Submit a contest idea'
       page.should have_content 'Submit your contest idea'
       page.should have_content 'charlie'
+    end
+    
+    scenario 'visit the hall of fame' do
+      click_link 'Hall of Fame'
+      within('#main') { page.should have_content 'Hall of Fame' }
     end
 
     context 'after logging in' do

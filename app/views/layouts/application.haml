@@ -22,6 +22,9 @@
 
       #container{:class => request.path == root_path ? 'home' : 'container'}
         #menu
+          = link_to 'Contests', :root
+          = link_to 'Hall of Fame', :users
+
           %span
             - if current_user
               = link_to_profile(current_user)
