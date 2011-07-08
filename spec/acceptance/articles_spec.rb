@@ -13,7 +13,13 @@ feature 'Article' do
     `rm #{blog}`
     `mv #{blog}_backup #{blog}`
   end
-
+  
+  scenario 'visit the article index' do
+    visit '/'
+    click_link 'News'
+    page.should have_content 'Acceptance testing articles'
+  end
+  
   context 'on the article index' do
     before { visit '/articles' }
 
