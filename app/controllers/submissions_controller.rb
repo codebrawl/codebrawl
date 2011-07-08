@@ -6,8 +6,8 @@ class SubmissionsController < ApplicationController
   end
 
   def create
-    client = Wufoo::Client.new(Codebrawl.config['wufoo']['url'], Codebrawl.config['wufoo']['api_key'])
-    submission = Wufoo::Submission.new(client, Codebrawl.config['wufoo']['form'])
+    client = Wufoo::Client.new('http://codebrawl.wufoo.com', Codebrawl.config['wufoo']['api_key'])
+    submission = Wufoo::Submission.new(client, 'contest-submission')
 
     response = submission.add_params({
       '1'  => current_user.login,
