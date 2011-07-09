@@ -35,8 +35,6 @@ group :test do
 
   gem 'mocha'
 
-  gem 'fabrication'
-  gem 'faker'
   gem 'database_cleaner'
 
   gem 'spork', '~> 0.9.0.rc'
@@ -49,4 +47,9 @@ group :test do
   gem 'vcr'
 
   gem 'mustang'
+end
+
+group :development, :test do
+  gem 'fabrication'
+  gem 'faker'
 end
