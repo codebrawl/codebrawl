@@ -56,4 +56,18 @@ describe User do
 
   end
 
+  describe '#voted_entries' do
+
+    let(:contest) { Fabricate(:contest) }
+    let(:user) { Fabricate(:user) }
+    let(:entry) { contest.entries.create }
+
+    before { entry.stubs(:votes_from?).with(user).returns(true) }
+
+    it 'returns entries the user has voted on' do
+      user.voted_entries(contest).should include(entry)
+    end
+
+  end
+
 end
