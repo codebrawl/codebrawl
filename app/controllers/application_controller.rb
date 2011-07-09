@@ -11,5 +11,9 @@ class ApplicationController < ActionController::Base
       current_user.present?
     end
 
+    def authenticate_user!
+      redirect_to "/auth/github?origin=#{request.env['PATH_INFO']}" unless logged_in?
+    end
+
     helper_method :current_user, :logged_in?
 end

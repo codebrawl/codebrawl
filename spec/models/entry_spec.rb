@@ -2,6 +2,23 @@ require 'spec_helper'
 
 describe Entry do
 
+  describe '#votes_from?' do
+    let(:entry) { Fabricate(:entry) }
+    let(:user) { Fabricate(:user) }
+
+    subject { entry.votes_from?(user) }
+
+    context 'with votes by the user' do
+      before { entry.votes.create(:user => user) }
+      it { should be_true }
+    end
+
+    context 'without votes by the user' do
+      it { should be_false }
+    end
+
+  end
+
   context 'fabrication' do
 
     it { Fabricate(:entry).should be_valid }
