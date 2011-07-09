@@ -23,3 +23,15 @@ Now, run the tests and make sure they all pass:
     bundle exec rspec spec
 
 If you get a spec failure, please create an [issue](https://github.com/codebrawl/codebrawl/issues) explaining what went wrong.
+
+## Helping out
+
+Want to help out, but have no idea where to get started? Here's a list of things you can do:
+
+* Check out the [tracker](https://www.pivotaltracker.com/projects/326833), choose an (unassigned) story, join the project and assign it to yourself
+* Check out the open [issues](https://github.com/codebrawl/codebrawl/issues)
+* Hop into `#codebrawl` on Freenode and ask
+* Find a `TODO` in the source, so you can help clean up a bit
+* Refactor existing code
+
+Fork the project, add your changes (with specs), and send a pull request. Thanks for helping out! :)
