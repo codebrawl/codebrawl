@@ -4,7 +4,7 @@ class EntriesController < ApplicationController
   def new
     @contest = Contest.find_by_slug(params[:contest_id])
 
-    unless @contest.entries.select{ |entry| entry.user == current_user }.blank?
+    if @contest.has_entry_from?(current_user)
       redirect_to @contest, :alert => 'You already have an entry for this contest.'
     end
 

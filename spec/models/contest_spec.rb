@@ -365,4 +365,24 @@ describe Contest do
 
   end
 
+  describe '#has_entry_from?' do
+
+    before do
+      @contest = Fabricate(:contest)
+      @user = Fabricate(:user)
+    end
+
+    subject { @contest.has_entry_from?(@user) }
+
+    context 'when the user is a participant' do
+      before { @contest.entries.create(:user => @user) }
+      it { should be_true }
+    end
+
+    context 'when the user is not a participant' do
+      it { should be_false }
+    end
+
+  end
+
 end

@@ -93,4 +93,8 @@ class Contest
     end
   end
 
+  def has_entry_from?(user)
+    entries.where(:user_id => user.id).any?
+  end
+
 end
