@@ -2,9 +2,7 @@ class ContestsController < ApplicationController
   def index
     return redirect_to root_path if request.path == '/contests'
 
-    @contests = Contest.all.order_by([:starting_on, :desc]).reject do |contest|
-      contest.state == 'pending'
-    end
+    @contests = Contest.active
 
     respond_to do |format|
       format.html

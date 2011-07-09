@@ -23,6 +23,10 @@ class Contest
     Contest.all.reject { |contest| contest.open? }
   end
 
+  def self.active
+    scoped.order_by([:starting_on, :desc]).reject { |c| c.pending? }
+  end
+
   def set_voting_and_closing_dates
     self.voting_on = starting_on + 1.week if self.voting_on.blank?
     self.closing_on = voting_on + 1.week if self.closing_on.blank?
