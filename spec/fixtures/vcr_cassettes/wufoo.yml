@@ -2,9 +2,9 @@
 - !ruby/struct:VCR::HTTPInteraction
   request: !ruby/struct:VCR::Request
     method: :post
-    uri: http://codebrawl.wufoo.com:80/api/insert/?1=charlie&103=Building%20an%20RSpec%20formatter&w_form=contest-submission&w_api_key=8LIS-8G83-GDCD-TVY6
-    body: 1=charlie&103=Building%20an%20RSpec%20formatter&w_form=contest-submission&w_api_key=8LIS-8G83-GDCD-TVY6
-    headers: !!null 
+    uri: http://codebrawl.wufoo.com:80/api/insert/?1=charlie&103=Building%20an%20RSpec%20formatter&w_form=contest-submission&w_api_key=1111-1111-1111-1111
+    body: 1=charlie&103=Building%20an%20RSpec%20formatter&w_form=contest-submission&w_api_key=1111-1111-1111-1111
+    headers: !!null
   response: !ruby/struct:VCR::Response
     status: !ruby/struct:VCR::ResponseStatus
       code: 200
