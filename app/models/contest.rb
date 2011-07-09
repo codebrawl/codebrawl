@@ -38,21 +38,16 @@ class Contest
     end
   end
 
-  def pending?
-    state == 'pending'
+  def inquirable_state
+    ActiveSupport::StringInquirer.new(state)
   end
 
-  def open?
-    state == 'open'
-  end
-
-  def voting?
-    state == 'voting'
-  end
-
-  def finished?
-    state == 'finished'
-  end
+  delegate \
+    :pending?,
+    :open?,
+    :voting?,
+    :finished?,
+    :to => :inquirable_state
 
   def starting_at
     starting_on.to_time.utc + 14.hours
