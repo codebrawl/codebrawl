@@ -23,6 +23,10 @@ class Contest
     Contest.all.reject { |contest| contest.open? }
   end
 
+  def self.active
+    scoped.order_by([:starting_on, :desc]).reject { |c| c.pending? }
+  end
+
   def set_voting_and_closing_dates
     self.voting_on = starting_on + 1.week if self.voting_on.blank?
     self.closing_on = voting_on + 1.week if self.closing_on.blank?
@@ -38,21 +42,16 @@ class Contest
     end
   end
 
-  def pending?
-    state == 'pending'
+  def inquirable_state
+    ActiveSupport::StringInquirer.new(state)
   end
 
-  def open?
-    state == 'open'
-  end
-
-  def voting?
-    state == 'voting'
-  end
-
-  def finished?
-    state == 'finished'
-  end
+  delegate \
+    :pending?,
+    :open?,
+    :voting?,
+    :finished?,
+    :to => :inquirable_state
 
   def starting_at
     starting_on.to_time.utc + 14.hours
@@ -92,6 +91,10 @@ class Contest
       } unless entry.user.participations.select { |participation| participation[:contest_id] == id }.present?
       entry.user.save!
     end
+  end
+
+  def has_entry_from?(user)
+    entries.where(:user_id => user.id).any?
   end
 
 end

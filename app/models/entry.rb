@@ -24,6 +24,10 @@ class Entry
   embeds_many :comments
   belongs_to :user
 
+  def votes_from?(user)
+    votes.where(:user_id => user.id).any?
+  end
+
   def errors?
     errors.any?
   end

@@ -1,9 +1,7 @@
 require 'wufoo'
 
 class SubmissionsController < ApplicationController
-  def new
-    redirect_to "/auth/github?origin=#{request.env['PATH_INFO']}" unless logged_in?
-  end
+  before_filter :authenticate_user!, :only => :new
 
   def create
     client = Wufoo::Client.new('http://codebrawl.wufoo.com', Codebrawl.config['wufoo']['api_key'])
