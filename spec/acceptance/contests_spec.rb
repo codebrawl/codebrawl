@@ -25,10 +25,15 @@ share_examples_for 'a contest with visible entries' do
 
 end
 
-share_examples_for 'a contest with hidden contestant names' do
+share_examples_for 'a contest with hidden contestant names and gists' do
 
   scenario 'do not see the names of the contestants' do
     within('#main') { page.should have_no_content 'charlie' }
+  end
+  
+  scenario 'do not see the entry gist urls' do
+    page.should have_no_link 'Gist'
+    body.should_not include 'href="https://gist.github.com/866948"'
   end
 
 end
@@ -92,7 +97,7 @@ feature 'Contests' do
         visit "/contests/#{@contest.slug}"
       end
 
-      it_should_behave_like 'a contest with hidden contestant names'
+      it_should_behave_like 'a contest with hidden contestant names and gists'
 
       it_should_behave_like 'a contest with hidden entries'
 
@@ -148,7 +153,7 @@ feature 'Contests' do
 
       it_should_behave_like 'a contest with visible entries'
 
-      it_should_behave_like 'a contest with hidden contestant names'
+      it_should_behave_like 'a contest with hidden contestant names and gists'
 
       it_should_behave_like 'a finished contest'
 
@@ -156,7 +161,7 @@ feature 'Contests' do
         (1..5).to_a.each { |i| page.should have_field i.to_s }
         page.should have_button 'Vote'
       end
-
+      
       context 'when not logged in' do
         background do
           click_link 'log out'
@@ -202,6 +207,11 @@ feature 'Contests' do
         within "#entry_#{@entry.id}" do
           page.should have_content '2.7/5'
         end
+      end
+      
+      scenario 'see the entry gist urls' do
+        page.should have_link 'Gist'
+        body.should include 'href="https://gist.github.com/866948"'
       end
 
       context 'when not logged in' do
