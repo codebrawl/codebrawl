@@ -1,8 +1,7 @@
 class EntriesController < ApplicationController
+  before_filter :authenticate_user!, :only => :new
 
   def new
-    redirect_to "/auth/github?origin=#{request.env['PATH_INFO']}" unless logged_in?
-
     @contest = Contest.find_by_slug(params[:contest_id])
 
     unless @contest.entries.select{ |entry| entry.user == current_user }.blank?
