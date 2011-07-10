@@ -79,7 +79,7 @@ GEM
       rspec-instafail (~> 0.1.4)
       ruby-progressbar (~> 0.0.10)
     gravtastic (3.1.0)
-    gust (0.1.1)
+    gust (0.1.2)
       RedCloth (~> 4.2.7)
       kramdown (~> 0.13.3)
       pygments.rb (~> 0.1.2)

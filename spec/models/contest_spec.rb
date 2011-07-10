@@ -311,14 +311,11 @@ describe Contest do
   context '#add_participations_to_contestants!' do
 
     before do
+      @scores = [5.0, 4.5, 4.0, 3.5, 3.0, 2.5, 2.0, 1.5, 1.0, 0.5, 0.0]
+
       @contest = Fabricate(
         :contest,
-        :entries => [
-          Fabricate(:entry, :score => 5),
-          Fabricate(:entry, :score => 4),
-          Fabricate(:entry, :score => 3),
-          Fabricate(:entry, :score => 2)
-        ]
+        :entries => @scores.map { |score| Fabricate(:entry, :score => score) }
       )
       @contest.add_participations_to_contestants!
     end
@@ -336,17 +333,15 @@ describe Contest do
     end
 
     it 'should set the contest scores' do
-      @contest.entries[0].user.reload.participations.first['score'].should == 5.0
-      @contest.entries[1].user.reload.participations.first['score'].should == 4.0
-      @contest.entries[2].user.reload.participations.first['score'].should == 3.0
-      @contest.entries[3].user.reload.participations.first['score'].should == 2.0
+      @scores.each_with_index do |score, index|
+        @contest.entries[index].user.reload.participations.first['score'].should == score
+      end
     end
 
     it 'should set the contest points' do
-      @contest.entries[0].user.reload.participations.first['points'].should == 10 + 30
-      @contest.entries[1].user.reload.participations.first['points'].should == 10 + 20
-      @contest.entries[2].user.reload.participations.first['points'].should == 10 + 10
-      @contest.entries[3].user.reload.participations.first['points'].should == 10
+      [100, 90, 80, 70, 60, 50, 40, 30, 20, 10, 10].each_with_index do |points, index|
+        @contest.entries[index].user.reload.participations.first['points'].should == points
+      end
     end
 
     context 'when already having a participation for this contest' do
@@ -361,6 +356,26 @@ describe Contest do
         end
       end
 
+    end
+
+  end
+
+  describe '#has_entry_from?' do
+
+    before do
+      @contest = Fabricate(:contest)
+      @user = Fabricate(:user)
+    end
+
+    subject { @contest.has_entry_from?(@user) }
+
+    context 'when the user is a participant' do
+      before { @contest.entries.create(:user => @user) }
+      it { should be_true }
+    end
+
+    context 'when the user is not a participant' do
+      it { should be_false }
     end
 
   end

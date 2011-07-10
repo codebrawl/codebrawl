@@ -26,4 +26,8 @@ class User
     update_attribute(:points, calculate_points)
   end
 
+  def voted_entries(contest)
+    contest.entries.select { |e| e.votes_from?(self) }
+  end
+
 end
