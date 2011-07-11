@@ -228,6 +228,9 @@ GEM
     simplecov (0.4.2)
       simplecov-html (~> 0.4.4)
     simplecov-html (0.4.5)
+    spec_coverage (0.0.3)
+      rspec (~> 2.0)
+      simplecov (~> 0.4.2)
     spork (0.9.0.rc7)
     sprockets (2.0.0.beta.10)
       hike (~> 1.0)
@@ -283,7 +286,7 @@ DEPENDENCIES
   rpm_contrib
   rspec-rails
   sass
-  simplecov
+  spec_coverage
   spork (~> 0.9.0.rc)
   thin
   timecop

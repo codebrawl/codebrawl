@@ -8,6 +8,7 @@ class User
   field 'github_id', :type => Integer
   field 'participations', :type => Array, :default => []
   field 'points', :type => Integer
+  field 'urls', :type => Hash, :default => {}
 
   validates :login, :presence => true
 
