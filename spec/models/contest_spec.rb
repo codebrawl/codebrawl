@@ -309,58 +309,77 @@ describe Contest do
   end
 
   context '#add_participations_to_contestants!' do
-
-    before do
-      @contest = Fabricate(
-        :contest,
-        :entries => [
-          Fabricate(:entry, :score => 5),
-          Fabricate(:entry, :score => 4),
-          Fabricate(:entry, :score => 3),
-          Fabricate(:entry, :score => 2)
-        ]
-      )
-      @contest.add_participations_to_contestants!
-    end
-
-    it 'should create a participation for every contestant' do
-      @contest.entries.each do |entry|
-        entry.user.reload.participations.should have(1).item
-      end
-    end
-
-    it 'should set the contest ids' do
-      @contest.entries.each do |entry|
-        entry.user.reload.participations.first['contest_id'].should == @contest.id
-      end
-    end
-
-    it 'should set the contest scores' do
-      @contest.entries[0].user.reload.participations.first['score'].should == 5.0
-      @contest.entries[1].user.reload.participations.first['score'].should == 4.0
-      @contest.entries[2].user.reload.participations.first['score'].should == 3.0
-      @contest.entries[3].user.reload.participations.first['score'].should == 2.0
-    end
-
-    it 'should set the contest points' do
-      @contest.entries[0].user.reload.participations.first['points'].should == 10 + 30
-      @contest.entries[1].user.reload.participations.first['points'].should == 10 + 20
-      @contest.entries[2].user.reload.participations.first['points'].should == 10 + 10
-      @contest.entries[3].user.reload.participations.first['points'].should == 10
-    end
-
-    context 'when already having a participation for this contest' do
-
+    
+    context 'when having five entries' do
+    
       before do
+        @scores = (1..5).to_a.reverse
+
+        @contest = Fabricate(
+          :contest,
+          :entries => @scores.map { |score| Fabricate(:entry, :score => score) }
+        )
         @contest.add_participations_to_contestants!
       end
 
-      it 'should not add another participation' do
+      it 'should create a participation for every contestant' do
         @contest.entries.each do |entry|
           entry.user.reload.participations.should have(1).item
         end
       end
 
+      it 'should set the contest ids' do
+        @contest.entries.each do |entry|
+          entry.user.reload.participations.first['contest_id'].should == @contest.id
+        end
+      end
+
+      it 'should set the contest scores' do
+        @scores.each_with_index do |score, index|
+          @contest.entries[index].user.reload.participations.first['score'].should == score
+        end
+      end
+
+      it 'should set the contest points' do
+        [50, 40, 30, 20, 10].each_with_index do |points, index|
+          @contest.entries[index].user.reload.participations.first['points'].should == points
+        end
+      end
+
+      context 'when already having a participation for this contest' do
+
+        before do
+          @contest.add_participations_to_contestants!
+        end
+
+        it 'should not add another participation' do
+          @contest.entries.each do |entry|
+            entry.user.reload.participations.should have(1).item
+          end
+        end
+
+      end
+      
+    end
+    
+    context 'when having eleven entries' do
+      
+      before do
+        @scores = [5.0, 4.5, 4.0, 3.5, 3.0, 2.5, 2.0, 1.5, 1.0, 0.5, 0.0]
+
+        @contest = Fabricate(
+          :contest,
+          :entries => @scores.map { |score| Fabricate(:entry, :score => score) }
+        )
+        @contest.add_participations_to_contestants!
+      end
+
+      it 'should set the contest points' do
+        [100, 90, 80, 70, 60, 50, 40, 30, 20, 10, 10].each_with_index do |points, index|
+          @contest.entries[index].user.reload.participations.first['points'].should == points
+        end
+      end
+      
     end
 
   end
