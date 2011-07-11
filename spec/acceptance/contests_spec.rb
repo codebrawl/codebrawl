@@ -213,6 +213,11 @@ feature 'Contests' do
         page.should have_link 'Gist'
         body.should include 'href="https://gist.github.com/866948"'
       end
+      
+      scenario 'see the contest rundown link' do
+        page.should have_link 'contest rundown'
+        body.should include 'href="/articles/contest-rundown-rspec-extensions"'
+      end
 
       context 'when not logged in' do
         background do
