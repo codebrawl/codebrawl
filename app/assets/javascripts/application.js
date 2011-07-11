@@ -78,7 +78,7 @@ $(document).ready(function(){
       window.location.reload();
     })
     $(this).css('margin-top', '20px')
-    $('ul#entries li').hide();
+    $('ul#entries li.voted, ul#entries li.unvoted').hide();
     $(li).show();
 
     $('ul#entries span.skip a').click(function(){
