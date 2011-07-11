@@ -83,7 +83,6 @@ class Contest
 
   def add_participations_to_contestants!
     entries.order_by([:score, :desc]).each_with_index do |entry, index|
-      points = [30, 20, 10]
       entry.user.participations << {
         :contest_id => id,
         :points => index > 8 ? 10 : ((entries.length > 10 ? 10 : entries.length) - index) * 10,
