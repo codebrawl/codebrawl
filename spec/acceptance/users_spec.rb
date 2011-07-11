@@ -57,7 +57,8 @@ feature 'Users' do
         :login => 'eric',
         :urls => {
           "GitHub" => "https://github.com/eric",
-          "Blog" => "http://ericsblog.com"
+          "Blog" => "http://ericsblog.com",
+          "Blog2" => nil
         }
       )
 
@@ -108,9 +109,13 @@ feature 'Users' do
       body.should include 'href="https://github.com/eric"'
     end
     
-    scenario 'see the links to the user websites' do
+    scenario 'see the links to the user website' do
       page.should have_link 'http://ericsblog.com'
       body.should include 'href="http://ericsblog.com"'
+    end
+    
+    scenario 'do not show nil links' do
+      page.should have_no_link '/users/eric'
     end
 
     scenario 'see the list of entered contests' do
