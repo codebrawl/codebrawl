@@ -4,7 +4,10 @@
 
   = image_tag @user.gravatar_url(:size => 140, :default => avatar_url)
 
-  = link_to("#{@user.login} on Github", "https://github.com/#{@user.login}")
+  %ul
+    %li= link_to("#{@user.login} on Github", "https://github.com/#{@user.login}")
+    - @user.urls.reject {|key, value| key == 'GitHub' }.each do |key, url|
+      %li= link_to url, url
 
   - if @entered_contests.any?
     %h3 Entered contests
