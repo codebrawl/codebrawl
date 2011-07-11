@@ -1,4 +1,4 @@
-%li{ :id => dom_id(entry), :class => entry.contest.finished? ? %w{gold silver bronze}[entry_counter] : @voted_entries.include?(entry) ? 'voted' : 'unvoted' }
+%li{ :id => dom_id(entry), :class => [entry.contest.finished? ? %w{gold silver bronze}[entry_counter] : @voted_entries.include?(entry) ? 'voted' : 'unvoted', 'entry'] }
   - if entry.contest.finished? || @voted_entries.include?(entry)
     .owner
       = link_to_profile(entry.user)
