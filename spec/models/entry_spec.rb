@@ -116,7 +116,7 @@ describe Entry do
       it { should == @entry.read_attribute(:score) }
 
       context 'when having some votes' do
-        subject do
+        before do
           @entry = Fabricate(
             :entry,
             :votes => [
@@ -125,12 +125,17 @@ describe Entry do
               Fabricate.build(:vote, :score => 1)
             ]
           )
+        end
+        
+        subject do
           @entry.score
         end
 
         it { should == 2.3333333333333335 }
 
-        it { should == @entry.read_attribute(:score) }
+        it 'should persist the score' do
+          should == @entry.contest.reload.entries.first.read_attribute(:score)
+        end
 
       end
 

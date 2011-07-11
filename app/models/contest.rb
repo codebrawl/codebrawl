@@ -86,7 +86,7 @@ class Contest
       entry.user.participations << {
         :contest_id => id,
         :points => index > 8 ? 10 : ((entries.length > 10 ? 10 : entries.length) - index) * 10,
-        :score => entry.score
+        :score => entry.read_attribute(:score)
       } unless entry.user.participations.select { |participation| participation[:contest_id] == id }.present?
       entry.user.save!
     end
