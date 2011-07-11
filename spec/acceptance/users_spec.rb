@@ -49,7 +49,14 @@ feature 'Users' do
     background(:all) do
       # TODO: stub `Contest#state` instead of setting the voting and closing
       # dates.
-      user = Fabricate(:user, :login => 'eric')
+      user = Fabricate(
+        :user,
+        :login => 'eric',
+        :urls => {
+          "GitHub" => "https://github.com/eric",
+          "Blog" => "http://ericsblog.com"
+        }
+      )
 
       VCR.use_cassette('existing_gist') do
         Fabricate(
@@ -93,9 +100,14 @@ feature 'Users' do
       body.should include 'http://gravatar.com/avatar/1dae832a3c5ae2702f34ed50a40010e8.png'
     end
 
-    scenario 'see the link to the users github profile' do
+    scenario 'see the link to the user github profile' do
       page.should have_link 'eric on Github'
-      body.should include 'https://github.com/eric'
+      body.should include 'href="https://github.com/eric"'
+    end
+    
+    scenario 'see the links to the user websites' do
+      page.should have_link 'http://ericsblog.com'
+      body.should include 'href="http://ericsblog.com"'
     end
 
     scenario 'see the list of entered contests' do

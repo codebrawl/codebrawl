@@ -29,7 +29,7 @@ gem 'hoptoad_notifier'
 
 group :test do
   gem 'rspec-rails'
-  gem 'simplecov', :require => false
+  gem 'spec_coverage', :require => false
   gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git', :ref => '549e6733'
   gem 'launchy'
 
