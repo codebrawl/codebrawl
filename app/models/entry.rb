@@ -38,7 +38,11 @@ class Entry
   end
 
   def score
-    write_attribute(:score, calculate_score) unless read_attribute(:score).nonzero?
+    unless read_attribute(:score).nonzero?
+      write_attribute(:score, calculate_score)
+      save
+    end
+
     read_attribute(:score)
   end
 
@@ -58,7 +62,6 @@ class Entry
     if read_attribute(:files).empty?
       write_attribute(:files, get_files_from_gist)
       save
-      contest.save
     end
     result = {}
     read_attribute(:files).each { |filename, file| result[filename.gsub('*', '.')] = file }
