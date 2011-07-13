@@ -13,6 +13,9 @@ RSpec.configure do |config|
         'nickname' => 'charlie',
         'email' => 'charlie@email.com',
         'name' => 'Charlie Chaplin'
+      },
+      'credentials' => {
+        'token' => 't0k3n'
       }
     }
   end
