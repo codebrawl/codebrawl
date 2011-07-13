@@ -1,4 +1,4 @@
 --format BossFormatter
---format SpecCoverage
+#--format SpecCoverage
 --colour
 --drb
