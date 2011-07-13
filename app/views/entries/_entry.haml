@@ -25,9 +25,11 @@
       = form_for [@contest, entry, Vote.new], :remote => true do |f|
         = f.label :comment
         = f.text_area :comment
-        - (1..5).to_a.each do |score|
-          = f.label "score_#{score}", score
-          = f.radio_button :score, score
+
+        %fieldset
+          - (1..5).to_a.each do |score|
+            = f.label "score_#{score}", score
+            = f.radio_button :score, score
         = f.submit 'Vote'
 
   - if entry.contest.finished?
