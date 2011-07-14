@@ -41,7 +41,7 @@ $(document).ready(function(){
   $('ul#entries.voting li.unvoted div.files').css('height', 'auto');
   $('ul#entries.voting li.unvoted a.extend').hide();
 
-  $('.new_vote input[type="submit"]').hide();
+  $('li.unvoted .new_vote input[type="submit"]').hide();
   $('.new_vote input').change(function(){
     $(this).parent().submit();
   })
@@ -49,7 +49,7 @@ $(document).ready(function(){
   var unvoted = $('li.unvoted')
   unvoted.hide();
   if(unvoted.length > 0) {
-    $('#main').append('<a class="button vote">Vote</a>');
+    $('.message').after('<a class="button vote">Vote</a>');
   }
 
   $('a.vote').click(function(){
@@ -60,9 +60,11 @@ $(document).ready(function(){
     var li = lis[index];
 
     if(lis.length >= 1){
-      lis.append('<span class="skip">or <a>skip this entry</a></span>')
+      form = lis.find('form')
+      form.
+        append('<span class="skip">or <a>skip this entry</a></span>').
+        append('<span class="entries_left"/>')
 
-      lis.append('<span class="entries_left"/>')
       if(lis.length <= 1){
         $('span.skip').hide();
         $('span.entries_left').text('You\'re at the last entry')
@@ -77,7 +79,6 @@ $(document).ready(function(){
     $('div.overlay').click(function(){
       window.location.reload();
     })
-    $(this).css('margin-top', '20px')
     $('ul#entries li.voted, ul#entries li.unvoted').hide();
     $(li).show();
 

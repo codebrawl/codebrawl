@@ -23,6 +23,18 @@ class Gist
     new(response.code, response.body)
   end
 
+  def self.comment(id, token, message)
+    uri = URI.parse("https://api.github.com/gists/#{id}/comments?access_token=#{token}")
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+    request = Net::HTTP::Post.new(uri.request_uri)
+    request.body = "{\"body\": \"#{message}\"}"
+
+    response = http.request(request)
+  end
+
   def [](attribute)
     MultiJson.decode(body)[attribute]
   end

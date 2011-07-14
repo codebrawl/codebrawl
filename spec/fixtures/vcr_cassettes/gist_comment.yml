@@ -1,0 +1,30 @@
+---
+- !ruby/struct:VCR::HTTPInteraction
+  request: !ruby/struct:VCR::Request
+    method: :post
+    uri: https://api.github.com:443/gists/12345/comments?access_token=54321
+    body: ! '{"body": "Comment!"}'
+    headers: !!null
+  response: !ruby/struct:VCR::Response
+    status: !ruby/struct:VCR::ResponseStatus
+      code: 201
+      message: Created
+    headers:
+      server:
+      - nginx/1.0.4
+      date:
+      - Wed, 13 Jul 2011 16:59:06 GMT
+      content-type:
+      - application/json
+      status:
+      - 201 Created
+      x-ratelimit-limit:
+      - '5000'
+      location:
+      - https://api.github.com/gists/comments/40155
+      x-ratelimit-remaining:
+      - '4980'
+      content-length:
+      - '426'
+    body: ! '{"url":"https://api.github.com/gists/comments/12345","user":{"url":"https://api.github.com/users/alice","login":"alice","avatar_url":"https://secure.gravatar.com/avatar/f03f4ce7b507aede386263d218228b6a?d=https://gs1.wac.edgecastcdn.net/80460E/assets%2Fimages%2Fgravatars%2Fgravatar-140.png","id":43621},"updated_at":"2011-07-13T16:59:06Z","created_at":"2011-07-13T16:59:06Z","body":"Comment!","id":40155}'
+    http_version: '1.1'
