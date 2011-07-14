@@ -75,7 +75,8 @@ form
   margin: 10px 0 0 0
 
   textarea, input[type='text']
-    width: 100%
+    width: 96.55174%
+    padding: 1.72413%
     border: 1px solid #ddd
     font-size: 14px
     margin: 10px 0
@@ -176,11 +177,19 @@ form
       background-position: top right
 
       form
-        display: inline-block
-        background-image: url(<%= asset_path 'happyface.png' %>), url(<%= asset_path 'sadface.png' %>)
-        background-position: right, left
-        background-repeat: no-repeat
-        padding: 0 20px
+
+        textarea
+          height: 100px
+
+        fieldset
+          background-image: url(<%= asset_path 'happyface.png' %>), url(<%= asset_path 'sadface.png' %>)
+          background-position: right, left
+          background-repeat: no-repeat
+          padding: 0 20px
+          display: inline-block
+
+        input[type='submit']
+          margin: 0
 
       span.entries_left
         float: right
@@ -203,7 +212,7 @@ form
         padding: 10px 20px 20px 20px
 
     a.vote
-      margin-top: 40px
+      margin: 20px 0
 
     .gold
       background-image: url(<%= asset_path 'gold.png' %>)
@@ -249,7 +258,7 @@ form
     width: 70%
 
   .comments
-    margin: 10px 0 -10px 0
+    margin: 10px 0 0 0
     font-size: 12px
 
     div
