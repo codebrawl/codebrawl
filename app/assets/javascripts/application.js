@@ -41,7 +41,7 @@ $(document).ready(function(){
   $('ul#entries.voting li.unvoted div.files').css('height', 'auto');
   $('ul#entries.voting li.unvoted a.extend').hide();
 
-  $('.new_vote input[type="submit"]').hide();
+  $('li.unvoted .new_vote input[type="submit"]').hide();
   $('.new_vote input').change(function(){
     $(this).parent().submit();
   })

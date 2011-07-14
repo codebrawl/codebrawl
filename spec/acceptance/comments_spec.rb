@@ -27,6 +27,22 @@ feature 'Comments' do
       click_button 'Vote'
     end
     
+    context 'after voting' do
+      background do
+        within("#entry_#{@contest.entries.first.id}"){ choose '3' }
+        click_button 'Vote'
+      end
+      
+      scenario 'add a comment from the entry list' do
+        Gist.expects(:comment).with('866948', 't0k3n', 'Another comment!')
+        fill_in 'Comment', :with => 'Another comment!'
+        click_button 'Comment'
+      end
+      
+    end
+    
+    
+    
   end
   
 end
