@@ -1,0 +1,17 @@
+- if vote = entry.votes.select { |vote| vote.user_id == current_user.id }.first
+  :erb
+    You voted <strong><%= vote.score %>/5</strong>. (View the <%= link_to 'Gist', "https://gist.github.com/#{entry.gist_id}" %>)
+
+  = render 'entries/comments', :entry => entry
+
+- else
+
+  = form_for [@contest, entry, Vote.new], :remote => true do |f|
+    = f.label :comment
+    = f.text_area :comment
+
+    %fieldset
+      - (1..5).to_a.each do |score|
+        = f.label "score_#{score}", score
+        = f.radio_button :score, score
+    = f.submit 'Vote'
