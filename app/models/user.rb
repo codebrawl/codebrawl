@@ -32,4 +32,8 @@ class User
     contest.entries.select { |e| e.votes_from?(self) }
   end
 
+  def average_score
+    participations.map { |participation| participation['score'] }.inject(:+).to_f / participations.length
+  end
+
 end

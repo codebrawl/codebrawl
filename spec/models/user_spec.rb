@@ -69,5 +69,18 @@ describe User do
     end
 
   end
+  
+  describe '#average_score' do
+    subject do
+      Fabricate(
+        :user,
+        :participations => [{'score' => 1}, {'score' => 3}, {'score' => 4}]
+      ).average_score
+    end
+    
+    it 'should calculate the average score' do
+      should == 2.6666666666666665
+    end
+  end
 
 end
