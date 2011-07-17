@@ -4,6 +4,7 @@ feature 'Users' do
     
   context 'on the user index' do
     background(:all) do
+      User.any_instance.stubs(:average_score).returns(2.456)
       %w{ alice bob charlie david }.each_with_index do |login, index|
         Fabricate(
           :user,
@@ -25,6 +26,7 @@ feature 'Users' do
         page.should have_content '#1'
         page.should have_link 'david'
         body.should include 'href="/users/david"'
+        page.should have_content '2.5'
       end
       
       within(:xpath, '//tr[2]') do
