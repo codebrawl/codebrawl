@@ -1,0 +1,4 @@
+:erb
+  Finished in <strong><%= (entry_counter + 1).ordinalize %> place</strong> with a final score of <strong><%= sprintf("%.1f", entry.score) %>/5</strong>. (View the <%= link_to 'Gist', "https://gist.github.com/#{entry.gist_id}" %>)
+
+= render 'entries/comments', :entry => entry

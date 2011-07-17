@@ -1,0 +1,7 @@
+.comments{'data-gist_id' => entry.gist_id}
+
+= form_for [@contest, entry, Vote.new] do |f|
+  = f.label :comment
+  = f.text_area :comment
+
+  = f.submit 'Comment'

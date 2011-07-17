@@ -37,6 +37,8 @@ describe Contest do
       it { should have(1).error_on(:starting_on) }
 
       it { should have(1).error_on(:user) }
+      
+      it { should have(1).error_on(:tagline ) }
 
     end
 

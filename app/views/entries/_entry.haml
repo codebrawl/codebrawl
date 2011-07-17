@@ -1,4 +1,5 @@
 %li{ :id => dom_id(entry), :class => [entry.contest.finished? ? %w{gold silver bronze}[entry_counter] : @voted_entries.include?(entry) ? 'voted' : 'unvoted', 'entry'] }
+
   - if entry.contest.finished? || @voted_entries.include?(entry)
     .owner
       = link_to_profile(entry.user)
@@ -14,39 +15,8 @@
       %span
         View full entry
 
-  - if entry.contest.voting? && logged_in?
-    - if vote = entry.votes.select { |vote| vote.user_id == current_user.id }.first
-      :erb
-        You voted <strong><%= vote.score %>/5</strong>. (View the <%= link_to 'Gist', "https://gist.github.com/#{entry.gist_id}" %>)
+  -if entry.contest.voting? && logged_in?
+    = render 'entries/voting', :entry => entry
 
-      .comments{'data-gist_id' => entry.gist_id}
-
-      = form_for [@contest, entry, Vote.new] do |f|
-        = f.label :comment
-        = f.text_area :comment
-
-        = f.submit 'Comment'
-
-    - else
-
-      = form_for [@contest, entry, Vote.new], :remote => true do |f|
-        = f.label :comment
-        = f.text_area :comment
-
-        %fieldset
-          - (1..5).to_a.each do |score|
-            = f.label "score_#{score}", score
-            = f.radio_button :score, score
-        = f.submit 'Vote'
-
-  - if entry.contest.finished?
-    :erb
-      Finished in <strong><%= (entry_counter + 1).ordinalize %> place</strong> with a final score of <strong><%= sprintf("%.1f", entry.score) %>/5</strong>. (View the <%= link_to 'Gist', "https://gist.github.com/#{entry.gist_id}" %>)
-
-    .comments{'data-gist_id' => entry.gist_id}
-
-    = form_for [@contest, entry, Vote.new] do |f|
-      = f.label :comment
-      = f.text_area :comment
-
-      = f.submit 'Comment'
+  -if entry.contest.finished?
+    = render 'entries/finished', :entry => entry, :entry_counter => entry_counter

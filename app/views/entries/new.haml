@@ -1,3 +1,6 @@
+- content_for(:title){ "Submit your entry for “#{@contest.name}”" }
+- content_for(:description){ @contest.tagline }
+
 %h2= "Submit your entry for “#{@contest.name}”"
 
 = logged_in? ? render('form') : link_to('Log in via Github', '/auth/github')
