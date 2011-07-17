@@ -14,25 +14,25 @@ feature 'Homepage' do
       @open = Fabricate(
         :contest,
         :name => 'Euler #74',
-        :tagline => 'Get your Euler on',
+        :tagline => 'Get your Euler on and build the fastest solution to problem #123',
         :starting_on => Date.yesterday.to_time
       )
       @voting = Fabricate(
         :contest,
         :name => 'Fun with ChunkyPNG',
-        :tagline => 'Image manipulation! Woo!',
+        :tagline => 'Having a bit of with image manipulation in ChunkyPNG',
         :voting_on => Date.yesterday.to_time
       )
       @finished = Fabricate(
         :contest,
         :name => 'Improving Ruby',
-        :tagline => 'Everything you ever wanted',
+        :tagline => 'Build verything you ever wanted, monkey-patched into Ruby',
         :closing_on => Date.yesterday.to_time
       )
       @pending = Fabricate(
         :contest,
         :name => 'RSpec extensions',
-        :tagline => 'Giving back to RSpec',
+        :tagline => 'Giving back to RSpec by building the funniest or most useful RSpec formatter',
         :starting_on => Date.tomorrow.to_time
       )
     end
@@ -68,7 +68,7 @@ feature 'Homepage' do
     end
 
     scenario 'see the contest taglines' do
-      ['Get your Euler on', 'Image manipulation! Woo!', 'Everything you ever wanted'].each do |tagline|
+      ['Get your Euler on and build the fastest solution to problem #123', 'Having a bit of with image manipulation in ChunkyPNG', 'Build verything you ever wanted, monkey-patched into Ruby'].each do |tagline|
         page.should have_content tagline
       end
     end

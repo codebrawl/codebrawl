@@ -13,6 +13,7 @@ class Contest
   slug :name
 
   validates :user, :name, :description, :starting_on, :presence => true
+  validates :tagline, :length => { :minimum => 50 }
 
   before_create :set_voting_and_closing_dates
 
