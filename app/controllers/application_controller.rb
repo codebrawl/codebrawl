@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
     Dir.glob("app/blog/articles/*").each do |article|
       @data << {
         :loc => "#{articles_url}/#{File.basename(article)}",
-        :lastmod => File.mtime("#{article}/index.html").to_date.to_s,
+        :lastmod => File.mtime("#{Rails.root}/#{article}/index.html").to_date.to_s,
         :changefreq => 'weekly',
         :priority => 1
       }
