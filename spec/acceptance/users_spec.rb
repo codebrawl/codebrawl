@@ -59,7 +59,10 @@ feature 'Users' do
           "GitHub" => "https://github.com/eric",
           "Blog" => "http://ericsblog.com",
           "Blog2" => nil
-        }
+        },
+        :participations => [
+          {:score => 1}, {:score => 2}, {:score => 4}
+        ]
       )
 
       VCR.use_cassette('existing_gist') do
@@ -116,6 +119,10 @@ feature 'Users' do
     
     scenario 'do not show nil links' do
       page.should have_no_link '/users/eric'
+    end
+    
+    scenario 'see the average score' do
+      page.should have_content 'Average score: 2.3/5'
     end
 
     scenario 'see the list of entered contests' do
