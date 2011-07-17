@@ -11,6 +11,16 @@ GIT
       selenium-webdriver (>= 0.0.27)
       xpath (~> 0.1.3)
 
+GIT
+  remote: https://github.com/chriseppstein/compass.git
+  revision: 2124003550bf96e828f6e63351d44a61b647cbf1
+  branch: rails31
+  specs:
+    compass (0.11.3.rails.0.2124003)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -54,6 +64,7 @@ GEM
     builder (3.0.0)
     childprocess (0.1.9)
       ffi (~> 1.0.6)
+    chunky_png (1.2.0)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
@@ -74,6 +85,7 @@ GEM
       multipart-post (~> 1.1.0)
       rack (>= 1.1.0, < 2)
     ffi (1.0.9)
+    fssm (0.2.7)
     fuubar (0.0.5)
       rspec (~> 2.0)
       rspec-instafail (~> 0.1.4)
@@ -219,7 +231,12 @@ GEM
       blankslate (>= 2.1.2.3)
       ffi (~> 1.0.7)
     rubyzip (0.9.4)
-    sass (3.1.3)
+    sass (3.1.4)
+    sass-rails (3.1.0.rc.2)
+      actionpack (~> 3.1.0.rc1)
+      railties (~> 3.1.0.rc1)
+      sass (>= 3.1.2)
+      sprockets (>= 2.0.0.beta.9)
     selenium-webdriver (0.2.0)
       childprocess (>= 0.1.7)
       ffi (>= 1.0.7)
@@ -258,6 +275,7 @@ DEPENDENCIES
   bson_ext (~> 1.3)
   capybara!
   coffee-script
+  compass!
   database_cleaner
   fabrication
   faker
@@ -279,7 +297,7 @@ DEPENDENCIES
   rails (= 3.1.0.rc4)
   rpm_contrib
   rspec-rails
-  sass
+  sass-rails
   spork (~> 0.9.0.rc)
   thin
   timecop

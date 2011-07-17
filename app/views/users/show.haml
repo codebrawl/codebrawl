@@ -10,6 +10,7 @@
     %li= link_to("#{@user.login} on Github", "https://github.com/#{@user.login}")
     - @user.urls.reject {|key, value| key == 'GitHub' || value.nil? }.each do |key, url|
       %li= link_to url, url
+    %li= "Average score: #{sprintf("%.1f", @user.average_score)}/5"
 
   - if @entered_contests.any?
     %h3 Entered contests

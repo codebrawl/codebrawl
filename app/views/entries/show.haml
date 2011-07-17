@@ -1,0 +1,6 @@
+#entry
+  %ul#files
+    - @entry.files.sort {|a,b| a.first.split('.').last <=> b.first.split('.').last }.each do |filename, file|
+      %li{:'data-filename' => filename}
+        - cache "#{@entry.id}_#{filename}" do
+          = raw Gust.parse(file['content'], :filename => filename, :url => file['raw_url'])
