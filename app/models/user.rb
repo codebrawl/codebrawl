@@ -33,6 +33,7 @@ class User
   end
 
   def average_score
+    return 0.0 if participations.empty?
     participations.map { |participation| participation['score'] }.inject(:+).to_f / participations.length
   end
 
