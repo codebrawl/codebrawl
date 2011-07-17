@@ -15,14 +15,14 @@ class ApplicationController < ActionController::Base
       :loc => users_url,
       :lastmod => Contest.last.starting_on.to_s,
       :changefreq => 'weekly',
-      :priority => 2
+      :priority => 0.6
     }
 
     @data << {
       :loc => articles_url,
       :lastmod => File.mtime("#{Rails.root}/app/blog/index.html").to_date.to_s,
       :changefreq => 'weekly',
-      :priority => 1
+      :priority => 0.8
     }
 
     Dir.glob("app/blog/articles/*").each do |article|
@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
         :loc => "#{articles_url}/#{File.basename(article)}",
         :lastmod => File.mtime("#{Rails.root}/#{article}/index.html").to_date.to_s,
         :changefreq => 'weekly',
-        :priority => 1
+        :priority => 0.7
       }
     end
 
@@ -38,15 +38,15 @@ class ApplicationController < ActionController::Base
       :loc => url_for([:new, :submission]),
       :lastmod => Contest.last.starting_on.to_s,
       :changefreq => 'weekly',
-      :priority => 2
+      :priority => 0.5
     }
 
     User.all.each do |user|
       @data << {
         :loc => url_for(user),
         :lastmod => Contest.last.starting_on.to_s,
-        :changefreq => 'monthly',
-        :priority => 2
+        :changefreq => 'weekly',
+        :priority => 0.5
       }
     end
 
@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
         :loc => url_for(contest),
         :lastmod => (contest.closing_on || contest.voting_on || contest.starting_on).to_s,
         :changefreq => 'weekly',
-        :priority => 1
+        :priority => 0.9
       }
     end
 
