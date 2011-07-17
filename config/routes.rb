@@ -14,6 +14,7 @@ Codebrawl::Application.routes.draw do
 
   match '/auth/:provider/callback', :to => 'sessions#create'
   match '/auth/failure', :to => 'sessions#failure'
+  match '/sitemap', :to => 'application#sitemap'
 
   root :to => 'contests#index'
 
