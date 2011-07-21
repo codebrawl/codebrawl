@@ -7,10 +7,12 @@ body
   color: #222
   line-height: 150%
 
-body, input
-  font-family: "Helvetica Neue",Helvetica,Arial,freesans,clean,sans-serif
+body,
+input
+  font-family: "Helvetica Neue", Helvetica, Arial, freesans, clean, sans-serif
 
-h2,h3
+h2,
+h3
   font-weight: 900
 
 h2
@@ -28,7 +30,8 @@ a
     color: #ec1d25
     cursor: pointer
 
-a.button, input[type='submit']
+a.button,
+input[type="submit"]
   display: block
   text-align: center
   background-color: #222
@@ -44,7 +47,7 @@ a.button, input[type='submit']
   &:hover
     color: #eee
 
-input[type='submit']
+input[type="submit"]
   border: none
   display: block
   width: 100%
@@ -78,7 +81,8 @@ p
 form
   margin: 10px 0 0 0
 
-  textarea, input[type='text']
+  textarea,
+  input[type="text"]
     width: 96.55174%
     padding: 1.72413%
     border: 1px solid #ddd
@@ -88,7 +92,7 @@ form
   textarea
     height: 200px
 
-  input[type='text']
+  input[type="text"]
     font-size: 24px
 
 #notice, #alert
@@ -109,7 +113,7 @@ form
   margin: 25px auto
 
   h1 a
-    background-image: inline-image('logo.png', image)
+    background-image: inline-image('logo.png')
     text-indent: -9999px
     height: 94px
     display: block
@@ -122,9 +126,10 @@ form
     h1 a
       height: 75px
       background-size: 75%
+
   pre
     -webkit-text-size-adjust: none
-    font-family: Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",Courier,monospace
+    font-family: Monaco, "Courier New", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", Courier, monospace
     font-size: 13px
     color: #444
 
@@ -193,6 +198,7 @@ form
 
   #main
     clear: both
+
     #entries li.entry
       margin: 20px 0
       background-repeat: no-repeat
@@ -204,13 +210,13 @@ form
           height: 100px
 
         fieldset
-          background-image: inline-image('happyface.png', image), inline-image('sadface.png', image)
+          background-image: inline-image('happyface.png'), inline-image('sadface.png')
           background-position: right, left
           background-repeat: no-repeat
           padding: 0 20px
           display: inline-block
 
-        input[type='submit']
+        input[type="submit"]
           margin: 0
 
       span.entries_left
@@ -237,16 +243,16 @@ form
       margin: 20px 0
 
     .gold
-      background-image: inline-image('gold.png', image)
+      background-image: inline-image('gold.png')
 
     .silver
-      background-image: inline-image('silver.png', image)
+      background-image: inline-image('silver.png')
 
     .bronze
-      background-image: inline-image('bronze.png', image)
+      background-image: inline-image('bronze.png')
 
 #container.home
-  background-image: inline-image('gradient.png', image), inline-image('steven.jpg', image)
+  background-image: inline-image('gradient.png'), inline-image('steven.jpg')
   background-position: left 170px, right top
   background-repeat: repeat-x, no-repeat
   background-size: auto 30px, auto auto
@@ -261,21 +267,29 @@ form
 #contests, #entries, #articles
   margin-bottom: -20px
 
-#contests li, .message, #articles li
+#contests li,
+.message,
+#articles li
   padding: 20px 10px
 
 .contestants
   margin-top: 10px
 
-#entries li.entry, .contestants li
+#entries li.entry,
+.contestants li
   padding: 10px
 
-#contests li, #entries li.entry, .message, #articles li
+#contests li,
+#entries li.entry,
+.message,
+#articles li
   background-color: #ddd
   @include border-radius(2px)
   @include box-shadow(0 -1px 0 #ccc, 0 1px 0 #fff)
 
-#contests li, #entries li.entry, #articles li
+#contests li,
+#entries li.entry,
+#articles li
   margin-bottom: 20px
 
   .description
@@ -299,7 +313,8 @@ form
     font-size: 24px
     font-weight: 900
 
-    .time_left, .next_state
+    .time_left,
+    .next_state
       display: block
       font-size: 18px
       font-weight: 500
@@ -360,7 +375,7 @@ form ul
     height: 20px
     position: absolute
     width: 100%
-    background-image: inline-image('gradient.png', image)
+    background-image: inline-image('gradient.png')
 
     span
       display: none
@@ -405,7 +420,7 @@ strong
       padding-left: 5px
 
     a
-      background-image: inline-image('6sync.png', image)
+      background-image: inline-image('6sync.png')
       text-indent: -9999px
       height: 28px
       width: 73px
@@ -437,7 +452,7 @@ span#who
   font-size: 10px
   line-height: 10px
   font-style: italic
-  font-family: Palatino,Georgia,"Times New Roman",serif
+  font-family: Palatino, Georgia, "Times New Roman", serif
   text-align: right
   position: absolute
   top: 280px
