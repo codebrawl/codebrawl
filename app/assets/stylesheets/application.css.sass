@@ -140,11 +140,12 @@ form
       height: 75px
       background-size: 75%
 
-  pre
-    -webkit-text-size-adjust: none
+  p
+    margin: 0
     font-family: Monaco, "Courier New", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", Courier, monospace
     font-size: 13px
     color: #444
+    -webkit-text-size-adjust: none
 
     @media screen and (max-width: 460px)
       font-size: 10px
@@ -188,26 +189,25 @@ form
   @include box-shadow(0 0px 5px #000)
   max-width: 620px
 
-  #menu
+  nav
     margin-bottom: 20px
-    background-color: #222
+    background: #222
     margin: 0px -20px 20px -20px
     padding: 10px 20px
 
-    span, a
+    li
       height: 20px
+      float: left
+      margin-right: 15px
       text-shadow: 0 1px 5px #000
       color: #eee
 
-    a
-      margin-right: 10px
-
-    span
-      float: right
-      margin: 0
-
-      a
+      &.user
+        float: right
         margin: 0
+
+    a
+      color: #eee
 
   #main
     clear: both
@@ -266,7 +266,7 @@ form
 #container.home
   @include data-uri-bg("steven.jpg", #eee no-repeat)
 
-  #menu
+  nav
     height: 130px
     background-color: transparent
 
