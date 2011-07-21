@@ -1,6 +1,6 @@
 %ul#menu
-  %li= link_to 'previous', [@contest, @entries[:prev]]
-  %li= link_to 'next', [@contest, @entries[:next]]
+  %li= link_to 'previous', [@contest, @entries[:prev]] if @entries[:prev]
+  %li= link_to 'next', [@contest, @entries[:next]] if @entries[:next]
 
 #entry
   %ul#files

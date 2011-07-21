@@ -6,10 +6,8 @@ class EntriesController < ApplicationController
     @entry = @contest.entries.find(params[:id])
 
     index = @contest.entries.index(@entry)
-    @entries = {
-      :next => @contest.entries[index + 1],
-      :prev => @contest.entries[index - 1]
-    }
+    @entries = {:next => @contest.entries[index + 1]}
+    @entries.merge!(:prev => @contest.entries[index - 1]) if index.nonzero?
 
     render :layout => 'entry_viewer'
   end
