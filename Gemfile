@@ -48,7 +48,7 @@ group :test do
   gem 'fuubar'
   gem 'vcr'
 
-  gem 'mustang'
+  gem 'therubyracer'
 end
 
 group :development, :test do
