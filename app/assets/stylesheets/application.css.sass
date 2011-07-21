@@ -1,6 +1,21 @@
+// Compass imports
 @import compass
 @import compass/reset
 
+// Mixins
+@mixin hide
+  left: -9999px
+  position: absolute
+
+@mixin data-uri-bg($image, $properties: false)
+  @if $properties != false
+    background: inline-image($image) $properties
+    *background: url($image) $properties
+  @else
+    background: inline-image($image)
+    *background: url($image)G
+
+// Styling
 body
   background-color: #222
   font-size: 14px
@@ -113,12 +128,10 @@ form
   margin: 25px auto
 
   h1 a
-    background-image: inline-image('logo.png')
-    text-indent: -9999px
     height: 94px
     display: block
-    background-position: center
-    background-repeat: no-repeat
+    @include hide-text
+    @include data-uri-bg("logo.png", center no-repeat)
 
   @media screen and (max-width: 460px)
     font-size: 10px
@@ -168,7 +181,7 @@ form
 
 
 #container
-  background-color: #eee
+  background: #eee
   padding: 0px 20px 20px 20px
   margin: 0 auto
   @include border-radius(2px)
@@ -210,11 +223,10 @@ form
           height: 100px
 
         fieldset
-          background-image: inline-image('happyface.png'), inline-image('sadface.png')
-          background-position: right, left
-          background-repeat: no-repeat
           padding: 0 20px
           display: inline-block
+          background: inline-image("happyface.png") right no-repeat, inline-image("sadface.png") left no-repeat
+          *background: asset_url("happyface.png", image) right no-repeat, asset_url("sadface.png", image) left no-repeat
 
         input[type="submit"]
           margin: 0
@@ -243,19 +255,16 @@ form
       margin: 20px 0
 
     .gold
-      background-image: inline-image('gold.png')
+      @include data-uri-bg("gold.png", no-repeat)
 
     .silver
-      background-image: inline-image('silver.png')
+      @include data-uri-bg("silver.png", no-repeat)
 
     .bronze
-      background-image: inline-image('bronze.png')
+      @include data-uri-bg("bronze.png", no-repeat)
 
 #container.home
-  background-image: inline-image('gradient.png'), inline-image('steven.jpg')
-  background-position: left 170px, right top
-  background-repeat: repeat-x, no-repeat
-  background-size: auto 30px, auto auto
+  @include data-uri-bg("steven.jpg", #eee no-repeat)
 
   #menu
     height: 130px
@@ -375,7 +384,7 @@ form ul
     height: 20px
     position: absolute
     width: 100%
-    background-image: inline-image('gradient.png')
+    @include data-uri-bg("gradient.png", no-repeat)
 
     span
       display: none
@@ -420,11 +429,11 @@ strong
       padding-left: 5px
 
     a
-      background-image: inline-image('6sync.png')
-      text-indent: -9999px
       height: 28px
       width: 73px
       display: block
+      @include hide-text
+      @include data-uri-bg("6sync.png", no-repeat)
 
   .right
     width: 50%
