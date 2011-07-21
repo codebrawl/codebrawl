@@ -255,16 +255,19 @@ form
       margin: 20px 0
 
     .gold
-      @include data-uri-bg("gold.png", no-repeat)
+      background-image: asset_url('gold.png', image)
 
     .silver
-      @include data-uri-bg("silver.png", no-repeat)
+      background-image: asset_url('silver.png', image)
 
     .bronze
-      @include data-uri-bg("bronze.png", no-repeat)
+      background-image: asset_url('bronze.png', image)
 
 #container.home
-  @include data-uri-bg("steven.jpg", #eee no-repeat)
+  background-image: asset_url('gradient.png', image), asset_url('steven.jpg', image)
+  background-position: left 170px, right top
+  background-repeat: repeat-x, no-repeat
+  background-size: auto 30px, auto auto
 
   nav
     height: 130px
