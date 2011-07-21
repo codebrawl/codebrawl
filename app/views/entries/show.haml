@@ -1,3 +1,7 @@
+%ul#menu
+  %li= link_to 'previous', [@contest, @entries[:prev]]
+  %li= link_to 'next', [@contest, @entries[:next]]
+
 #entry
   %ul#files
     - @entry.files.sort {|a,b| a.first.split('.').last <=> b.first.split('.').last }.each do |filename, file|
