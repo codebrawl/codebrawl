@@ -8,6 +8,7 @@ body
   font-family: sans-serif
   font-size: 14px
   position: relative
+  overflow: hidden
 
 a
   color: inherit
@@ -39,8 +40,7 @@ div#entry
     li
       padding: 10px
 
-      span
-        background-color: red
+      span.filename
         display: block
         margin: -10px -10px 10px -10px
         padding: 5px 10px
@@ -71,6 +71,8 @@ div#entry
       margin-top: 10px
       padding: 5px 10px
       color: #eee
+      @include border-top-left-radius(3px)
+      @include border-bottom-left-radius(3px)
 
       &.current
         background-color: rgba(#000, .25)
