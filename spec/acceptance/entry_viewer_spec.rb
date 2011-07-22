@@ -9,6 +9,20 @@ feature 'Entry viewer' do
     end
   end
 
+  shared_examples_for 'a viewer with hidden contestant names' do
+    it 'should not show the contestant name' do
+      page.should have_no_link 'charlie'
+      body.should_not include 'href="/users/charlie"'
+    end
+  end
+
+  shared_examples_for 'a viewer with visible contestant names' do
+    it 'should show the contestant name' do
+      page.should have_link 'charlie'
+      body.should include 'href="/users/charlie"'
+    end
+  end
+
   background do
     @contest = Fabricate(
       :contest,
@@ -47,6 +61,8 @@ feature 'Entry viewer' do
     within('ul#files') { page.should have_content 'README.markdown' }
   end
 
+  it_should_behave_like 'a viewer with hidden contestant names'
+
   scenario 'do not see the "previous" link' do
     page.should have_no_content 'previous'
   end
@@ -68,6 +84,8 @@ feature 'Entry viewer' do
     end
 
     it_should_behave_like 'a viewer without voting controls'
+
+    it_should_behave_like 'a viewer with hidden contestant names'
 
     context 'when logged in' do
 
@@ -95,6 +113,8 @@ feature 'Entry viewer' do
 
           it_should_behave_like 'a viewer without voting controls'
 
+          it_should_behave_like 'a viewer with visible contestant names'
+
           it 'should tell me what I voted' do
             page.should have_content 'You voted 3/5'
           end
@@ -121,6 +141,18 @@ feature 'Entry viewer' do
 
     end
 
+  end
+
+  context 'when the contest has finished' do
+    background do
+      # TODO: stub `Contest#state` instead of overwriting the voting and
+      # closing dates.
+
+      @contest.update_attributes(:closing_on => Date.yesterday.to_time)
+      visit "contests/#{@contest.slug}/entries/#{@contest.entries.first.id}"
+    end
+
+    it_should_behave_like 'a viewer with visible contestant names'
   end
 
   context 'when on the second entry page' do

@@ -17,6 +17,11 @@ describe Entry do
       it { should be_false }
     end
 
+    context 'when not passing a user' do
+      subject { entry.votes_from?(nil) }
+      it { should be_false }
+    end
+
   end
 
   context 'fabrication' do
@@ -126,7 +131,7 @@ describe Entry do
             ]
           )
         end
-        
+
         subject do
           @entry.score
         end
@@ -199,7 +204,7 @@ describe Entry do
           end
         ]
       end
-      
+
       context 'when there is a .png file in the Gist' do
         subject do
           VCR.use_cassette('gist_with_files') do
@@ -212,7 +217,7 @@ describe Entry do
               ]
             )
           end
-          
+
           Gist.stubs(:fetch).returns(
             Gist.new(
               200,
@@ -222,7 +227,7 @@ describe Entry do
 
           @contest.entries.first.files['image.png']['content']
         end
-        
+
         it 'should not save the file content' do
           should == nil
         end

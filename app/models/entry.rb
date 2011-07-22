@@ -25,7 +25,7 @@ class Entry
   belongs_to :user
 
   def votes_from?(user)
-    votes.where(:user_id => user.id).any?
+    user ? votes.where(:user_id => user.id).any? : false
   end
 
   def errors?
