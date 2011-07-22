@@ -11,12 +11,14 @@ class VotesController < ApplicationController
       })
     end
 
-    unless params[:vote][:comment].empty?
+    unless params[:vote][:comment].blank?
       Gist.comment(@entry.gist_id, current_user.token, params[:vote][:comment])
     end
 
     respond_to do |format|
-      format.html { redirect_to @contest }
+      format.html do
+        redirect_to params[:vote][:next].present? ? contest_entry_path(@contest, :id => params[:vote][:next]) : :back
+      end
       format.js { render :nothing => true }
     end
   end

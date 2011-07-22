@@ -12,9 +12,18 @@ $.address.change(function(event) {
 });
 
 $(document).ready(function(){
-  $('#entry').prepend('<div id="sidebar"><ul id="drawer"></ul></div>');
+  $('#sidebar').append('<ul id="drawer"/>');
+  $('input[type="submit"]').hide();
+  $('input').change(function(){
+    $(this).parent().submit();
+  })
+
   $('ul#files li').each(function(){
-    $('ul#drawer').append('<li data-filename="' + $(this).attr('data-filename') + '"><a href="#' + $(this).attr('data-filename') + '">' + $(this).attr('data-filename') + '</li>');
+    $('ul#drawer').append(
+      '<li data-filename="' + $(this).attr('data-filename') + '">' +
+      '<a href="#' + $(this).attr('data-filename') + '">' +
+      $(this).attr('data-filename') + '</a></li>'
+    );
   });
 
   $('ul#files li').hide()

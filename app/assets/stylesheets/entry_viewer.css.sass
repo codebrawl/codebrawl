@@ -67,8 +67,21 @@ div#entry
     font-size: 85%
     float: left
 
+    #voting
+      padding: 10px 5px
+
+      input[type="submit"]
+        background-color: rgba(#000, .25)
+        color: #eee
+        margin-top: 10px
+        padding: 10px
+        border: none
+        width: 100%
+        font-size: 100%
+        @include border-radius(3px)
+
     li
-      margin-top: 10px
+      margin: 10px 0 0 5px
       padding: 5px 10px
       color: #eee
       @include border-top-left-radius(3px)

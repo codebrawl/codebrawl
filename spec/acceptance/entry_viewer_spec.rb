@@ -2,6 +2,13 @@ require 'acceptance/acceptance_helper'
 
 feature 'Entry viewer' do
 
+  shared_examples_for 'a viewer without voting controls' do
+    scenario 'do not see the voting controls' do
+      (1..5).to_a.each { |i| page.should have_no_field i.to_s }
+      page.should have_no_button 'Vote'
+    end
+  end
+
   background do
     @contest = Fabricate(
       :contest,
@@ -20,7 +27,8 @@ feature 'Entry viewer' do
             'implementation*rb' => { 'content' => 'def baz; bar + foo; end'}
           }
         )
-      ]
+      ],
+      :starting_on => Date.yesterday.to_time
     )
 
     visit "contests/#{@contest.slug}/entries/#{@contest.entries.first.id}"
@@ -47,6 +55,72 @@ feature 'Entry viewer' do
     click_link 'next'
     page.should have_content 'This is the second README file'
     page.should have_content 'def baz; bar + foo; end'
+  end
+
+  context 'when the contest is open for voting' do
+
+    background do
+      # TODO: stub `Contest#state` instead of overwriting the voting and
+      # closing dates.
+
+      @contest.update_attributes(:voting_on => Date.yesterday.to_time)
+      visit "contests/#{@contest.slug}/entries/#{@contest.entries.first.id}"
+    end
+
+    it_should_behave_like 'a viewer without voting controls'
+
+    context 'when logged in' do
+
+      background { login_via_github }
+
+      scenario 'see the voting controls' do
+        (1..5).to_a.each { |i| page.should have_field i.to_s }
+        page.should have_button 'Vote'
+      end
+
+      context 'after voting for the first entry' do
+
+        background do
+          choose '3'
+          click_button 'Vote'
+        end
+
+        scenario 'be taken to the next entry' do
+          page.should have_no_content 'This is the README file'
+          page.should have_content 'This is the second README file'
+        end
+
+        context 'after going back to the voted entry' do
+          background { click_link 'previous' }
+
+          it_should_behave_like 'a viewer without voting controls'
+
+          it 'should tell me what I voted' do
+            page.should have_content 'You voted 3/5'
+          end
+
+        end
+
+      end
+
+      context 'after voting for the last entry' do
+
+        background do
+          click_link 'next'
+          choose '4'
+          click_button 'Vote'
+        end
+
+        scenario 'be taken back to the last entry' do
+          page.should have_no_content 'This is the README file'
+          page.should have_content 'This is the second README file'
+          page.should have_content 'You voted 4/5'
+        end
+
+      end
+
+    end
+
   end
 
   context 'when on the second entry page' do

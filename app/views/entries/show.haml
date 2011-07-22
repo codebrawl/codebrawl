@@ -3,6 +3,20 @@
   %li= link_to 'next', [@contest, @entries[:next]] if @entries[:next]
 
 #entry
+  #sidebar
+    - if @contest.voting? && logged_in?
+      #voting
+        - if vote = @entry.votes.select { |vote| vote.user_id == current_user.id }.first
+          :erb
+            You voted <strong><%= vote.score %>/5</strong>.
+        - else
+          = form_for [@contest, @entry, Vote.new], :remote => true do |f|
+            - (1..5).to_a.each do |score|
+              = f.hidden_field 'next', :value => @entries[:next].try(:id)
+              = f.label "score_#{score}", score
+              = f.radio_button :score, score
+            = f.submit 'Vote'
+
   %ul#files
     - @entry.files.sort {|a,b| a.first.split('.').last <=> b.first.split('.').last }.each do |filename, file|
       %li{:'data-filename' => filename}
