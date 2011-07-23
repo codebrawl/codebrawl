@@ -1,4 +1,6 @@
-@import 'compass/reset'
+@import compass/reset
+@import compass/css3/border-radius
+@import compass/css3/box-shadow
 
 body
   background-color: #222
@@ -36,8 +38,8 @@ a.button, input[type='submit']
   font-size: 18px
   font-weight: 900
   color: #ccc
-  border-radius: 2px
-  box-shadow: 0 -1px 0 #fff, 0 1px 0 #000
+  @include border-radius(2px)
+  @include box-shadow(0 -1px 0 #fff, 0 1px 0 #000)
 
   &:hover
     color: #eee
@@ -90,7 +92,7 @@ form
     font-size: 24px
 
 #notice, #alert
-  border-radius: 2px
+  @include border-radius(2px)
   padding: 10px
   margin: 10px 0 20px 0
 
@@ -158,15 +160,15 @@ form
       display: none
 
     img
-      border-radius: 2px
+      @include border-radius(2px)
 
 
 #container
   background-color: #eee
   padding: 0px 20px 20px 20px
   margin: 0 auto
-  border-radius: 2px
-  box-shadow: 0 0px 5px #000
+  @include border-radius(2px)
+  @include box-shadow(0 0px 5px #000)
   max-width: 620px
 
   #menu
@@ -268,8 +270,8 @@ form
 
 #contests li, #entries li.entry, .message, #articles li
   background-color: #ddd
-  border-radius: 2px
-  box-shadow: 0 -1px 0 #ccc, 0 1px 0 #fff
+  @include border-radius(2px)
+  @include box-shadow(0 -1px 0 #ccc, 0 1px 0 #fff)
 
 #contests li, #entries li.entry, #articles li
   margin-bottom: 20px
@@ -286,7 +288,7 @@ form
       background-color: #eee
       padding: 10px
       margin-bottom: 10px
-      border-radius: 2px
+      @include border-radius(2px)
 
   .state
     text-align: right
@@ -320,8 +322,8 @@ form ul
   padding: 5px 10px
   margin: 10px 0 0 0
   font-family: monospace
-  border-top-left-radius: 2px
-  border-top-right-radius: 2px
+  @include border-top-left-radius(2px)
+  @include border-top-right-radius(2px)
 
 .files
   height: 120px
@@ -350,8 +352,8 @@ form ul
   overflow-x: auto
   overflow-y: hidden
   padding: 10px
-  border-bottom-left-radius: 2px
-  border-bottom-right-radius: 2px
+  @include border-bottom-left-radius(2px)
+  @include border-bottom-right-radius(2px)
   height: 100px
 
 hr
