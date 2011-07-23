@@ -101,6 +101,16 @@ div#entry
       @include border-top-left-radius(3px)
       @include border-bottom-left-radius(3px)
 
+      &.comments
+        position: absolute
+        bottom: 10px
+
+        &.current
+          background-color: transparent
+
+          span
+            background-color: #222
+
       &.current
         background-color: rgba(#000, .25)
 
