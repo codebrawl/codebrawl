@@ -141,14 +141,33 @@ form
 
 #wrapper
   margin: auto
-  max-width: 680px
+  max-width: 900px
+  padding: 10px
+  position: relative
+
+  #adzerk_ad_div
+    color: #666
+    font-size: 70%
+    line-height: 120%
+    position: absolute
+    top: 181px
+    right: 0
+    width: 120px
+
+    @media screen and (max-width: 920px)
+      display: none
+
+    img
+      border-radius: 2px
+
 
 #container
   background-color: #eee
   padding: 0px 20px 20px 20px
-  margin: 0 10px 10px 10px
+  margin: 0 auto
   border-radius: 2px
   box-shadow: 0 0px 5px #000
+  max-width: 620px
 
   #menu
     margin-bottom: 20px
@@ -345,6 +364,8 @@ strong
 #footer
   color: #666
   padding: 0 10px 0 5px
+  max-width: 660px
+  margin: auto
 
   a
     color: #eee

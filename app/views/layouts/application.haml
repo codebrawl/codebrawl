@@ -39,6 +39,9 @@
 
           = yield
 
+      #adzerk_ad_div
+        %script{:type => "text/javascript", :src => "http://engine.rubyrow.net/Server/RUBY/JK/NOCSS"}
+
       #footer
         .left
           %span
@@ -49,5 +52,7 @@
           &bull;
           =link_to 'Submit a contest idea', [:new, :submission]
         %hr
+
+
 
     = render 'analytics'
