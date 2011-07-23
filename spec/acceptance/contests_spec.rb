@@ -97,7 +97,9 @@ feature 'Contests' do
         visit "/contests/#{@contest.slug}"
       end
 
-      it_should_behave_like 'a contest with hidden contestant names and gists'
+      scenario 'do not see the entries yet' do
+        page.should have_no_css('ul#entries')
+      end
 
       it_should_behave_like 'a contest with hidden entries'
 

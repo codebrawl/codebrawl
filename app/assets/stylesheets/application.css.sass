@@ -1,3 +1,7 @@
+@import compass/reset
+@import compass/css3/border-radius
+@import compass/css3/box-shadow
+
 body
   background-color: #222
   font-size: 14px
@@ -34,8 +38,8 @@ a.button, input[type='submit']
   font-size: 18px
   font-weight: 900
   color: #ccc
-  border-radius: 2px
-  box-shadow: 0 -1px 0 #fff, 0 1px 0 #000
+  @include border-radius(2px)
+  @include box-shadow(0 -1px 0 #fff, 0 1px 0 #000)
 
   &:hover
     color: #eee
@@ -88,7 +92,7 @@ form
     font-size: 24px
 
 #notice, #alert
-  border-radius: 2px
+  @include border-radius(2px)
   padding: 10px
   margin: 10px 0 20px 0
 
@@ -106,7 +110,7 @@ form
   width: 375px
 
   h1 a
-    background-image: url(<%= asset_path 'logo_transparant.png' %>)
+    background-image: asset_url('logo_transparant.png', image)
     text-indent: -9999px
     height: 100px
     display: block
@@ -139,14 +143,33 @@ form
 
 #wrapper
   margin: auto
-  max-width: 680px
+  max-width: 900px
+  padding: 10px
+  position: relative
+
+  #adzerk_ad_div
+    color: #666
+    font-size: 70%
+    line-height: 120%
+    position: absolute
+    top: 181px
+    right: 0
+    width: 120px
+
+    @media screen and (max-width: 920px)
+      display: none
+
+    img
+      @include border-radius(2px)
+
 
 #container
   background-color: #eee
   padding: 0px 20px 20px 20px
-  margin: 0 10px 10px 10px
-  border-radius: 2px
-  box-shadow: 0 0px 5px #000
+  margin: 0 auto
+  @include border-radius(2px)
+  @include box-shadow(0 0px 5px #000)
+  max-width: 620px
 
   #menu
     margin-bottom: 20px
@@ -182,7 +205,7 @@ form
           height: 100px
 
         fieldset
-          background-image: url(<%= asset_path 'happyface.png' %>), url(<%= asset_path 'sadface.png' %>)
+          background-image: asset_url('happyface.png', image), asset_url('sadface.png', image)
           background-position: right, left
           background-repeat: no-repeat
           padding: 0 20px
@@ -215,16 +238,16 @@ form
       margin: 20px 0
 
     .gold
-      background-image: url(<%= asset_path 'gold.png' %>)
+      background-image: asset_url('gold.png', image)
 
     .silver
-      background-image: url(<%= asset_path 'silver.png' %>)
+      background-image: asset_url('silver.png', image)
 
     .bronze
-      background-image: url(<%= asset_path 'bronze.png' %>)
+      background-image: asset_url('bronze.png', image)
 
 #container.home
-  background-image: url(<%= asset_path 'gradient.png' %>), url(<%= asset_path 'steven.jpg' %>)
+  background-image: asset_url('gradient.png', image), asset_url('steven.jpg', image)
   background-position: left 170px, right top
   background-repeat: repeat-x, no-repeat
   background-size: auto 30px, auto auto
@@ -247,8 +270,8 @@ form
 
 #contests li, #entries li.entry, .message, #articles li
   background-color: #ddd
-  border-radius: 2px
-  box-shadow: 0 -1px 0 #ccc, 0 1px 0 #fff
+  @include border-radius(2px)
+  @include box-shadow(0 -1px 0 #ccc, 0 1px 0 #fff)
 
 #contests li, #entries li.entry, #articles li
   margin-bottom: 20px
@@ -265,7 +288,7 @@ form
       background-color: #eee
       padding: 10px
       margin-bottom: 10px
-      border-radius: 2px
+      @include border-radius(2px)
 
   .state
     text-align: right
@@ -299,8 +322,8 @@ form ul
   padding: 5px 10px
   margin: 10px 0 0 0
   font-family: monospace
-  border-top-left-radius: 2px
-  border-top-right-radius: 2px
+  @include border-top-left-radius(2px)
+  @include border-top-right-radius(2px)
 
 .files
   height: 120px
@@ -317,7 +340,7 @@ form ul
     height: 20px
     position: absolute
     width: 100%
-    background-image: url(<%= asset_path 'gradient.png' %>)
+    background-image: asset_url('gradient.png', image)
 
     span
       display: none
@@ -329,8 +352,8 @@ form ul
   overflow-x: auto
   overflow-y: hidden
   padding: 10px
-  border-bottom-left-radius: 2px
-  border-bottom-right-radius: 2px
+  @include border-bottom-left-radius(2px)
+  @include border-bottom-right-radius(2px)
   height: 100px
 
 hr
@@ -343,6 +366,8 @@ strong
 #footer
   color: #666
   padding: 0 10px 0 5px
+  max-width: 660px
+  margin: auto
 
   a
     color: #eee
@@ -356,7 +381,7 @@ strong
       padding-left: 5px
 
     a
-      background-image: url(<%= asset_path '6sync.png' %>)
+      background-image: asset_url('6sync.png', image)
       text-indent: -9999px
       height: 28px
       width: 73px
@@ -413,3 +438,5 @@ table
 
   td
     padding: 5px 10px
+
+@import gust
