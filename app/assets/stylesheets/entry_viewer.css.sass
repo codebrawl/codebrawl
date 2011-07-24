@@ -7,7 +7,6 @@ body
   margin: 40px 0 20px 0
   font-family: sans-serif
   font-size: 14px
-  position: relative
   overflow: hidden
 
 a
@@ -77,6 +76,7 @@ div#entry
       +fixed-width-text
 
   div#sidebar
+    height: 100%
     min-width: 155px
     font-size: 85%
     float: left
@@ -102,14 +102,7 @@ div#entry
       @include border-bottom-left-radius(3px)
 
       &.comments
-        position: absolute
-        bottom: 10px
-
-        &.current
-          background-color: transparent
-
-          span
-            background-color: #222
+        margin-top: 20px
 
       &.current
         background-color: rgba(#000, .25)
