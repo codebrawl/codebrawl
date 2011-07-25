@@ -55,44 +55,13 @@ feature 'Entry viewer' do
         )
       ],
       :starting_on => Date.yesterday.to_time
-    )
-
-    visit "contests/#{@contest.slug}/entries/#{@contest.entries.first.id}"
+    )   
   end
-
-  scenario 'see entry files' do
-    page.should have_content 'This is the README file'
-    page.should have_content 'def foo; bar + baz; end'
-  end
-
-  scenario 'parse the entry files using Gust' do
-    body.should include '<em>README</em>'
-  end
-
-  scenario 'see entry filenames' do
-    within('ul#files') { page.should have_content 'README.markdown' }
-  end
-
-  it_should_behave_like 'a viewer with hidden contestant names'
-
-  scenario 'do not see the "previous" link' do
-    page.should have_no_content 'previous'
-  end
-
-  scenario 'navigate to the next entry' do
-    click_link 'next'
-    page.should have_content 'This is the second README file'
-    page.should have_content 'def baz; bar + foo; end'
-  end
-
-  it_should_behave_like 'a viewer with hidden comments'
-
-  context 'when logged in' do
-
-    background { login_via_github }
-
-    it_should_behave_like 'a viewer with hidden comments'
-
+  
+  scenario 'get a not found error' do
+    lambda {
+       visit "contests/#{@contest.slug}/entries/#{@contest.entries.first.id}"
+    }.should raise_error(ActionController::RoutingError)
   end
 
   context 'when the contest is open for voting' do
@@ -103,6 +72,56 @@ feature 'Entry viewer' do
 
       @contest.update_attributes(:voting_on => Date.yesterday.to_time)
       visit "contests/#{@contest.slug}/entries/#{@contest.entries.first.id}"
+    end
+    
+    it_should_behave_like 'a viewer with hidden contestant names'
+    
+    it_should_behave_like 'a viewer with hidden comments'
+    
+    scenario 'see entry files' do
+      page.should have_content 'This is the README file'
+      page.should have_content 'def foo; bar + baz; end'
+    end
+
+    scenario 'parse the entry files using Gust' do
+      body.should include '<em>README</em>'
+    end
+
+    scenario 'see entry filenames' do
+      within('ul#files') { page.should have_content 'README.markdown' }
+    end
+
+    scenario 'do not see the "previous" link' do
+      page.should have_no_content 'previous'
+    end
+
+    scenario 'navigate to the next entry' do
+      click_link 'next'
+      page.should have_content 'This is the second README file'
+      page.should have_content 'def baz; bar + foo; end'
+    end
+    
+    context 'when on the second entry page' do
+      background do
+        visit "contests/#{@contest.slug}/entries/#{@contest.entries.last.id}"
+      end
+
+      scenario 'do not see the "next" link' do
+        page.should have_no_content 'next'
+      end
+
+      scenario 'navigate to the previous entry' do
+        click_link 'previous'
+        page.should have_content 'This is the README file'
+      end
+    end
+
+    context 'when logged in' do
+
+      background { login_via_github }
+
+      it_should_behave_like 'a viewer with hidden comments'
+
     end
 
     it_should_behave_like 'a viewer without voting controls'
@@ -203,21 +222,6 @@ feature 'Entry viewer' do
       
     end
 
-  end
-
-  context 'when on the second entry page' do
-    background do
-      visit "contests/#{@contest.slug}/entries/#{@contest.entries.last.id}"
-    end
-
-    scenario 'do not see the "next" link' do
-      page.should have_no_content 'next'
-    end
-
-    scenario 'navigate to the previous entry' do
-      click_link 'previous'
-      page.should have_content 'This is the README file'
-    end
   end
 
 end

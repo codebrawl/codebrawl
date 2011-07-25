@@ -3,6 +3,8 @@ class EntriesController < ApplicationController
 
   def show
     @contest = Contest.find_by_slug(params[:contest_id])
+    not_found if @contest.open?
+
     @entry = @contest.entries.find(params[:id])
 
     index = @contest.entries.index(@entry)
