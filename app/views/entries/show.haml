@@ -1,8 +1,11 @@
-%ul#menu
-  - if @contest.voting? && @entry.votes_from?(current_user) || @contest.finished?
-    %li= link_to_profile(@entry.user)
-  %li= link_to 'previous', [@contest, @entries[:prev]] if @entries[:prev]
-  %li= link_to 'next', [@contest, @entries[:next]] if @entries[:next]
+#header
+  %span
+    - if @contest.voting? && @entry.votes_from?(current_user) || @contest.finished?
+      = link_to_profile(@entry.user)
+
+  %ul
+    %li= link_to 'previous', [@contest, @entries[:prev]] if @entries[:prev]
+    %li= link_to 'next', [@contest, @entries[:next]] if @entries[:next]
 
 #entry
   #sidebar
