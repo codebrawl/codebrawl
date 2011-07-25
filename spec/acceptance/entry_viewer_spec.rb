@@ -22,6 +22,18 @@ feature 'Entry viewer' do
       body.should include 'href="/users/charlie"'
     end
   end
+  
+  shared_examples_for 'a viewer with visible comments' do
+    scenario 'see the comments' do
+      page.should have_css('li#comments')
+    end
+  end
+
+  shared_examples_for 'a viewer with hidden comments' do
+    scenario 'do not see the comments' do
+      page.should have_no_css('li#comments')
+    end
+  end
 
   background do
     @contest = Fabricate(
@@ -72,24 +84,15 @@ feature 'Entry viewer' do
     page.should have_content 'This is the second README file'
     page.should have_content 'def baz; bar + foo; end'
   end
-  
-  scenario 'do not see the comment box' do
-    page.should have_content 'Please log in to comment'
-    page.should have_link 'log in'
-    body.should include '<a href="/auth/github"'
-    page.should have_no_css('textarea')
-  end
-  
+
+  it_should_behave_like 'a viewer with hidden comments'
+
   context 'when logged in' do
 
     background { login_via_github }
-    
-    scenario 'add a comment' do
-      Gist.expects(:comment).with('866948', 't0k3n', 'Comment!')
-      fill_in 'Comment', :with => 'Comment!'
-      click_button 'Comment'
-    end
-    
+
+    it_should_behave_like 'a viewer with hidden comments'
+
   end
 
   context 'when the contest is open for voting' do
@@ -106,6 +109,8 @@ feature 'Entry viewer' do
 
     it_should_behave_like 'a viewer with hidden contestant names'
 
+    it_should_behave_like 'a viewer with hidden comments'
+
     context 'when logged in' do
 
       background { login_via_github }
@@ -114,6 +119,8 @@ feature 'Entry viewer' do
         (1..5).to_a.each { |i| page.should have_field i.to_s }
         page.should have_button 'Vote'
       end
+
+      it_should_behave_like 'a viewer with hidden comments'
 
       context 'after voting for the first entry' do
 
@@ -133,11 +140,19 @@ feature 'Entry viewer' do
           it_should_behave_like 'a viewer without voting controls'
 
           it_should_behave_like 'a viewer with visible contestant names'
+          
+          it_should_behave_like 'a viewer with visible comments'
+          
+          scenario 'add a comment' do
+            Gist.expects(:comment).with('866948', 't0k3n', 'Comment!')
+            fill_in 'Comment', :with => 'Comment!'
+            click_button 'Comment'
+          end
 
           it 'should tell me what I voted' do
             page.should have_content 'You voted 3/5'
           end
-
+          
         end
 
       end
@@ -172,6 +187,28 @@ feature 'Entry viewer' do
     end
 
     it_should_behave_like 'a viewer with visible contestant names'
+    
+    it_should_behave_like 'a viewer with visible comments'
+    
+    scenario 'do not see the comment box' do
+      page.should have_content 'Please log in to comment'
+      page.should have_link 'log in'
+      body.should include '<a href="/auth/github"'
+      page.should have_no_css('textarea')
+    end
+    
+    context 'when logged in' do
+      
+      background { login_via_github }
+      
+      scenario 'add a comment' do
+        Gist.expects(:comment).with('866948', 't0k3n', 'Comment!')
+        fill_in 'Comment', :with => 'Comment!'
+        click_button 'Comment'
+      end
+      
+    end
+
   end
 
   context 'when on the second entry page' do
