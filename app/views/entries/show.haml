@@ -26,3 +26,16 @@
         - cache "#{@entry.id}_#{filename}" do
           = raw Gust.parse(file['content'], :filename => filename, :url => file['raw_url'])
     %li{:id => 'comments', :'data-filename' => 'comments', :'data-gist_id' => @entry.gist_id}
+      %span{:class => 'filename comment_box'} Comment
+
+      - if logged_in?
+        = form_for [@contest, @entry, Vote.new] do |f|
+          = f.label :comment
+          = f.text_area :comment
+
+          = f.submit 'Comment'
+      - else
+        :erb
+          Please <%= link_to 'log in', '/auth/github' %> to comment.
+
+

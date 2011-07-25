@@ -72,6 +72,25 @@ feature 'Entry viewer' do
     page.should have_content 'This is the second README file'
     page.should have_content 'def baz; bar + foo; end'
   end
+  
+  scenario 'do not see the comment box' do
+    page.should have_content 'Please log in to comment'
+    page.should have_link 'log in'
+    body.should include '<a href="/auth/github"'
+    page.should have_no_css('textarea')
+  end
+  
+  context 'when logged in' do
+
+    background { login_via_github }
+    
+    scenario 'add a comment' do
+      Gist.expects(:comment).with('866948', 't0k3n', 'Comment!')
+      fill_in 'Comment', :with => 'Comment!'
+      click_button 'Comment'
+    end
+    
+  end
 
   context 'when the contest is open for voting' do
 

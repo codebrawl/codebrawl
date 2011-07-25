@@ -22,7 +22,7 @@ $(document).ready(function(){
       $('a[href="#comments"]').prepend('<span>' + response['gists'][0]['comments'].length + '</span> ')
 
       $.each(response['gists'][0]['comments'], function(key, val) {
-        comments.append(
+        comments.find('span.comment_box').before(
           '<li><span class="filename"><img class="gravatar" src="http://gravatar.com/avatar/' + val.gravatar_id + '.png?r=PG&s=20"/> ' + val.user + '</span>' + converter.makeHtml(val.body) + '</li>'
         );
       });
@@ -30,7 +30,7 @@ $(document).ready(function(){
   );
 
   $('#sidebar').append('<ul id="drawer"/>');
-  $('input[type="submit"]').hide();
+  $('#sidebar input[type="submit"]').hide();
   $('input').change(function(){
     $(this).parent().submit();
   })
