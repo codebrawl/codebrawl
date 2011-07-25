@@ -129,31 +129,25 @@ feature 'Entry viewer' do
           click_button 'Vote'
         end
 
-        scenario 'be taken to the next entry' do
-          page.should have_no_content 'This is the README file'
-          page.should have_content 'This is the second README file'
+        scenario 'be taken back to the voted entry' do
+          page.should have_content 'This is the README file'
         end
 
-        context 'after going back to the voted entry' do
-          background { click_link 'previous' }
-
-          it_should_behave_like 'a viewer without voting controls'
-
-          it_should_behave_like 'a viewer with visible contestant names'
-          
-          it_should_behave_like 'a viewer with visible comments'
-          
-          scenario 'add a comment' do
-            Gist.expects(:comment).with('866948', 't0k3n', 'Comment!')
-            fill_in 'Comment', :with => 'Comment!'
-            click_button 'Comment'
-          end
-
-          it 'should tell me what I voted' do
-            page.should have_content 'You voted 3/5'
-          end
-          
+        it_should_behave_like 'a viewer without voting controls'
+        
+        it_should_behave_like 'a viewer with visible contestant names'
+        
+        it_should_behave_like 'a viewer with visible comments'
+        
+        scenario 'add a comment' do
+          Gist.expects(:comment).with('866948', 't0k3n', 'Comment!')
+          fill_in 'Comment', :with => 'Comment!'
+          click_button 'Comment'
         end
+        
+        it 'should tell me what I voted' do
+          page.should have_content 'You voted 3/5'
+        end  
 
       end
 

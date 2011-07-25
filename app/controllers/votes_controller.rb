@@ -17,7 +17,7 @@ class VotesController < ApplicationController
 
     respond_to do |format|
       format.html do
-        redirect_to params[:vote][:next].present? ? contest_entry_path(@contest, :id => params[:vote][:next]) : :back
+        redirect_to :back
       end
       format.js { render :nothing => true }
     end
