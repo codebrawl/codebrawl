@@ -11,12 +11,6 @@ feature 'Homepage' do
   context "on the homepage" do
 
     background :all do
-      @open = Fabricate(
-        :contest,
-        :name => 'Euler #74',
-        :tagline => 'Get your Euler on and build the fastest solution to problem #123',
-        :starting_on => Date.yesterday.to_time
-      )
       @voting = Fabricate(
         :contest,
         :name => 'Fun with ChunkyPNG',
@@ -35,76 +29,106 @@ feature 'Homepage' do
         :tagline => 'Giving back to RSpec by building the funniest or most useful RSpec formatter',
         :starting_on => Date.tomorrow.to_time
       )
+
+      visit '/'
     end
 
-    before { visit '/' }
-
-    scenario 'see the Codebrawl header' do
-      page.should have_content 'Codebrawl'
-    end
-
-    scenario 'return to the homepage after clicking the header' do
-      click_link 'Fun with ChunkyPNG'
-      click_link 'Codebrawl'
-      ['Euler #74', 'Fun with ChunkyPNG'].each do |name|
-        page.should have_link name
-      end
-    end
-    
-    scenario 'return to the homepage after clicking the "Contests" menu item' do
-      click_link 'Fun with ChunkyPNG'
-      click_link 'Contests'
-      ['Euler #74', 'Fun with ChunkyPNG'].each do |name|
-        page.should have_link name
+    scenario 'see the "no open contests"-message' do
+      within('.message') do
+        page.should have_content "Get ready for next week's contest"
+        page.should have_content 'Our next contest will start next Monday at 14:00 (UTC)'
+        page.should have_link 'contests feed'
+        body.should include 'href="http://feeds.feedburner.com/codebrawl"'
+        page.should have_link "last week's contest"
+        body.should include 'href="/contests/fun-with-chunkypng"'
       end
     end
 
-    scenario 'see a list of contest names' do
-      ['Euler #74', 'Fun with ChunkyPNG', 'Improving Ruby'].each do |name|
-        page.should have_link name
+    context 'when having an open contest' do
+
+      background :all do
+        @open = Fabricate(
+          :contest,
+          :name => 'Euler #74',
+          :tagline => 'Get your Euler on and build the fastest solution to problem #123',
+          :starting_on => Date.yesterday.to_time
+        )
       end
 
-      page.should have_no_content 'RSpec extensions'
-    end
+      before { visit '/' }
 
-    scenario 'see the contest taglines' do
-      ['Get your Euler on and build the fastest solution to problem #123', 'Having a bit of with image manipulation in ChunkyPNG', 'Build verything you ever wanted, monkey-patched into Ruby'].each do |tagline|
-        page.should have_content tagline
-      end
-    end
-
-    scenario 'see the contest states' do
-      within "li#contest_#{@open.id}" do
-        page.should have_content 'Open'
+      scenario 'see the Codebrawl header' do
+        page.should have_content 'Codebrawl'
       end
 
-      within "li#contest_#{@voting.id}" do
-        page.should have_content 'Voting'
+      scenario 'do not see the "no open contests"-message' do
+        page.should have_no_content "Get ready for next week's contest"
       end
 
-      within "li#contest_#{@finished.id}" do
-        page.should have_content 'Finished'
+      scenario 'return to the homepage after clicking the header' do
+        click_link 'Fun with ChunkyPNG'
+        click_link 'Codebrawl'
+        ['Euler #74', 'Fun with ChunkyPNG'].each do |name|
+          page.should have_link name
+        end
       end
-    end
 
-    scenario 'visit the submissions page' do
-      click_link 'Submit a contest idea'
-      page.should have_content 'Submit your contest idea'
-      page.should have_content 'charlie'
-    end
-    
-    scenario 'visit the hall of fame' do
-      click_link 'Hall of Fame'
-      within('#main') { page.should have_content 'Hall of Fame' }
-    end
+      scenario 'return to the homepage after clicking the "Contests" menu item' do
+        click_link 'Fun with ChunkyPNG'
+        click_link 'Contests'
+        ['Euler #74', 'Fun with ChunkyPNG'].each do |name|
+          page.should have_link name
+        end
+      end
 
-    context 'after logging in' do
+      scenario 'see a list of contest names' do
+        ['Euler #74', 'Fun with ChunkyPNG', 'Improving Ruby'].each do |name|
+          page.should have_link name
+        end
 
-      background { login_via_github }
+        page.should have_no_content 'RSpec extensions'
+      end
 
-      scenario 'visit my profile page' do
-        click_link 'charlie'
-        page.should have_content 'Charlie Chaplin'
+      scenario 'see the contest taglines' do
+        ['Get your Euler on and build the fastest solution to problem #123', 'Having a bit of with image manipulation in ChunkyPNG', 'Build verything you ever wanted, monkey-patched into Ruby'].each do |tagline|
+          page.should have_content tagline
+        end
+      end
+
+      scenario 'see the contest states' do
+        within "li#contest_#{@open.id}" do
+          page.should have_content 'Open'
+        end
+
+        within "li#contest_#{@voting.id}" do
+          page.should have_content 'Voting'
+        end
+
+        within "li#contest_#{@finished.id}" do
+          page.should have_content 'Finished'
+        end
+      end
+
+      scenario 'visit the submissions page' do
+        click_link 'Submit a contest idea'
+        page.should have_content 'Submit your contest idea'
+        page.should have_content 'charlie'
+      end
+
+      scenario 'visit the hall of fame' do
+        click_link 'Hall of Fame'
+        within('#main') { page.should have_content 'Hall of Fame' }
+      end
+
+      context 'after logging in' do
+
+        background { login_via_github }
+
+        scenario 'visit my profile page' do
+          click_link 'charlie'
+          page.should have_content 'Charlie Chaplin'
+        end
+
       end
 
     end
