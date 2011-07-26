@@ -6,6 +6,8 @@ class UsersController < ApplicationController
   end
 
   def show
+    @points = User.only(:points).order_by([:points, :desc]).map(&:points)
+
     @user = User.where(:login => params[:id]).first
     @entered_contests = Contest.all.where('entries.user_id' => @user.id).select do |contest|
       contest.state == 'finished'

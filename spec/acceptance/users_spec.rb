@@ -2,19 +2,25 @@ require 'acceptance/acceptance_helper'
 
 feature 'Users' do
 
-  context 'on the user index' do
-    background(:all) do
-      User.any_instance.stubs(:average_score).returns(2.456)
-      %w{ alice bob charlie david }.each_with_index do |login, index|
-        Fabricate(
-          :user,
-          :login => login,
-          :points => index * 100
-        )
-      end
+  background(:all) do
 
-      Fabricate(:user, :login => 'frank')
-      Fabricate(:user, :login => 'gary', :points => 200)
+    %w{ alice bob charlie david }.each_with_index do |login, index|
+      Fabricate(
+        :user,
+        :login => login,
+        :points => index * 100
+      )
+    end
+
+    Fabricate(:user, :login => 'frank')
+    Fabricate(:user, :login => 'gary', :points => 200)
+
+  end
+
+  context 'on the user index' do
+
+    background do
+      User.any_instance.stubs(:average_score).returns(2.456)
       visit '/users'
     end
 
@@ -146,6 +152,20 @@ feature 'Users' do
 
     scenario 'see the list of submitted contests' do
       page.should have_content 'Ruby metaprogramming'
+    end
+
+  end
+
+  context 'on user profiles' do
+
+    scenario 'show the user position' do
+
+      {'david' => 1, 'charlie' => 2, 'gary' => 2, 'bob' => 4}.each do |login, position|
+        visit "/users/#{login}"
+        page.should have_content "##{position}"
+      end
+
+
     end
 
   end
