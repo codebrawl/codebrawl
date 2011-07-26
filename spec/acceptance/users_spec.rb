@@ -1,7 +1,7 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Users' do
-    
+
   context 'on the user index' do
     background(:all) do
       User.any_instance.stubs(:average_score).returns(2.456)
@@ -12,45 +12,53 @@ feature 'Users' do
           :points => index * 100
         )
       end
+
       Fabricate(:user, :login => 'frank')
+      Fabricate(:user, :login => 'gary', :points => 200)
       visit '/users'
     end
-    
+
     scenario 'see the user logins, as links' do
       %w{ bob charlie david }.each { |login| page.should have_link login }
     end
-    
+
     scenario 'see the users, ordered by points' do
-      
+
       within(:xpath, '//tr[1]') do
         page.should have_content '#1'
         page.should have_link 'david'
         body.should include 'href="/users/david"'
         page.should have_content '2.5'
       end
-      
+
       within(:xpath, '//tr[2]') do
         page.should have_content '#2'
         page.should have_link 'charlie'
         body.should include 'href="/users/charlie"'
       end
-      
+
       within(:xpath, '//tr[3]') do
-        page.should have_content '#3'
+        page.should have_content '#2'
+        page.should have_link 'gary'
+        body.should include 'href="/users/gary"'
+      end
+
+      within(:xpath, '//tr[4]') do
+        page.should have_content '#4'
         page.should have_link 'bob'
         body.should include 'href="/users/bob"'
       end
-      
+
     end
-    
+
     scenario 'do not see users without any points' do
       page.should have_no_content 'alice'
     end
-    
+
   end
-  
+
   context 'on a user profile' do
-    
+
     background(:all) do
       # TODO: stub `Contest#state` instead of setting the voting and closing
       # dates.
@@ -96,7 +104,7 @@ feature 'Users' do
           :user => user
         )
       end
-      
+
       visit '/users/eric'
 
     end
@@ -113,16 +121,16 @@ feature 'Users' do
       page.should have_link 'eric on Github'
       body.should include 'href="https://github.com/eric"'
     end
-    
+
     scenario 'see the links to the user website' do
       page.should have_link 'http://ericsblog.com'
       body.should include 'href="http://ericsblog.com"'
     end
-    
+
     scenario 'do not show nil links' do
       page.should have_no_link '/users/eric'
     end
-    
+
     scenario 'see the average score' do
       page.should have_content 'Average score: 2.3/5'
     end
@@ -139,7 +147,7 @@ feature 'Users' do
     scenario 'see the list of submitted contests' do
       page.should have_content 'Ruby metaprogramming'
     end
-    
+
   end
 
 end

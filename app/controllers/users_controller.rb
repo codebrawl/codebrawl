@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all.order_by([:points, :desc]).select { |user| user.points && user.points > 0 }
+    @points = @users.map(&:points)
   end
 
   def show
