@@ -28,4 +28,12 @@ VCR.use_cassette('existing_gist') do
       Fabricate(:entry_with_files, :contest => contest, :user => users[login])
     end
   end
+
+  Contest.all.each do |contest|
+    contest.entries.each { |entry| entry.score }
+    contest.add_participations_to_contestants!
+  end
+
 end
+
+User.all.each { |user| user.calculate_points! }
