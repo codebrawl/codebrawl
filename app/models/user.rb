@@ -19,10 +19,7 @@ class User
   alias_method :to_param, :login
 
   def calculate_points
-    participations.inspect
-    participations.map do |participation|
-      participation['points']
-    end.inject { |a,b| a + b }
+    participations.map { |p| p['points'] }.inject(:+)
   end
 
   def calculate_points!
@@ -35,7 +32,8 @@ class User
 
   def average_score
     return 0.0 if participations.empty?
-    participations.map { |participation| participation['score'] }.inject(:+).to_f / participations.length
+    sum = participations.map { |p| p['score'] }.inject(:+).to_f
+    sum / participations.length
   end
 
 end
