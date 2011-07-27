@@ -44,7 +44,7 @@ feature 'Users' do
       end
 
       within(:xpath, '//tr[3]') do
-        page.should have_content '#2'
+        page.should have_content '#3'
         page.should have_link 'gary'
         body.should include 'href="/users/gary"'
       end
