@@ -13,7 +13,12 @@ feature 'Users' do
     end
 
     Fabricate(:user, :login => 'frank')
-    Fabricate(:user, :login => 'gary', :points => 200)
+    Fabricate(
+      :user,
+      :login => 'gary',
+      :points => 200,
+      :participations => [{:score => 1}, {:score => 2}]
+    )
 
   end
 
@@ -50,6 +55,9 @@ feature 'Users' do
         page.should have_link 'gary'
         body.should include 'href="/users/gary"'
         page.should have_content '200'
+        within(:xpath, '//tr[3]/td[6]') do
+          page.should have_content '2'
+        end
       end
 
       within(:xpath, '//tr[4]') do
