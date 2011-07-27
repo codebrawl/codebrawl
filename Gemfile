@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0.rc4' # :git => 'git://github.com/rails/rails.git'
+gem 'rails', '3.1.0.rc5' # :git => 'git://github.com/rails/rails.git'
 
 gem 'thin'
 
