@@ -160,7 +160,7 @@ feature 'Users' do
 
     scenario 'show the user position' do
 
-      {'david' => 1, 'charlie' => 2, 'gary' => 2, 'bob' => 4}.each do |login, position|
+      {'david' => 1, 'charlie' => 2, 'gary' => 3, 'bob' => 4}.each do |login, position|
         visit "/users/#{login}"
         page.should have_content "##{position}"
       end
