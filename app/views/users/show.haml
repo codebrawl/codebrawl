@@ -11,6 +11,7 @@
     - @user.urls.reject {|key, value| key == 'GitHub' || value.nil? }.each do |key, url|
       %li= link_to url, url
     %li= "Position: ##{@users.index(@user.id) + 1}"
+    %li= "Total points: #{@user.points}"
     %li= "Average score: #{sprintf("%.1f", @user.average_score)}/5"
 
   - if @entered_contests.any?

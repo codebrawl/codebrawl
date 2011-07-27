@@ -163,10 +163,16 @@ feature 'Users' do
   context 'on user profiles' do
 
     scenario 'show the user position' do
-
-      {'david' => 1, 'charlie' => 2, 'gary' => 3, 'bob' => 4}.each do |login, position|
+      
+      {
+        'david' => {:position => 1, :points => 300},
+        'charlie' => {:position => 2, :points => 200},
+        'gary' => {:position => 3, :points => 200},
+        'bob' => {:position => 4, :points => 100}
+      }.each do |login, data|
         visit "/users/#{login}"
-        page.should have_content "##{position}"
+        page.should have_content "##{data[:position]}"
+        page.should have_content data[:points]
       end
 
 
