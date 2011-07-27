@@ -35,24 +35,28 @@ feature 'Users' do
         page.should have_link 'david'
         body.should include 'href="/users/david"'
         page.should have_content '2.5'
+        page.should have_content '300'
       end
 
       within(:xpath, '//tr[2]') do
         page.should have_content '#2'
         page.should have_link 'charlie'
         body.should include 'href="/users/charlie"'
+        page.should have_content '200'
       end
 
       within(:xpath, '//tr[3]') do
         page.should have_content '#3'
         page.should have_link 'gary'
         body.should include 'href="/users/gary"'
+        page.should have_content '200'
       end
 
       within(:xpath, '//tr[4]') do
         page.should have_content '#4'
         page.should have_link 'bob'
         body.should include 'href="/users/bob"'
+        page.should have_content '100'
       end
 
     end
