@@ -4,7 +4,7 @@ feature 'Users' do
 
   background(:all) do
 
-    %w{ alice bob charlie david }.each_with_index do |login, index|
+    %w{ alice bob hans david }.each_with_index do |login, index|
       Fabricate(
         :user,
         :login => login,
@@ -30,7 +30,7 @@ feature 'Users' do
     end
 
     scenario 'see the user logins, as links' do
-      %w{ bob charlie david }.each { |login| page.should have_link login }
+      %w{ bob hans david }.each { |login| page.should have_link login }
     end
 
     scenario 'see the users, ordered by points' do
@@ -45,8 +45,8 @@ feature 'Users' do
 
       within(:xpath, '//tr[2]') do
         page.should have_content '#2'
-        page.should have_link 'charlie'
-        body.should include 'href="/users/charlie"'
+        page.should have_link 'hans'
+        body.should include 'href="/users/hans"'
         page.should have_content '200'
       end
 
@@ -174,7 +174,7 @@ feature 'Users' do
       
       {
         'david' => {:position => 1, :points => 300},
-        'charlie' => {:position => 2, :points => 200},
+        'hans' => {:position => 2, :points => 200},
         'gary' => {:position => 3, :points => 200},
         'bob' => {:position => 4, :points => 100}
       }.each do |login, data|
