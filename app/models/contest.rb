@@ -85,9 +85,10 @@ class Contest
 
   def add_participations_to_contestants!
     entries.order_by([:score, :desc]).each_with_index do |entry, index|
+
       entry.user.participations << {
         :contest_id => id,
-        :points => index > 8 ? 10 : ((entries.length > 10 ? 10 : entries.length) - index) * 10,
+        :points => (entries.length.max(10) - index).min(1) * 10,
         :score => entry.read_attribute(:score)
       } unless entry.user.participations.select { |participation| participation[:contest_id] == id }.present?
       entry.user.save!
