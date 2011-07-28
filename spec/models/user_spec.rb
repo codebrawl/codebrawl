@@ -80,7 +80,7 @@ describe User do
     it 'should return 0.0' do
       should == 0.0
     end
-    
+
     context 'for a user that has participations' do
 
       subject do
@@ -93,6 +93,33 @@ describe User do
       it 'should calculate the average score' do
         should == 2.6666666666666665
       end
+
+    end
+
+  end
+
+  describe '#has_entred?' do
+
+    before do
+      @contest = Fabricate(:contest)
+      @user = Fabricate(:user)
+    end
+
+    subject { @user.has_entered?(@contest) }
+
+    context 'when the user has participated' do
+
+      before do
+        @user.stubs(:participations).returns([{'contest_id' => @contest.id}])
+      end
+
+      it { should be_true }
+
+    end
+
+    context 'when the user has not participated' do
+
+      it { should be_false }
 
     end
 
