@@ -36,7 +36,7 @@ class User
     sum / participations.length
   end
 
-  def has_entered?(contest)
+  def participation_for?(contest)
     participations.map {|p| p['contest_id'] }.include? contest.id
   end
 

@@ -98,14 +98,14 @@ describe User do
 
   end
 
-  describe '#has_entred?' do
+  describe '#participation_for?' do
 
     before do
       @contest = Fabricate(:contest)
       @user = Fabricate(:user)
     end
 
-    subject { @user.has_entered?(@contest) }
+    subject { @user.participation_for?(@contest) }
 
     context 'when the user has participated' do
 
