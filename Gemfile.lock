@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/jeffkreeftmeijer/rack-webconsole.git
+  revision: 93254bda925bd87c7ec8dbce90051236560ca14c
+  specs:
+    rack-webconsole (0.1.1)
+      json
+      rack
+
+GIT
   remote: git://github.com/jnicklas/capybara.git
   revision: 549e67336c712a1ef2119ce5ff64dbbc7542480f
   ref: 549e6733
@@ -297,6 +305,7 @@ DEPENDENCIES
   mongoid (~> 2.0)
   mongoid_slug
   omniauth
+  rack-webconsole!
   rails (= 3.1.0.rc5)
   rpm_contrib
   rspec-rails
