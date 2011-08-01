@@ -10,6 +10,7 @@ class User
   field 'github_id', :type => Integer
   field 'participations', :type => Array, :default => []
   field 'points', :type => Integer
+  field 'average_score', :type => Float, :default => 0.0
   field 'urls', :type => Hash, :default => {}
 
   validates :login, :presence => true
@@ -26,14 +27,16 @@ class User
     update_attribute(:points, calculate_points)
   end
 
-  def voted_entries(contest)
-    contest.entries.select { |e| e.votes_from?(self) }
+  def calculate_average_score
+    participations.map { |p| p['score'] }.inject(:+) / participations.length
   end
 
-  def average_score
-    return 0.0 if participations.empty?
-    sum = participations.map { |p| p['score'] }.inject(:+).to_f
-    sum / participations.length
+  def calculate_average_score!
+    update_attribute(:average_score, calculate_average_score)
+  end
+
+  def voted_entries(contest)
+    contest.entries.select { |e| e.votes_from?(self) }
   end
 
   def participation_for?(contest)
