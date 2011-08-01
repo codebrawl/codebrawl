@@ -104,6 +104,7 @@ GEM
       pygments.rb (~> 0.1)
       redcarpet (~> 1.17)
     haml (3.1.2)
+    hashr (0.0.10)
     hike (1.2.0)
     hoptoad_notifier (2.4.11)
       activesupport
@@ -296,6 +297,7 @@ DEPENDENCIES
   gravtastic
   gust
   haml
+  hashr
   hoptoad_notifier
   jquery-rails
   json
