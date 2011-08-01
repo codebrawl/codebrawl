@@ -55,6 +55,39 @@ describe User do
     end
 
   end
+  
+  describe '#calculate_average_score' do
+
+    subject do
+      Fabricate(
+        :user,
+        :participations => [
+          {'score' => 1.0}, {'score' => 2.0}, {'score' => 5.0}
+        ]
+      ).calculate_average_score
+    end
+
+    it 'should calculate the average score' do
+      should == 2.6666666666666667
+    end
+
+  end
+
+  describe '#calculate_average_score!' do
+
+    subject do
+      @user = Fabricate(:user)
+      @user.stubs(:calculate_average_score).returns(4.3)
+      @user.calculate_average_score!
+      @user.reload.average_score
+    end
+
+    it 'should save the average score' do
+      should == 4.3
+    end
+
+  end
+  
 
   describe '#voted_entries' do
 
@@ -66,34 +99,6 @@ describe User do
 
     it 'returns entries the user has voted on' do
       user.voted_entries(contest).should include(entry)
-    end
-
-  end
-
-  describe '#average_score' do
-    subject do
-      Fabricate(
-        :user
-      ).average_score
-    end
-
-    it 'should return 0.0' do
-      should == 0.0
-    end
-
-    context 'for a user that has participations' do
-
-      subject do
-        Fabricate(
-          :user,
-          :participations => [{'score' => 1}, {'score' => 3}, {'score' => 4}]
-        ).average_score
-      end
-
-      it 'should calculate the average score' do
-        should == 2.6666666666666665
-      end
-
     end
 
   end
