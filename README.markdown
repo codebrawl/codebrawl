@@ -20,10 +20,6 @@ Use [Bundler](http://gembundler.com/) to install the dependencies:
 
     bundle install
 
-The real config file is not checked in, for obvious reasons, so you'll have to use the example config:
-
-    cp config/codebrawl.example.yml config/codebrawl.yml
-
 Now, run the tests and make sure they all pass:
 
     bundle exec rspec spec
