@@ -4,7 +4,7 @@ feature 'Users' do
 
   background(:all) do
 
-    %w{ alice bob charlie david }.each_with_index do |login, index|
+    %w{ alice bob hans david }.each_with_index do |login, index|
       Fabricate(
         :user,
         :login => login,
@@ -13,7 +13,12 @@ feature 'Users' do
     end
 
     Fabricate(:user, :login => 'frank')
-    Fabricate(:user, :login => 'gary', :points => 200)
+    Fabricate(
+      :user,
+      :login => 'gary',
+      :points => 200,
+      :participations => [{:score => 1}, {:score => 2}]
+    )
 
   end
 
@@ -25,7 +30,7 @@ feature 'Users' do
     end
 
     scenario 'see the user logins, as links' do
-      %w{ bob charlie david }.each { |login| page.should have_link login }
+      %w{ bob hans david }.each { |login| page.should have_link login }
     end
 
     scenario 'see the users, ordered by points' do
@@ -35,24 +40,31 @@ feature 'Users' do
         page.should have_link 'david'
         body.should include 'href="/users/david"'
         page.should have_content '2.5'
+        page.should have_content '300'
       end
 
       within(:xpath, '//tr[2]') do
         page.should have_content '#2'
-        page.should have_link 'charlie'
-        body.should include 'href="/users/charlie"'
+        page.should have_link 'hans'
+        body.should include 'href="/users/hans"'
+        page.should have_content '200'
       end
 
       within(:xpath, '//tr[3]') do
-        page.should have_content '#2'
+        page.should have_content '#3'
         page.should have_link 'gary'
         body.should include 'href="/users/gary"'
+        page.should have_content '200'
+        within(:xpath, '//tr[3]/td[6]') do
+          page.should have_content '2'
+        end
       end
 
       within(:xpath, '//tr[4]') do
         page.should have_content '#4'
         page.should have_link 'bob'
         body.should include 'href="/users/bob"'
+        page.should have_content '100'
       end
 
     end
@@ -159,10 +171,16 @@ feature 'Users' do
   context 'on user profiles' do
 
     scenario 'show the user position' do
-
-      {'david' => 1, 'charlie' => 2, 'gary' => 2, 'bob' => 4}.each do |login, position|
+      
+      {
+        'david' => {:position => 1, :points => 300},
+        'hans' => {:position => 2, :points => 200},
+        'gary' => {:position => 3, :points => 200},
+        'bob' => {:position => 4, :points => 100}
+      }.each do |login, data|
         visit "/users/#{login}"
-        page.should have_content "##{position}"
+        page.should have_content "##{data[:position]}"
+        page.should have_content data[:points]
       end
 
 

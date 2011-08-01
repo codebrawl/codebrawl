@@ -1,22 +1,24 @@
 # [Codebrawl](http://codebrawl.com)
 
-Codebrawl, a code contest website focussed on the Ruby programming language and open source software.
+Open source hacking contests in the Ruby programming langauge
+
+## Contact
+
+* [Github (codebrawl)](http://github.com/codebrawl)
+* [Twitter (@codebrawl)](http://twitter.com/codebrawl)
+* [IRC (#codebrawl @ freenode.net)](irc://irc.freenode.net/codebrawl)
 
 ## Getting the project to run on your machine
 
-First, check out the project:
+We're trying to make it as easy as possible to get Codebrawl running on your machine. If you run into any problems getting it to run or know an easier way, be sure to create an [issue](https://github.com/codebrawl/codebrawl/issues).
+
+First, clone the project:
 
     git clone git://github.com/codebrawl/codebrawl.git && cd codebrawl
 
-When `cd`-ing into the project directory, you'll get an [RVM](https://rvm.beginrescueend.com/) notice telling you to read the `.rvmc`. There's nothing scary in there (it switches to a Codebrawl specific gemset on Ruby 1.9.2), but be sure to _always_ read this file when prompted to. Press enter to see the file, then type "yes" to switch to the gemset.
+Use [Bundler](http://gembundler.com/) to install the dependencies:
 
-Install [Bundler](http://gembundler.com/) in your new gemset and use it to install Codebrawl's dependencies:
-
-    gem install bundler && bundle install
-
-Copy the example config file:
-
-    cp config/codebrawl.example.yml config/codebrawl.yml
+    bundle install
 
 Now, run the tests and make sure they all pass:
 
@@ -32,6 +34,6 @@ Want to help out, but have no idea where to get started? Here's a list of things
 * Check out the open [issues](https://github.com/codebrawl/codebrawl/issues)
 * Hop into `#codebrawl` on Freenode and ask
 * Find a `TODO` in the source, so you can help clean up a bit
-* Refactor existing code
+* Refactor existing code (that includes the front end too)
 
-Fork the project, add your changes (with specs), and send a pull request. Thanks for helping out! :)
+If you found something to work on, fork the project. Codebrawl uses [git-flow](https://github.com/nvie/gitflow), but don't let that scare you, you can just work in the develop branch. Now, add your changes and be sure to write specs for them. If you don't know how or get stuck somewhere, hop into [#codebrawl on freenode.net](irc://irc.freenode.net/codebrawl) and we'll help you out. When you're done, just send a pull request and we'll look at it as soon as possible.

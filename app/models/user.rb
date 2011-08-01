@@ -1,5 +1,6 @@
 class User
   include Mongoid::Document
+  include Mongoid::Timestamps
   include Gravtastic
 
   field 'login', :type => String
@@ -18,10 +19,7 @@ class User
   alias_method :to_param, :login
 
   def calculate_points
-    participations.inspect
-    participations.map do |participation|
-      participation['points']
-    end.inject { |a,b| a + b }
+    participations.map { |p| p['points'] }.inject(:+)
   end
 
   def calculate_points!
@@ -34,7 +32,12 @@ class User
 
   def average_score
     return 0.0 if participations.empty?
-    participations.map { |participation| participation['score'] }.inject(:+).to_f / participations.length
+    sum = participations.map { |p| p['score'] }.inject(:+).to_f
+    sum / participations.length
+  end
+
+  def participation_for?(contest)
+    participations.map {|p| p['contest_id'] }.include? contest.id
   end
 
 end

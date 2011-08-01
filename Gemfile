@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0.rc4' # :git => 'git://github.com/rails/rails.git'
+gem 'rails', '3.1.0.rc5' # :git => 'git://github.com/rails/rails.git'
 
 gem 'thin'
 
@@ -29,6 +29,8 @@ gem 'gust'
 gem 'rpm_contrib'
 gem 'hoptoad_notifier'
 
+gem 'hashr'
+
 group :test do
   gem 'rspec-rails'
   #gem 'spec_coverage', :require => false
@@ -54,4 +56,6 @@ end
 group :development, :test do
   gem 'fabrication'
   gem 'faker'
+
+  gem 'rack-webconsole', :git => 'git://github.com/jeffkreeftmeijer/rack-webconsole.git'
 end
