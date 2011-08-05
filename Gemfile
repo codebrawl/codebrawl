@@ -7,7 +7,7 @@ gem 'thin'
 gem 'json'
 gem 'haml'
 
-gem 'compass', git: 'https://github.com/chriseppstein/compass.git', branch: 'rails31'
+gem 'compass', :git => 'https://github.com/chriseppstein/compass.git', :branch => 'rails31'
 gem 'sass-rails'
 gem 'coffee-script'
 gem 'uglifier'
