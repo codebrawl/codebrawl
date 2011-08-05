@@ -4,7 +4,7 @@ class SubmissionsController < ApplicationController
   before_filter :authenticate_user!, :only => :new
 
   def create
-    client = Wufoo::Client.new('http://codebrawl.wufoo.com', Codebrawl.config['wufoo']['api_key'])
+    client = Wufoo::Client.new('http://codebrawl.wufoo.com', Codebrawl.config.wufoo.api_key)
     submission = Wufoo::Submission.new(client, 'contest-submission')
 
     response = submission.add_params({

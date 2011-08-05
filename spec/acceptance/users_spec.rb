@@ -8,7 +8,8 @@ feature 'Users' do
       Fabricate(
         :user,
         :login => login,
-        :points => index * 100
+        :points => index * 100,
+        :average_score => 2.456
       )
     end
 
@@ -17,24 +18,22 @@ feature 'Users' do
       :user,
       :login => 'gary',
       :points => 200,
-      :participations => [{:score => 1}, {:score => 2}]
+      :participations => [{:score => 1}, {:score => 2}],
+      :average_score => 3.5
     )
 
   end
 
   context 'on the user index' do
 
-    background do
-      User.any_instance.stubs(:average_score).returns(2.456)
-      visit '/users'
-    end
+    background { visit '/users' }
 
     scenario 'see the user logins, as links' do
       %w{ bob hans david }.each { |login| page.should have_link login }
     end
 
     scenario 'see the users, ordered by points' do
-
+      
       within(:xpath, '//tr[1]') do
         page.should have_content '#1'
         page.should have_link 'david'
@@ -45,19 +44,20 @@ feature 'Users' do
 
       within(:xpath, '//tr[2]') do
         page.should have_content '#2'
-        page.should have_link 'hans'
-        body.should include 'href="/users/hans"'
+        page.should have_link 'gary'
+        body.should include 'href="/users/gary"'
+        page.should have_content '3.5'
         page.should have_content '200'
+        within(:xpath, '//tr[2]/td[6]') do
+          page.should have_content '2'
+        end
       end
 
       within(:xpath, '//tr[3]') do
         page.should have_content '#3'
-        page.should have_link 'gary'
-        body.should include 'href="/users/gary"'
+        page.should have_link 'hans'
+        body.should include 'href="/users/hans"'
         page.should have_content '200'
-        within(:xpath, '//tr[3]/td[6]') do
-          page.should have_content '2'
-        end
       end
 
       within(:xpath, '//tr[4]') do
@@ -90,7 +90,8 @@ feature 'Users' do
         },
         :participations => [
           {:score => 1}, {:score => 2}, {:score => 4}
-        ]
+        ],
+        :average_score => 2.2678
       )
 
       VCR.use_cassette('existing_gist') do

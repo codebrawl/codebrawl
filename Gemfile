@@ -29,6 +29,8 @@ gem 'gust'
 gem 'rpm_contrib'
 gem 'hoptoad_notifier'
 
+gem 'hashr'
+
 group :test do
   gem 'rspec-rails'
   #gem 'spec_coverage', :require => false

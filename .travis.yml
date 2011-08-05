@@ -1,6 +1,3 @@
-before_script:
-  - 'cp config/codebrawl.example.yml config/codebrawl.yml'
-
 rvm:
   - 1.9.2
 

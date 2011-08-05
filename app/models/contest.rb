@@ -87,10 +87,10 @@ class Contest
     entries.order_by([:score, :desc]).each_with_index do |entry, index|
 
       entry.user.participations << {
-        :contest_id => id,
-        :points => (entries.length.max(10) - index).min(1) * 10,
-        :score => entry.read_attribute(:score)
-      } unless entry.user.participations.select { |participation| participation[:contest_id] == id }.present?
+        'contest_id' => id,
+        'points' => (entries.length.max(10) - index).min(1) * 10,
+        'score' => entry.read_attribute(:score)
+      } unless entry.user.participation_for? self
       entry.user.save!
     end
   end
