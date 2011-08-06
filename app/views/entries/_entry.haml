@@ -1,22 +1,45 @@
 %li{ :id => dom_id(entry), :class => [entry.contest.finished? ? %w{gold silver bronze}[entry_counter] : @voted_entries.include?(entry) ? 'voted' : 'unvoted', 'entry'] }
+  %ul.menu
+    - entry.files.sort {|a,b| a.first.split('.').last <=> b.first.split('.').last }.each_with_index do |file, index|
+      %li
+        %a{:href => '#'}= file.first
 
-  - if entry.contest.finished? || @voted_entries.include?(entry)
-    .owner
-      = link_to_profile(entry.user)
+    - entry.files.sort {|a,b| a.first.split('.').last <=> b.first.split('.').last }.each_with_index do |file, index|
+      %li
+        %a{:href => '#'}= file.first
 
-  .files
-    - entry.files.sort {|a,b| a.first.split('.').last <=> b.first.split('.').last }.each do |name, file|
-      .filename
-        = name
-      - cache "#{entry.id}_#{name}" do
-        = raw Gust.parse(file['content'], :filename => name, :url => file['raw_url'])
+    - entry.files.sort {|a,b| a.first.split('.').last <=> b.first.split('.').last }.each_with_index do |file, index|
+      %li
+        %a{:href => '#'}= file.first
 
-    %a{:class=>"extend"}
-      %span
-        View full entry
+  %ul.files
+    - 3.times do
+      - entry.files.sort {|a,b| a.first.split('.').last <=> b.first.split('.').last }.each do |name, file|
+        %li
+          - cache "#{entry.id}_#{name}" do
+            = raw Gust.parse(file['content'], :filename => name, :url => file['raw_url'])
 
-  -if entry.contest.voting? && logged_in?
-    = render 'entries/voting', :entry => entry
 
-  -if entry.contest.finished?
-    = render 'entries/finished', :entry => entry, :entry_counter => entry_counter
+
+
+
+  //- if entry.contest.finished? || @voted_entries.include?(entry)
+  //  .owner
+  //    = link_to_profile(entry.user)
+  //
+  //.files
+  //  - entry.files.sort {|a,b| a.first.split('.').last <=> b.first.split('.').last }.each do |name, file|
+  //    .filename
+  //      = name
+  //    - cache "#{entry.id}_#{name}" do
+  //      = raw Gust.parse(file['content'], :filename => name, :url => file['raw_url'])
+  //
+  //  %a{:class=>"extend"}
+  //    %span
+  //      View full entry
+  //
+  //-if entry.contest.voting? && logged_in?
+  //  = render 'entries/voting', :entry => entry
+  //
+  //-if entry.contest.finished?
+  //  = render 'entries/finished', :entry => entry, :entry_counter => entry_counter

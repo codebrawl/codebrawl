@@ -53,65 +53,83 @@ $(document).ready(function(){
   }
 
   $('a.vote').click(function(){
+
     var lis = $('ul#entries li.unvoted');
     lis.sort(function() { return 0.5 - Math.random() })
 
     var index = 0;
     var li = lis[index];
 
-    if(lis.length >= 1){
-      form = lis.find('form')
-      form.
-        append('<span class="skip">or <a>skip this entry</a></span>').
-        append('<span class="entries_left"/>')
+    $('#wrapper').css('position', 'static');
+    $('body').css('overflow', 'hidden');
+    $('#adzerk_ad_div').hide();
 
-      if(lis.length <= 1){
-        $('span.skip').hide();
-        $('span.entries_left').text('You\'re at the last entry')
-      } else {
-        $('span.entries_left').text(lis.length + ' entries left to rate');
-      }
-    }
 
-    $('ul.voting').addClass('voting_box')
-    $('ul.voting').after('<div class="overlay"/>')
+    var menu_item = $(li).show().find('ul.menu li:first');
+    $(menu_item).addClass('current').prev().addClass('before')
 
-    $('div.overlay').click(function(){
-      window.location.reload();
-    })
-    $('ul#entries li.voted, ul#entries li.unvoted').hide();
-    $(li).show();
+    // we probably want to do this when the page address changes
 
-    $('ul#entries span.skip a').click(function(){
-      $(li).hide()
-      index ++
-      if(index >= lis.length){ index = 0; }
-      li = lis[index]
-      $(li).show()
+    $(li).show().find('ul.menu li').click(function(){
+      $(this).parent().find('li').removeClass('current').removeClass('before');
+      $(this).addClass('current').prev().addClass('before')
     })
 
-    $('.new_vote').bind('ajax:success', function() {
-      lis.splice(index, 1);
 
-      if(lis.length <= 1){
-        $('span.skip').hide();
-        $('span.entries_left').text('You\'re at the last entry')
-      } else {
-        $('span.entries_left').text(lis.length + ' entries left to rate');
-      }
-
-      index ++
-      if(index >= lis.length){ index = 0; }
-      next_li = lis[index]
-
-      if($(next_li).length > 0) {
-        $(li).hide()
-        $(next_li).show()
-        li = next_li
-      } else {
-        window.location.reload()
-      }
-
-    });
+    //
+    //if(lis.length >= 1){
+    //  form = lis.find('form')
+    //  form.
+    //    append('<span class="skip">or <a>skip this entry</a></span>').
+    //    append('<span class="entries_left"/>')
+    //
+    //  if(lis.length <= 1){
+    //    $('span.skip').hide();
+    //    $('span.entries_left').text('You\'re at the last entry')
+    //  } else {
+    //    $('span.entries_left').text(lis.length + ' entries left to rate');
+    //  }
+    //}
+    //
+    //$('ul.voting').addClass('voting_box')
+    //$('ul.voting').after('<div class="overlay"/>')
+    //
+    //$('div.overlay').click(function(){
+    //  window.location.reload();
+    //})
+    //$('ul#entries li.voted, ul#entries li.unvoted').hide();
+    //$(li).show();
+    //
+    //$('ul#entries span.skip a').click(function(){
+    //  $(li).hide()
+    //  index ++
+    //  if(index >= lis.length){ index = 0; }
+    //  li = lis[index]
+    //  $(li).show()
+    //})
+    //
+    //$('.new_vote').bind('ajax:success', function() {
+    //  lis.splice(index, 1);
+    //
+    //  if(lis.length <= 1){
+    //    $('span.skip').hide();
+    //    $('span.entries_left').text('You\'re at the last entry')
+    //  } else {
+    //    $('span.entries_left').text(lis.length + ' entries left to rate');
+    //  }
+    //
+    //  index ++
+    //  if(index >= lis.length){ index = 0; }
+    //  next_li = lis[index]
+    //
+    //  if($(next_li).length > 0) {
+    //    $(li).hide()
+    //    $(next_li).show()
+    //    li = next_li
+    //  } else {
+    //    window.location.reload()
+    //  }
+    //
+    //});
   });
 });

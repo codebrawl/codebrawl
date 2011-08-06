@@ -1,0 +1,170 @@
+@import compass/css3/border-radius
+@import compass/css3/box-shadow
+@import compass/css3/background-clip
+
+ul#entries
+  li.entry
+    display: none
+    position: absolute
+    top: 50px
+    bottom: 50px
+    left: 50px
+    right: 50px
+    padding: 15px 5px 5px 5px
+    background-color: #ccc
+    @include border-radius(3px)
+    @include box-shadow(0 0px 15px #000)
+
+    ul.menu
+      padding: 0 15px
+
+      li
+        width: 33.333333%
+        max-width: 200px
+        float: left
+        position: relative
+
+        &.current
+
+          &:before
+            content: ''
+            width: 9px
+            height: 8px
+            position: absolute
+            bottom: 0
+            background-color: #fff
+            z-index: 20
+            left: -8px
+            bottom: 1px
+
+          &:after
+            background-color: #fff
+
+          a
+            background-color: #fff
+
+            &:before
+              content: ''
+              width: 10px
+              height: 8px
+              position: absolute
+              z-index: 30
+              bottom: 1px
+              background: #ddd
+              overflow: hidden
+              border-right: 1px solid #bbb
+
+              left: -11px
+              @include border-bottom-right-radius(8px)
+              +background-clip
+
+        &.before
+          &:after
+            display: none
+          a
+            &:after
+              display: none
+
+        &:first-child
+          &:before
+            content: ''
+            width: 9px
+            height: 8px
+            position: absolute
+            bottom: 0
+            background-color: #ddd
+            z-index: 20
+            left: -8px
+            bottom: 1px
+
+          a
+            &:before
+              content: ''
+              width: 10px
+              height: 8px
+              position: absolute
+              z-index: 30
+              bottom: 1px
+              background: #ccc
+              overflow: hidden
+
+              left: -10px
+              @include border-bottom-right-radius(8px)
+              +background-clip
+
+          &.current
+            &:before
+              background-color: #fff
+
+            a
+              &:before
+                border: none
+
+        &:last-child a
+          &:after
+            background-color: #ccc
+
+        &:after
+          content: ''
+          width: 9px
+          height: 8px
+          position: absolute
+          bottom: 0
+          background-color: #ddd
+          z-index: 20
+          right: -8px
+          bottom: 1px
+
+        a
+          display: block
+          position:relative
+          background-color: #ddd
+          line-height: 30px
+          text-align: center
+          color: #222
+          font-size: 75%
+
+          border-top: 1px solid #fff
+          border-right: 1px solid #bbb
+
+          @include border-top-right-radius(5px)
+          @include border-top-left-radius(5px)
+          @include box-shadow(0 -2px 5px #bbb)
+          //@include box-shadow(inset 1px -2px 2px 2px #ccc)
+
+
+          &:after
+            content: ''
+            width: 10px
+            height: 8px
+            position: absolute
+            z-index: 30
+            bottom: 1px
+            background: #ddd
+            overflow: hidden
+            border-left: 1px solid #bbb
+
+            right: -10px
+            @include border-bottom-left-radius(8px)
+            +background-clip
+
+
+    ul.files
+      position: absolute
+      top: 45px
+      bottom: 5px
+      left: 5px
+      right: 5px
+      background-color: #fff
+      @include border-top-left-radius(5px)
+      @include border-top-right-radius(5px)
+      padding-top: 10px
+
+      li
+        display: none
+        top: 0
+        bottom: 0
+
+
+        &:first-child
+          display: block
