@@ -37,7 +37,7 @@ describe Contest do
       it { should have(1).error_on(:starting_on) }
 
       it { should have(1).error_on(:user) }
-      
+
       it { should have(1).error_on(:tagline ) }
 
     end
@@ -311,9 +311,9 @@ describe Contest do
   end
 
   context '#add_participations_to_contestants!' do
-    
+
     context 'when having five entries' do
-    
+
       before do
         @scores = (1..5).to_a.reverse
 
@@ -348,6 +348,12 @@ describe Contest do
         end
       end
 
+      it 'should set the contest positions' do
+        5.times do |index|
+          @contest.entries[index].user.reload.participations.first['position'].should == index + 1
+        end
+      end
+
       context 'when already having a participation for this contest' do
 
         before do
@@ -361,11 +367,11 @@ describe Contest do
         end
 
       end
-      
+
     end
-    
+
     context 'when having eleven entries' do
-      
+
       before do
         @scores = [5.0, 4.5, 4.0, 3.5, 3.0, 2.5, 2.0, 1.5, 1.0, 0.5, 0.0]
 
@@ -381,7 +387,7 @@ describe Contest do
           @contest.entries[index].user.reload.participations.first['points'].should == points
         end
       end
-      
+
     end
 
   end
