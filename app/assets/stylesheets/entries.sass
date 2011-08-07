@@ -19,7 +19,6 @@ ul#entries
       padding: 0 15px
 
       li
-        width: 33.333333%
         max-width: 200px
         float: left
         position: relative
@@ -123,15 +122,12 @@ ul#entries
           text-align: center
           color: #222
           font-size: 75%
-
+          overflow: hidden
           border-top: 1px solid #fff
           border-right: 1px solid #bbb
-
           @include border-top-right-radius(5px)
           @include border-top-left-radius(5px)
           @include box-shadow(0 -2px 5px #bbb)
-          //@include box-shadow(inset 1px -2px 2px 2px #ccc)
-
 
           &:after
             content: ''

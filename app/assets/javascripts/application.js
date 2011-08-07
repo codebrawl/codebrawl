@@ -41,6 +41,11 @@ function get_gist_comments(gist_id, element){
 }
 
 $(document).ready(function(){
+  
+  $('li.entry').each(function(){
+    menu_items = $(this).find('ul.menu li')
+    $(menu_items).css('width', 100 / menu_items.length + '%')
+  }); 
 
   $('.comments').each(function(){
     get_gist_comments($(this).data('gist_id'), $(this));
