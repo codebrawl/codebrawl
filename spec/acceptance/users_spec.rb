@@ -159,7 +159,7 @@ feature 'Users' do
     end
     
     scenario 'see the average position' do
-      page.should have_content 'Average position: 2.7/5'
+      page.should have_content 'Average position: 2.7'
     end
 
     scenario 'see the list of entered contests' do
