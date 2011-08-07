@@ -89,7 +89,8 @@ class Contest
       entry.user.participations << {
         'contest_id' => id,
         'points' => (entries.length.max(10) - index).min(1) * 10,
-        'score' => entry.read_attribute(:score)
+        'score' => entry.read_attribute(:score),
+        'position' => index + 1
       } unless entry.user.participation_for? self
       entry.user.save!
     end
