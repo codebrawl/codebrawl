@@ -36,7 +36,9 @@ class User
   end
 
   def calculate_average_position
-    participations.map { |p| p['position'] }.inject(:+) / participations.length.to_f
+    participations_with_positions = participations.select { |p| p['position'] }
+    return 0.0 if participations_with_positions.empty?
+    participations_with_positions.map { |p| p['position'] }.inject(:+) / participations_with_positions.length.to_f
   end
 
   def voted_entries(contest)

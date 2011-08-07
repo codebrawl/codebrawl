@@ -10,6 +10,7 @@
     %td Total points
     %td Average score
     %td Entered contests
+    %td Average position
   - @users.each_with_index do |user, index|
     %tr
       %td= "##{index + 1}"
@@ -18,3 +19,4 @@
       %td= user.points
       %td= "#{sprintf("%.1f", user.average_score)}/5"
       %td= user.participations.count
+      %td= "#{sprintf("%.1f", user.calculate_average_position)}/5"

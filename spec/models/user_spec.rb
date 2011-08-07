@@ -89,18 +89,54 @@ describe User do
   end
 
   describe '#calculate_average_position' do
-
-    subject do
-      Fabricate(
-        :user,
-        :participations => [
-          {'position' => 1}, {'position' => 2}, {'position' => 5}
-        ]
-      ).calculate_average_position
+    
+    context 'without participations' do
+      
+      subject { Fabricate(:user).calculate_average_position }
+      
+      it { should == 0.0 }
+      
     end
-
-    it 'should calculate the average position' do
-      should == 2.6666666666666667
+    
+    context 'with a participation without a position' do
+      
+      subject do
+        Fabricate(
+          :user,
+          :participations => [ {}, {'position' => 2}, {'position' => 5} ]
+        ).calculate_average_position
+      end
+      
+      it { should == 3.5 }
+      
+    end
+    
+    context 'with a participations without a positions' do
+      
+      subject do
+        Fabricate(
+          :user,
+          :participations => [ {}, {}, {} ]
+        ).calculate_average_position
+      end
+      
+      it { should == 0.0 }
+      
+    end
+    
+    
+    context 'with participations' do
+      
+      subject do
+        Fabricate(
+          :user,
+          :participations => [
+            {'position' => 1}, {'position' => 2}, {'position' => 5}
+          ]
+        ).calculate_average_position
+      end
+      
+      it { should == 2.6666666666666667 }
     end
 
   end

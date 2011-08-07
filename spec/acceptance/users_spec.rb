@@ -18,7 +18,9 @@ feature 'Users' do
       :user,
       :login => 'gary',
       :points => 200,
-      :participations => [{:score => 1}, {:score => 2}],
+      :participations => [
+        {:score => 1, :position => 3}, {:score => 2, :position => 2}
+      ],
       :average_score => 3.5
     )
 
@@ -51,6 +53,7 @@ feature 'Users' do
         within(:xpath, '//tr[2]/td[6]') do
           page.should have_content '2'
         end
+        page.should have_content '2.5'
       end
 
       within(:xpath, '//tr[3]') do
