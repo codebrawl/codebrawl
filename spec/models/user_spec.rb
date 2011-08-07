@@ -55,7 +55,7 @@ describe User do
     end
 
   end
-  
+
   describe '#calculate_average_score' do
 
     subject do
@@ -87,7 +87,24 @@ describe User do
     end
 
   end
-  
+
+  describe '#calculate_average_position' do
+
+    subject do
+      Fabricate(
+        :user,
+        :participations => [
+          {'position' => 1}, {'position' => 2}, {'position' => 5}
+        ]
+      ).calculate_average_position
+    end
+
+    it 'should calculate the average position' do
+      should == 2.6666666666666667
+    end
+
+  end
+
 
   describe '#voted_entries' do
 

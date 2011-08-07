@@ -35,6 +35,10 @@ class User
     update_attribute(:average_score, calculate_average_score)
   end
 
+  def calculate_average_position
+    participations.map { |p| p['position'] }.inject(:+) / participations.length.to_f
+  end
+
   def voted_entries(contest)
     contest.entries.select { |e| e.votes_from?(self) }
   end
