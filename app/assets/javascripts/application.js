@@ -79,7 +79,6 @@ $(document).ready(function(){
     var li = lis[index];
 
     $('#wrapper').css('position', 'static');
-    $('body').css('overflow', 'hidden');
     $('#adzerk_ad_div').hide();
 
     var menu_item = $(li).show()
