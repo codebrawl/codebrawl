@@ -6,7 +6,20 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require address
+
+$.address.change(function(event) {
+  filename = event.value.substring(1)
+  if($('ul.files li').length > 0){
+    menu_item = $('ul.menu li[data-filename="' + filename + '"]')
+    if($(menu_item).length == 0){ menu_item =$('ul.menu li:first') };
+
+    $('ul.menu li').removeClass('current').removeClass('before')
+    $('ul.files li').hide()
+    menu_item.addClass('current').prev().addClass('before')
+    $('ul.files li[data-filename="' + filename + '"]').show()
+  }
+});
 
 function get_gist_comments(gist_id, element){
   converter = new Showdown.converter();
@@ -64,17 +77,7 @@ $(document).ready(function(){
     $('body').css('overflow', 'hidden');
     $('#adzerk_ad_div').hide();
 
-
-    var menu_item = $(li).show().find('ul.menu li:first');
-    $(menu_item).addClass('current').prev().addClass('before')
-
-    // we probably want to do this when the page address changes
-
-    $(li).show().find('ul.menu li').click(function(){
-      $(this).parent().find('li').removeClass('current').removeClass('before');
-      $(this).addClass('current').prev().addClass('before')
-    })
-
+    var menu_item = $(li).show()
 
     //
     //if(lis.length >= 1){
