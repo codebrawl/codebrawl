@@ -92,7 +92,7 @@ feature 'Users' do
           "Blog2" => nil
         },
         :participations => [
-          {:score => 1}, {:score => 2}, {:score => 4}
+          {:score => 1, :position => 5}, {:score => 2, :position => 2}, {:score => 4, :position => 1}
         ],
         :average_score => 2.2678
       )
@@ -125,6 +125,7 @@ feature 'Users' do
           :starting_on => Date.yesterday.to_time,
           :user => user
         )
+
       end
 
       visit '/users/eric'
@@ -155,6 +156,10 @@ feature 'Users' do
 
     scenario 'see the average score' do
       page.should have_content 'Average score: 2.3/5'
+    end
+    
+    scenario 'see the average position' do
+      page.should have_content 'Average position: 2.7/5'
     end
 
     scenario 'see the list of entered contests' do

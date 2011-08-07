@@ -13,6 +13,7 @@
     %li= "Position: ##{@users.index(@user.id) + 1}"
     %li= "Total points: #{@user.points}"
     %li= "Average score: #{sprintf("%.1f", @user.average_score)}/5"
+    %li= "Average position: #{sprintf("%.1f", @user.calculate_average_position)}/5"
 
   - if @entered_contests.any?
     %h3 Entered contests
