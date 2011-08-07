@@ -35,7 +35,7 @@ feature 'Users' do
     end
 
     scenario 'see the users, ordered by points' do
-      
+
       within(:xpath, '//tr[1]') do
         page.should have_content '#1'
         page.should have_link 'david'
@@ -157,7 +157,7 @@ feature 'Users' do
     scenario 'see the average score' do
       page.should have_content 'Average score: 2.3/5'
     end
-    
+
     scenario 'see the average position' do
       page.should have_content 'Average position: 2.7'
     end
@@ -180,7 +180,7 @@ feature 'Users' do
   context 'on user profiles' do
 
     scenario 'show the user position' do
-      
+
       {
         'david' => {:position => 1, :points => 300},
         'hans' => {:position => 2, :points => 200},
