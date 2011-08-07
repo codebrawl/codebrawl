@@ -19,4 +19,4 @@
       %td= user.points
       %td= "#{sprintf("%.1f", user.average_score)}/5"
       %td= user.participations.count
-      %td= "#{sprintf("%.1f", user.calculate_average_position)}/5"
+      %td= sprintf("%.1f", user.calculate_average_position)
