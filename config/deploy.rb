@@ -52,3 +52,7 @@ namespace :deploy do
   end
 
 end
+
+task :status do
+  run("cd #{current_release}; bundle exec rake codebrawl:status RAILS_ENV=production")
+end
