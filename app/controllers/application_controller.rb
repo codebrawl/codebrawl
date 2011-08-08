@@ -77,5 +77,9 @@ class ApplicationController < ActionController::Base
       redirect_to "/auth/github?origin=#{request.env['PATH_INFO']}" unless logged_in?
     end
 
+    def not_found
+      raise ActionController::RoutingError.new('Not Found')
+    end
+
     helper_method :current_user, :logged_in?
 end
