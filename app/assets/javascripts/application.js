@@ -7,15 +7,16 @@
 //= require jquery
 //= require jquery_ujs
 //= require address
+//= require showdown
 
 $.address.change(function(event) {
   filename = event.value.substring(1)
-  if($('ul.files li').length > 0){
+  if($('ul.files li.file').length > 0){
     menu_item = $('ul.menu li[data-filename="' + filename + '"]')
     if($(menu_item).length == 0){ menu_item =$('ul.menu li:first') };
 
     $('ul.menu li').removeClass('current').removeClass('before')
-    $('ul.files li').hide()
+    $('ul.files li.file, ul.files li.comments').hide()
     menu_item.addClass('current').prev().addClass('before')
     $('ul.files li[data-filename="' + filename + '"]').show()
   }
@@ -29,10 +30,10 @@ function get_gist_comments(gist_id, element){
 
       $.each(response['gists'][0]['comments'], function(key, val) {
         element.append(
-          '<div>' +
+          '<li>' +
           '<img class="gravatar" src="http://gravatar.com/avatar/' + val.gravatar_id + '.png?r=PG&s=20"/> ' +
           val.user + converter.makeHtml(val.body) +
-          '</div>'
+          '</li>'
         );
       });
 
@@ -47,7 +48,7 @@ $(document).ready(function(){
     $(menu_items).css('width', 100 / menu_items.length + '%')
   }); 
 
-  $('.comments').each(function(){
+  $('[data-gist_id]').each(function(){
     get_gist_comments($(this).data('gist_id'), $(this));
   });
 

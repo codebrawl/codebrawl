@@ -3,13 +3,17 @@
     - entry.files.sort {|a,b| a.first.split('.').last <=> b.first.split('.').last }.each_with_index do |file, index|
       %li{'data-filename' => file.first}
         %a{:href => "##{file.first}"}= file.first
+    %li{'data-filename' => 'comments'}
+      %a{:href => "#comments"} Comments
 
   %ul.files
     - entry.files.sort {|a,b| a.first.split('.').last <=> b.first.split('.').last }.each do |name, file|
-      %li{'data-filename' => name}
+      %li.file{'data-filename' => name}
         - cache "#{entry.id}_#{name}" do
           = raw Gust.parse(file['content'], :filename => name, :url => file['raw_url'])
 
+    %li.comments{'data-filename' => 'comments'}
+      %ul{'data-gist_id' => entry.gist_id}
 
   //- if entry.contest.finished? || @voted_entries.include?(entry)
   //  .owner

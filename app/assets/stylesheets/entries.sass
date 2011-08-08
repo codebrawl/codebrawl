@@ -156,7 +156,7 @@ ul#entries
       @include border-top-right-radius(5px)
       padding-top: 10px
 
-      li
+      li.file, li.comments
         display: none
         position: absolute
         top: 0
@@ -164,10 +164,15 @@ ul#entries
         left: 0
         right: 0
 
-        div
+        div, ul
           position: absolute
           top: 0
           bottom: 0
           left: 0
           right: 0
           overflow: auto
+
+      li.comments ul li
+        position: relative
+        padding: 10px
+
