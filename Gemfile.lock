@@ -254,6 +254,12 @@ GEM
       ffi (>= 1.0.7)
       json_pure
       rubyzip
+    simplecov (0.4.2)
+      simplecov-html (~> 0.4.4)
+    simplecov-html (0.4.5)
+    spec_coverage (0.0.3)
+      rspec (~> 2.0)
+      simplecov (~> 0.4.2)
     spork (0.9.0.rc7)
     sprockets (2.0.0.beta.12)
       hike (~> 1.2)
@@ -315,6 +321,7 @@ DEPENDENCIES
   rpm_contrib
   rspec-rails
   sass-rails
+  spec_coverage
   spork (~> 0.9.0.rc)
   therubyracer
   thin
