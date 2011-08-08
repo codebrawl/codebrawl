@@ -30,6 +30,7 @@ gem 'rpm_contrib'
 gem 'hoptoad_notifier'
 
 gem 'hashr'
+gem 'arnold', :git => 'git://github.com/codebrawl/arnold.git', :branch => 'develop'
 
 group :test do
   gem 'rspec-rails'
