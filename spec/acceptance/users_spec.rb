@@ -196,5 +196,15 @@ feature 'Users' do
     end
 
   end
+  
+  context 'when trying to visit a user profile that does not exist' do
+
+    scenario 'see the "not found"-page' do
+      lambda{
+        visit '/users/zach'
+      }.should raise_error ActionController::RoutingError
+    end
+
+  end
 
 end
