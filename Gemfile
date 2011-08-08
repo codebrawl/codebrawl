@@ -57,5 +57,5 @@ group :development, :test do
   gem 'fabrication'
   gem 'faker'
 
-  gem 'rack-webconsole', :git => 'git://github.com/jeffkreeftmeijer/rack-webconsole.git'
+  gem 'rack-webconsole'
 end
