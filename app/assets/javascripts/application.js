@@ -13,11 +13,12 @@ $.address.change(function(event) {
   filename = event.value.substring(1)
   if($('ul.files li.file').length > 0){
     menu_item = $('ul.menu li[data-filename="' + filename + '"]')
-    if($(menu_item).length == 0){ menu_item =$('ul.menu li:first') };
+    if(menu_item.length == 0){ menu_item = $('ul.menu li:first') };
 
     $('ul.menu li').removeClass('current').removeClass('before')
     $('ul.files li.file, ul.files li.comments').hide()
-    menu_item.addClass('current').prev().addClass('before')
+    
+    $(menu_item).addClass('current').prev().addClass('before')
     $('ul.files li[data-filename="' + filename + '"]').show()
   }
 });
