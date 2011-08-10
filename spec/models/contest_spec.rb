@@ -232,12 +232,11 @@ describe Contest do
     around { |example| Timecop.freeze { example.run } }
 
     subject do
-      @contest = Fabricate(:contest, :starting_on => Date.parse('Jun 5 2011').to_time)
+      @contest = Fabricate(:contest, :starting_on => Date.parse('Jun 5 2011'))
       @contest.starting_at
     end
 
-    it { should == Time.parse('Jun 5 2011 12:00 UTC') }
-    # TODO: Find out why it's 12:00 everywhere, except on production, where it's 14:00
+    it { should == Time.parse('Jun 5 2011 14:00:00 UTC') }
 
   end
 
@@ -245,12 +244,11 @@ describe Contest do
     around { |example| Timecop.freeze { example.run } }
 
     subject do
-      @contest = Fabricate(:contest, :voting_on => Date.parse('Jun 5 2011').to_time)
+      @contest = Fabricate(:contest, :voting_on => Date.parse('Jun 5 2011'))
       @contest.voting_at
     end
 
-    it { should == Time.parse('Jun 5 2011 13  12:00 UTC') }
-    # TODO: Find out why it's 12:00 everywhere, except on production, where it's 14:00
+    it { should == Time.parse('Jun 5 2011 13  14:00:00 UTC') }
 
   end
 
@@ -258,12 +256,11 @@ describe Contest do
     around { |example| Timecop.freeze { example.run } }
 
     subject do
-      @contest = Fabricate(:contest, :voting_on => Date.parse('Jun 5 2011').to_time)
+      @contest = Fabricate(:contest, :voting_on => Date.parse('Jun 5 2011'))
       @contest.voting_at
     end
 
-    it { should == Time.parse('Jun 5 2011 12:00 UTC') }
-    # TODO: Find out why it's 12:00 everywhere, except on production, where it's 14:00
+    it { should == Time.parse('Jun 5 2011 14:00:00 UTC') }
 
   end
 

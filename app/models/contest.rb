@@ -56,15 +56,15 @@ class Contest
     :to => :inquirable_state
 
   def starting_at
-    starting_on.to_time.utc + 14.hours
+    starting_on.to_time(:utc) + 14.hours
   end
 
   def voting_at
-    voting_on.to_time.utc + 14.hours
+    voting_on.to_time(:utc) + 14.hours
   end
 
   def closing_at
-    closing_on.to_time.utc + 14.hours
+    closing_on.to_time(:utc) + 14.hours
   end
 
   def next_state_at
