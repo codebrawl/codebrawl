@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe User do
 
+  let(:entry) { Fabricate.build(:entry) }
+  let(:contest) { entry.contest }
+  let(:user) { Fabricate.build(:user, :login => 'charlie') }
+
   context 'fabrication' do
 
     it { Fabricate(:user).should be_valid }
@@ -19,21 +23,26 @@ describe User do
   end
 
   describe "#to_param" do
+
+    subject { user.to_param }
+
     it "should use the login field" do
-      User.new(:login => 'pete').to_param.should eql('pete')
+      should eql('charlie')
     end
+
   end
 
   describe '#calculate_points' do
 
-    subject do
-      Fabricate(
-        :user,
-        :participations => [
-          {'points' => 10}, {'points' => 20}, {'points' => 30}
-        ]
-      ).calculate_points
+    before do
+      user.stubs(:participations).returns([
+        {'points' => 10},
+        {'points' => 20},
+        {'points' => 30}
+      ])
     end
+
+    subject { user.calculate_points }
 
     it 'should add the participation points together' do
       should == 60
@@ -44,10 +53,9 @@ describe User do
   describe '#calculate_points!' do
 
     subject do
-      @user = Fabricate(:user)
-      @user.stubs(:calculate_points).returns(60)
-      @user.calculate_points!
-      @user.reload.points
+      user.stubs(:calculate_points).returns(60)
+      user.calculate_points!
+      user.reload.points
     end
 
     it 'should save the points' do
@@ -76,10 +84,9 @@ describe User do
   describe '#calculate_average_score!' do
 
     subject do
-      @user = Fabricate(:user)
-      @user.stubs(:calculate_average_score).returns(4.3)
-      @user.calculate_average_score!
-      @user.reload.average_score
+      user.stubs(:calculate_average_score).returns(4.3)
+      user.calculate_average_score!
+      user.reload.average_score
     end
 
     it 'should save the average score' do
@@ -89,44 +96,44 @@ describe User do
   end
 
   describe '#calculate_average_position' do
-    
+
     context 'without participations' do
-      
+
       subject { Fabricate(:user).calculate_average_position }
-      
+
       it { should == 0.0 }
-      
+
     end
-    
+
     context 'with a participation without a position' do
-      
+
       subject do
         Fabricate(
           :user,
           :participations => [ {}, {'position' => 2}, {'position' => 5} ]
         ).calculate_average_position
       end
-      
+
       it { should == 3.5 }
-      
+
     end
-    
+
     context 'with a participations without a positions' do
-      
+
       subject do
         Fabricate(
           :user,
           :participations => [ {}, {}, {} ]
         ).calculate_average_position
       end
-      
+
       it { should == 0.0 }
-      
+
     end
-    
-    
+
+
     context 'with participations' do
-      
+
       subject do
         Fabricate(
           :user,
@@ -135,40 +142,30 @@ describe User do
           ]
         ).calculate_average_position
       end
-      
+
       it { should == 2.6666666666666667 }
     end
 
   end
 
-
   describe '#voted_entries' do
-
-    let(:contest) { Fabricate(:contest) }
-    let(:user) { Fabricate(:user) }
-    let(:entry) { contest.entries.create }
 
     before { entry.stubs(:votes_from?).with(user).returns(true) }
 
     it 'returns entries the user has voted on' do
-      user.voted_entries(contest).should include(entry)
+       user.voted_entries(contest).should include(entry)
     end
 
   end
 
   describe '#participation_for?' do
 
-    before do
-      @contest = Fabricate(:contest)
-      @user = Fabricate(:user)
-    end
-
-    subject { @user.participation_for?(@contest) }
+    subject { user.participation_for?(contest) }
 
     context 'when the user has participated' do
 
       before do
-        @user.stubs(:participations).returns([{'contest_id' => @contest.id}])
+        user.stubs(:participations).returns([{'contest_id' => contest.id}])
       end
 
       it { should be_true }
