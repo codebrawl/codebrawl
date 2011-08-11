@@ -115,6 +115,11 @@ feature 'Homepage' do
         page.should have_content 'charlie'
       end
 
+      scenario 'visit the rules page' do
+        click_link 'Rules'
+        within('#main') { page.should have_content 'Rules' }
+      end
+
       scenario 'visit the hall of fame' do
         click_link 'Hall of Fame'
         within('#main') { page.should have_content 'Hall of Fame' }
