@@ -34,7 +34,6 @@ gem 'arnold', :git => 'git://github.com/codebrawl/arnold.git', :branch => 'devel
 
 group :test do
   gem 'rspec-rails'
-  gem 'spec_coverage', :require => false
   gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git', :ref => '549e6733'
   gem 'launchy'
 
@@ -50,8 +49,6 @@ group :test do
 
   gem 'fuubar'
   gem 'vcr'
-
-  gem 'therubyracer'
 end
 
 group :development, :test do
