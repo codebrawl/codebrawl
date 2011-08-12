@@ -15,8 +15,6 @@ class ArticlesController < ApplicationController
       content =~ /^(---\s*\n.*?\n?)^(===\s*$\n?)/m
 
       @content = $'
-      @data = YAML.load($1)
-
-      @data ||= {}
+      @data = YAML.load($1) || {}
     end
 end
