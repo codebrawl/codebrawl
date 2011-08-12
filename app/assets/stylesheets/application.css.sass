@@ -1,7 +1,6 @@
 @import compass/reset
 @import compass/css3/border-radius
 @import compass/css3/box-shadow
-@import blueprint/typography
 
 body
   background-color: #222
@@ -309,23 +308,6 @@ form
     .next_state
       font-size: 10px
 
-#contest_description, .comments
-  pre
-    background-color: #222
-    color: #eee
-    @include border-radius(2px)
-    padding: 10px
-
-    white-space: pre
-    white-space: pre-wrap
-    white-space: pre-line
-    white-space: -pre-wrap
-    white-space: -o-pre-wrap
-    white-space: -moz-pre-wrap
-    white-space: -hp-pre-wrap
-    word-wrap: break-word
-
-
 #contest_description
   img
     float: left
@@ -369,9 +351,6 @@ form ul
 
   &:hover a span
     display: block
-
-pre
-  +fixed-width-text
 
 .highlight, .markup, .image
   background: #fff
@@ -466,3 +445,4 @@ table
     padding: 5px 10px
 
 @import gust
+@import code
