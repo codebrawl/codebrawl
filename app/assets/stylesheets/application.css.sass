@@ -62,6 +62,11 @@ input[type="submit"]
   &:hover
     color: #eee
 
+  span
+    display: block
+    font-weight: 500
+    font-size: 12px
+
 input[type="submit"]
   border: none
   display: block
@@ -83,9 +88,6 @@ img.gravatar
     width: 220px
     margin: 0 20px 20px 0
     float: left
-
-    @media screen and (max-width: 460px)
-      width: 100%
 
   h3
     margin: 10px 0
@@ -133,9 +135,6 @@ form
     @include hide-text
     @include data-uri-bg("logo.png", center no-repeat)
 
-  @media screen and (max-width: 460px)
-    font-size: 10px
-
     h1 a
       height: 75px
       background-size: 75%
@@ -147,21 +146,16 @@ form
     color: #444
     -webkit-text-size-adjust: none
 
-    @media screen and (max-width: 460px)
-      font-size: 10px
-
     span
       font-size: 14px
       color: #888
       font-weight: 900
       text-shadow: 0 1px 1px #000
 
-      @media screen and (max-width: 460px)
-        font-size: 11px
-
 #wrapper
   margin: auto
   max-width: 900px
+  min-width: 660px
   padding: 10px
   position: relative
 
@@ -174,7 +168,7 @@ form
     right: 0
     width: 120px
 
-    @media screen and (max-width: 920px)
+    @media screen and (max-width: 940px)
       display: none
 
     img
@@ -187,7 +181,7 @@ form
   margin: 0 auto
   @include border-radius(2px)
   @include box-shadow(0 0px 5px #000)
-  max-width: 620px
+  width: 620px
 
   nav
     margin-bottom: 20px
@@ -397,8 +391,7 @@ strong
 
 #footer
   color: #666
-  padding: 0 10px 0 5px
-  max-width: 660px
+  width: 660px
   margin: auto
 
   a
