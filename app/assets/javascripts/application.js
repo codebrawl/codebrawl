@@ -6,7 +6,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require showdown
 
 function get_gist_comments(gist_id, element){
   converter = new Showdown.converter();

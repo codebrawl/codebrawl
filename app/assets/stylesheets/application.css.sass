@@ -1,17 +1,34 @@
+// Compass imports
+@import compass
 @import compass/reset
-@import compass/css3/border-radius
-@import compass/css3/box-shadow
+@import blueprint/typography
 
+// Mixins
+@mixin hide
+  left: -9999px
+  position: absolute
+
+@mixin data-uri-bg($image, $properties: false)
+  @if $properties != false
+    background: inline-image($image) $properties
+    *background: url($image) $properties
+  @else
+    background: inline-image($image)
+    *background: url($image)G
+
+// Styling
 body
   background-color: #222
   font-size: 14px
   color: #222
   line-height: 150%
 
-body, input
-  font-family: "Helvetica Neue",Helvetica,Arial,freesans,clean,sans-serif
+body,
+input
+  font-family: "Helvetica Neue", Helvetica, Arial, freesans, clean, sans-serif
 
-h2,h3
+h2,
+h3
   font-weight: 900
 
 h2
@@ -29,7 +46,8 @@ a
     color: #ec1d25
     cursor: pointer
 
-a.button, input[type='submit']
+a.button,
+input[type="submit"]
   display: block
   text-align: center
   background-color: #222
@@ -45,7 +63,7 @@ a.button, input[type='submit']
   &:hover
     color: #eee
 
-input[type='submit']
+input[type="submit"]
   border: none
   display: block
   width: 100%
@@ -79,7 +97,8 @@ p
 form
   margin: 10px 0 0 0
 
-  textarea, input[type='text']
+  textarea,
+  input[type="text"]
     width: 96.55174%
     padding: 1.72413%
     border: 1px solid #ddd
@@ -89,7 +108,7 @@ form
   textarea
     height: 200px
 
-  input[type='text']
+  input[type="text"]
     font-size: 24px
 
 #notice, #alert
@@ -110,12 +129,10 @@ form
   margin: 25px auto
 
   h1 a
-    background-image: inline-image('logo.png', image)
-    text-indent: -9999px
     height: 94px
     display: block
-    background-position: center
-    background-repeat: no-repeat
+    @include hide-text
+    @include data-uri-bg("logo.png", center no-repeat)
 
   @media screen and (max-width: 460px)
     font-size: 10px
@@ -123,11 +140,13 @@ form
     h1 a
       height: 75px
       background-size: 75%
-  pre
-    -webkit-text-size-adjust: none
-    font-family: "Courier New", Courier, monospace
+
+  p
+    margin: 0
+    font-family: Monaco, "Courier New", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", Courier, monospace
     font-size: 13px
     color: #444
+    -webkit-text-size-adjust: none
 
     @media screen and (max-width: 460px)
       font-size: 10px
@@ -164,36 +183,37 @@ form
 
 
 #container
-  background-color: #eee
+  background: #eee
   padding: 0px 20px 20px 20px
   margin: 0 auto
   @include border-radius(2px)
   @include box-shadow(0 0px 5px #000)
   max-width: 620px
 
-  #menu
+  nav
     margin-bottom: 20px
-    background-color: #222
+    background: #222
     margin: 0px -20px 20px -20px
     padding: 10px 20px
+    overflow: hidden
 
-    span, a
+    li
       height: 20px
+      float: left
+      margin-right: 15px
       text-shadow: 0 1px 5px #000
       color: #eee
 
-    a
-      margin-right: 10px
-
-    span
-      float: right
-      margin: 0
-
-      a
+      &.user
+        float: right
         margin: 0
+
+    a
+      color: #eee
 
   #main
     clear: both
+
     #entries li.entry
       margin: 20px 0
       background-repeat: no-repeat
@@ -205,13 +225,12 @@ form
           height: 100px
 
         fieldset
-          background-image: inline-image('happyface.png', image), inline-image('sadface.png', image)
-          background-position: right, left
-          background-repeat: no-repeat
           padding: 0 20px
           display: inline-block
+          background: inline-image("happyface.png") right no-repeat, inline-image("sadface.png") left no-repeat
+          *background: asset_url("happyface.png", image) right no-repeat, asset_url("sadface.png", image) left no-repeat
 
-        input[type='submit']
+        input[type="submit"]
           margin: 0
 
       span.entries_left
@@ -238,21 +257,21 @@ form
       margin: 20px 0
 
     .gold
-      background-image: inline-image('gold.png', image)
+      background-image: asset_url('gold.png', image)
 
     .silver
-      background-image: inline-image('silver.png', image)
+      background-image: asset_url('silver.png', image)
 
     .bronze
-      background-image: inline-image('bronze.png', image)
+      background-image: asset_url('bronze.png', image)
 
 #container.home
-  background-image: inline-image('gradient.png', image), inline-image('steven.jpg', image)
+  background-image: asset_url('gradient.png', image), asset_url('steven.jpg', image)
   background-position: left 170px, right top
   background-repeat: repeat-x, no-repeat
   background-size: auto 30px, auto auto
 
-  #menu
+  nav
     height: 130px
     background-color: transparent
 
@@ -262,21 +281,29 @@ form
 #contests, #entries, #articles
   margin-bottom: -20px
 
-#contests li, .message, #articles li
+#contests li,
+.message,
+#articles li
   padding: 20px 10px
 
 .contestants
   margin-top: 10px
 
-#entries li.entry, .contestants li
+#entries li.entry,
+.contestants li
   padding: 10px
 
-#contests li, #entries li.entry, .message, #articles li
+#contests li,
+#entries li.entry,
+.message,
+#articles li
   background-color: #ddd
   @include border-radius(2px)
   @include box-shadow(0 -1px 0 #ccc, 0 1px 0 #fff)
 
-#contests li, #entries li.entry, #articles li
+#contests li,
+#entries li.entry,
+#articles li
   margin-bottom: 20px
 
   .description
@@ -300,7 +327,8 @@ form
     font-size: 24px
     font-weight: 900
 
-    .time_left, .next_state
+    .time_left,
+    .next_state
       display: block
       font-size: 18px
       font-weight: 500
@@ -344,7 +372,7 @@ form ul
     height: 20px
     position: absolute
     width: 100%
-    background-image: inline-image('gradient.png', image)
+    @include data-uri-bg("gradient.png", no-repeat)
 
     span
       display: none
@@ -386,11 +414,11 @@ strong
       padding-left: 5px
 
     a
-      background-image: inline-image('6sync.png', image)
-      text-indent: -9999px
       height: 28px
       width: 73px
       display: block
+      @include hide-text
+      @include data-uri-bg("6sync.png", no-repeat)
 
   .right
     width: 50%
@@ -418,7 +446,7 @@ span#who
   font-size: 10px
   line-height: 10px
   font-style: italic
-  font-family: Palatino,Georgia,"Times New Roman",serif
+  font-family: Palatino, Georgia, "Times New Roman", serif
   text-align: right
   position: absolute
   top: 280px

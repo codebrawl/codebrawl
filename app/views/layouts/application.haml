@@ -1,38 +1,41 @@
-!!! 5
-%html
+!!!
+
+%html.no-js
   %head
+    %meta{'charset' => 'utf-8'}
     %meta{:name => 'viewport', :content => 'width=385', 'maximum-scale' => '1.0' }
-    %title= "#{yield(:title)} #{yield(:title).present? ? ' - ' : ''} Codebrawl"
-    -if yield(:description).present?
+    %title= "#{yield(:title).present? ? "#{yield(:title)} - " : ''}Codebrawl"
+    - if yield(:description).present?
       %meta{:name => 'description', :content => yield(:description) }
     = auto_discovery_link_tag :atom, 'http://feeds.feedburner.com/codebrawl'
-    = stylesheet_link_tag    "application"
-    = javascript_include_tag "application"
+    = stylesheet_link_tag 'application'
+    = javascript_include_tag 'modernizr'
+    = javascript_include_tag 'application'
     = csrf_meta_tags
 
-  %body
+  %body{:class => "#{controller_name} #{action_name}"}
 
     #wrapper
 
-      #header
+      %header#header
         %h1= link_to 'Codebrawl', root_path
-        %pre
-          :erb
-            if ( <span>ready?</span> && <span>set?</span> ) then <span>fight!</span> end
+        %p
+          if ( <span>ready?</span> && <span>set?</span> ) then <span>fight!</span> end
 
       #container{:class => request.path == root_path ? 'home' : 'container'}
-        #menu
-          = link_to 'Contests', :root
-          = link_to 'Rules', :rules
-          = link_to 'Hall of Fame', :users
-          = link_to 'News', :articles
 
-          %span
-            - if current_user
-              = link_to_profile(current_user)
-              = "(#{link_to('log out', [:session], :method => :delete)})".html_safe
-            - else
-              = link_to('log in via Github', '/auth/github')
+        %nav
+          %ul
+            %li= link_to 'Contests', :root
+            %li= link_to 'Rules', :rules
+            %li= link_to 'Hall of Fame', :users
+            %li= link_to 'News', :articles
+            %li.user
+              - if current_user
+                = link_to_profile(current_user)
+                = "(#{link_to('log out', [:session], :method => :delete)})".html_safe
+              - else
+                = link_to('log in via Github', '/auth/github')
 
         #main
           - flash.each do |type, message|
@@ -43,7 +46,7 @@
       #adzerk_ad_div
         %script{:type => "text/javascript", :src => "http://engine.rubyrow.net/Server/RUBY/JK/NOCSS"}
 
-      #footer
+      %footer#footer
         .left
           %span
             hosted by

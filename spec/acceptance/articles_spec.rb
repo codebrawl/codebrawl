@@ -13,13 +13,13 @@ feature 'Article' do
     `rm #{blog}`
     `mv #{blog}_backup #{blog}`
   end
-  
+
   scenario 'visit the article index' do
     visit '/'
     click_link 'News'
     page.should have_content 'Acceptance testing articles'
   end
-  
+
   context 'on the article index' do
     before { visit '/articles' }
 
@@ -27,10 +27,10 @@ feature 'Article' do
       page.should have_link 'Acceptance testing articles'
       body.should include '/articles/acceptance-testing-articles'
     end
-    
+
     scenario 'show the page title and description' do
-      body.should include "<title>the index  -  Codebrawl</title>"
-      body.should include "<meta content='all articles ever' name='description'>"
+      body.should include "<title>the index - Codebrawl</title>"
+      body.should include '<meta content="all articles ever" name="description">'
     end
 
   end
@@ -42,12 +42,12 @@ feature 'Article' do
       page.should have_content 'Acceptance testing articles'
       page.should have_content 'Running Jekyll in Rails. How do you test that?!'
     end
-    
+
     scenario 'show the page title and description' do
-      body.should include "<title>Acceptance testing articles  -  Codebrawl</title>"
-      body.should include "<meta content='Running Jekyll in Rails. How do you test that?!' name='description'>"
+      body.should include "<title>Acceptance testing articles - Codebrawl</title>"
+      body.should include '<meta content="Running Jekyll in Rails. How do you test that?!" name="description">'
     end
-    
+
 
   end
 
