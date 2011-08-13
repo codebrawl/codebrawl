@@ -85,9 +85,9 @@ class Contest
 
   def add_participations_to_contestants!
     entries.order_by([:score, :desc]).each_with_index do |entry, index|
-
       entry.user.participations << {
         'contest_id' => id,
+        'contest_name' => name,
         'points' => (entries.length.max(10) - index).min(1) * 10,
         'score' => entry.read_attribute(:score),
         'position' => index + 1
