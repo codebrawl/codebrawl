@@ -338,6 +338,12 @@ describe Contest do
           entry.user.reload.participations.first['contest_name'].should == @contest.name
         end
       end
+      
+      it 'should set the contest slugs' do
+        @contest.entries.each do |entry|
+          entry.user.reload.participations.first['contest_slug'].should == @contest.slug
+        end
+      end
 
       it 'should set the contest scores' do
         @scores.each_with_index do |score, index|

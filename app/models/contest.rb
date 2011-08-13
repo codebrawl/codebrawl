@@ -88,6 +88,7 @@ class Contest
       entry.user.participations << {
         'contest_id' => id,
         'contest_name' => name,
+        'contest_slug' => slug,
         'points' => (entries.length.max(10) - index).min(1) * 10,
         'score' => entry.read_attribute(:score),
         'position' => index + 1
