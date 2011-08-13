@@ -28,6 +28,13 @@ class ApplicationController < ActionController::Base
       :priority => 0.8
     }
 
+    @data << {
+      :loc => rules_url,
+      :lastmod => File.mtime("#{Rails.root}/app/views/application/rules.haml").to_date.to_s,
+      :changefreq => 'weekly',
+      :priority => 0.4
+    }
+
     Dir.glob("app/blog/articles/*").each do |article|
       @data << {
         :loc => "#{articles_url}/#{File.basename(article)}",
