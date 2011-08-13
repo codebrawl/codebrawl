@@ -10,6 +10,13 @@
 
 - if @contest.open?
 
+  .tip
+    %h3 Already started working on your entry?
+    %p
+      Be sure to submit it right away. You'll be able to keep working on your entry until the voting period starts.
+      = link_to('Contest rules »', rules_path)
+
+
   - if @contest.entries.any? || @entry
     .message
 
