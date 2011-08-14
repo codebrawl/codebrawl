@@ -35,7 +35,7 @@ feature 'Users' do
     end
 
     scenario 'see the users, ordered by points' do
-      
+
       within(:xpath, '//tr[1]') do
         page.should have_content '#1'
         page.should have_link 'david'
@@ -91,42 +91,55 @@ feature 'Users' do
           "Blog" => "http://ericsblog.com",
           "Blog2" => nil
         },
-        :participations => [
-          {:score => 1, :position => 5}, {:score => 2, :position => 2}, {:score => 4, :position => 1}
-        ],
         :average_score => 2.2678
       )
 
-      VCR.use_cassette('existing_gist') do
-        Fabricate(
-          :contest,
-          :name => 'RSpec extensions',
-          :closing_on => Date.yesterday.to_time,
-          :entries => [ Fabricate.build(:entry, :user => user) ]
-        )
+      contests = VCR.use_cassette('existing_gist') do
+        [
+          Fabricate(
+            :contest,
+            :name => 'RSpec extensions',
+            :closing_on => Date.yesterday.to_time,
+            :entries => [ Fabricate.build(:entry, :user => user) ]
+          ),
 
-        Fabricate(
-          :contest,
-          :name => 'Fun with ChunkyPNG',
-          :starting_on => Date.yesterday.to_time,
-          :entries => [ Fabricate.build(:entry, :user => user) ]
-        )
+          Fabricate(
+            :contest,
+            :name => 'Fun with ChunkyPNG',
+            :starting_on => Date.yesterday.to_time,
+            :entries => [ Fabricate.build(:entry, :user => user) ]
+          ),
 
-        Fabricate(
-          :contest,
-          :name => 'Terminal Twitter clients',
-          :voting_on => Date.yesterday.to_time,
-          :entries => [ Fabricate.build(:entry, :user => user) ]
-        )
+          Fabricate(
+            :contest,
+            :name => 'Terminal Twitter clients',
+            :voting_on => Date.yesterday.to_time,
+            :entries => [ Fabricate.build(:entry, :user => user) ]
+          ),
 
-        Fabricate(
-          :contest,
-          :name => 'Ruby metaprogramming',
-          :starting_on => Date.yesterday.to_time,
-          :user => user
-        )
-
+          Fabricate(
+            :contest,
+            :name => 'Ruby metaprogramming',
+            :starting_on => Date.yesterday.to_time,
+            :user => user
+          )
+        ]
       end
+
+      user.update_attributes(:participations =>
+        [
+          {
+            :contest_id => contests.first.id,
+            :contest_name => 'RSpec extensions', :score => 1, :points => 10, :position => 5
+          },
+          {
+            :contest_id => contests.second.id, :contest_name => 'Fun with ChunkyPNG', :score => 2, :points => 30, :position => 2
+          },
+          {
+            :contest_id => contests.third.id, :contest_name => 'Terminal twitter clients', :score => 4, :points => 40, :position => 1
+          }
+        ]
+      )
 
       visit '/users/eric'
 
@@ -154,12 +167,22 @@ feature 'Users' do
       page.should have_no_link '/users/eric'
     end
 
-    scenario 'see the average score' do
-      page.should have_content 'Average score: 2.3/5'
-    end
-    
     scenario 'see the average position' do
-      page.should have_content 'Average position: 2.7'
+      within(:xpath, '//tr[2]/td[2]') do
+        page.should have_content '2.7'
+      end
+    end
+
+    scenario 'see the average score' do
+      within(:xpath, '//tr[2]/td[3]') do
+        page.should have_content '2.3/5'
+      end
+    end
+
+    scenario 'see the average points' do
+      within(:xpath, '//tr[2]/td[4]') do
+        page.should have_content '26.7'
+      end
     end
 
     scenario 'see the list of entered contests' do
@@ -180,7 +203,7 @@ feature 'Users' do
   context 'on user profiles' do
 
     scenario 'show the user position' do
-      
+
       {
         'david' => {:position => 1, :points => 300},
         'hans' => {:position => 2, :points => 200},
@@ -196,7 +219,7 @@ feature 'Users' do
     end
 
   end
-  
+
   context 'when trying to visit a user profile that does not exist' do
 
     scenario 'see the "not found"-page' do
