@@ -130,13 +130,24 @@ feature 'Users' do
         [
           {
             :contest_id => contests.first.id,
-            :contest_name => 'RSpec extensions', :score => 1, :points => 10, :position => 5
+            :contest_name => 'RSpec extensions',
+            :score => 1.25,
+            :points => 10,
+            :position => 5
           },
           {
-            :contest_id => contests.second.id, :contest_name => 'Fun with ChunkyPNG', :score => 2, :points => 30, :position => 2
+            :contest_id => contests.second.id,
+            :contest_name => 'Fun with ChunkyPNG',
+            :score => 2,
+            :points => 30,
+            :position => 2
           },
           {
-            :contest_id => contests.third.id, :contest_name => 'Terminal twitter clients', :score => 4, :points => 40, :position => 1
+            :contest_id => contests.third.id,
+            :contest_name => 'Terminal twitter clients',
+            :score => 4,
+            :points => 40,
+            :position => 1
           }
         ]
       )
@@ -188,6 +199,13 @@ feature 'Users' do
     scenario 'see the list of entered contests' do
       page.should have_content 'RSpec extensions'
     end
+
+    scenario 'see the contest scores' do
+      within(:xpath, '//tr[1]/td[3]') do
+        page.should have_content '1.2/5'
+      end
+    end
+
 
     scenario 'do not see any entered contests that are still open' do
       page.should have_no_content 'Fun with ChunkyPNG'

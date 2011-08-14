@@ -26,7 +26,7 @@
           %tr
             %td= link_to participation['contest_name'], "/contests/#{participation['contest_slug']}"
             %td= participation['position']
-            %td= "#{participation['score']}/5"
+            %td= "#{sprintf("%.1f", participation['score'])}/5"
             %td= participation['points']
       %tr
         %td Average
