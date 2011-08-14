@@ -148,6 +148,26 @@ describe User do
 
   end
 
+  describe '#calculate_average_points' do
+
+    subject { user.calculate_average_points }
+
+    it { should == 0.0 }
+
+    context 'when having participations with scores' do
+
+      subject do
+        user.stubs(:calculate_points).returns(80)
+        user.stubs(:participations).returns([{},{},{}])
+        user.calculate_average_points
+      end
+
+      it { should == 26.666666666666668 }
+
+    end
+
+  end
+
   describe '#voted_entries' do
 
     before { entry.stubs(:votes_from?).with(user).returns(true) }
