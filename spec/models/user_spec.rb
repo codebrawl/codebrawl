@@ -144,6 +144,7 @@ describe User do
       end
 
       it { should == 2.6666666666666667 }
+
     end
 
   end
