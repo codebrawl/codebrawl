@@ -88,7 +88,7 @@ feature 'Users' do
         :login => 'eric',
         :urls => {
           "GitHub" => "https://github.com/eric",
-          "Blog" => "http://ericsblog.com",
+          "Blog" => "ericsblog.com",
           "Blog2" => nil
         },
         :average_score => 2.2678
@@ -170,7 +170,7 @@ feature 'Users' do
     end
 
     scenario 'see the links to the user website' do
-      page.should have_link 'http://ericsblog.com'
+      page.should have_link 'ericsblog.com'
       body.should include 'href="http://ericsblog.com"'
     end
 

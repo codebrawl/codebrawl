@@ -10,4 +10,9 @@ module ApplicationHelper
     link_to link_text, user_path(user), :name => user.login
   end
 
+  def clean_url(url)
+    return url if url.include? '://'
+    "http://#{url}"
+  end
+
 end
