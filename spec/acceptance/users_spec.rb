@@ -224,8 +224,8 @@ feature 'Users' do
 
       {
         'david' => {:position => 1, :points => 300},
-        'hans' => {:position => 2, :points => 200},
-        'gary' => {:position => 3, :points => 200},
+        'hans' => {:position => 3, :points => 200},
+        'gary' => {:position => 2, :points => 200},
         'bob' => {:position => 4, :points => 100}
       }.each do |login, data|
         visit "/users/#{login}"
