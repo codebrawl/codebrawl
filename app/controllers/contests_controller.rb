@@ -11,7 +11,8 @@ class ContestsController < ApplicationController
   end
 
   def show
-    @contest = Contest.find_by_slug(params[:id])
+    not_found unless @contest = Contest.find_by_slug(params[:id])
+
     if current_user
       @voted_entries = current_user.voted_entries(@contest)
       @entry = @contest.entries.where(:user_id => current_user.id).first

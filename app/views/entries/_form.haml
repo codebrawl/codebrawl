@@ -2,11 +2,7 @@
   :textile
     Thanks for entering! Before you enter your solution, be sure to read the contest rules.
 
-    * The first rule of Codebrawl is: you do not talk about Codebrawl. Keep your entry secret until after the voting period, we don't want this to become a popularity contest.
-    * Don't use your name in your Gist, that reveals your identity
-    * Don't fork any example Gists
-    * Explain your solution carefully in a `README` file (don't forget to include example code)
-    * Polish your entry, you can keep editing it until the voting period starts
+  = render 'rules_listing'
 
   - @entry.errors.full_messages.each do |message|
     %div{:id => 'alert'}= message

@@ -10,9 +10,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    @users = User.only(:id).order_by([:points, :desc]).map(&:id)
+    @users = User.only(:id).order_by(
+      [:points, :desc],
+      [:average_score, :desc]
+    ).map(&:id)
 
-    @user = User.where(:login => params[:id]).first
+    not_found unless @user = User.where(:login => params[:id]).first
     @entered_contests = Contest.all.where('entries.user_id' => @user.id).select do |contest|
       contest.state == 'finished'
     end

@@ -56,15 +56,15 @@ class Contest
     :to => :inquirable_state
 
   def starting_at
-    starting_on.to_time.utc + 14.hours
+    starting_on.to_time(:utc) + 14.hours
   end
 
   def voting_at
-    voting_on.to_time.utc + 14.hours
+    voting_on.to_time(:utc) + 14.hours
   end
 
   def closing_at
-    closing_on.to_time.utc + 14.hours
+    closing_on.to_time(:utc) + 14.hours
   end
 
   def next_state_at
@@ -85,9 +85,10 @@ class Contest
 
   def add_participations_to_contestants!
     entries.order_by([:score, :desc]).each_with_index do |entry, index|
-
       entry.user.participations << {
         'contest_id' => id,
+        'contest_name' => name,
+        'contest_slug' => slug,
         'points' => (entries.length.max(10) - index).min(1) * 10,
         'score' => entry.read_attribute(:score),
         'position' => index + 1

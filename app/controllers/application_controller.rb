@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  def rules
+  end
+
   def sitemap
     @data = []
 
@@ -23,6 +26,13 @@ class ApplicationController < ActionController::Base
       :lastmod => File.mtime("#{Rails.root}/app/blog/index.html").to_date.to_s,
       :changefreq => 'weekly',
       :priority => 0.8
+    }
+
+    @data << {
+      :loc => rules_url,
+      :lastmod => File.mtime("#{Rails.root}/app/views/application/rules.haml").to_date.to_s,
+      :changefreq => 'weekly',
+      :priority => 0.4
     }
 
     Dir.glob("app/blog/articles/*").each do |article|
@@ -75,6 +85,10 @@ class ApplicationController < ActionController::Base
 
     def authenticate_user!
       redirect_to "/auth/github?origin=#{request.env['PATH_INFO']}" unless logged_in?
+    end
+
+    def not_found
+      raise ActionController::RoutingError.new('Not Found')
     end
 
     helper_method :current_user, :logged_in?

@@ -34,7 +34,7 @@ feature 'Homepage' do
     end
 
     scenario 'see the "no open contests"-message' do
-      within('.message') do
+      within('.tip') do
         page.should have_content "Get ready for next week's contest"
         page.should have_content 'Our next contest will start next Monday at 14:00 (UTC)'
         page.should have_link 'contests feed'

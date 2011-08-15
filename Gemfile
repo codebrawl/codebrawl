@@ -30,10 +30,10 @@ gem 'rpm_contrib'
 gem 'hoptoad_notifier'
 
 gem 'hashr'
+gem 'arnold', :git => 'git://github.com/codebrawl/arnold.git', :branch => 'develop'
 
 group :test do
   gem 'rspec-rails'
-  #gem 'spec_coverage', :require => false
   gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git', :ref => '549e6733'
   gem 'launchy'
 
@@ -49,13 +49,11 @@ group :test do
 
   gem 'fuubar'
   gem 'vcr'
-
-  gem 'therubyracer'
 end
 
 group :development, :test do
   gem 'fabrication'
   gem 'faker'
 
-  gem 'rack-webconsole', :git => 'git://github.com/jeffkreeftmeijer/rack-webconsole.git'
+  gem 'rack-webconsole'
 end

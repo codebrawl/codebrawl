@@ -1,19 +1,17 @@
 $:.unshift(File.expand_path('./lib', ENV['rvm_path']))
 require "rvm/capistrano"
 require 'bundler/capistrano'
+require 'capistrano/ext/multistage'
 
 set :application, "codebrawl"
 set :repository,  "git@github.com:codebrawl/codebrawl.git"
 
 set :scm, :git
-set :branch, "master"
 set :ssh_options, { :forward_agent => true }
 
 role :web, "204.62.15.57"
 role :app, "204.62.15.57"
-set :user, "codebrawl"
 set :use_sudo, false
-set :deploy_to, "/home/codebrawl"
 set :rvm_ruby_string, 'ruby-1.9.2'
 
 default_run_options[:pty] = true
@@ -38,7 +36,7 @@ namespace :deploy do
 
   desc "Compile asets"
   task :assets do
-    run "cd #{release_path}; RAILS_ENV=production bundle exec rake assets:precompile"
+    run "cd #{release_path}; RAILS_ENV=#{rails_env} bundle exec rake assets:precompile"
   end
 
   desc 'Symlink the settings file'
@@ -46,13 +44,8 @@ namespace :deploy do
     run "ln -s #{shared_path}/codebrawl.yml #{current_release}/config/codebrawl.yml"
   end
 
-  desc 'Symlink app/blog'
-  task :symlink_blog, :roles => :app do
-    run "ln -s #{shared_path}/blog #{current_release}/app/blog"
-  end
-
 end
 
 task :status do
-  run("cd #{current_release}; bundle exec rake codebrawl:status RAILS_ENV=production")
+  run("cd #{current_release}; bundle exec rake codebrawl:status RAILS_ENV=#{rails_env}")
 end

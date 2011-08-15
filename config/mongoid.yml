@@ -10,3 +10,7 @@ test:
 production:
   host: localhost
   database: codebrawl_production
+
+staging:
+  host: localhost
+  database: codebrawl_production

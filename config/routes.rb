@@ -16,6 +16,8 @@ Codebrawl::Application.routes.draw do
   match '/auth/failure', :to => 'sessions#failure'
   match '/sitemap', :to => 'application#sitemap'
 
+  get '/rules' => "application#rules", :as => 'rules'
+
   root :to => 'contests#index'
 
 end

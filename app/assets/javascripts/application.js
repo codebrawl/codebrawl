@@ -6,7 +6,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require showdown
 
 function get_gist_comments(gist_id, element){
   converter = new Showdown.converter();
@@ -44,6 +44,7 @@ $(document).ready(function(){
   $('li.unvoted .new_vote input[type="submit"]').hide();
   $('.new_vote input').change(function(){
     $(this).parent().submit();
+    window.location = '#'
   })
 
   var unvoted = $('li.unvoted')
@@ -62,7 +63,7 @@ $(document).ready(function(){
     if(lis.length >= 1){
       form = lis.find('form')
       form.
-        append('<span class="skip">or <a>skip this entry</a></span>').
+        append('<span class="skip">or <a href="#">skip this entry</a></span>').
         append('<span class="entries_left"/>')
 
       if(lis.length <= 1){

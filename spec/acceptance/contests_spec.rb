@@ -30,7 +30,7 @@ share_examples_for 'a contest with hidden contestant names and gists' do
   scenario 'do not see the names of the contestants' do
     within('#main') { page.should have_no_content 'charlie' }
   end
-  
+
   scenario 'do not see the entry gist urls' do
     page.should have_no_link 'Gist'
     body.should_not include 'href="https://gist.github.com/866948"'
@@ -47,6 +47,16 @@ share_examples_for 'a finished contest' do
 end
 
 feature 'Contests' do
+
+  context 'when trying to visit a contest page that does not exist' do
+
+    scenario 'see the "not found"-page' do
+      lambda{
+        visit '/contests/terminal-admin'
+      }.should raise_error ActionController::RoutingError
+    end
+
+  end
 
   context 'on a contest page' do
 
@@ -163,7 +173,7 @@ feature 'Contests' do
         (1..5).to_a.each { |i| page.should have_field i.to_s }
         page.should have_button 'Vote'
       end
-      
+
       context 'when not logged in' do
         background do
           click_link 'log out'
@@ -210,12 +220,12 @@ feature 'Contests' do
           page.should have_content '2.7/5'
         end
       end
-      
+
       scenario 'see the entry gist urls' do
         page.should have_link 'Gist'
         body.should include 'href="https://gist.github.com/866948"'
       end
-      
+
       scenario 'see the contest rundown link' do
         page.should have_link 'contest rundown'
         body.should include 'href="/articles/contest-rundown-rspec-extensions"'
