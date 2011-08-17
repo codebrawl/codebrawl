@@ -188,6 +188,17 @@ form
   @include box-shadow(0 0px 5px #000)
   width: 620px
 
+  &.home
+    background-image: asset_url('steven.jpg', image)
+    background-repeat: no-repeat
+
+    nav
+      height: 200px
+      background-color: transparent
+
+    .tip a
+      font-size: 100%
+
   nav
     margin-bottom: 20px
     background: #222
@@ -262,17 +273,6 @@ form
 
     .bronze
       background-image: asset_url('bronze.png', image)
-
-#container.home
-  background-image: asset_url('steven.jpg', image)
-  background-repeat: no-repeat
-
-  nav
-    height: 200px
-    background-color: transparent
-
-  .tip a
-    font-size: 100%
 
 #entries, #articles
   margin-bottom: -20px

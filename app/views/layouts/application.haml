@@ -21,7 +21,7 @@
         %p
           if ( <span>ready?</span> && <span>set?</span> ) then <span>fight!</span> end
 
-      #container{:class => request.path == root_path ? 'home' : 'container'}
+      #container{:class => request.path == root_path ? 'home' : 'generic'}
 
         %nav
           %ul
