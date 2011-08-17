@@ -7,7 +7,6 @@
     Submitted by
     =link_to @contest.user.login, @contest.user
 
-  // Contest description
   = raw Kramdown::Document.new(@contest.description).to_html
 
   - if @contest.open?
@@ -28,6 +27,13 @@
           %p The entries will become visible when the voting period begins.
 
         - if @entry
+
+          %h3
+            :erb
+              You entered <%= link_to "gist #{@entry.gist_id}", "https://gist.github.com/#{@entry.gist_id}" %>
+          %p
+            :erb
+              You can keep updating your gist, we'll take a snapshot of it when the voting period begins. If you want, you can always <%= link_to "delete your entry", [@contest, @entry], :method => :delete %>.
 
           %h3
             :erb
