@@ -96,15 +96,15 @@ feature 'Homepage' do
       end
 
       scenario 'see the contest states' do
-        within "li#contest_#{@open.id}" do
+        within "#contest_#{@open.id}" do
           page.should have_content 'Open'
         end
 
-        within "li#contest_#{@voting.id}" do
+        within "#contest_#{@voting.id}" do
           page.should have_content 'Voting'
         end
 
-        within "li#contest_#{@finished.id}" do
+        within "#contest_#{@finished.id}" do
           page.should have_content 'Finished'
         end
       end
