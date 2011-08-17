@@ -1,13 +1,11 @@
-%li{:id => dom_id(contest)}
-  .description
-    %h2= link_to contest.name, contest
-    %p= contest.tagline
+%article{:id => dom_id(contest), :class => 'box'}
+  %h1= link_to contest.name, contest
+  %p= contest.tagline
 
-  .state
+  %footer.state
     %span= contest.state.capitalize
     - if contest.next_state_at
       %span.time_left
         = "#{distance_of_time_in_words(Time.now, contest.next_state_at, true)} left"
       %span.next_state
         = "until #{contest.next_state_at.strftime("%B %d %H:%M (UTC)")}"
-  %hr
