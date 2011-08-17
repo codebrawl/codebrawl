@@ -295,7 +295,20 @@ form
 #entries, #articles
   margin-bottom: -20px
 
-#contests .box,
+#container.home
+  background-image: asset_url('steven.jpg', image)
+  background-repeat: no-repeat
+
+  nav
+    height: 200px
+    background-color: transparent
+
+  .tip a
+    font-size: 100%
+
+#entries, #articles
+  margin-bottom: -20px
+
 .message,
 #articles li
   padding: 10px
@@ -316,8 +329,13 @@ form
   +box-shadow(0 -1px 0 #ccc, 0 1px 0 #fff)
 
 #contests .box,
+  @include border-radius(2px)
+  @include box-shadow(0 -1px 0 #ccc, 0 1px 0 #fff)
+
+#contests .box,
 #entries li.entry,
-#articles li
+#articles li,
+#contests .box
   margin-bottom: 20px
 
   .description
@@ -588,3 +606,55 @@ footer#submitter
 
 @import gust
 @import code
+
+// New frontend
+.box,
+.tip
+  padding: 10px
+  margin-bottom: 20px
+  background-color: #ddd
+  @include border-radius(2px)
+  @include box-shadow(0 -1px 0 #ccc, 0 1px 0 #fff)
+
+#contests
+  overflow: hidden
+
+  article
+    position: relative
+    padding: 10px 220px 10px 10px
+
+  .comments
+    margin: 10px 0 0 0
+    font-size: 12px
+
+    div
+      background-color: #eee
+      padding: 10px
+      margin-bottom: 10px
+      @include border-radius(2px)
+
+  .state
+    width: 210px
+    top: 10px
+    right: 10px
+    position: absolute
+    text-align: right
+    font-size: 24px
+    font-weight: 900
+
+    span
+      display: block
+
+    .time_left,
+    .next_state
+      font-size: 18px
+      font-weight: 500
+
+    .next_state
+      font-size: 10px
+
+.tip
+  background-color: #dde6ee
+
+  a
+    font-size: 12px
