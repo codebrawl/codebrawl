@@ -12,9 +12,17 @@ describe Suggestion do
 
   end
 
-  context 'save!' do
+  context '#save!' do
 
     it { should have(1).error_on(:name) }
+
+  end
+
+  context '#votes' do
+
+    subject { Fabricate.build(:suggestion).votes }
+
+    it { should == [] }
 
   end
 
