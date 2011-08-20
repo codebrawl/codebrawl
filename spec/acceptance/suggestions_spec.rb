@@ -39,6 +39,20 @@ feature 'Suggestions' do
 
     end
 
+    scenario 'upvote a suggestion' do
+
+      within(:xpath, '//tr[1]') do
+        click_button 'upvote'
+      end
+
+      page.should have_content 'Thanks for voting!'
+
+      within(:xpath, '//tr[1]') do
+        page.should have_content '5'
+      end
+
+    end
+
   end
 
 end
