@@ -1,0 +1,3 @@
+Fabricator(:suggestion) do
+end
+

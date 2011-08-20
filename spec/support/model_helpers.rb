@@ -12,4 +12,8 @@ module Mongoid::Document
     closing_on == date
   end
 
+  def has_a_created_at_date?
+    created_at.is_a? Time
+  end
+
 end
