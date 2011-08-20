@@ -392,33 +392,41 @@ strong
   font-weight: 900
 
 #footer
-  color: #666
   width: 660px
-  margin: auto
+  margin: 0 auto
+  color: #666
+  overflow: hidden
 
   a
     color: #eee
 
-  .left
-    width: 50%
+    &:hover
+      color: #ec1d25
+
+#fork_submit
+  float: right
+  margin: 10px 5px 0 0
+
+  li
     float: left
+    margin-left: 8px
+    list-style: disc inside
 
-    span
-      font-size: 10px
-      padding-left: 5px
+    &:first-child
+      margin-left: 0
+      list-style: none
 
-    a
-      height: 28px
-      width: 73px
-      display: block
-      @include hide-text
-      @include data-uri-bg("6sync.png", no-repeat)
+.host
+  span
+    font-size: 10px
+    padding-left: 5px
 
-  .right
-    width: 50%
-    float: right
-    text-align: right
-    padding-top: 5px
+  a
+    height: 28px
+    width: 73px
+    display: block
+    @include hide-text
+    @include data-uri-bg("6sync.png", no-repeat)
 
 em
   font-style: italic

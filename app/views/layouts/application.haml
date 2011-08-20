@@ -45,16 +45,12 @@
         %script{:type => "text/javascript", :src => "http://engine.rubyrow.net/Server/RUBY/JK/NOCSS"}
 
       %footer#footer
-        .left
-          %span
-            hosted by
-            =link_to '6sync', 'http://6sync.com'
-        .right
-          =link_to 'Fork me on Github', 'https://github.com/codebrawl/codebrawl'
-          &bull;
-          =link_to 'Submit a contest idea', [:new, :submission]
-        %hr
+        %ul#fork_submit
+          %li=link_to 'Fork me on Github', 'https://github.com/codebrawl/codebrawl'
+          %li=link_to 'Submit a contest idea', [:new, :submission]
 
-
+        .host
+          %span hosted by
+          =link_to '6sync', 'http://6sync.com'
 
     = render 'analytics'
