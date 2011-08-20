@@ -1,7 +1,12 @@
 class SuggestionsController < ApplicationController
 
   def index
-    @suggestions = Suggestion.all
+    @suggestions = Suggestion.all.sort do |a,b|
+      b_score = b.votes.map {|vote| vote['score'] }.inject(&:+)
+      a_score = a.votes.map {|vote| vote['score'] }.inject(&:+)
+
+      b_score || 0 <=> a_score || 0
+    end
   end
 
   def create

@@ -8,22 +8,27 @@ feature 'Suggestions' do
       Fabricate(
         :suggestion,
         :name => 'Terminal admin',
-        :votes => [{:score => 1}] * 4
+        :votes => [{:score => -1}] * 2
       )
 
       Fabricate(
         :suggestion,
         :name => 'RSpec formatters',
-        :votes => [{:score => -1}] * 2
+        :votes => [{:score => 1}] * 4
       )
 
       visit 'suggestions'
     end
 
-    scenario 'see the list of suggestions' do
+    scenario 'see the list of suggestions, ordered by score' do
 
-      page.should have_content 'Terminal admin'
-      page.should have_content 'RSpec formatters'
+      within(:xpath, '//tr[1]') do
+        page.should have_content 'RSpec formatters'
+      end
+
+      within(:xpath, '//tr[2]') do
+        page.should have_content 'Terminal admin'
+      end
 
     end
 
