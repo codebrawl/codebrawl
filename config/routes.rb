@@ -9,7 +9,7 @@ Codebrawl::Application.routes.draw do
   resources :users, :only => [:index, :show]
   resource :session, :only => [:create, :destroy]
   resources :submissions, :only => [:new, :create]
-  resources :suggestions, :only => [:index, :update]
+  resources :suggestions, :only => [:index, :create, :update]
 
   resources :articles, :only => [:index, :show]
 

@@ -1,3 +1,7 @@
 %table
   = render @suggestions
 
+= form_for :suggestion do |f|
+  =f.label :name
+  =f.text_field :name
+  =f.submit 'Suggest'

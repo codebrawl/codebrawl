@@ -67,6 +67,16 @@ feature 'Suggestions' do
 
     end
 
+    scenario 'create a suggestion' do
+
+      fill_in :name, :with => 'Whyday'
+      click_button 'Suggest'
+
+      page.should have_content 'Thanks for your suggestion!'
+      page.should have_content 'Whyday'
+
+    end
+
   end
 
 end
