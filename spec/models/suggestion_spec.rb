@@ -26,4 +26,23 @@ describe Suggestion do
 
   end
 
+  context '#score' do
+
+    let (:suggestion) { Fabricate.build(:suggestion) }
+    subject { suggestion.score }
+
+    it { should == 0 }
+
+    context 'with some scores' do
+
+      before do
+        suggestion.stubs(:votes).returns([{'score' => 1}, {'score' => 1}])
+      end
+
+      it { should == 2 }
+
+    end
+
+  end
+
 end
