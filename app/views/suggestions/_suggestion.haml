@@ -1,11 +1,9 @@
 %tr
-  %td= suggestion.name
-  %td= suggestion.votes.map {|vote| vote['score'] }.inject(&:+)
-  %td
-    =form_for suggestion do |f|
-      =f.hidden_field 'score', :value => 1
-      =f.submit 'upvote'
-  %td
-    =form_for suggestion do |f|
-      =f.hidden_field 'score', :value => -1
-      =f.submit 'downvote'
+  
+  =form_for suggestion do |f|
+    %td= suggestion.name
+    %td= suggestion.votes.map {|vote| vote['score'] }.inject(&:+)
+    %td
+      =f.submit '+1'
+    %td
+      =f.submit '-1'
