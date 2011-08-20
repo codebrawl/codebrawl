@@ -604,17 +604,14 @@ footer#submitter
   font-size: 12px
   color: #666
 
-@import gust
-@import code
-
-// New frontend
 .box,
 .tip
   padding: 10px
   margin-bottom: 20px
   background-color: #ddd
-  @include border-radius(2px)
-  @include box-shadow(0 -1px 0 #ccc, 0 1px 0 #fff)
+  +border-radius(2px)
+  +box-shadow(0 -1px 0 #ccc, 0 1px 0 #fff)
+
 
 #contests
   overflow: hidden
@@ -628,10 +625,10 @@ footer#submitter
     font-size: 12px
 
     div
-      background-color: #eee
+      background-color: $light-color
       padding: 10px
       margin-bottom: 10px
-      @include border-radius(2px)
+      +border-radius(2px)
 
   .state
     width: 210px
@@ -662,3 +659,6 @@ footer#submitter
 footer#submitter
   font-size: 12px
   color: #666
+
+@import gust
+@import code
