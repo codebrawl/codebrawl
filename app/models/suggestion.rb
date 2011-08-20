@@ -3,6 +3,7 @@ class Suggestion
   include Mongoid::Timestamps
 
   field :name, :type => String
+  field :votes, :type => Array
 
   validates :name, :presence => true
 end

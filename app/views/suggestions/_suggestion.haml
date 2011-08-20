@@ -1,1 +1,3 @@
-%li= suggestion.name
+%tr
+  %td= suggestion.name
+  %td= suggestion.votes.map {|vote| vote['score'] }.inject(&:+)
