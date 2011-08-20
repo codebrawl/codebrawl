@@ -5,3 +5,7 @@
     =form_for suggestion do |f|
       =f.hidden_field 'score', :value => 1
       =f.submit 'upvote'
+  %td
+    =form_for suggestion do |f|
+      =f.hidden_field 'score', :value => -1
+      =f.submit 'downvote'

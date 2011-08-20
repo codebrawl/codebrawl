@@ -4,7 +4,7 @@ feature 'Suggestions' do
 
   context 'on the index page' do
 
-    background do
+    background(:all) do
       Fabricate(
         :suggestion,
         :name => 'Terminal admin',
@@ -49,6 +49,20 @@ feature 'Suggestions' do
 
       within(:xpath, '//tr[1]') do
         page.should have_content '5'
+      end
+
+    end
+
+    scenario 'downvote a suggestion' do
+
+      within(:xpath, '//tr[1]') do
+        click_button 'downvote'
+      end
+
+      page.should have_content 'Thanks for voting!'
+
+      within(:xpath, '//tr[1]') do
+        page.should have_content '4'
       end
 
     end
