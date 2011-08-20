@@ -7,7 +7,8 @@
     Submitted by
     =link_to @contest.user.login, @contest.user
 
-  #contest_description= raw Kramdown::Document.new(@contest.description).to_html
+  // Contest description
+  = raw Kramdown::Document.new(@contest.description).to_html
 
   - if @contest.open?
 
