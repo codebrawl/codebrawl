@@ -12,4 +12,10 @@ describe Suggestion do
 
   end
 
+  context 'save!' do
+
+    it { should have(1).error_on(:name) }
+
+  end
+
 end
