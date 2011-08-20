@@ -41,9 +41,6 @@
 
           = yield
 
-      #adzerk_ad_div
-        %script{:type => "text/javascript", :src => "http://engine.rubyrow.net/Server/RUBY/JK/NOCSS"}
-
       %footer#footer
         %ul#fork_submit
           %li=link_to 'Fork me on Github', 'https://github.com/codebrawl/codebrawl'
@@ -52,5 +49,8 @@
         .host
           %span hosted by
           =link_to '6sync', 'http://6sync.com'
+
+      #adzerk_ad_div
+        %script{:type => "text/javascript", :src => "http://engine.rubyrow.net/Server/RUBY/JK/NOCSS"}
 
     = render 'analytics'
