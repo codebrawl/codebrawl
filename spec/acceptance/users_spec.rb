@@ -79,7 +79,7 @@ feature 'Users' do
   end
 
   context 'on a user profile' do
-    
+
     let(:user) do
       user = Fabricate(
         :user,

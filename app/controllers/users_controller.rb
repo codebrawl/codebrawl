@@ -20,6 +20,7 @@ class UsersController < ApplicationController
       contest.state == 'finished'
     end
     @submitted_contests = Contest.all.where('user_id' => @user.id)
+    @medals = { 1 => 'gold', 2 => 'silver', 3 => 'bronze'}
   end
 
 end
