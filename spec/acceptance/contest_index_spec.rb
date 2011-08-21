@@ -112,7 +112,6 @@ feature 'Homepage' do
       scenario 'visit the submissions page' do
         click_link 'Submit a contest idea'
         page.should have_content 'Submit your contest idea'
-        page.should have_content 'charlie'
       end
 
       scenario 'visit the hall of fame' do
@@ -126,7 +125,7 @@ feature 'Homepage' do
 
         scenario 'visit my profile page' do
           click_link 'charlie'
-          page.should have_content 'Charlie Chaplin'
+          page.should have_content 'Total points'
         end
 
       end
