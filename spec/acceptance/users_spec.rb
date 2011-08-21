@@ -180,19 +180,19 @@ feature 'Users' do
     end
 
     scenario 'see the average position' do
-      within(:xpath, '//tr[2]/td[2]') do
+      within(:xpath, '//tr[2]/td[3]') do
         page.should have_content '2.7'
       end
     end
 
     scenario 'see the average score' do
-      within(:xpath, '//tr[2]/td[3]') do
+      within(:xpath, '//tr[2]/td[4]') do
         page.should have_content '2.3/5'
       end
     end
 
     scenario 'see the average points' do
-      within(:xpath, '//tr[2]/td[4]') do
+      within(:xpath, '//tr[2]/td[5]') do
         page.should have_content '26.7'
       end
     end
@@ -202,7 +202,7 @@ feature 'Users' do
     end
 
     scenario 'see the contest scores' do
-      within(:xpath, '//tr[1]/td[3]') do
+      within(:xpath, '//tr[1]/td[4]') do
         page.should have_content '1.2/5'
       end
     end
