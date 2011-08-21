@@ -1,6 +1,6 @@
-- content_for(:title){ @user.name }
+- content_for(:title){ @user.name || @user.login }
 
-%h2= @user.name
+%h2= @user.name || @user.login
 
 #profile
 
