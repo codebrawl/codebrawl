@@ -36,12 +36,12 @@ describe User do
 
     subject { user.best_name }
 
-    it { should == 'Charlie Chaplin' }
+    it { should == 'charlie' }
 
-    context 'when not having a name' do
-      before { user.stubs(:name).returns(nil) }
+    context 'when having a full name' do
+      before { user.stubs(:name).returns('Charlie Chaplin') }
 
-      it { should == 'charlie' }
+      it { should == 'Charlie Chaplin' }
 
     end
 
