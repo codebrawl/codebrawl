@@ -23,6 +23,27 @@ namespace :codebrawl do
     end
 
   end
+
+  task :update_contributors => :environment do
+
+    uri = URI.parse('https://api.github.com/repos/codebrawl/codebrawl/contributors')
+
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+
+    request = Net::HTTP::Get.new(uri.request_uri)
+    response = http.request(request)
+
+    contributors = JSON.parse response.body
+
+    contributors.each do |contributor|
+      if user = User.first(:conditions => {:login => contributor['login']})
+        user.update_attribute('contributions', contributor['contributions'])
+      end
+    end
+
+  end
 end
 
 def table(title, content)
