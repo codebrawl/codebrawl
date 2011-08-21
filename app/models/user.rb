@@ -20,6 +20,10 @@ class User
 
   alias_method :to_param, :login
 
+  def best_name
+    name || login
+  end
+
   def calculate_points
     participations.map { |p| p['points'] }.inject(:+)
   end

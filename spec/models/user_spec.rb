@@ -32,6 +32,21 @@ describe User do
 
   end
 
+  describe '#best_name' do
+
+    subject { user.best_name }
+
+    it { should == 'Charlie Chaplin' }
+
+    context 'when not having a name' do
+      before { user.stubs(:name).returns(nil) }
+
+      it { should == 'charlie' }
+
+    end
+
+  end
+
   describe '#calculate_points' do
 
     before do
