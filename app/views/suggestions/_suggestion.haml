@@ -2,7 +2,6 @@
   %td= suggestion.name
   %td= suggestion.votes.map {|vote| vote['score'] }.inject(&:+)
   %td
-  %td
     =form_for suggestion do |f|
       = f.hidden_field :score, :value => '+1'
       = image_submit_tag 'thumb_up.png', :class => 'upvote'

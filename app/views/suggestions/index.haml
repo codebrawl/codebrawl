@@ -1,5 +1,9 @@
+%h2 Contest suggestions
+
 %table
   = render @suggestions
+
+%h3 Submit your own contest idea
 
 = form_for :suggestion do |f|
   =f.label :name
