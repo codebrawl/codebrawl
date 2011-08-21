@@ -25,8 +25,13 @@
       - @user.participations.each do |participation|
         - if @entered_contests.map {|p| p.id }.include? participation['contest_id']
           %tr
-            %td= link_to participation['contest_name'], "/contests/#{participation['contest_slug']}"
-            %td= participation['position']
+            %td=link_to participation['contest_name'], "/contests/#{participation['contest_slug']}"
+            %td
+              - if medal = @medals[participation['position']]
+                =image_tag("medal_#{medal}.png")
+                ="(#{participation['position']})"
+              - else
+                =participation['position']
             %td= "#{sprintf("%.1f", participation['score'])}/5"
             %td= participation['points']
       %tr
