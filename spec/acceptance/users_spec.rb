@@ -79,10 +79,8 @@ feature 'Users' do
   end
 
   context 'on a user profile' do
-
-    background(:all) do
-      # TODO: stub `Contest#state` instead of setting the voting and closing
-      # dates.
+    
+    let(:user) do
       user = Fabricate(
         :user,
         :login => 'eric',
@@ -93,6 +91,9 @@ feature 'Users' do
         },
         :average_score => 2.2678
       )
+    end
+
+    background(:all) do
 
       contests = VCR.use_cassette('existing_gist') do
         [
@@ -206,7 +207,6 @@ feature 'Users' do
       end
     end
 
-
     scenario 'do not see any entered contests that are still open' do
       page.should have_no_content 'Fun with ChunkyPNG'
       page.should have_no_content 'Terminal Twitter clients'
@@ -214,6 +214,23 @@ feature 'Users' do
 
     scenario 'see the list of submitted contests' do
       page.should have_content 'Ruby metaprogramming'
+    end
+
+    scenario 'do not see the contributors star' do
+      body.should_not include 'src="/assets/star.png"'
+    end
+
+    context 'when the user has contributions' do
+
+      background do
+        user.update_attribute(:contributions, 1)
+        visit '/users/eric'
+      end
+
+      scenario 'see the contributors star' do
+        body.should include 'src="/assets/star.png"'
+      end
+
     end
 
   end

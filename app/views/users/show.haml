@@ -4,7 +4,7 @@
 
 #profile
 
-  = image_tag @user.gravatar_url(:size => 140, :default => avatar_url)
+  = image_tag @user.gravatar_url(:size => 140, :default => avatar_url), :class => 'gravatar'
 
   %ul
     %li= link_to("#{@user.login} on Github", "https://github.com/#{@user.login}")
@@ -12,6 +12,7 @@
       %li= link_to url, clean_url(url)
     %li= "Position: ##{@users.index(@user.id) + 1}"
     %li= "Total points: #{@user.points}"
+    %li= image_tag('star.png', :alt => 'Contributor') if @user.contributions?
 
   - if @entered_contests.any?
     %h3 Entered contests

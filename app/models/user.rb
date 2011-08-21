@@ -12,6 +12,7 @@ class User
   field 'points', :type => Integer
   field 'average_score', :type => Float, :default => 0.0
   field 'urls', :type => Hash, :default => {}
+  field 'contributions', :type => Integer
 
   validates :login, :presence => true
 
