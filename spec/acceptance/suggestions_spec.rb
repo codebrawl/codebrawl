@@ -71,10 +71,12 @@ feature 'Suggestions' do
     scenario 'create a suggestion' do
 
       fill_in :name, :with => 'Whyday'
+      fill_in :description, :with => "Friday is Whyday, so let's have a Whyday contest!"
       click_button 'Suggest'
 
       page.should have_content 'Thanks for your suggestion!'
       page.should have_content 'Whyday'
+      page.should have_content "Friday is Whyday, so let's have a Whyday contest!"
 
     end
 
