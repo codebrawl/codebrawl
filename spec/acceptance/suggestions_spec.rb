@@ -46,9 +46,7 @@ feature 'Suggestions' do
 
     scenario 'upvote a suggestion' do
 
-      within(:xpath, '//tr[1]') do
-        click_button '+1'
-      end
+      find('input.upvote').click
 
       page.should have_content 'Thanks for voting!'
 
@@ -60,9 +58,7 @@ feature 'Suggestions' do
 
     scenario 'downvote a suggestion' do
 
-      within(:xpath, '//tr[1]') do
-        click_button '-1'
-      end
+      find('input.downvote').click
 
       page.should have_content 'Thanks for voting!'
 
