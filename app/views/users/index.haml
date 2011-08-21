@@ -15,7 +15,7 @@
     %tr
       %td= "##{index + 1}"
       %td= image_tag(user.gravatar_url(:size => 20, :default => avatar_url), :class => 'gravatar')
-      %td= link_to(user.login, user)
+      %td= link_to(user.best_name, user)
       %td= user.points
       %td= "#{sprintf("%.1f", user.average_score)}/5"
       %td= user.participations.count
