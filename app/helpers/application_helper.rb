@@ -1,9 +1,7 @@
 module ApplicationHelper
 
   def avatar_url
-    "http://#{request.subdomain ? "#{request.subdomain}." : ''}" <<
-    "#{request.domain}#{request.local? ? ":#{request.port}" : ''}" <<
-    asset_path('avatar.png')
+    "http://#{request.domain}#{request.local? ? ":#{request.port}" : ''}#{asset_path('avatar.png')}"
   end
 
   def link_to_profile(user)
