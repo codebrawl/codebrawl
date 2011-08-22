@@ -26,11 +26,11 @@
       - @user.participations.each do |participation|
         - if @entered_contests.map {|p| p.id }.include? participation['contest_id']
           %tr
-            %td= image_tag("#{@medals[participation['position']]}.png")
+            %td.narrow= image_tag("#{@medals[participation['position']]}.png")
             %td= link_to participation['contest_name'], "/contests/#{participation['contest_slug']}"
-            %td= participation['position']
-            %td= "#{sprintf("%.1f", participation['score'])}/5"
-            %td= participation['points']
+            %td.narrow= participation['position']
+            %td.narrow= "#{sprintf("%.1f", participation['score'])}/5"
+            %td.narrow= participation['points']
       %tr
         %td
         %td Average
