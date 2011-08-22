@@ -17,6 +17,11 @@ feature 'Suggestions' do
         :votes => [{:score => 1}] * 4
       )
 
+      Fabricate(
+        :suggestion,
+        :name => 'Whyday'
+      )
+
       visit 'suggestions'
     end
 
@@ -27,6 +32,10 @@ feature 'Suggestions' do
       end
 
       within(:xpath, '//tr[2]') do
+        page.should have_content 'Whyday'
+      end
+
+      within(:xpath, '//tr[3]') do
         page.should have_content 'Terminal admin'
       end
 
@@ -39,6 +48,10 @@ feature 'Suggestions' do
       end
 
       within(:xpath, '//tr[2]') do
+        page.should have_content '0'
+      end
+
+      within(:xpath, '//tr[3]') do
         page.should have_content '-2'
       end
 
