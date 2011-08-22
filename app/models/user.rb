@@ -12,12 +12,17 @@ class User
   field 'points', :type => Integer
   field 'average_score', :type => Float, :default => 0.0
   field 'urls', :type => Hash, :default => {}
+  field 'contributions', :type => Integer
 
   validates :login, :presence => true
 
   has_gravatar
 
   alias_method :to_param, :login
+
+  def best_name
+    name || login
+  end
 
   def calculate_points
     participations.map { |p| p['points'] }.inject(:+)

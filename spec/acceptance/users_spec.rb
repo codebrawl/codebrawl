@@ -80,9 +80,7 @@ feature 'Users' do
 
   context 'on a user profile' do
 
-    background(:all) do
-      # TODO: stub `Contest#state` instead of setting the voting and closing
-      # dates.
+    let(:user) do
       user = Fabricate(
         :user,
         :login => 'eric',
@@ -93,6 +91,9 @@ feature 'Users' do
         },
         :average_score => 2.2678
       )
+    end
+
+    background(:all) do
 
       contests = VCR.use_cassette('existing_gist') do
         [
@@ -179,19 +180,19 @@ feature 'Users' do
     end
 
     scenario 'see the average position' do
-      within(:xpath, '//tr[2]/td[2]') do
+      within(:xpath, '//tr[2]/td[3]') do
         page.should have_content '2.7'
       end
     end
 
     scenario 'see the average score' do
-      within(:xpath, '//tr[2]/td[3]') do
+      within(:xpath, '//tr[2]/td[4]') do
         page.should have_content '2.3/5'
       end
     end
 
     scenario 'see the average points' do
-      within(:xpath, '//tr[2]/td[4]') do
+      within(:xpath, '//tr[2]/td[5]') do
         page.should have_content '26.7'
       end
     end
@@ -201,11 +202,10 @@ feature 'Users' do
     end
 
     scenario 'see the contest scores' do
-      within(:xpath, '//tr[1]/td[3]') do
+      within(:xpath, '//tr[1]/td[4]') do
         page.should have_content '1.2/5'
       end
     end
-
 
     scenario 'do not see any entered contests that are still open' do
       page.should have_no_content 'Fun with ChunkyPNG'
@@ -216,6 +216,23 @@ feature 'Users' do
       page.should have_content 'Ruby metaprogramming'
     end
 
+    scenario 'do not see the contributors star' do
+      body.should_not include 'src="/assets/star.png"'
+    end
+
+    context 'when the user has contributions' do
+
+      background do
+        user.update_attribute(:contributions, 1)
+        visit '/users/eric'
+      end
+
+      scenario 'see the contributors star' do
+        body.should include 'src="/assets/star.png"'
+      end
+
+    end
+
   end
 
   context 'on user profiles' do
@@ -224,8 +241,8 @@ feature 'Users' do
 
       {
         'david' => {:position => 1, :points => 300},
-        'hans' => {:position => 2, :points => 200},
-        'gary' => {:position => 3, :points => 200},
+        'hans' => {:position => 3, :points => 200},
+        'gary' => {:position => 2, :points => 200},
         'bob' => {:position => 4, :points => 100}
       }.each do |login, data|
         visit "/users/#{login}"

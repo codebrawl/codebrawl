@@ -1,10 +1,14 @@
-- content_for(:title){ @user.name }
+- content_for(:title){ @user.best_name }
 
-%h2= @user.name
+%h2= @user.best_name
 
 #profile
-
-  = image_tag @user.gravatar_url(:size => 140, :default => avatar_url)
+  #avatar
+    = image_tag @user.gravatar_url(:size => 140, :default => avatar_url), :class => 'gravatar'
+    #medals
+      = image_tag('star.png', :alt => 'Contributor') if @user.contributions?
+      - @user.participations.each do |participation|
+        = image_tag("#{@medals[participation['position']]}.png")
 
   %ul
     %li= link_to("#{@user.login} on Github", "https://github.com/#{@user.login}")
@@ -17,6 +21,7 @@
     %h3 Entered contests
     %table
       %thead
+        %td
         %td Contest
         %td Position
         %td Score
@@ -24,11 +29,13 @@
       - @user.participations.each do |participation|
         - if @entered_contests.map {|p| p.id }.include? participation['contest_id']
           %tr
+            %td.narrow= image_tag("#{@medals[participation['position']]}.png")
             %td= link_to participation['contest_name'], "/contests/#{participation['contest_slug']}"
-            %td= participation['position']
-            %td= "#{sprintf("%.1f", participation['score'])}/5"
-            %td= participation['points']
+            %td.narrow= participation['position']
+            %td.narrow= "#{sprintf("%.1f", participation['score'])}/5"
+            %td.narrow= participation['points']
       %tr
+        %td
         %td Average
         %td= sprintf("%.1f", @user.calculate_average_position)
         %td= "#{sprintf("%.1f", @user.average_score)}/5"
