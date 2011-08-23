@@ -27,15 +27,15 @@ feature 'Suggestions' do
 
     scenario 'see the list of suggestions, ordered by score' do
 
-      within(:xpath, '//tr[1]') do
+      within(:xpath, '//tbody/tr[1]') do
         page.should have_content 'RSpec formatters'
       end
 
-      within(:xpath, '//tr[2]') do
+      within(:xpath, '//tbody/tr[2]') do
         page.should have_content 'Whyday'
       end
 
-      within(:xpath, '//tr[3]') do
+      within(:xpath, '//tbody/tr[3]') do
         page.should have_content 'Terminal admin'
       end
 
@@ -43,15 +43,15 @@ feature 'Suggestions' do
 
     scenario 'see the suggestion scores' do
 
-      within(:xpath, '//tr[1]') do
+      within(:xpath, '//tbody/tr[1]') do
         page.should have_content '4'
       end
 
-      within(:xpath, '//tr[2]') do
+      within(:xpath, '//tbody/tr[2]') do
         page.should have_content '0'
       end
 
-      within(:xpath, '//tr[3]') do
+      within(:xpath, '//tbody/tr[3]') do
         page.should have_content '-2'
       end
 
@@ -63,7 +63,7 @@ feature 'Suggestions' do
 
       page.should have_content 'Thanks for voting!'
 
-      within(:xpath, '//tr[1]') do
+      within(:xpath, '//tbody/tr[1]') do
         page.should have_content '5'
       end
 
@@ -75,7 +75,7 @@ feature 'Suggestions' do
 
       page.should have_content 'Thanks for voting!'
 
-      within(:xpath, '//tr[1]') do
+      within(:xpath, '//tbody/tr[1]') do
         page.should have_content '4'
       end
 
