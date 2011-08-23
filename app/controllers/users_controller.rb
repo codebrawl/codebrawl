@@ -6,7 +6,17 @@ class UsersController < ApplicationController
       [:average_score, :desc]
     ]).select { |user| user.points && user.points > 0 }
 
-    @points = @users.map(&:points)
+    @positions = @users.map(&:id)
+  end
+
+  def contributors
+    @users = User.where(:contributions.gt => 0)
+    @positions = User.only(:id).order_by([
+      [:points, :desc],
+      [:average_score, :desc]
+    ]).map(&:id)
+
+    render :action => :index
   end
 
   def show

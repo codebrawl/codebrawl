@@ -9,6 +9,7 @@ feature 'Users' do
         :user,
         :login => login,
         :points => index * 100,
+        :contributions => 3 - index,
         :average_score => 2.456
       )
     end
@@ -74,6 +75,39 @@ feature 'Users' do
 
     scenario 'do not see users without any points' do
       page.should have_no_content 'alice'
+    end
+
+  end
+
+  context 'on the contributors index' do
+
+    background { visit '/contributors' }
+
+    scenario 'see the user logins' do
+      %w{ alice bob hans }.each { |login| page.should have_content login }
+    end
+
+    scenario "do not see users that haven't contributed" do
+      %w{ gary david frank  }.each { |login| page.should have_no_content login }
+    end
+
+    scenario 'see the users, ordered by contributions' do
+
+      within(:xpath, '//tr[1]') do
+        page.should have_content '#5'
+        page.should have_link 'alice'
+      end
+
+      within(:xpath, '//tr[2]') do
+        page.should have_content '#4'
+        page.should have_link 'bob'
+      end
+
+      within(:xpath, '//tr[3]') do
+        page.should have_content '#3'
+        page.should have_link 'hans'
+      end
+
     end
 
   end
