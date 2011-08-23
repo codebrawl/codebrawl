@@ -4,7 +4,7 @@
 
 #profile
   #avatar
-    = image_tag @user.gravatar_url(:size => 140, :default => avatar_url), :class => 'gravatar'
+    = image_tag @user.gravatar_url(:size => 220, :default => avatar_url), :class => 'gravatar'
     #medals
       = image_tag('star.png', :alt => 'Contributor') if @user.contributions?
       - @user.participations.each do |participation|
