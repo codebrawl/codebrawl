@@ -8,6 +8,11 @@ class Suggestion
 
   validates :name, :presence => true
 
+  def add_vote!(attributes)
+    votes << {'score' => attributes[:score].to_i }
+    save!
+  end
+
   def score
     votes.map {|vote| vote['score'] }.inject(&:+) || 0
   end

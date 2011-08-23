@@ -11,9 +11,7 @@ class SuggestionsController < ApplicationController
 
   def update
     @suggestion = Suggestion.find(params[:id])
-    @suggestion.votes << { 'score' => params[:suggestion][:score].to_i }
-    @suggestion.save
-
+    @suggestion.add_vote!(params[:suggestion])
     redirect_to :suggestions, :notice => 'Thanks for voting!'
   end
 
