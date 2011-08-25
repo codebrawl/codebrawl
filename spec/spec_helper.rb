@@ -8,6 +8,7 @@ Spork.prefork do
 
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
+  require 'spec_config'
 
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
@@ -20,8 +21,6 @@ Spork.prefork do
 
     config.before(:all){ DatabaseCleaner.clean }
     config.around { |example| VCR.use_cassette('existing_gist'){ example.run } }
-
-    config.mock_with :mocha
   end
 
   VCR.config do |c|

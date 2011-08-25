@@ -1,7 +1,10 @@
+require 'points'
+
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
   include Gravtastic
+  include Points
 
   field 'login', :type => String
   field 'email', :type => String
@@ -22,10 +25,6 @@ class User
 
   def best_name
     name || login
-  end
-
-  def calculate_points
-    participations.map { |p| p['points'] }.inject(:+)
   end
 
   def calculate_points!

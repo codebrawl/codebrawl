@@ -47,24 +47,6 @@ describe User do
 
   end
 
-  describe '#calculate_points' do
-
-    before do
-      user.stubs(:participations).returns([
-        {'points' => 10},
-        {'points' => 20},
-        {'points' => 30}
-      ])
-    end
-
-    subject { user.calculate_points }
-
-    it 'should add the participation points together' do
-      should == 60
-    end
-
-  end
-
   describe '#calculate_points!' do
 
     subject do
