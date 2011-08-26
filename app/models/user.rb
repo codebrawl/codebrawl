@@ -1,10 +1,12 @@
 require 'points'
 require 'scores'
+require 'participations'
 
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
   include Gravtastic
+  include Participations
   include Points
   include Scores
 
@@ -45,10 +47,6 @@ class User
 
   def voted_entries(contest)
     contest.entries.select { |e| e.votes_from?(self) }
-  end
-
-  def participation_for?(contest)
-    participations.map {|p| p['contest_id'] }.include? contest.id
   end
 
 end
