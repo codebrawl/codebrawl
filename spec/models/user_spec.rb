@@ -139,26 +139,4 @@ describe User do
 
   end
 
-  describe '#participation_for?' do
-
-    subject { user.participation_for?(contest) }
-
-    context 'when the user has participated' do
-
-      before do
-        user.stubs(:participations).returns([{'contest_id' => contest.id}])
-      end
-
-      it { should be_true }
-
-    end
-
-    context 'when the user has not participated' do
-
-      it { should be_false }
-
-    end
-
-  end
-
 end
