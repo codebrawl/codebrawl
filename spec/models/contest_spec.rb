@@ -2,12 +2,6 @@ require 'spec_helper'
 
 describe Contest do
 
-  context 'fabrication' do
-
-    it { Fabricate(:contest).should be_valid }
-
-  end
-
   context '.not_open' do
 
     before do

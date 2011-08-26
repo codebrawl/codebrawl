@@ -19,12 +19,6 @@ describe Entry do
 
   end
 
-  context 'fabrication' do
-
-    it { Fabricate(:entry).should be_valid }
-
-  end
-
   context '#save!' do
 
     context 'when keeping all fields empty' do
