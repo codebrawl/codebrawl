@@ -1,10 +1,12 @@
 require 'points'
+require 'scores'
 
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
   include Gravtastic
   include Points
+  include Scores
 
   field 'login', :type => String
   field 'email', :type => String
@@ -29,10 +31,6 @@ class User
 
   def calculate_points!
     update_attribute(:points, calculate_points)
-  end
-
-  def calculate_average_score
-    participations.map { |p| p['score'] }.inject(:+) / participations.length
   end
 
   def calculate_average_score!
