@@ -6,12 +6,6 @@ describe User do
   let(:contest) { entry.contest }
   let(:user) { Fabricate.build(:user, :login => 'charlie') }
 
-  context 'fabrication' do
-
-    it { Fabricate(:user).should be_valid }
-
-  end
-
   context '#save!' do
 
     context 'when keeping all fields empty' do
