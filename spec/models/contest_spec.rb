@@ -147,33 +147,6 @@ describe Contest do
 
   end
 
-  context '#next_state_at' do
-
-    before { @contest = Fabricate(:contest) }
-
-    context 'when the contest is open' do
-      before { @contest.stubs(:state).returns('open') }
-      subject { @contest.next_state_at }
-
-      it { should == @contest.voting_at }
-    end
-
-    context 'when the contest is open for voting' do
-      before { @contest.stubs(:state).returns('voting') }
-      subject { @contest.next_state_at }
-
-      it { should == @contest.closing_at }
-    end
-
-    context 'when the contest is finished' do
-      before { @contest.stubs(:state).returns('finished') }
-      subject { @contest.next_state_at }
-
-      it { should be_nil }
-    end
-
-  end
-
   context '#get_entry_files' do
 
     before do

@@ -24,4 +24,11 @@ module State
     :finished?,
     :to => :inquirable_state
 
+  def next_state_at
+    case state
+    when 'open' then voting_at
+    when 'voting' then closing_at
+    end
+  end
+
 end

@@ -49,13 +49,6 @@ class Contest
     closing_on.to_time(:utc) + 14.hours
   end
 
-  def next_state_at
-    case state
-    when 'open' then voting_at
-    when 'voting' then closing_at
-    end
-  end
-
   def get_entry_files
     entries.each do |entry|
       puts entry.id

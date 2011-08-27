@@ -9,9 +9,9 @@ describe State do
 
   let(:object) do
     object = ObjectWithState.new
-    object.stubs(:closing_at).returns(Time.now + 3600)
-    object.stubs(:voting_at).returns(Time.now + 3600)
-    object.stubs(:starting_at).returns(Time.now + 3600)
+    object.stubs(:closing_at).returns(Time.now + 60)
+    object.stubs(:voting_at).returns(Time.now + 120)
+    object.stubs(:starting_at).returns(Time.now + 180)
     object
   end
 
@@ -130,6 +130,33 @@ describe State do
 
       it { should be_false }
 
+    end
+
+  end
+
+  context '#next_state_at' do
+
+    subject { object.next_state_at }
+
+    context 'when the state is "open"' do
+
+      before { object.stubs(:state).returns('open') }
+
+      it { should == object.voting_at }
+    end
+
+    context 'when the state is "voting"' do
+
+      before { object.stubs(:state).returns('voting') }
+
+      it { should == object.closing_at }
+    end
+
+    context 'when the state is "finished"' do
+
+      before { object.stubs(:state).returns('finished') }
+
+      it { should be_nil }
     end
 
   end
