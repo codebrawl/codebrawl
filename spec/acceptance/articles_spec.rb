@@ -14,7 +14,7 @@ feature 'Article' do
     `mv #{blog}_backup #{blog}`
   end
 
-  scenario 'visit the article index' do
+  pending 'visit the article index' do
     visit '/'
     click_link 'News'
     page.should have_content 'Acceptance testing articles'
