@@ -94,9 +94,6 @@ feature 'Homepage' do
       end
 
       scenario 'see entry counts in the contests list' do
-        p @open.open?
-        p @open.entries
-        save_and_open_page
         page.should have_content "This contest has 1 entry already"
       end
 
