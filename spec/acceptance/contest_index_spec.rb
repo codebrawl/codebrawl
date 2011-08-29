@@ -47,12 +47,16 @@ feature 'Homepage' do
     context 'when having an open contest' do
 
       background :all do
-        @open = Fabricate(
-          :contest,
-          :name => 'Euler #74',
-          :tagline => 'Get your Euler on and build the fastest solution to problem #123',
-          :starting_on => Date.yesterday.to_time
-        )
+        @user = Fabricate(:user)
+        VCR.use_cassette('existing_gist') do
+          @open = Fabricate(
+            :contest,
+            :name => 'Euler #74',
+            :tagline => 'Get your Euler on and build the fastest solution to problem #123',
+            :starting_on => Date.yesterday.to_time,
+            :entries => [Fabricate.build(:entry_with_files, :user => Fabricate(:user, :login => 'bob'))]
+          )
+        end
       end
 
       before { visit '/' }
@@ -87,6 +91,13 @@ feature 'Homepage' do
         end
 
         page.should have_no_content 'RSpec extensions'
+      end
+
+      scenario 'see entry counts in the contests list' do
+        p @open.open?
+        p @open.entries
+        save_and_open_page
+        page.should have_content "This contest has 1 entry already"
       end
 
       scenario 'see the contest taglines' do
