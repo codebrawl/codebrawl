@@ -2,12 +2,6 @@ require 'spec_helper'
 
 describe Contest do
 
-  context 'fabrication' do
-
-    it { Fabricate(:contest).should be_valid }
-
-  end
-
   context '.not_open' do
 
     before do
@@ -116,117 +110,6 @@ describe Contest do
 
   end
 
-  context '#pending?' do
-
-    before { @contest = Fabricate(:contest) }
-
-    context 'when the contest is pending for entries' do
-
-      subject do
-        @contest.stubs(:state).returns('pending')
-        @contest.pending?
-      end
-
-      it { should be_true }
-
-    end
-
-    context 'when the contest is not pending' do
-
-      subject do
-        @contest.stubs(:state).returns('notpending')
-        @contest.pending?
-      end
-
-      it { should be_false }
-
-    end
-
-  end
-
-  context '#open?' do
-
-    before { @contest = Fabricate(:contest) }
-
-    context 'when the contest is open for entries' do
-
-      subject do
-        @contest.stubs(:state).returns('open')
-        @contest.open?
-      end
-
-      it { should be_true }
-
-    end
-
-    context 'when the contest is not open for entries' do
-
-      subject do
-        @contest.stubs(:state).returns('notopen')
-        @contest.open?
-      end
-
-      it { should be_false }
-
-    end
-
-  end
-
-  context '#voting?' do
-
-    before { @contest = Fabricate(:contest) }
-
-    context 'when the contest is open for voting' do
-
-      subject do
-        @contest.stubs(:state).returns('voting')
-        @contest.voting?
-      end
-
-      it { should be_true }
-
-    end
-
-    context 'when the contest is not open for voting' do
-
-      subject do
-        @contest.stubs(:state).returns('notvoting')
-        @contest.voting?
-      end
-
-      it { should be_false }
-
-    end
-
-  end
-
-  context '#finished?' do
-
-    before { @contest = Fabricate(:contest) }
-
-    context 'when the contest is finished' do
-
-      subject do
-        @contest.stubs(:state).returns('finished')
-        @contest.finished?
-      end
-
-      it { should be_true }
-
-    end
-
-    context 'when the contest is not finished' do
-
-      subject do
-        @contest.stubs(:state).returns('notfinished')
-        @contest.finished?
-      end
-
-      it { should be_false }
-
-    end
-
-  end
 
   context '#starting_at' do
     around { |example| Timecop.freeze { example.run } }
@@ -261,33 +144,6 @@ describe Contest do
     end
 
     it { should == Time.parse('Jun 5 2011 14:00:00 UTC') }
-
-  end
-
-  context '#next_state_at' do
-
-    before { @contest = Fabricate(:contest) }
-
-    context 'when the contest is open' do
-      before { @contest.stubs(:state).returns('open') }
-      subject { @contest.next_state_at }
-
-      it { should == @contest.voting_at }
-    end
-
-    context 'when the contest is open for voting' do
-      before { @contest.stubs(:state).returns('voting') }
-      subject { @contest.next_state_at }
-
-      it { should == @contest.closing_at }
-    end
-
-    context 'when the contest is finished' do
-      before { @contest.stubs(:state).returns('finished') }
-      subject { @contest.next_state_at }
-
-      it { should be_nil }
-    end
 
   end
 

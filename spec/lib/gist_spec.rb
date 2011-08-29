@@ -1,5 +1,6 @@
-require 'spec_helper'
-require File.expand_path('../../../lib/gist', __FILE__)
+require 'spec_config'
+require 'vcr_config'
+require File.expand_path('lib/gist')
 
 describe Gist do
 
@@ -7,7 +8,7 @@ describe Gist do
 
     before { @gist = Gist.new("200", '{"foo": "bar"}') }
 
-    context '.code' do
+    context '#code' do
 
       subject { @gist.code }
 
@@ -15,7 +16,7 @@ describe Gist do
 
     end
 
-    context '.body' do
+    context '#body' do
 
       subject { @gist.body }
 
@@ -23,7 +24,7 @@ describe Gist do
 
     end
 
-    context '.["foo"]' do
+    context '#["foo"]' do
 
       subject { @gist['foo'] }
 
@@ -60,16 +61,16 @@ describe Gist do
   end
 
   context '.comment' do
-    
+
     subject do
       VCR.use_cassette('gist_comment') do
         Gist.comment('12345', '54321', 'Comment!').body
       end
     end
-    
+
     it 'should post a comment' do
       should == '{"url":"https://api.github.com/gists/comments/12345","user":{"url":"https://api.github.com/users/alice","login":"alice","avatar_url":"https://secure.gravatar.com/avatar/f03f4ce7b507aede386263d218228b6a?d=https://gs1.wac.edgecastcdn.net/80460E/assets%2Fimages%2Fgravatars%2Fgravatar-140.png","id":43621},"updated_at":"2011-07-13T16:59:06Z","created_at":"2011-07-13T16:59:06Z","body":"Comment!","id":40155}'
     end
-    
+
   end
 end

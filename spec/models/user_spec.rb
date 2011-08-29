@@ -6,12 +6,6 @@ describe User do
   let(:contest) { entry.contest }
   let(:user) { Fabricate.build(:user, :login => 'charlie') }
 
-  context 'fabrication' do
-
-    it { Fabricate(:user).should be_valid }
-
-  end
-
   context '#save!' do
 
     context 'when keeping all fields empty' do
@@ -47,24 +41,6 @@ describe User do
 
   end
 
-  describe '#calculate_points' do
-
-    before do
-      user.stubs(:participations).returns([
-        {'points' => 10},
-        {'points' => 20},
-        {'points' => 30}
-      ])
-    end
-
-    subject { user.calculate_points }
-
-    it 'should add the participation points together' do
-      should == 60
-    end
-
-  end
-
   describe '#calculate_points!' do
 
     subject do
@@ -75,23 +51,6 @@ describe User do
 
     it 'should save the points' do
       should == 60
-    end
-
-  end
-
-  describe '#calculate_average_score' do
-
-    subject do
-      Fabricate(
-        :user,
-        :participations => [
-          {'score' => 1.0}, {'score' => 2.0}, {'score' => 5.0}
-        ]
-      ).calculate_average_score
-    end
-
-    it 'should calculate the average score' do
-      should == 2.6666666666666667
     end
 
   end
@@ -164,54 +123,12 @@ describe User do
 
   end
 
-  describe '#calculate_average_points' do
-
-    subject { user.calculate_average_points }
-
-    it { should == 0.0 }
-
-    context 'when having participations with scores' do
-
-      subject do
-        user.stubs(:calculate_points).returns(80)
-        user.stubs(:participations).returns([{},{},{}])
-        user.calculate_average_points
-      end
-
-      it { should == 26.666666666666668 }
-
-    end
-
-  end
-
   describe '#voted_entries' do
 
     before { entry.stubs(:votes_from?).with(user).returns(true) }
 
     it 'returns entries the user has voted on' do
        user.voted_entries(contest).should include(entry)
-    end
-
-  end
-
-  describe '#participation_for?' do
-
-    subject { user.participation_for?(contest) }
-
-    context 'when the user has participated' do
-
-      before do
-        user.stubs(:participations).returns([{'contest_id' => contest.id}])
-      end
-
-      it { should be_true }
-
-    end
-
-    context 'when the user has not participated' do
-
-      it { should be_false }
-
     end
 
   end

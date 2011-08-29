@@ -44,10 +44,7 @@
       .message
         %h3 This contest is finished
         %p
-          Congratulations to this week's winners! The entries and the contestant names are shown below. Read the
-          = link_to 'contest rundown', article_path("contest-rundown-#{@contest.slug}")
-          for a quick overview of what happened.
-
+          Congratulations to this week's winners! The full entries and the contestant names are shown below.
     - if @contest.voting? && (@contest.entries - @voted_entries).length > 0
       .message
         %h3 This contest is open for voting

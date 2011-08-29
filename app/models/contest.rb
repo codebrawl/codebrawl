@@ -1,7 +1,10 @@
+require 'state'
+
 class Contest
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Slug
+  include State
 
   field :name, :type => String
   field :tagline, :type => String
@@ -34,27 +37,6 @@ class Contest
     self.closing_on = voting_on + 1.week if self.closing_on.blank?
   end
 
-  def state
-    case
-    when Time.now.utc >= closing_at then 'finished'
-    when Time.now.utc >= voting_at then 'voting'
-    when Time.now.utc >= starting_at then 'open'
-    else
-      'pending'
-    end
-  end
-
-  def inquirable_state
-    ActiveSupport::StringInquirer.new(state)
-  end
-
-  delegate \
-    :pending?,
-    :open?,
-    :voting?,
-    :finished?,
-    :to => :inquirable_state
-
   def starting_at
     starting_on.to_time(:utc) + 14.hours
   end
@@ -65,13 +47,6 @@ class Contest
 
   def closing_at
     closing_on.to_time(:utc) + 14.hours
-  end
-
-  def next_state_at
-    case state
-    when 'open' then voting_at
-    when 'voting' then closing_at
-    end
   end
 
   def get_entry_files

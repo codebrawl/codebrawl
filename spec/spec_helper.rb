@@ -8,9 +8,8 @@ Spork.prefork do
 
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
+  require 'spec_config'
 
-  # Requires supporting ruby files with custom matchers and macros, etc,
-  # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
   RSpec.configure do |config|
@@ -20,14 +19,9 @@ Spork.prefork do
 
     config.before(:all){ DatabaseCleaner.clean }
     config.around { |example| VCR.use_cassette('existing_gist'){ example.run } }
-
-    config.mock_with :mocha
   end
 
-  VCR.config do |c|
-    c.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
-    c.stub_with :fakeweb
-  end
+  require 'vcr_config'
 
 end
 

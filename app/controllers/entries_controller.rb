@@ -1,12 +1,6 @@
 class EntriesController < ApplicationController
   before_filter :authenticate_user!, :only => :new
 
-  def show
-    @contest = Contest.find_by_slug(params[:contest_id])
-    @entry = @contest.entries.find(params[:id])
-    render :layout => 'entry_viewer'
-  end
-
   def new
     @contest = Contest.find_by_slug(params[:contest_id])
     not_found unless @contest && @contest.open?
