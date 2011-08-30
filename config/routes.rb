@@ -12,9 +12,9 @@ Codebrawl::Application.routes.draw do
 
   resources :articles, :only => [:index, :show]
 
-  match '/auth/:provider/callback', :to => 'sessions#create'
-  match '/auth/failure', :to => 'sessions#failure'
-  match '/sitemap', :to => 'application#sitemap'
+  match '/auth/:provider/callback' => 'sessions#create'
+  match '/auth/failure' => 'sessions#failure'
+  match '/sitemap' => 'application#sitemap'
 
   get '/rules' => "application#rules", :as => 'rules'
 
