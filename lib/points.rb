@@ -1,7 +1,7 @@
 module Points
 
   def calculate_points
-    participations.map { |p| p['points'] }.inject(&:+) || 0
+    participations.inject(0) { |sum, p| sum + p['points'] }
   end
 
   def calculate_average_points
