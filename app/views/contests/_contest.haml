@@ -2,6 +2,10 @@
   %h1= link_to contest.name, contest
   %p= contest.tagline
 
+  - if contest.open? && contest.entries.any?
+    %span.submitted_entries
+      = "This contest has #{contest.entries.length} #{contest.entries.length > 1 ? 'entries' : 'entry'} already"
+
   %footer.state
     %span= contest.state.capitalize
     - if contest.next_state_at
@@ -9,8 +13,3 @@
         = "#{distance_of_time_in_words(Time.now, contest.next_state_at, true)} left"
       %span.next_state
         = "until #{contest.next_state_at.strftime("%B %d %H:%M (UTC)")}"
-
-  - if contest.open? && contest.entries.any?
-    %span.submitted_entries
-      = "This contest has #{contest.entries.length} #{contest.entries.length > 1 ? 'entries' : 'entry'} already"
-
