@@ -94,7 +94,7 @@ feature 'Homepage' do
       end
 
       scenario 'see entry counts in the contests list' do
-        page.should have_content "This contest has 1 entry already"
+        page.should have_content "1 entry already"
       end
 
       scenario 'see the contest taglines' do
