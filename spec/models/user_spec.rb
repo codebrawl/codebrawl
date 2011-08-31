@@ -41,6 +41,13 @@ describe User do
 
   end
 
+  describe '#points' do
+
+    subject { user.points }
+    it { should == 0 }
+
+  end
+
   describe '#calculate_points!' do
 
     subject do

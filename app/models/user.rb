@@ -16,7 +16,7 @@ class User
   field 'name', :type => String
   field 'github_id', :type => Integer
   field 'participations', :type => Array, :default => []
-  field 'points', :type => Integer
+  field 'points', :type => Integer, :default => 0
   field 'average_score', :type => Float, :default => 0.0
   field 'urls', :type => Hash, :default => {}
   field 'contributions', :type => Integer
