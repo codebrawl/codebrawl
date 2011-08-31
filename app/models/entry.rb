@@ -35,7 +35,7 @@ class Entry
 
   def calculate_score
     return 0.0 if votes.length.zero?
-    votes.map(&:score).inject { |sum, el| sum + el }.to_f / votes.length
+    votes.inject(0) { |sum, el| sum + el.score }.to_f / votes.length
   end
 
   def score
@@ -50,13 +50,10 @@ class Entry
   def get_files_from_gist
     return {} unless gist_id
     response = Gist.fetch(gist_id)['files']
-    result = {}
-    response.each do |filename, file|
+    response.each_with_object({}) do |(filename, file), result|
       file['content'] = nil if filename =~ /.*\.png$/
       result[filename.gsub('.', '*')] = file
     end
-    result
-
   end
 
   def files
@@ -64,9 +61,7 @@ class Entry
       write_attribute(:files, get_files_from_gist)
       save
     end
-    result = {}
-    read_attribute(:files).each { |filename, file| result[filename.gsub('*', '.')] = file }
-    result
+    read_attribute(:files).each_with_object({}) { |(filename, file), result| result[filename.gsub('*', '.')] = file }
   end
 
 end

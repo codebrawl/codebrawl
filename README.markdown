@@ -1,6 +1,6 @@
 # [Codebrawl](http://codebrawl.com)
 
-Open source hacking contests in the Ruby programming langauge
+A Ruby programming competition community focussed on creating and improving great open source software.
 
 ## Contact
 
@@ -30,9 +30,8 @@ If you get a spec failure, please create an [issue](https://github.com/codebrawl
 
 Want to help out, but have no idea where to get started? Here's a list of things you can do:
 
-* Check out the [tracker](https://www.pivotaltracker.com/projects/326833), choose an (unassigned) story, join the project and assign it to yourself
 * Check out the open [issues](https://github.com/codebrawl/codebrawl/issues)
-* Hop into `#codebrawl` on Freenode and ask
+* Hop into `#codebrawl` on Freenode and ask. We're nice people ;)
 * Find a `TODO` in the source, so you can help clean up a bit
 * Refactor existing code (that includes the front end too)
 

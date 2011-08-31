@@ -2,7 +2,7 @@
 require 'acceptance/acceptance_helper'
 
 feature 'Entries' do
-  
+
   background :all do
     @user = Fabricate(:user)
     @contest = Fabricate(
@@ -12,7 +12,7 @@ feature 'Entries' do
       :user => @user
     )
   end
-  
+
   context 'on the new entry form or a contest that does not exist' do
 
     scenario 'see the "not found"-page' do
@@ -22,9 +22,9 @@ feature 'Entries' do
     end
 
   end
-  
+
   context 'on the new entry form or a contest that is closed for entries' do
-    
+
     background do
       @contest = Fabricate(:contest, :voting_on => Date.yesterday.to_time, :name => 'Terminal admin')
     end
@@ -36,7 +36,7 @@ feature 'Entries' do
     end
 
   end
-  
+
   context 'on the new entry form' do
 
     background { visit "/contests/#{@contest.slug}/entries/new" }
@@ -77,7 +77,6 @@ feature 'Entries' do
           :user => @user
         )
       end
-      
       visit "/contests/#{@contest.slug}"
     end
 
@@ -87,7 +86,7 @@ feature 'Entries' do
     end
 
     context 'when logged in' do
-      
+
       background(:all) do
         login_via_github
         visit "/contests/#{@contest.slug}"

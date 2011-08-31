@@ -1,6 +1,11 @@
 %li{:id => dom_id(contest)}
   .description
     %h2= link_to contest.name, contest
+
+    - if contest.open? && contest.entries.any?
+      %span.submitted_entries
+        = "#{contest.entries.length} #{contest.entries.length > 1 ? 'entries' : 'entry'} already"
+
     %p= contest.tagline
 
   .state
@@ -11,3 +16,4 @@
       %span.next_state
         = "until #{contest.next_state_at.strftime("%B %d %H:%M (UTC)")}"
   %hr
+
