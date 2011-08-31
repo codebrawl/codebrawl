@@ -1,10 +1,11 @@
 %article{:id => dom_id(contest), :class => 'box'}
   %h1= link_to contest.name, contest
-  %p= contest.tagline
 
   - if contest.open? && contest.entries.any?
     %span.submitted_entries
       = "#{contest.entries.length} #{contest.entries.length > 1 ? 'entries' : 'entry'} already"
+
+  %p= contest.tagline
 
   %footer.state
     %span= contest.state.capitalize
