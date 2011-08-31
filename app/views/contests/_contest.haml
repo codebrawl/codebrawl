@@ -4,7 +4,7 @@
 
   - if contest.open? && contest.entries.any?
     %span.submitted_entries
-      = "This contest has #{contest.entries.length} #{contest.entries.length > 1 ? 'entries' : 'entry'} already"
+      = "#{contest.entries.length} #{contest.entries.length > 1 ? 'entries' : 'entry'} already"
 
   %footer.state
     %span= contest.state.capitalize
