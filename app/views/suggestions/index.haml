@@ -10,11 +10,12 @@
     %tbody
       = render @suggestions
 
-%h3 Submit your own contest idea
+- if logged_in?
+  %h3 Submit your own contest idea
 
-= form_for :suggestion do |f|
-  =f.label :name
-  =f.text_field :name
-  =f.label :description
-  =f.text_area :description
-  =f.submit 'Suggest'
+  = form_for :suggestion do |f|
+    =f.label :name
+    =f.text_field :name
+    =f.label :description
+    =f.text_area :description
+    =f.submit 'Suggest'

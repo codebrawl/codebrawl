@@ -37,6 +37,10 @@ feature 'Suggestions' do
 
       end
 
+      scenario 'do not show the suggestion form' do
+        page.should have_no_content 'Submit your own contest idea'
+      end
+
       scenario 'see the list of suggestions, ordered by score' do
 
         within(:xpath, '//tbody/tr[1]') do
