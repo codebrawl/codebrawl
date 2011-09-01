@@ -3,13 +3,16 @@
     %h4= suggestion.name
     = suggestion.description
   %td.narrow= suggestion.votes.map {|vote| vote['score'] }.inject(&:+) || 0
-  %td.narrow
-    =form_for suggestion do |f|
-      = f.hidden_field :score, :value => '+1'
-      = image_submit_tag 'thumb_up.png', :class => 'upvote'
-  %td.narrow
-    =form_for suggestion do |f|
-      = f.hidden_field :score, :value => '-1'
-      = image_submit_tag 'thumb_down.png', :class => 'downvote'
+
+  -if logged_in?
+
+    %td.narrow
+      =form_for suggestion do |f|
+        = f.hidden_field :score, :value => '+1'
+        = image_submit_tag 'thumb_up.png', :class => 'upvote'
+    %td.narrow
+      =form_for suggestion do |f|
+        = f.hidden_field :score, :value => '-1'
+        = image_submit_tag 'thumb_down.png', :class => 'downvote'
 
 

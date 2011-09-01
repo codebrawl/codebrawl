@@ -57,39 +57,53 @@ feature 'Suggestions' do
 
     end
 
-    scenario 'upvote a suggestion' do
-
-      find('input.upvote').click
-
-      page.should have_content 'Thanks for voting!'
-
-      within(:xpath, '//tbody/tr[1]') do
-        page.should have_content '5'
-      end
-
+    scenario 'do not see the voting controls' do
+      page.should have_no_css('input.upvote')
+      page.should have_no_css('input.downvote')
     end
 
-    scenario 'downvote a suggestion' do
+    context 'after logging in' do
 
-      find('input.downvote').click
-
-      page.should have_content 'Thanks for voting!'
-
-      within(:xpath, '//tbody/tr[1]') do
-        page.should have_content '4'
+      background do
+        login_via_github
+        visit '/suggestions'
       end
 
-    end
+      scenario 'upvote a suggestion' do
 
-    scenario 'create a suggestion' do
+        find('input.upvote').click
 
-      fill_in :name, :with => 'Whyday'
-      fill_in :description, :with => "Friday is Whyday, so let's have a Whyday contest!"
-      click_button 'Suggest'
+        page.should have_content 'Thanks for voting!'
 
-      page.should have_content 'Thanks for your suggestion!'
-      page.should have_content 'Whyday'
-      page.should have_content "Friday is Whyday, so let's have a Whyday contest!"
+        within(:xpath, '//tbody/tr[1]') do
+          page.should have_content '5'
+        end
+
+      end
+
+      scenario 'downvote a suggestion' do
+
+        find('input.downvote').click
+
+        page.should have_content 'Thanks for voting!'
+
+        within(:xpath, '//tbody/tr[1]') do
+          page.should have_content '4'
+        end
+
+      end
+
+      scenario 'create a suggestion' do
+
+        fill_in :name, :with => 'Whyday'
+        fill_in :description, :with => "Friday is Whyday, so let's have a Whyday contest!"
+        click_button 'Suggest'
+
+        page.should have_content 'Thanks for your suggestion!'
+        page.should have_content 'Whyday'
+        page.should have_content "Friday is Whyday, so let's have a Whyday contest!"
+
+      end
 
     end
 
