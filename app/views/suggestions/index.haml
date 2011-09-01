@@ -1,12 +1,13 @@
 %h2 Contest suggestions
 
-%table
-  %thead
-    %tr
-      %td Idea
-      %td Score
-  %tbody
-    = render @suggestions
+- if @suggestions.any?
+  %table
+    %thead
+      %tr
+        %td Idea
+        %td Score
+    %tbody
+      = render @suggestions
 
 %h3 Submit your own contest idea
 
