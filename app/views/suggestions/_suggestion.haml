@@ -2,6 +2,7 @@
   %td
     %h4= suggestion.name
     = suggestion.description
+  %td= link_to_profile(suggestion.user)
   %td.narrow= suggestion.votes.map {|vote| vote['score'] }.inject(&:+) || 0
 
   -if logged_in?

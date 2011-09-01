@@ -5,7 +5,7 @@ class SuggestionsController < ApplicationController
   end
 
   def create
-    Suggestion.create(params[:suggestion])
+    Suggestion.create(params[:suggestion].merge({:user => current_user}))
     redirect_to :suggestions, :notice => 'Thanks for your suggestion!'
   end
 

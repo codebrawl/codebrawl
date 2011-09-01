@@ -6,6 +6,8 @@ class Suggestion
   field :description, :type => String
   field :votes, :type => Array, :default => []
 
+  belongs_to :user
+
   validates :name, :presence => true
 
   def add_vote!(attributes)

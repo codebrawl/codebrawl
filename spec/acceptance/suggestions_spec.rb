@@ -18,18 +18,21 @@ feature 'Suggestions' do
         Fabricate(
           :suggestion,
           :name => 'Terminal admin',
-          :votes => [{:score => -1}] * 2
+          :votes => [{:score => -1}] * 2,
+          :user => Fabricate(:user, :login => 'charlie')
         )
 
         Fabricate(
           :suggestion,
           :name => 'RSpec formatters',
-          :votes => [{:score => 1}] * 4
+          :votes => [{:score => 1}] * 4,
+          :user => Fabricate(:user, :login => 'alice')
         )
 
         Fabricate(
           :suggestion,
-          :name => 'Whyday'
+          :name => 'Whyday',
+          :user => Fabricate(:user, :login => 'bob')
         )
 
       end
@@ -62,6 +65,22 @@ feature 'Suggestions' do
 
         within(:xpath, '//tbody/tr[3]') do
           page.should have_content '-2'
+        end
+
+      end
+
+      scenario 'see the suggester names' do
+
+        within(:xpath, '//tbody/tr[1]') do
+          page.should have_link 'alice'
+        end
+
+        within(:xpath, '//tbody/tr[2]') do
+          page.should have_link 'bob'
+        end
+
+        within(:xpath, '//tbody/tr[3]') do
+          page.should have_link 'charlie'
         end
 
       end
