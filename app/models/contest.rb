@@ -40,15 +40,6 @@ class Contest
     self.closing_on = voting_on + 1.week if self.closing_on.blank?
   end
 
-  def get_entry_files
-    entries.each do |entry|
-      puts entry.id
-      entry.files = entry.get_files_from_gist
-    end
-
-    save!
-  end
-
   def add_participations_to_contestants!
     entries.order_by([:score, :desc]).each_with_index do |entry, index|
       entry.user.participations << {
