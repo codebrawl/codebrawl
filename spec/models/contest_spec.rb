@@ -35,7 +35,10 @@ describe Contest do
     end
 
     context 'when creating a valid contest' do
-      around { |example| Timecop.travel(Time.parse('May 23 2011 10:00 UTC')) { example.run } }
+      around do |example|
+        Timecop.travel(Time.parse('May 23 2011 10:00 UTC')) { example.run }
+      end
+
       subject { Fabricate(:contest) }
 
       it { should be_pending }
@@ -89,25 +92,6 @@ describe Contest do
     end
 
   end
-
-  context '#entries' do
-
-    it 'should have a list of entries' do
-      entries = [Fabricate.build(:entry)]
-      Fabricate(:contest, :entries => entries).entries.should == entries
-    end
-
-  end
-
-  context '#user' do
-
-    it 'should have a user' do
-      user = Fabricate.build(:user)
-      Fabricate.build(:contest, :user => user).user.should == user
-    end
-
-  end
-
 
   context '#starting_at' do
     around { |example| Timecop.freeze { example.run } }
