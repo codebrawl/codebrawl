@@ -5,7 +5,6 @@ describe Contest do
   context '.not_open' do
 
     subject { Contest.not_open }
-
     %w{ open voting finished }.each do |state|
       let(state) { Fabricate("contest_#{state}".to_sym) }
     end
@@ -90,42 +89,6 @@ describe Contest do
       end
 
     end
-
-  end
-
-  context '#starting_at' do
-    around { |example| Timecop.freeze { example.run } }
-
-    subject do
-      @contest = Fabricate(:contest, :starting_on => Date.parse('Jun 5 2011'))
-      @contest.starting_at
-    end
-
-    it { should == Time.parse('Jun 5 2011 14:00:00 UTC') }
-
-  end
-
-  context '#voting_at' do
-    around { |example| Timecop.freeze { example.run } }
-
-    subject do
-      @contest = Fabricate(:contest, :voting_on => Date.parse('Jun 5 2011'))
-      @contest.voting_at
-    end
-
-    it { should == Time.parse('Jun 5 2011 13  14:00:00 UTC') }
-
-  end
-
-  context '#closing_at' do
-    around { |example| Timecop.freeze { example.run } }
-
-    subject do
-      @contest = Fabricate(:contest, :voting_on => Date.parse('Jun 5 2011'))
-      @contest.voting_at
-    end
-
-    it { should == Time.parse('Jun 5 2011 14:00:00 UTC') }
 
   end
 
