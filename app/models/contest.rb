@@ -1,10 +1,10 @@
 require 'state'
+require 'time_from_date_field'
 
 class Contest
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Slug
-  include State
 
   field :name, :type => String
   field :tagline, :type => String
@@ -15,6 +15,9 @@ class Contest
   field :closing_on, :type => Date
 
   slug :name
+
+  include TimeFromDateField
+  include State
 
   validates :user, :name, :description, :starting_on, :presence => true
   validates :tagline, :length => { :minimum => 50 }
@@ -35,27 +38,6 @@ class Contest
   def set_voting_and_closing_dates
     self.voting_on = starting_on + 1.week if self.voting_on.blank?
     self.closing_on = voting_on + 1.week if self.closing_on.blank?
-  end
-
-  def starting_at
-    starting_on.to_time(:utc) + 14.hours
-  end
-
-  def voting_at
-    voting_on.to_time(:utc) + 14.hours
-  end
-
-  def closing_at
-    closing_on.to_time(:utc) + 14.hours
-  end
-
-  def get_entry_files
-    entries.each do |entry|
-      puts entry.id
-      entry.files = entry.get_files_from_gist
-    end
-
-    save!
   end
 
   def add_participations_to_contestants!

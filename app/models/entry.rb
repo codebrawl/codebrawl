@@ -3,8 +3,8 @@ require 'gist'
 class GistValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     gist = Gist.fetch(value)
-
     return record.errors[attribute] << "is not valid" unless gist.code == 200
+    return record.errors[attribute] << "can't be anonymous" unless gist['user']
     record.errors[attribute] << "is not yours" unless record.user.github_id == gist['user']['id']
   end
 end

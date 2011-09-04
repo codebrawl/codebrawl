@@ -4,19 +4,16 @@ describe Contest do
 
   context '.not_open' do
 
-    before do
-      @open = Fabricate(:contest, :starting_on => Date.yesterday.to_time)
-      @voting = Fabricate(:contest, :voting_on => Date.yesterday.to_time)
-      @finished = Fabricate(:contest, :closing_on => Date.yesterday.to_time)
+    subject { Contest.not_open }
+    %w{ open voting finished }.each do |state|
+      let(state) { Fabricate("contest_#{state}".to_sym) }
     end
 
-    subject { Contest.not_open }
+    it { should include finished }
 
-    it { should include @finished }
+    it { should include voting }
 
-    it { should include @voting }
-
-    it { should_not include @open }
+    it { should_not include open }
 
   end
 
@@ -37,7 +34,10 @@ describe Contest do
     end
 
     context 'when creating a valid contest' do
-      around { |example| Timecop.travel(Time.parse('May 23 2011 10:00 UTC')) { example.run } }
+      around do |example|
+        Timecop.travel(Time.parse('May 23 2011 10:00 UTC')) { example.run }
+      end
+
       subject { Fabricate(:contest) }
 
       it { should be_pending }
@@ -92,77 +92,6 @@ describe Contest do
 
   end
 
-  context '#entries' do
-
-    it 'should have a list of entries' do
-      entries = [Fabricate.build(:entry)]
-      Fabricate(:contest, :entries => entries).entries.should == entries
-    end
-
-  end
-
-  context '#user' do
-
-    it 'should have a user' do
-      user = Fabricate.build(:user)
-      Fabricate.build(:contest, :user => user).user.should == user
-    end
-
-  end
-
-
-  context '#starting_at' do
-    around { |example| Timecop.freeze { example.run } }
-
-    subject do
-      @contest = Fabricate(:contest, :starting_on => Date.parse('Jun 5 2011'))
-      @contest.starting_at
-    end
-
-    it { should == Time.parse('Jun 5 2011 14:00:00 UTC') }
-
-  end
-
-  context '#voting_at' do
-    around { |example| Timecop.freeze { example.run } }
-
-    subject do
-      @contest = Fabricate(:contest, :voting_on => Date.parse('Jun 5 2011'))
-      @contest.voting_at
-    end
-
-    it { should == Time.parse('Jun 5 2011 13  14:00:00 UTC') }
-
-  end
-
-  context '#closing_at' do
-    around { |example| Timecop.freeze { example.run } }
-
-    subject do
-      @contest = Fabricate(:contest, :voting_on => Date.parse('Jun 5 2011'))
-      @contest.voting_at
-    end
-
-    it { should == Time.parse('Jun 5 2011 14:00:00 UTC') }
-
-  end
-
-  context '#get_entry_files' do
-
-    before do
-      @contest = Fabricate(:contest, :entries => [Fabricate(:entry)] * 3)
-      Entry.any_instance.stubs(:get_files_from_gist).returns({'file*txt' => {}})
-      @contest.get_entry_files
-    end
-
-    it 'should the "file" attribute for every contest' do
-      @contest.entries.each do |entry|
-        entry.read_attribute(:files).should == {'file*txt' => {}}
-      end
-    end
-
-  end
-
   context '#add_participations_to_contestants!' do
 
     context 'when having five entries' do
@@ -194,7 +123,7 @@ describe Contest do
           entry.user.reload.participations.first['contest_name'].should == @contest.name
         end
       end
-      
+
       it 'should set the contest slugs' do
         @contest.entries.each do |entry|
           entry.user.reload.participations.first['contest_slug'].should == @contest.slug

@@ -49,6 +49,16 @@ describe Entry do
 
     end
 
+    context 'when filling in an id of a gist that is anonymous' do
+
+      around { |example| VCR.use_cassette('anonymous_gist'){ example.run } }
+
+      subject { Fabricate.build(:entry, :gist_id => '1193213') }
+
+      it { should have(1).error_on(:gist_id) }
+
+    end
+
   end
 
   context '#contest' do
@@ -120,7 +130,7 @@ describe Entry do
             ]
           )
         end
-        
+
         subject do
           @entry.score
         end
@@ -193,7 +203,7 @@ describe Entry do
           end
         ]
       end
-      
+
       context 'when there is a .png file in the Gist' do
         subject do
           VCR.use_cassette('gist_with_files') do
@@ -206,7 +216,7 @@ describe Entry do
               ]
             )
           end
-          
+
           Gist.stubs(:fetch).returns(
             Gist.new(
               200,
@@ -216,7 +226,7 @@ describe Entry do
 
           @contest.entries.first.files['image.png']['content']
         end
-        
+
         it 'should not save the file content' do
           should == nil
         end
