@@ -6,3 +6,15 @@ Fabricator(:contest) do
   tagline { Faker::Lorem.sentence(25) }
   user
 end
+
+Fabricator(:contest_open, :from => :contest) do
+  starting_on { Date.yesterday.to_time }
+end
+
+Fabricator(:contest_voting, :from => :contest) do
+  voting_on { Date.yesterday.to_time }
+end
+
+Fabricator(:contest_finished, :from => :contest) do
+  closing_on { Date.yesterday.to_time }
+end
