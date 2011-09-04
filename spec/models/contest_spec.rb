@@ -4,19 +4,17 @@ describe Contest do
 
   context '.not_open' do
 
-    before do
-      @open = Fabricate(:contest, :starting_on => Date.yesterday.to_time)
-      @voting = Fabricate(:contest, :voting_on => Date.yesterday.to_time)
-      @finished = Fabricate(:contest, :closing_on => Date.yesterday.to_time)
-    end
-
     subject { Contest.not_open }
 
-    it { should include @finished }
+    %w{ open voting finished }.each do |state|
+      let(state) { Fabricate("contest_#{state}".to_sym) }
+    end
 
-    it { should include @voting }
+    it { should include finished }
 
-    it { should_not include @open }
+    it { should include voting }
+
+    it { should_not include open }
 
   end
 
@@ -194,7 +192,7 @@ describe Contest do
           entry.user.reload.participations.first['contest_name'].should == @contest.name
         end
       end
-      
+
       it 'should set the contest slugs' do
         @contest.entries.each do |entry|
           entry.user.reload.participations.first['contest_slug'].should == @contest.slug
