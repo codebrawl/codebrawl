@@ -117,6 +117,17 @@ feature 'Homepage' do
         end
       end
 
+      scenario 'see the contest winners' do
+        within "#contest_#{@finished.id}" do
+          page.should have_content 'Winners'
+        end
+
+        unless @finished.entries.count.zero?
+          page.should have_xpath("//div[@class='avatars']//img", :count => @finished.entries.count % 3)
+          page.should have_xpath("//div[@class='medals']//img", :count => @finished.entries.count % 3)
+        end
+      end
+
       scenario 'visit the submissions page' do
         click_link 'Submit a contest idea'
         page.should have_content 'Submit your contest idea'
