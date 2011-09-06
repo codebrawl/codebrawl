@@ -7,7 +7,6 @@
         = "#{contest.entries.length} #{contest.entries.length > 1 ? 'entries' : 'entry'} already"
 
     %p= contest.tagline
-
   .state
     %span= contest.state.capitalize
     - if contest.next_state_at
@@ -15,5 +14,17 @@
         = "#{distance_of_time_in_words(Time.now, contest.next_state_at, true)} left"
       %span.next_state
         = "until #{contest.next_state_at.strftime("%B %d %H:%M (UTC)")}"
+
+    - elsif contest.finished?
+      .winners
+        %span= 'Winners:'
+        .avatars
+          - contest.entries.order_by([:score, :desc]).take(3).each do |entry|
+            = link_to(image_tag(entry.user.gravatar_url(:size => 60, :default => avatar_url), :class => 'gravatar'), user_path(entry.user))
+        .medals
+          - contest.entries.take(3).size.times do |i|
+            = image_tag("medal_#{%w{gold silver bronze}[i]}.png")
+
+
   %hr
 
