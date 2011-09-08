@@ -17,7 +17,6 @@
 
     - elsif contest.finished?
       .winners
-        %span= 'Winners:'
         .avatars
           - contest.entries.order_by([:score, :desc]).take(3).each do |entry|
             = link_to(image_tag(entry.user.gravatar_url(:size => 60, :default => avatar_url), :class => 'gravatar'), user_path(entry.user))

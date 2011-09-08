@@ -17,12 +17,15 @@ feature 'Homepage' do
         :tagline => 'Having a bit of with image manipulation in ChunkyPNG',
         :voting_on => Date.yesterday.to_time
       )
-      @finished = Fabricate(
-        :contest,
-        :name => 'Improving Ruby',
-        :tagline => 'Build verything you ever wanted, monkey-patched into Ruby',
-        :closing_on => Date.yesterday.to_time
-      )
+      VCR.use_cassette('existing_gist') do
+        @finished = Fabricate(
+          :contest,
+          :name => 'Improving Ruby',
+          :tagline => 'Build verything you ever wanted, monkey-patched into Ruby',
+          :entries => [Fabricate.build(:entry_with_files, :user => Fabricate(:user, :login => 'bob'))] * 3,
+          :closing_on => Date.yesterday.to_time
+        )
+      end
       @pending = Fabricate(
         :contest,
         :name => 'RSpec extensions',
@@ -119,13 +122,10 @@ feature 'Homepage' do
 
       scenario 'see the contest winners' do
         within "#contest_#{@finished.id}" do
-          page.should have_content 'Winners'
+          page.should have_xpath("//div[@class='avatars']//a//img")
+          page.should have_xpath("//div[@class='medals']//img")
         end
 
-        unless @finished.entries.count.zero?
-          page.should have_xpath("//div[@class='avatars']//img", :count => @finished.entries.count % 3)
-          page.should have_xpath("//div[@class='medals']//img", :count => @finished.entries.count % 3)
-        end
       end
 
       scenario 'visit the submissions page' do
