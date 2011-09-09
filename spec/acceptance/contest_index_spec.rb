@@ -120,12 +120,18 @@ feature 'Homepage' do
         end
       end
 
-      scenario 'see the contest winners' do
-        within "#contest_#{@finished.id}" do
-          page.should have_xpath("//div[@class='avatars']//a//img")
-          page.should have_xpath("//div[@class='medals']//img")
+      scenario 'see the contest winners avatars and medals' do
+        within "li#contest_#{@finished.id}" do
+          page.should have_xpath("//div[@class='winners']//a//img[@class='medal']")
+          page.should have_xpath("//div[@class='winners']//a//img[@class='gravatar']")
         end
+      end
 
+      scenario "visit the winner's entry" do
+        within "li#contest_#{@finished.id}" do
+          page.find(:xpath, "//div[@class='winners']//a[1]").click
+        end
+        page.should have_content "This contest is finished"
       end
 
       scenario 'visit the submissions page' do

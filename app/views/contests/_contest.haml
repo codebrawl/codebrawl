@@ -17,9 +17,7 @@
 
     - elsif contest.finished?
       .winners
-        .avatars
-          - contest.entries.order_by([:score, :desc]).take(3).each do |entry|
-            = link_to(image_tag(entry.user.gravatar_url(:size => 60, :default => avatar_url), :class => 'gravatar'), user_path(entry.user))
-        .medals
-          - contest.entries.take(3).size.times do |i|
-            = image_tag("medal_#{%w{gold silver bronze}[i]}.png")
+        - contest.entries.order_by([:score, :desc]).take(3).each_with_index do |entry, i|
+          = link_to(contest_path(contest, :anchor => entry.user.login)) do
+            = image_tag("medal_#{%w{gold silver bronze}[i]}.png", :class => 'medal')
+            = image_tag(entry.user.gravatar_url(:size => 60, :default => avatar_url), :class => 'gravatar')
