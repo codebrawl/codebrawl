@@ -287,7 +287,7 @@ form
 #contests, #entries, #articles
   margin-bottom: -20px
 
-#contests li,
+li.contest,
 .message,
 .tip,
 #articles li
@@ -300,7 +300,7 @@ form
 .contestants li
   padding: 10px
 
-#contests li,
+li.contest,
 #entries li.entry,
 .message,
 .tip,
@@ -316,7 +316,7 @@ form
   a
     font-size: 12px
 
-#contests li,
+li.contest,
 #entries li.entry,
 #articles li
   margin-bottom: 20px
@@ -351,17 +351,24 @@ form
       font-weight: 500
     .next_state
       font-size: 10px
-    .winners
+
+    ol.winners
       margin-top: 10px
-      float: right
+
+      li
+        position: relative
+        float: left
+        margin-left: 10px
+        width: 60px
 
       img.gravatar
-        width: 30px
-        height: 30px
+        width: 100%
+        height: auto
+
       img.medal
         position: absolute
-        padding: 17px 0px 0px 15px
-
+        bottom: 5px
+        right: 5px
 
   .submitted_entries
     font-weight: 900

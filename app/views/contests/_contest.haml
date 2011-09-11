@@ -1,4 +1,4 @@
-%li{:id => dom_id(contest)}
+%li{:id => dom_id(contest), :class => 'contest'}
   .description
     %h2= link_to contest.name, contest
 
@@ -16,10 +16,11 @@
         = "until #{contest.next_state_at.strftime("%B %d %H:%M (UTC)")}"
 
     - elsif contest.finished?
-      .winners
+      %ol.winners
         - contest.entries.order_by([:score, :desc]).take(3).each_with_index do |entry, i|
-          = link_to(contest_path(contest, :anchor => entry.user.login)) do
-            = image_tag("medal_#{%w{gold silver bronze}[i]}.png", :class => 'medal')
-            = image_tag(entry.user.gravatar_url(:size => 60, :default => avatar_url), :class => 'gravatar')
+          %li
+            = link_to(contest_path(contest, :anchor => entry.user.login)) do
+              = image_tag("medal_#{%w{gold silver bronze}[i]}.png", :class => 'medal')
+              = image_tag(entry.user.gravatar_url(:size => 60, :default => avatar_url), :class => 'gravatar')
   %hr
 
