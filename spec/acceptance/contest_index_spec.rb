@@ -17,12 +17,15 @@ feature 'Homepage' do
         :tagline => 'Having a bit of with image manipulation in ChunkyPNG',
         :voting_on => Date.yesterday.to_time
       )
-      @finished = Fabricate(
-        :contest,
-        :name => 'Improving Ruby',
-        :tagline => 'Build verything you ever wanted, monkey-patched into Ruby',
-        :closing_on => Date.yesterday.to_time
-      )
+      VCR.use_cassette('existing_gist') do
+        @finished = Fabricate(
+          :contest,
+          :name => 'Improving Ruby',
+          :tagline => 'Build verything you ever wanted, monkey-patched into Ruby',
+          :entries => [Fabricate.build(:entry_with_files, :user => Fabricate(:user, :login => 'bob'))] * 3,
+          :closing_on => Date.yesterday.to_time
+        )
+      end
       @pending = Fabricate(
         :contest,
         :name => 'RSpec extensions',
@@ -104,17 +107,31 @@ feature 'Homepage' do
       end
 
       scenario 'see the contest states' do
-        within "li#contest_#{@open.id}" do
+        within "#contest_#{@open.id}" do
           page.should have_content 'Open'
         end
 
-        within "li#contest_#{@voting.id}" do
+        within "#contest_#{@voting.id}" do
           page.should have_content 'Voting'
         end
 
-        within "li#contest_#{@finished.id}" do
+        within "#contest_#{@finished.id}" do
           page.should have_content 'Finished'
         end
+      end
+
+      scenario 'see the contest winners avatars and medals' do
+        within "#contest_#{@finished.id}" do
+          page.should have_css('img.medal')
+          page.should have_css('img.gravatar')
+        end
+      end
+
+      scenario "visit the winner's entry" do
+        within "#contest_#{@finished.id}" do
+          page.find(:xpath, "//ol[@class='winners']//a[1]").click
+        end
+        page.should have_content "This contest is finished"
       end
 
       scenario 'visit the submissions page' do

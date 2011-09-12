@@ -1,6 +1,7 @@
 require 'points'
 require 'scores'
 require 'participations'
+require 'position'
 
 class User
   include Mongoid::Document
@@ -9,6 +10,7 @@ class User
   include Participations
   include Points
   include Scores
+  include Position
 
   field 'login', :type => String
   field 'email', :type => String
@@ -37,12 +39,6 @@ class User
 
   def calculate_average_score!
     update_attribute(:average_score, calculate_average_score)
-  end
-
-  def calculate_average_position
-    participations_with_positions = participations.select { |p| p['position'] }
-    return 0.0 if participations_with_positions.empty?
-    participations_with_positions.inject(0) { |sum, p| sum + p['position'] } / participations_with_positions.length.to_f
   end
 
   def voted_entries(contest)

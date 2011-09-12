@@ -1,12 +1,11 @@
 - content_for(:description){ 'Codebrawl, a code contest website focussed on the Ruby programming language and open source software.' }
 
 - unless @contests.map(&:state).include? 'open'
-  .tip
-    %h2 Get ready for next week's contest!
+  %section.tip
+    %h1 Get ready for next week's contest!
     %p
       :erb
         Our next contest will start next Monday at 14:00 (UTC). If you want to be sure you don't miss it, just subscribe to our <%= link_to 'contests feed', 'http://feeds.feedburner.com/codebrawl' %>. Also, don't forget to check out and vote for the entries in <%= link_to "last week's contest", @contests.first %>.
 
-
-%ul#contests
+#contests
   = render @contests

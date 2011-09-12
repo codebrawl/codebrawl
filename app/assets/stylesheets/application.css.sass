@@ -3,18 +3,23 @@
 @import compass/reset
 @import blueprint/typography
 
+// Variables
+$hover-color: #ec1d25   // Light red
+$bg-color: #222         // Dark grey
+$light-color: #eee      // Light grey
+
 // Mixins
-@mixin hide
+=hide
   left: -9999px
   position: absolute
 
-@mixin data-uri-bg($image, $properties: false)
+=data-uri-bg($image, $properties: false)
   @if $properties != false
     background: inline-image($image) $properties
     *background: url($image) $properties
   @else
     background: inline-image($image)
-    *background: url($image)G
+    *background: url($image)
 
 // Styling
 
@@ -23,19 +28,23 @@ html
 
 body
   +blueprint-typography-body(14px)
-  background-color: #222
-  color: #222
+  background-color: $bg-color
+  color: $bg-color
 
 body,
 input
   font-family: "Helvetica Neue", Helvetica, Arial, freesans, clean, sans-serif
 
+h1,
 h2,
 h3
   font-weight: 900
 
-h2
+h1
   font-size: 24px
+
+h2
+  font-size: 22px
 
 h3
   font-size: 20px
@@ -46,25 +55,25 @@ a
   text-decoration: none
 
   &:hover
-    color: #ec1d25
+    color: $hover-color
     cursor: pointer
 
 a.button,
 input[type="submit"]
   display: block
   text-align: center
-  background-color: #222
+  background-color: $bg-color
   margin-top: 20px
   padding: 20px
   font-weight: 500
   font-size: 18px
   font-weight: 900
   color: #ccc
-  @include border-radius(2px)
-  @include box-shadow(0 -1px 0 #fff, 0 1px 0 #000)
+  +border-radius(2px)
+  +box-shadow(0 -1px 0 #fff, 0 1px 0 #000)
 
   &:hover
-    color: #eee
+    color: $light-color
 
   span
     display: block
@@ -127,7 +136,7 @@ form
     font-size: 24px
 
 #notice, #alert
-  @include border-radius(2px)
+  +border-radius(2px)
   padding: 10px
   margin: 10px 0 20px 0
 
@@ -146,8 +155,8 @@ form
   h1 a
     height: 94px
     display: block
-    @include hide-text
-    @include data-uri-bg("logo.png", center no-repeat)
+    +hide-text
+    +data-uri-bg("logo.png", center no-repeat)
 
     h1 a
       height: 75px
@@ -186,20 +195,31 @@ form
       display: none
 
     img
-      @include border-radius(2px)
+      +border-radius(2px)
 
 
 #container
-  background: #eee
+  background: $light-color
   padding: 0px 20px 20px 20px
   margin: 0 auto
-  @include border-radius(2px)
-  @include box-shadow(0 0px 5px #000)
+  +border-radius(2px)
+  +box-shadow(0 0px 5px #000)
   width: 620px
+
+  &.home
+    background-image: asset_url('steven.jpg', image)
+    background-repeat: no-repeat
+
+    nav
+      height: 200px
+      background-color: transparent
+
+    .tip a
+      font-size: 100%
 
   nav
     margin-bottom: 20px
-    background: #222
+    background: $bg-color
     margin: 0px -20px 20px -20px
     padding: 10px 20px
     overflow: hidden
@@ -209,14 +229,14 @@ form
       float: left
       margin-right: 15px
       text-shadow: 0 1px 5px #000
-      color: #eee
+      color: $light-color
 
       &.user
         float: right
         margin: 0
 
     a
-      color: #eee
+      color: $light-color
 
   #main
     clear: both
@@ -272,6 +292,9 @@ form
     .bronze
       background-image: asset_url('bronze.png', image)
 
+#entries, #articles
+  margin-bottom: -20px
+
 #container.home
   background-image: asset_url('steven.jpg', image)
   background-repeat: no-repeat
@@ -283,13 +306,11 @@ form
   .tip a
     font-size: 100%
 
-
-#contests, #entries, #articles
+#entries, #articles
   margin-bottom: -20px
 
-#contests li,
+#contests .box,
 .message,
-.tip,
 #articles li
   padding: 10px
 
@@ -300,12 +321,15 @@ form
 .contestants li
   padding: 10px
 
-#contests li,
+#contests .box,
 #entries li.entry,
 .message,
-.tip,
 #articles li
   background-color: #ddd
+  +border-radius(2px)
+  +box-shadow(0 -1px 0 #ccc, 0 1px 0 #fff)
+
+#contests .box,
   @include border-radius(2px)
   @include box-shadow(0 -1px 0 #ccc, 0 1px 0 #fff)
 
@@ -316,9 +340,10 @@ form
   a
     font-size: 12px
 
-#contests li,
+#contests .box,
 #entries li.entry,
-#articles li
+#articles li,
+#contests .box
   margin-bottom: 20px
 
   .description
@@ -330,10 +355,10 @@ form
     font-size: 12px
 
     div
-      background-color: #eee
+      background-color: $light-color
       padding: 10px
       margin-bottom: 10px
-      @include border-radius(2px)
+      +border-radius(2px)
 
   .state
     text-align: right
@@ -352,6 +377,24 @@ form
     .next_state
       font-size: 10px
 
+    ol.winners
+      margin-top: 10px
+
+      li
+        position: relative
+        float: left
+        margin-left: 10px
+        width: 60px
+
+      img.gravatar
+        width: 100%
+        height: auto
+
+      img.medal
+        position: absolute
+        bottom: 5px
+        right: 0
+
   .submitted_entries
     font-weight: 900
     clear: both
@@ -368,14 +411,14 @@ form ul
   margin-bottom: 0
 
 .filename
-  background-color: #eee
+  background-color: $light-color
   color: #666
   font-size: 12px
   padding: 5px 10px
   margin: 10px 0 0 0
   font-family: monospace
-  @include border-top-left-radius(2px)
-  @include border-top-right-radius(2px)
+  +border-top-left-radius(2px)
+  +border-top-right-radius(2px)
 
 .files
   height: 120px
@@ -392,7 +435,7 @@ form ul
     height: 20px
     position: absolute
     width: 100%
-    @include data-uri-bg("gradient.png", no-repeat)
+    +data-uri-bg("gradient.png", no-repeat)
 
     span
       display: none
@@ -405,8 +448,8 @@ form ul
   overflow-x: auto
   overflow-y: hidden
   padding: 10px
-  @include border-bottom-left-radius(2px)
-  @include border-bottom-right-radius(2px)
+  +border-bottom-left-radius(2px)
+  +border-bottom-right-radius(2px)
   height: 100px
 
 hr
@@ -417,37 +460,41 @@ strong
   font-weight: 900
 
 #footer
-  color: #666
   width: 660px
-  margin: auto
+  margin: 0 auto
+  color: #666
+  overflow: hidden
 
   a
-    color: #eee
+    color: $light-color
 
-  .left
-    width: 50%
+    &:hover
+      color: $hover-color
+
+#fork_submit
+  float: right
+  margin: 10px 5px 0 0
+
+  li
     float: left
+    margin-left: 8px
+    list-style: disc inside
 
-    span
-      font-size: 10px
-      padding-left: 5px
+    &:first-child
+      margin-left: 0
+      list-style: none
 
-    a
-      height: 28px
-      width: 73px
-      display: block
-      @include hide-text
-      @include data-uri-bg("6sync.png", no-repeat)
+.host
+  span
+    font-size: 10px
+    padding-left: 5px
 
-  .right
-    width: 50%
-    float: right
-    text-align: right
-    padding-top: 5px
-
-span#submitter
-  font-size: 12px
-  color: #666
+  a
+    height: 28px
+    width: 73px
+    display: block
+    +hide-text
+    +data-uri-bg("6sync.png", no-repeat)
 
 em
   font-style: italic
@@ -459,7 +506,7 @@ form#submissions ul, form#new_entry ul, div#rules ul
     margin: 10px
 
 span#who
-  color: #eee
+  color: $light-color
   text-shadow: 0 1px 10px #000
   display: none
   font-size: 10px
@@ -508,6 +555,118 @@ table
   tr.top3 img.gravatar
     width: 40px
     height: auto
+
+.box,
+.tip
+  padding: 10px
+  margin-bottom: 20px
+  background-color: #ddd
+  +border-radius(2px)
+  +box-shadow(0 -1px 0 #ccc, 0 1px 0 #fff)
+
+
+#contests
+  overflow: hidden
+
+  article
+    position: relative
+    padding: 10px 220px 10px 10px
+
+  .comments
+    margin: 10px 0 0 0
+    font-size: 12px
+
+    div
+      background-color: $light-color
+      padding: 10px
+      margin-bottom: 10px
+      +border-radius(2px)
+
+  .state
+    width: 210px
+    top: 10px
+    right: 10px
+    position: absolute
+    text-align: right
+    font-size: 24px
+    font-weight: 900
+
+    span
+      display: block
+
+    .time_left,
+    .next_state
+      font-size: 18px
+      font-weight: 500
+
+    .next_state
+      font-size: 10px
+
+.tip
+  background-color: #dde6ee
+
+  a
+    font-size: 12px
+
+footer#submitter
+  font-size: 12px
+  color: #666
+
+.box,
+.tip
+  padding: 10px
+  margin-bottom: 20px
+  background-color: #ddd
+  +border-radius(2px)
+  +box-shadow(0 -1px 0 #ccc, 0 1px 0 #fff)
+
+
+#contests
+  overflow: hidden
+
+  article
+    position: relative
+    padding: 10px 220px 10px 10px
+
+  .comments
+    margin: 10px 0 0 0
+    font-size: 12px
+
+    div
+      background-color: $light-color
+      padding: 10px
+      margin-bottom: 10px
+      +border-radius(2px)
+
+  .state
+    width: 210px
+    top: 10px
+    right: 10px
+    position: absolute
+    text-align: right
+    font-size: 24px
+    font-weight: 900
+
+    span
+      display: block
+
+    .time_left,
+    .next_state
+      font-size: 18px
+      font-weight: 500
+
+    .next_state
+      font-size: 10px
+
+.tip
+  background-color: #dde6ee
+
+  a
+    font-size: 12px
+
+footer#submitter
+  font-size: 12px
+  color: #666
 
 @import gust
 @import code

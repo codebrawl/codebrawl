@@ -23,9 +23,7 @@ describe ObjectWithPoints do
 
       before do
         object.stubs(:participations).returns([
-          {'points' => 10},
-          {'points' => 20},
-          {'points' => 30}
+          {'points' => 10}, {'points' => 20}, {'points' => 30}
         ])
       end
 
@@ -46,8 +44,9 @@ describe ObjectWithPoints do
     context 'when having participations with scores' do
 
       subject do
-        object.stubs(:calculate_points).returns(80)
-        object.stubs(:participations).returns([{},{},{}])
+        object.stubs(:participations).returns([
+          {'points' => 10}, {'points' => 30}, {'points' => 40}
+        ])
         object.calculate_average_points
       end
 

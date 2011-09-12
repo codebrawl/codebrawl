@@ -1,3 +1,5 @@
+require File.expand_path('lib/array_average')
+
 module Points
 
   def calculate_points
@@ -5,8 +7,7 @@ module Points
   end
 
   def calculate_average_points
-    return 0.0 if participations.empty?
-    calculate_points.to_f / participations.length
+    participations.map { |p| p['points'] }.average
   end
 
 end

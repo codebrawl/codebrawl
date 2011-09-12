@@ -7,6 +7,8 @@ Codebrawl::Application.routes.draw do
   end
 
   resources :users, :only => [:index, :show]
+  match '/contributors', :to => 'users#contributors'
+
   resource :session, :only => [:create, :destroy]
   resources :submissions, :only => [:new, :create]
 

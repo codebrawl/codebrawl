@@ -1,45 +1,46 @@
 - content_for(:title){ @contest.name }
 - content_for(:description){ @contest.tagline }
 
-%h2= @contest.name
-%span#submitter
-  Submitted by
-  =link_to @contest.user.login, @contest.user
+%article
+  %h1= @contest.name
+  %footer#submitter
+    Submitted by
+    =link_to @contest.user.login, @contest.user
 
-#contest_description= raw Kramdown::Document.new(@contest.description).to_html
+  = raw Kramdown::Document.new(@contest.description).to_html
 
-- if @contest.open?
+  - if @contest.open?
 
-  .tip
-    %h3 Already started working on your entry?
-    %p
-      Be sure to submit it right away. You'll be able to keep working on your entry until the voting period starts.
-      = link_to('Contest rules »', rules_path)
+    .tip
+      %h2 Already started working on your entry?
+      %p
+        Be sure to submit it right away. You'll be able to keep working on your entry until the voting period starts.
+        = link_to('Contest rules »', rules_path)
 
 
-  - if @contest.entries.any? || @entry
-    .message
+    - if @contest.entries.any? || @entry
+      .message
 
-      - if @contest.entries.any?
+        - if @contest.entries.any?
 
-        %h3= "This contest has #{@contest.entries.length} #{@contest.entries.length > 1 ? 'entries' : 'entry'} already"
-        %p The entries will become visible when the voting period begins.
+          %h2= "This contest has #{@contest.entries.length} #{@contest.entries.length > 1 ? 'entries' : 'entry'} already"
+          %p The entries will become visible when the voting period begins.
 
-      - if @entry
+        - if @entry
 
-        %h3
-          :erb
-            You entered <%= link_to "gist #{@entry.gist_id}", "https://gist.github.com/#{@entry.gist_id}" %>
-        %p
-          :erb
-            You can keep updating your gist, we'll take a snapshot of it when the voting period begins. If you want, you can always <%= link_to "delete your entry", [@contest, @entry], :method => :delete %>.
+          %h3
+            :erb
+              You entered <%= link_to "gist #{@entry.gist_id}", "https://gist.github.com/#{@entry.gist_id}" %>
+          %p
+            :erb
+              You can keep updating your gist, we'll take a snapshot of it when the voting period begins. If you want, you can always <%= link_to "delete your entry", [@contest, @entry], :method => :delete %>.
 
-  - if @entry.nil?
-    = link_to 'Enter', [:new, @contest, :entry], :class => 'button'
-
-- else
-  - if @contest.finished? || logged_in?
-
+          %h3
+            :erb
+              You entered <%= link_to "gist #{@entry.gist_id}", "https://gist.github.com/#{@entry.gist_id}" %>
+          %p
+            :erb
+              You can keep updating your gist, we'll take a snapshot of it when the voting period begins. If you want, you can always <%= link_to "delete your entry", [@contest, @entry], :method => :delete %>.
     - if @contest.finished?
       .message
         %h3 This contest is finished
@@ -53,13 +54,35 @@
           - if @voted_entries.length > 0
             The entries you already rated will appear on this page. After voting for the rest, they'll all become visible.
 
-    %ul#entries{:class => @contest.state}
-      = render :partial => "entries/entry", :collection => @contest.entries.order_by([:score, :desc])
+    - if @entry.nil?
+      = link_to 'Enter', [:new, @contest, :entry], :class => 'button'
 
   - else
-    .message
-      %h3 This contest is open for voting
-      :textile
-        After "logging in":/auth/github, you can view and rate the entries of this contest.
+    - if @contest.finished? || logged_in?
+
+      - if @contest.finished?
+        .message
+          %h2 This contest is finished
+          %p
+            Congratulations to this week's winners! The entries and the contestant names are shown below. Read the
+            = link_to 'contest rundown', article_path("contest-rundown-#{@contest.slug}")
+            for a quick overview of what happened.
+
+      - if @contest.voting? && (@contest.entries - @voted_entries).length > 0
+        .message
+          %h2 This contest is open for voting
+          %p
+            The entries can be viewed and rated after pressing the big black &ldquo;Vote&rdquo;-button below, which will open the voting box to show you the entries in random order. You'll find out who submitted which entry after voting.
+            - if @voted_entries.length > 0
+              The entries you already rated will appear on this page. After voting for the rest, they'll all become visible.
+
+      %ul#entries{:class => @contest.state}
+        = render :partial => "entries/entry", :collection => @contest.entries.order_by([:score, :desc])
+
+    - else
+      .message
+        %h2 This contest is open for voting
+        :textile
+          After "logging in":/auth/github, you can view and rate the entries of this contest.
 
 
