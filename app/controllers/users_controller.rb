@@ -15,8 +15,6 @@ class UsersController < ApplicationController
       [:points, :desc],
       [:average_score, :desc]
     ]).map(&:id)
-
-    render :action => :index
   end
 
   def show
