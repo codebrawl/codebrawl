@@ -22,6 +22,7 @@ feature 'Users' do
       :participations => [
         {:score => 1, :position => 3}, {:score => 2, :position => 2}
       ],
+      :contributions => 10,
       :average_score => 3.5
     )
 
@@ -84,26 +85,31 @@ feature 'Users' do
     background { visit '/contributors' }
 
     scenario 'see the user logins' do
-      %w{ alice bob hans }.each { |login| page.should have_content login }
+      %w{ gary alice bob hans }.each { |login| page.should have_content login }
     end
 
     scenario "do not see users that haven't contributed" do
-      %w{ gary david frank  }.each { |login| page.should have_no_content login }
+      %w{ david frank  }.each { |login| page.should have_no_content login }
     end
 
     scenario 'see the users, ordered by contributions' do
 
       within(:xpath, '//tr[1]') do
+        page.should have_content '#2'
+        page.should have_link 'gary'
+      end
+
+      within(:xpath, '//tr[2]') do
         page.should have_content '#5'
         page.should have_link 'alice'
       end
 
-      within(:xpath, '//tr[2]') do
+      within(:xpath, '//tr[3]') do
         page.should have_content '#4'
         page.should have_link 'bob'
       end
 
-      within(:xpath, '//tr[3]') do
+      within(:xpath, '//tr[4]') do
         page.should have_content '#3'
         page.should have_link 'hans'
       end
