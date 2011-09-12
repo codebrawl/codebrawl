@@ -1,13 +1,14 @@
-%li{:id => dom_id(contest), :class => 'contest'}
+%article{:id => dom_id(contest), :class => 'box'}
   .description
-    %h2= link_to contest.name, contest
+    %h1= link_to contest.name, contest
 
     - if contest.open? && contest.entries.any?
       %span.submitted_entries
         = "#{contest.entries.length} #{contest.entries.length > 1 ? 'entries' : 'entry'} already"
 
     %p= contest.tagline
-  .state
+
+  %footer.state
     %span= contest.state.capitalize
     - if contest.next_state_at
       %span.time_left
@@ -23,4 +24,3 @@
               = image_tag("medal_#{%w{gold silver bronze}[i]}.png", :class => 'medal')
               = image_tag(entry.user.gravatar_url(:size => 60, :default => avatar_url), :class => 'gravatar')
   %hr
-
