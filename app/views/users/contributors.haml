@@ -1,0 +1,16 @@
+- content_for(:title){ "Contributors" }
+
+%h2 Contributors
+
+%table
+  %thead
+    %td
+    %td
+    %td Name
+    %td Contributions
+  - @users.each_with_index do |user, index|
+    %tr
+      %td.narrow= "##{@positions.index(user.id) + 1}"
+      %td.center.narrow= image_tag(user.gravatar_url(:size => 40, :default => avatar_url), :class => 'gravatar')
+      %td= link_to(user.best_name, user)
+      %td.narrow= user.contributions
