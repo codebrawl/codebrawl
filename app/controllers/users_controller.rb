@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   end
 
   def contributors
-    @users = User.where(:contributions.gt => 0)
+    @users = User.where(:contributions.gt => 0).order_by([:contributions, :desc])
     @positions = User.only(:id).order_by([
       [:points, :desc],
       [:average_score, :desc]
