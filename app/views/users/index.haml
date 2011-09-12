@@ -13,7 +13,7 @@
     %td Average position
   - @users.each_with_index do |user, index|
     %tr{:class => index <= 2 ? 'top3' : nil}
-      %td.narrow= "##{index + 1}"
+      %td.narrow= "##{@positions.index(user.id) + 1}"
       %td.center.narrow= image_tag(user.gravatar_url(:size => 40, :default => avatar_url), :class => 'gravatar')
       %td= link_to(user.best_name, user)
       %td.narrow= user.points
