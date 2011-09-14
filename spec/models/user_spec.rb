@@ -48,34 +48,6 @@ describe User do
 
   end
 
-  describe '#calculate_points!' do
-
-    subject do
-      user.stubs(:calculate_points).returns(60)
-      user.calculate_points!
-      user.reload.points
-    end
-
-    it 'should save the points' do
-      should == 60
-    end
-
-  end
-
-  describe '#calculate_average_score!' do
-
-    subject do
-      user.stubs(:calculate_average_score).returns(4.3)
-      user.calculate_average_score!
-      user.reload.average_score
-    end
-
-    it 'should save the average score' do
-      should == 4.3
-    end
-
-  end
-
   describe '#voted_entries' do
 
     before { entry.stubs(:votes_from?).with(user).returns(true) }

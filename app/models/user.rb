@@ -2,6 +2,7 @@ require 'points'
 require 'scores'
 require 'participations'
 require 'position'
+require 'bang'
 
 class User
   include Mongoid::Document
@@ -11,6 +12,7 @@ class User
   include Points
   include Scores
   include Position
+  extend Bang
 
   field 'login', :type => String
   field 'email', :type => String
@@ -29,16 +31,11 @@ class User
 
   alias_method :to_param, :login
 
+  bang :calculate_points => :points
+  bang :calculate_average_score => :average_score
+
   def best_name
     name || login
-  end
-
-  def calculate_points!
-    update_attribute(:points, calculate_points)
-  end
-
-  def calculate_average_score!
-    update_attribute(:average_score, calculate_average_score)
   end
 
   def voted_entries(contest)
