@@ -6,26 +6,6 @@ describe User do
   let(:contest) { entry.contest }
   let(:user) { Fabricate.build(:user, :login => 'charlie') }
 
-  context '#save!' do
-
-    context 'when keeping all fields empty' do
-
-      it { should have(1).error_on(:login) }
-
-    end
-
-  end
-
-  describe "#to_param" do
-
-    subject { user.to_param }
-
-    it "should use the login field" do
-      should eql('charlie')
-    end
-
-  end
-
   describe '#best_name' do
 
     subject { user.best_name }
@@ -38,13 +18,6 @@ describe User do
       it { should == 'Charlie Chaplin' }
 
     end
-
-  end
-
-  describe '#points' do
-
-    subject { user.points }
-    it { should == 0 }
 
   end
 
