@@ -15,7 +15,7 @@
     %tr{:class => index <= 2 ? 'top3' : nil}
       %td.narrow= "##{@positions.index(user.id) + 1}"
       %td.center.narrow= image_tag(user.gravatar_url(:size => 40, :default => avatar_url), :class => 'gravatar')
-      %td= link_to(user.best_name, user)
+      %td= link_to(user.name, user)
       %td.narrow= user.points
       %td.narrow= "#{sprintf("%.1f", user.average_score)}/5"
       %td.narrow= user.participations.count

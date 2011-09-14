@@ -3,6 +3,7 @@ require 'scores'
 require 'participations'
 require 'position'
 require 'bang'
+require 'attribute_fallback'
 
 class User
   include Mongoid::Document
@@ -13,6 +14,7 @@ class User
   include Scores
   include Position
   extend Bang
+  extend AttributeFallback
 
   field 'login', :type => String
   field 'email', :type => String
@@ -33,10 +35,7 @@ class User
 
   bang :calculate_points => :points
   bang :calculate_average_score => :average_score
-
-  def best_name
-    name || login
-  end
+  fallback :name, :login
 
   def voted_entries(contest)
     contest.entries.select { |e| e.votes_from?(self) }
