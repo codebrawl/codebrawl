@@ -58,4 +58,8 @@ class Contest
     entries.where(:user_id => user.id).any?
   end
 
+  def voted_entries(user)
+    entries.select { |e| e.votes_from?(user) }
+  end
+
 end

@@ -36,9 +36,4 @@ class User
   bang :calculate_points => :points
   bang :calculate_average_score => :average_score
   fallback :name, :login
-
-  def voted_entries(contest)
-    contest.entries.select { |e| e.votes_from?(self) }
-  end
-
 end
