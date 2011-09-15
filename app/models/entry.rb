@@ -47,18 +47,9 @@ class Entry
     read_attribute(:score)
   end
 
-  def get_files_from_gist
-    return {} unless gist_id
-    response = Gist.fetch(gist_id)['files']
-    response.each_with_object({}) do |(filename, file), result|
-      file['content'] = nil if filename =~ /.*\.png$/
-      result[filename.gsub('.', '*')] = file
-    end
-  end
-
   def files
     if read_attribute(:files).empty?
-      write_attribute(:files, get_files_from_gist)
+      write_attribute(:files, Gist.fetch(gist_id).files)
       save
     end
     read_attribute(:files).each_with_object({}) { |(filename, file), result| result[filename.gsub('*', '.')] = file }

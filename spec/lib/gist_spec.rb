@@ -8,7 +8,7 @@ describe Gist do
 
     before { @gist = Gist.new("200", '{"foo": "bar"}') }
 
-    context '#code' do
+    describe '#code' do
 
       subject { @gist.code }
 
@@ -16,7 +16,7 @@ describe Gist do
 
     end
 
-    context '#body' do
+    describe '#body' do
 
       subject { @gist.body }
 
@@ -24,7 +24,7 @@ describe Gist do
 
     end
 
-    context '#["foo"]' do
+    describe '#["foo"]' do
 
       subject { @gist['foo'] }
 
@@ -34,7 +34,7 @@ describe Gist do
 
   end
 
-  context '.fetch' do
+  describe '.fetch' do
 
     subject{ VCR.use_cassette('random_gist') { Gist.fetch('12345') } }
 
@@ -60,7 +60,7 @@ describe Gist do
 
   end
 
-  context '.comment' do
+  describe '.comment' do
 
     subject do
       VCR.use_cassette('gist_comment') do
@@ -73,4 +73,47 @@ describe Gist do
     end
 
   end
+
+  describe '#files' do
+
+    let(:gist) do
+      Gist.new('200', '{}')
+    end
+
+    subject { gist.files }
+
+    before do
+      gist.stubs(:[]).with('files').returns({
+        'README' => { 'content' => 'foo' }
+      })
+    end
+
+    it { should == {'README' => {'content' => 'foo'}} }
+
+    context 'when having a file with an extension' do
+
+      before do
+        gist.stubs(:[]).with('files').returns({
+          'foo.bar' => { 'content' => 'foo' }
+        })
+      end
+
+      it { should == {'foo*bar' => {'content' => 'foo'}} }
+
+    end
+
+    context 'when having a PNG file' do
+
+      before do
+        gist.stubs(:[]).with('files').returns({
+          'foo.png' => { 'content' => 'foo' }
+        })
+      end
+
+      it { should == {'foo*png' => {'content' => nil}} }
+
+    end
+
+  end
+
 end
