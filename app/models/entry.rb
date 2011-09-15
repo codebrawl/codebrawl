@@ -49,10 +49,11 @@ class Entry
 
   def files
     if read_attribute(:files).empty?
-      write_attribute(:files, Gist.fetch(gist_id).files)
-      save
+      update_attribute(:files, Gist.fetch(gist_id).files)
     end
-    read_attribute(:files).each_with_object({}) { |(filename, file), result| result[filename.gsub('*', '.')] = file }
+    read_attribute(:files).each_with_object({}) do |(filename, file), result|
+      result[filename.gsub('*', '.')] = file
+    end
   end
 
 end
