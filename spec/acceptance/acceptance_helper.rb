@@ -16,6 +16,11 @@ RSpec.configure do |config|
       },
       'credentials' => {
         'token' => 't0k3n'
+      },
+      'extra' => {
+        'user_hash' => {
+          'gravatar_id' => '12345'
+        }
       }
     }
   end
