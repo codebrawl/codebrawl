@@ -35,5 +35,7 @@ class User
 
   bang :calculate_points => :points
   bang :calculate_average_score => :average_score
+
   fallback :name, :login
+  fallback :email, :gravatar_id
 end
