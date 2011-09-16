@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: git://github.com/jeffkreeftmeijer/gravtastic.git
-  revision: 101e7075a71eaacbfdece0edf91647d4120b8314
+  revision: 7b1a678698a0a35aeef3abd1fb8f26501e4e8b68
   specs:
     gravtastic (2.1.3)
 
