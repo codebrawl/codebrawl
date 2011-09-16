@@ -29,7 +29,7 @@ class User
 
   validates :login, :presence => true
 
-  has_gravatar
+  has_gravatar :secure => false
 
   alias_method :to_param, :login
 

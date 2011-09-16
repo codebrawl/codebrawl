@@ -6,6 +6,12 @@ GIT
     arnold (0.0)
 
 GIT
+  remote: git://github.com/jeffkreeftmeijer/gravtastic.git
+  revision: 2b2252c0aee98854d94f040d88a9f70c1da3097d
+  specs:
+    gravtastic (3.2.6)
+
+GIT
   remote: git://github.com/jnicklas/capybara.git
   revision: 549e67336c712a1ef2119ce5ff64dbbc7542480f
   ref: 549e6733
@@ -96,7 +102,6 @@ GEM
       rspec (~> 2.0)
       rspec-instafail (~> 0.1.4)
       ruby-progressbar (~> 0.0.10)
-    gravtastic (3.1.0)
     gust (0.2.2)
       RedCloth (~> 4.2)
       nokogiri (~> 1.0)
@@ -294,7 +299,7 @@ DEPENDENCIES
   faker
   fakeweb
   fuubar
-  gravtastic
+  gravtastic!
   gust
   haml
   hashr

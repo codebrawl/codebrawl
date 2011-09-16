@@ -21,7 +21,7 @@ gem 'mongoid_slug', :require => 'mongoid/slug'
 
 gem 'omniauth'
 
-gem 'gravtastic'
+gem 'gravtastic', :git => 'git://github.com/jeffkreeftmeijer/gravtastic.git'
 
 gem 'wufoo'
 gem 'gust'
