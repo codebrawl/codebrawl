@@ -1,13 +1,13 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0.rc5' # :git => 'git://github.com/rails/rails.git'
+gem 'rails'
 
 gem 'thin'
 
 gem 'json'
 gem 'haml'
 
-gem 'compass', :git => 'https://github.com/chriseppstein/compass.git', :branch => 'rails31'
+gem 'compass'
 gem 'sass-rails'
 gem 'coffee-script'
 gem 'uglifier'
