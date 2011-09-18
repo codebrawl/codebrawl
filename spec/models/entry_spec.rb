@@ -29,36 +29,6 @@ describe Entry do
 
     end
 
-    context 'when filling in an invalid gist id' do
-
-      around { |example| VCR.use_cassette('404_gist'){ example.run } }
-
-      subject { Fabricate.build(:entry, :gist_id => 'omgfake') }
-
-      it { should have(1).error_on(:gist_id) }
-
-    end
-
-    context 'when filling in an id of a gist that does not belong to the user' do
-
-      around { |example| VCR.use_cassette('gist_with_files'){ example.run } }
-
-      subject { Fabricate.build(:entry, :gist_id => '72a0a6a9aa63d1eb64d6') }
-
-      it { should have(1).error_on(:gist_id) }
-
-    end
-
-    context 'when filling in an id of a gist that is anonymous' do
-
-      around { |example| VCR.use_cassette('anonymous_gist'){ example.run } }
-
-      subject { Fabricate.build(:entry, :gist_id => '1193213') }
-
-      it { should have(1).error_on(:gist_id) }
-
-    end
-
   end
 
   context '#contest' do
