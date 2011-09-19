@@ -7,7 +7,7 @@ gem 'thin'
 gem 'json'
 gem 'haml'
 
-gem 'compass'
+gem 'compass', '~> 0.12.alpha'
 gem 'sass-rails'
 gem 'coffee-script'
 gem 'uglifier'
