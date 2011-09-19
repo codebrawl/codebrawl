@@ -206,4 +206,20 @@ describe Contest do
 
   end
 
+  describe '#voted_entries' do
+
+    let(:user) { Fabricate.build(:user) }
+    let(:entry) { Fabricate.build(:entry) }
+    let(:contest) { entry.contest }
+
+    before { entry.stubs(:votes_from?).with(user).returns(true) }
+
+    subject { contest.voted_entries(user) }
+
+    it 'returns entries the user has voted on' do
+      should == [entry]
+    end
+
+  end
+
 end

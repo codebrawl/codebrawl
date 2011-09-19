@@ -1,14 +1,3 @@
-require 'gist'
-
-class GistValidator < ActiveModel::EachValidator
-  def validate_each(record, attribute, value)
-    gist = Gist.fetch(value)
-    return record.errors[attribute] << "is not valid" unless gist.code == 200
-    return record.errors[attribute] << "can't be anonymous" unless gist['user']
-    record.errors[attribute] << "is not yours" unless record.user.github_id == gist['user']['id']
-  end
-end
-
 class Entry
   include Mongoid::Document
   include Mongoid::Timestamps
@@ -47,21 +36,13 @@ class Entry
     read_attribute(:score)
   end
 
-  def get_files_from_gist
-    return {} unless gist_id
-    response = Gist.fetch(gist_id)['files']
-    response.each_with_object({}) do |(filename, file), result|
-      file['content'] = nil if filename =~ /.*\.png$/
-      result[filename.gsub('.', '*')] = file
-    end
-  end
-
   def files
     if read_attribute(:files).empty?
-      write_attribute(:files, get_files_from_gist)
-      save
+      update_attribute(:files, Gist.fetch(gist_id).files)
     end
-    read_attribute(:files).each_with_object({}) { |(filename, file), result| result[filename.gsub('*', '.')] = file }
+    read_attribute(:files).each_with_object({}) do |(filename, file), result|
+      result[filename.gsub('*', '.')] = file
+    end
   end
 
 end

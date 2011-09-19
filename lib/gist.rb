@@ -38,4 +38,13 @@ class Gist
   def [](attribute)
     MultiJson.decode(body)[attribute]
   end
+
+  def files
+    Hash[
+      self['files'].map do |key, value|
+        value['content'] = nil if key =~ /.*\.png$/
+        [key.gsub('.', '*'), value]
+      end
+    ]
+  end
 end

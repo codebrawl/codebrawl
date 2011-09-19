@@ -41,4 +41,31 @@ feature 'Log in' do
 
   end
 
+  context 'without an email address, after logging in' do
+
+    background do
+      OmniAuth.config.mock_auth[:github] = {
+        'provider' => 'github',
+        'uid' => '1763',
+        'user_info' => {
+          'nickname' => 'charlie'
+        },
+        'credentials' => {
+          'token' => 't0k3n'
+        },
+        'extra' => {
+          'user_hash' => {
+            'gravatar_id' => '12345'
+          }
+        }
+      }
+      login_via_github
+    end
+
+    scenario 'see my gravatar' do
+      body.should include 'http://gravatar.com/avatar/12345.png'
+    end
+
+  end
+
 end

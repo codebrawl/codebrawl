@@ -11,7 +11,10 @@ class SessionsController < ApplicationController
       user = User.create(
         parameters.
         merge(auth['user_info']).
-        merge(:token => auth['credentials']['token'])
+        merge({
+          :token => auth['credentials']['token'],
+          :gravatar_id => auth['extra']['user_hash']['gravatar_id']
+        })
       )
     end
 

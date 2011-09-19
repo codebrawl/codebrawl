@@ -1,13 +1,13 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0.rc5' # :git => 'git://github.com/rails/rails.git'
+gem 'rails'
 
 gem 'thin'
 
 gem 'json'
 gem 'haml'
 
-gem 'compass', :git => 'https://github.com/chriseppstein/compass.git', :branch => 'rails31'
+gem 'compass'
 gem 'sass-rails'
 gem 'coffee-script'
 gem 'uglifier'
@@ -21,7 +21,7 @@ gem 'mongoid_slug', :require => 'mongoid/slug'
 
 gem 'omniauth'
 
-gem 'gravtastic'
+gem 'gravtastic', :git => 'git://github.com/jeffkreeftmeijer/gravtastic.git'
 
 gem 'wufoo'
 gem 'gust'

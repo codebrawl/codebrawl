@@ -2,6 +2,8 @@ require 'points'
 require 'scores'
 require 'participations'
 require 'position'
+require 'bang'
+require 'attribute_fallback'
 
 class User
   include Mongoid::Document
@@ -11,6 +13,8 @@ class User
   include Points
   include Scores
   include Position
+  extend Bang
+  extend AttributeFallback
 
   field 'login', :type => String
   field 'email', :type => String
@@ -25,24 +29,13 @@ class User
 
   validates :login, :presence => true
 
-  has_gravatar
+  has_gravatar :secure => false
 
   alias_method :to_param, :login
 
-  def best_name
-    name || login
-  end
+  bang :calculate_points => :points
+  bang :calculate_average_score => :average_score
 
-  def calculate_points!
-    update_attribute(:points, calculate_points)
-  end
-
-  def calculate_average_score!
-    update_attribute(:average_score, calculate_average_score)
-  end
-
-  def voted_entries(contest)
-    contest.entries.select { |e| e.votes_from?(self) }
-  end
-
+  fallback :name, :login
+  fallback :email, :gravatar_id
 end
