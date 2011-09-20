@@ -1,7 +1,5 @@
 class ContestsController < ApplicationController
   def index
-    return redirect_to root_path if request.path == '/contests'
-
     @contests = Contest.active
 
     respond_to do |format|
