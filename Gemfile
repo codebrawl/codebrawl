@@ -32,8 +32,6 @@ gem 'hoptoad_notifier'
 gem 'hashr'
 gem 'arnold', :git => 'git://github.com/codebrawl/arnold.git', :branch => 'develop'
 
-gem 'bang', :git => 'git@gist.github.com:1232884.git'
-
 group :test do
   gem 'rspec-rails'
   gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git', :ref => '549e6733'
