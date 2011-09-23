@@ -20,6 +20,6 @@ Codebrawl::Application.routes.draw do
 
   get '/rules' => "application#rules", :as => 'rules'
 
-  root :to => 'contests#index'
+  root :to => 'homepage#index'
 
 end

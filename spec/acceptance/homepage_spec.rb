@@ -83,11 +83,15 @@ feature 'Homepage' do
       end
 
       scenario 'see a list of contest names' do
-        ['Euler #74', 'Fun with ChunkyPNG', 'Improving Ruby'].each do |name|
+        ['Euler #74', 'Fun with ChunkyPNG'].each do |name|
           page.should have_link name
         end
 
         page.should have_no_content 'RSpec extensions'
+      end
+
+      scenario 'only show two contests at once' do
+        page.should have_no_content 'Improving Ruby'
       end
 
       scenario 'see entry counts in the contests list' do
@@ -95,37 +99,14 @@ feature 'Homepage' do
       end
 
       scenario 'see the contest taglines' do
-        ['Get your Euler on and build the fastest solution to problem #123', 'Having a bit of with image manipulation in ChunkyPNG', 'Build verything you ever wanted, monkey-patched into Ruby'].each do |tagline|
+        ['Get your Euler on and build the fastest solution to problem #123', 'Having a bit of with image manipulation in ChunkyPNG'].each do |tagline|
           page.should have_content tagline
         end
       end
 
-      scenario 'see the contest states' do
-        within "#contest_#{@open.id}" do
-          page.should have_content 'Open'
-        end
-
-        within "#contest_#{@voting.id}" do
-          page.should have_content 'Voting'
-        end
-
-        within "#contest_#{@finished.id}" do
-          page.should have_content 'Finished'
-        end
-      end
-
-      scenario 'see the contest winners avatars and medals' do
-        within "#contest_#{@finished.id}" do
-          page.should have_css('img.medal')
-          page.should have_css('img.gravatar')
-        end
-      end
-
-      scenario "visit the winner's entry" do
-        within "#contest_#{@finished.id}" do
-          page.find(:xpath, "//ol[@class='winners']//a[1]").click
-        end
-        page.should have_content "This contest is finished"
+      scenario 'visit the contest archive' do
+        click_link 'Contest archive'
+        page.should have_content 'Improving Ruby'
       end
 
       scenario 'visit the submissions page' do
