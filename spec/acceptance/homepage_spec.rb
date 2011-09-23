@@ -58,28 +58,8 @@ feature 'Homepage' do
 
       before { visit '/' }
 
-      scenario 'see the Codebrawl header' do
-        page.should have_content 'Codebrawl'
-      end
-
       scenario 'do not see the "no open contests"-message' do
         page.should have_no_content "Get ready for next week's contest"
-      end
-
-      scenario 'return to the homepage after clicking the header' do
-        click_link 'Fun with ChunkyPNG'
-        click_link 'Codebrawl'
-        ['Euler #74', 'Fun with ChunkyPNG'].each do |name|
-          page.should have_link name
-        end
-      end
-
-      scenario 'return to the homepage after clicking the "Contests" menu item' do
-        click_link 'Fun with ChunkyPNG'
-        click_link 'Contests'
-        ['Euler #74', 'Fun with ChunkyPNG'].each do |name|
-          page.should have_link name
-        end
       end
 
       scenario 'see a list of contest names' do
@@ -107,16 +87,6 @@ feature 'Homepage' do
       scenario 'visit the contest archive' do
         click_link 'Contest archive'
         page.should have_content 'Improving Ruby'
-      end
-
-      scenario 'visit the submissions page' do
-        click_link 'Submit a contest idea'
-        page.should have_content 'Submit your contest idea'
-      end
-
-      scenario 'visit the hall of fame' do
-        click_link 'Hall of Fame'
-        within('#main') { page.should have_content 'Hall of Fame' }
       end
 
       context 'after logging in' do
