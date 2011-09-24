@@ -16,7 +16,7 @@ describe Entry do
 
       subject { contest.entries.by_user(nil) }
 
-      it { should == nil }
+      it { should be_nil }
 
     end
 
@@ -24,7 +24,7 @@ describe Entry do
 
       subject { contest.entries.by_user(User.new) }
 
-      it { should == nil }
+      it { should be_nil }
 
     end
 
