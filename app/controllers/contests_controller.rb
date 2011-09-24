@@ -1,4 +1,5 @@
 class ContestsController < ApplicationController
+
   def index
     @contests = Contest.active
 
@@ -11,10 +12,7 @@ class ContestsController < ApplicationController
   def show
     @contest = Contest.by_slug(params[:id])
     @entry = @contest.entries.by_user(current_user)
-
-    @voted_entries = @contest.voted_entries(current_user) if current_user
-
-    @voted_entries ||= []
+    @voted_entries = @contest.voted_entries(current_user)
   end
 
 end

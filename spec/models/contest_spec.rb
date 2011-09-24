@@ -231,12 +231,24 @@ describe Contest do
     let(:entry) { Fabricate.build(:entry) }
     let(:contest) { entry.contest }
 
-    before { entry.stubs(:votes_from?).with(user).returns(true) }
+    context 'when not passing a user' do
 
-    subject { contest.voted_entries(user) }
+      subject { contest.voted_entries(nil) }
 
-    it 'returns entries the user has voted on' do
-      should == [entry]
+      it { should == [] }
+
+    end
+
+    context 'when passing a user with votes' do
+
+      before { entry.stubs(:votes_from?).with(user).returns(true) }
+
+      subject { contest.voted_entries(user) }
+
+      it 'returns entries the user has voted on' do
+        should == [entry]
+      end
+
     end
 
   end

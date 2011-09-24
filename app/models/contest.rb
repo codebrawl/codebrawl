@@ -64,7 +64,7 @@ class Contest
   end
 
   def voted_entries(user)
-    entries.select { |e| e.votes_from?(user) }
+    user ? entries.select { |e| e.votes_from?(user) } : []
   end
 
 end
