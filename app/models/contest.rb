@@ -19,7 +19,7 @@ class Contest
   include TimeFromDateField
   include State
 
-  validates :user, :name, :description, :starting_on, :presence => true
+  validates :user, :name, :description, :starting_on, :tagline, :presence => true
   validates :tagline, :length => { :minimum => 50 }
 
   before_create :set_voting_and_closing_dates

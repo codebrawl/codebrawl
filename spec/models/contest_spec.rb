@@ -2,6 +2,18 @@ require 'spec_helper'
 
 describe Contest do
 
+  it { should validate_presence_of(:name) }
+
+  it { should validate_presence_of(:description) }
+
+  it { should validate_presence_of(:starting_on) }
+
+  it { should validate_presence_of(:user) }
+
+  it { should validate_presence_of(:tagline) }
+
+  it { should ensure_length_of(:tagline).is_at_least(50) }
+
   context '.not_open' do
 
     subject { Contest.not_open }
@@ -19,74 +31,57 @@ describe Contest do
 
   context '#save!' do
 
-    context 'when keeping all fields empty' do
+    around do |example|
+      Timecop.travel(Time.parse('May 23 2011 10:00 UTC')) { example.run }
+    end
 
-      it { should have(1).error_on(:name) }
+    subject { Fabricate(:contest) }
 
-      it { should have(1).error_on(:description) }
+    it { should be_pending }
 
-      it { should have(1).error_on(:starting_on) }
+    it { should have_a_starting_date_of Date.parse('May 23 2011') }
 
-      it { should have(1).error_on(:user) }
+    it { should have_a_voting_date_of Date.parse('May 30 2011') }
 
-      it { should have(1).error_on(:tagline ) }
+    it { should have_a_closing_date_of Date.parse('June 6 2011') }
+
+    context 'after 4PM, UTC' do
+
+      around { |example| Timecop.travel(Time.parse('May 23 2011 18:00 UTC')) { example.run } }
+
+      it { should be_open }
 
     end
 
-    context 'when creating a valid contest' do
-      around do |example|
-        Timecop.travel(Time.parse('May 23 2011 10:00 UTC')) { example.run }
-      end
+    context 'after seven days, before 4PM, UTC' do
 
-      subject { Fabricate(:contest) }
+      around { |example| Timecop.travel(Time.parse('May 30 2011 11:00 UTC')) { example.run } }
 
-      it { should be_pending }
+      it { should be_open }
 
-      it { should have_a_starting_date_of Date.parse('May 23 2011') }
+    end
 
-      it { should have_a_voting_date_of Date.parse('May 30 2011') }
+    context 'after seven days, after 4PM, UTC' do
 
-      it { should have_a_closing_date_of Date.parse('June 6 2011') }
+      around { |example| Timecop.travel(Time.parse('May 30 2011 17:00 UTC')) { example.run } }
 
-      context 'after 4PM, UTC' do
+      it { should be_voting }
 
-        around { |example| Timecop.travel(Time.parse('May 23 2011 18:00 UTC')) { example.run } }
+    end
 
-        it { should be_open }
+    context 'after fourteen days, before 4PM, UTC' do
 
-      end
+      around { |example| Timecop.travel(Time.parse('June 6 2011 11:00 UTC')) { example.run } }
 
-      context 'after seven days, before 4PM, UTC' do
+      it { should be_voting }
 
-        around { |example| Timecop.travel(Time.parse('May 30 2011 11:00 UTC')) { example.run } }
+    end
 
-        it { should be_open }
+    context 'after fourteen days, after 4PM, UTC' do
 
-      end
+      around { |example| Timecop.travel(Time.parse('June 6 2011 17:00 UTC')) { example.run } }
 
-      context 'after seven days, after 4PM, UTC' do
-
-        around { |example| Timecop.travel(Time.parse('May 30 2011 17:00 UTC')) { example.run } }
-
-        it { should be_voting }
-
-      end
-
-      context 'after fourteen days, before 4PM, UTC' do
-
-        around { |example| Timecop.travel(Time.parse('June 6 2011 11:00 UTC')) { example.run } }
-
-        it { should be_voting }
-
-      end
-
-      context 'after fourteen days, after 4PM, UTC' do
-
-        around { |example| Timecop.travel(Time.parse('June 6 2011 17:00 UTC')) { example.run } }
-
-        it { should be_finished }
-
-      end
+      it { should be_finished }
 
     end
 
