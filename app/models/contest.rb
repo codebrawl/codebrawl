@@ -40,6 +40,11 @@ class Contest
     contest || raise(Mongoid::Errors::DocumentNotFound.new(Contest, slug))
   end
 
+  def if_open
+    raise Mongoid::Errors::DocumentNotFound.new(Contest, id) unless open?
+    self
+  end
+
   def set_voting_and_closing_dates
     self.voting_on = starting_on + 1.week if self.voting_on.blank?
     self.closing_on = voting_on + 1.week if self.closing_on.blank?

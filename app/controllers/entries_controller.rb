@@ -2,14 +2,12 @@ class EntriesController < ApplicationController
   before_filter :authenticate_user!, :only => :new
 
   def new
-    @contest = Contest.find_by_slug(params[:contest_id])
-    not_found unless @contest && @contest.open?
+    @contest = Contest.by_slug(params[:contest_id]).if_open
+    @entry = @contest.entries.new
 
     if @contest.has_entry_from?(current_user)
       redirect_to @contest, :alert => 'You already have an entry for this contest.'
     end
-
-    @entry = @contest.entries.new
   end
 
   def create

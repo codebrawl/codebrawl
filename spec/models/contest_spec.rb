@@ -53,6 +53,34 @@ describe Contest do
 
   end
 
+  context 'if_open' do
+
+    let(:contest) { Contest.new }
+
+    before { contest.stubs(:open?).returns(false) }
+
+    subject { contest.if_open }
+
+    it 'should raise an error if the contest is not open' do
+      expect { subject }.to raise_error Mongoid::Errors::DocumentNotFound
+    end
+
+    context 'with an open contest' do
+
+      before { contest.stubs(:open?).returns(true) }
+
+      it 'should not raise an error if the contest is not open' do
+        expect { subject }.not_to raise_error
+      end
+
+      it 'should return the contest' do
+        should == contest
+      end
+
+    end
+
+  end
+
   context '#save!' do
 
     around do |example|
