@@ -57,8 +57,7 @@ feature 'Entries' do
     end
 
     scenario 'fail to add another entry' do
-      click_link 'Enter'
-      page.should have_content 'You already have an entry for this contest.'
+      expect { click_link 'Enter' }.to raise_error Mongoid::Errors::DocumentNotFound
     end
 
     context 'when logged in' do

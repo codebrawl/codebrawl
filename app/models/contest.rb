@@ -1,5 +1,6 @@
 require 'state'
 require 'time_from_date_field'
+require 'mongoid_extensions'
 
 class Contest
   include Mongoid::Document
@@ -41,8 +42,7 @@ class Contest
   end
 
   def if_open
-    raise Mongoid::Errors::DocumentNotFound.new(Contest, id) unless open?
-    self
+    open? ? self : not_found
   end
 
   def set_voting_and_closing_dates
