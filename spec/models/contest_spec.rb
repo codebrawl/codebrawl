@@ -29,6 +29,30 @@ describe Contest do
 
   end
 
+  context '.by_slug' do
+
+    it 'should raise a DocumentNotFound error if the contest does not exist' do
+      expect {
+        Contest.by_slug('slug')
+      }.to raise_error(Mongoid::Errors::DocumentNotFound)
+    end
+
+    context 'when the contest exists' do
+
+      subject { Contest.by_slug('slug') }
+
+      let(:contest) { Fabricate(:contest, :name => 'slug') }
+
+      before { contest }
+
+      it 'should return the contest' do
+        should == contest
+      end
+
+    end
+
+  end
+
   context '#save!' do
 
     around do |example|

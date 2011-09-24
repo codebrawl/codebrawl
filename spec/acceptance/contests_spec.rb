@@ -48,16 +48,6 @@ end
 
 feature 'Contests' do
 
-  context 'when trying to visit a contest page that does not exist' do
-
-    scenario 'see the "not found"-page' do
-      lambda{
-        visit '/contests/terminal-admin'
-      }.should raise_error ActionController::RoutingError
-    end
-
-  end
-
   context 'on a contest page' do
 
     background :all do

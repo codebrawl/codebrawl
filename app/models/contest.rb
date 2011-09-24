@@ -35,6 +35,11 @@ class Contest
     scoped.order_by([:starting_on, :desc]).reject { |c| c.pending? }
   end
 
+  def self.by_slug(slug)
+    contest = first(:conditions => {:slug => slug})
+    contest || raise(Mongoid::Errors::DocumentNotFound.new(Contest, slug))
+  end
+
   def set_voting_and_closing_dates
     self.voting_on = starting_on + 1.week if self.voting_on.blank?
     self.closing_on = voting_on + 1.week if self.closing_on.blank?
