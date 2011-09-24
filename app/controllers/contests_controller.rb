@@ -10,11 +10,10 @@ class ContestsController < ApplicationController
 
   def show
     @contest = Contest.by_slug(params[:id])
+    @entry = @contest.entries.by_user(current_user)
 
-    if current_user
-      @voted_entries = @contest.voted_entries(current_user)
-      @entry = @contest.entries.where(:user_id => current_user.id).first
-    end
+    @voted_entries = @contest.voted_entries(current_user) if current_user
+
     @voted_entries ||= []
   end
 

@@ -6,6 +6,40 @@ describe Entry do
 
   it { should validate_presence_of(:gist_id) }
 
+  describe '.by_user' do
+
+    let(:entry) { Fabricate(:entry) }
+    let(:user) { entry.user }
+    let(:contest) { entry.contest }
+
+    context 'when not passing a user' do
+
+      subject { contest.entries.by_user(nil) }
+
+      it { should == nil }
+
+    end
+
+    context 'when providing a user that has no entries' do
+
+      subject { contest.entries.by_user(User.new) }
+
+      it { should == nil }
+
+    end
+
+    context 'when passing a user that has an entry' do
+
+      subject { contest.entries.by_user(user) }
+
+      it 'should return the entry' do
+        should == entry
+      end
+
+    end
+
+  end
+
   describe '#votes_from?' do
     let(:entry) { Fabricate(:entry) }
     let(:user) { Fabricate(:user) }
