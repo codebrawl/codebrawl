@@ -2,6 +2,44 @@ require 'spec_helper'
 
 describe Entry do
 
+  it { should validate_presence_of(:user) }
+
+  it { should validate_presence_of(:gist_id) }
+
+  describe '.by_user' do
+
+    let(:entry) { Fabricate(:entry) }
+    let(:user) { entry.user }
+    let(:contest) { entry.contest }
+
+    context 'when not passing a user' do
+
+      subject { contest.entries.by_user(nil) }
+
+      it { should be_nil }
+
+    end
+
+    context 'when providing a user that has no entries' do
+
+      subject { contest.entries.by_user(User.new) }
+
+      it { should be_nil }
+
+    end
+
+    context 'when passing a user that has an entry' do
+
+      subject { contest.entries.by_user(user) }
+
+      it 'should return the entry' do
+        should == entry
+      end
+
+    end
+
+  end
+
   describe '#votes_from?' do
     let(:entry) { Fabricate(:entry) }
     let(:user) { Fabricate(:user) }
@@ -15,18 +53,6 @@ describe Entry do
 
     context 'without votes by the user' do
       it { should be_false }
-    end
-
-  end
-
-  context '#save!' do
-
-    context 'when keeping all fields empty' do
-
-      it { should have(1).error_on(:user) }
-
-      it { should have(1).error_on(:gist_id) }
-
     end
 
   end
@@ -54,16 +80,6 @@ describe Entry do
     it 'should have a list of votes' do
       votes = [Fabricate.build(:user)]
       Fabricate.build(:entry, :votes => votes).votes.should == votes
-    end
-
-  end
-
-  context '.save!' do
-
-    context 'when keeping all fields empty' do
-
-      it { should have(1).error_on(:user) }
-
     end
 
   end

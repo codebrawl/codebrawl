@@ -53,8 +53,9 @@ feature 'Contests' do
     scenario 'see the "not found"-page' do
       lambda{
         visit '/contests/terminal-admin'
-      }.should raise_error ActionController::RoutingError
+      }.should raise_error Mongoid::Errors::DocumentNotFound
     end
+
 
   end
 

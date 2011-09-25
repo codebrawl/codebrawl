@@ -14,6 +14,10 @@ class Entry
   embeds_many :comments
   belongs_to :user
 
+  def self.by_user(user)
+    user ? first(:conditions => {:user_id => user.id}) : nil
+  end
+
   def votes_from?(user)
     votes.where(:user_id => user.id).any?
   end

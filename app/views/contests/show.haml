@@ -34,13 +34,6 @@
           %p
             :erb
               You can keep updating your gist, we'll take a snapshot of it when the voting period begins. If you want, you can always <%= link_to "delete your entry", [@contest, @entry], :method => :delete %>.
-
-          %h3
-            :erb
-              You entered <%= link_to "gist #{@entry.gist_id}", "https://gist.github.com/#{@entry.gist_id}" %>
-          %p
-            :erb
-              You can keep updating your gist, we'll take a snapshot of it when the voting period begins. If you want, you can always <%= link_to "delete your entry", [@contest, @entry], :method => :delete %>.
     - if @contest.finished?
       .message
         %h3 This contest is finished

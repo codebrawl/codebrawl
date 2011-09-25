@@ -13,30 +13,6 @@ feature 'Entries' do
     )
   end
 
-  context 'on the new entry form or a contest that does not exist' do
-
-    scenario 'see the "not found"-page' do
-      lambda{
-        visit '/contests/terminal-admin/entries/new'
-      }.should raise_error ActionController::RoutingError
-    end
-
-  end
-
-  context 'on the new entry form or a contest that is closed for entries' do
-
-    background do
-      @contest = Fabricate(:contest, :voting_on => Date.yesterday.to_time, :name => 'Terminal admin')
-    end
-
-    scenario 'see the "not found"-page' do
-      lambda{
-        visit '/contests/terminal-admin/entries/new'
-      }.should raise_error ActionController::RoutingError
-    end
-
-  end
-
   context 'on the new entry form' do
 
     background { visit "/contests/#{@contest.slug}/entries/new" }
@@ -81,8 +57,7 @@ feature 'Entries' do
     end
 
     scenario 'fail to add another entry' do
-      click_link 'Enter'
-      page.should have_content 'You already have an entry for this contest.'
+      expect { click_link 'Enter' }.to raise_error Mongoid::Errors::DocumentNotFound
     end
 
     context 'when logged in' do

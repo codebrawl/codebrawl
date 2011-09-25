@@ -1,6 +1,6 @@
 require 'spec_config'
 require 'active_model'
-require 'rspec/rails/extensions'
+require 'support/validations'
 
 require File.expand_path('app/validators/gist_validator')
 

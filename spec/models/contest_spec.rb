@@ -2,6 +2,18 @@ require 'spec_helper'
 
 describe Contest do
 
+  it { should validate_presence_of(:name) }
+
+  it { should validate_presence_of(:description) }
+
+  it { should validate_presence_of(:starting_on) }
+
+  it { should validate_presence_of(:user) }
+
+  it { should validate_presence_of(:tagline) }
+
+  it { should ensure_length_of(:tagline).is_at_least(50) }
+
   context '.not_open' do
 
     subject { Contest.not_open }
@@ -17,76 +29,111 @@ describe Contest do
 
   end
 
-  context '#save!' do
+  context '.by_slug' do
 
-    context 'when keeping all fields empty' do
+    it 'should raise a DocumentNotFound error if the contest does not exist' do
+      expect {
+        Contest.by_slug('slug')
+      }.to raise_error(Mongoid::Errors::DocumentNotFound)
+    end
 
-      it { should have(1).error_on(:name) }
+    context 'when the contest exists' do
 
-      it { should have(1).error_on(:description) }
+      subject { Contest.by_slug('slug') }
 
-      it { should have(1).error_on(:starting_on) }
+      let(:contest) { Fabricate(:contest, :name => 'slug') }
 
-      it { should have(1).error_on(:user) }
+      before { contest }
 
-      it { should have(1).error_on(:tagline ) }
+      it 'should return the contest' do
+        should == contest
+      end
 
     end
 
-    context 'when creating a valid contest' do
-      around do |example|
-        Timecop.travel(Time.parse('May 23 2011 10:00 UTC')) { example.run }
+  end
+
+  context 'if_open' do
+
+    let(:contest) { Contest.new }
+
+    before { contest.stubs(:open?).returns(false) }
+
+    subject { contest.if_open }
+
+    it 'should raise an error if the contest is not open' do
+      expect { subject }.to raise_error Mongoid::Errors::DocumentNotFound
+    end
+
+    context 'with an open contest' do
+
+      before { contest.stubs(:open?).returns(true) }
+
+      it 'should not raise an error if the contest is not open' do
+        expect { subject }.not_to raise_error
       end
 
-      subject { Fabricate(:contest) }
-
-      it { should be_pending }
-
-      it { should have_a_starting_date_of Date.parse('May 23 2011') }
-
-      it { should have_a_voting_date_of Date.parse('May 30 2011') }
-
-      it { should have_a_closing_date_of Date.parse('June 6 2011') }
-
-      context 'after 4PM, UTC' do
-
-        around { |example| Timecop.travel(Time.parse('May 23 2011 18:00 UTC')) { example.run } }
-
-        it { should be_open }
-
+      it 'should return the contest' do
+        should == contest
       end
 
-      context 'after seven days, before 4PM, UTC' do
+    end
 
-        around { |example| Timecop.travel(Time.parse('May 30 2011 11:00 UTC')) { example.run } }
+  end
 
-        it { should be_open }
+  context '#save!' do
 
-      end
+    around do |example|
+      Timecop.travel(Time.parse('May 23 2011 10:00 UTC')) { example.run }
+    end
 
-      context 'after seven days, after 4PM, UTC' do
+    subject { Fabricate(:contest) }
 
-        around { |example| Timecop.travel(Time.parse('May 30 2011 17:00 UTC')) { example.run } }
+    it { should be_pending }
 
-        it { should be_voting }
+    it { should have_a_starting_date_of Date.parse('May 23 2011') }
 
-      end
+    it { should have_a_voting_date_of Date.parse('May 30 2011') }
 
-      context 'after fourteen days, before 4PM, UTC' do
+    it { should have_a_closing_date_of Date.parse('June 6 2011') }
 
-        around { |example| Timecop.travel(Time.parse('June 6 2011 11:00 UTC')) { example.run } }
+    context 'after 4PM, UTC' do
 
-        it { should be_voting }
+      around { |example| Timecop.travel(Time.parse('May 23 2011 18:00 UTC')) { example.run } }
 
-      end
+      it { should be_open }
 
-      context 'after fourteen days, after 4PM, UTC' do
+    end
 
-        around { |example| Timecop.travel(Time.parse('June 6 2011 17:00 UTC')) { example.run } }
+    context 'after seven days, before 4PM, UTC' do
 
-        it { should be_finished }
+      around { |example| Timecop.travel(Time.parse('May 30 2011 11:00 UTC')) { example.run } }
 
-      end
+      it { should be_open }
+
+    end
+
+    context 'after seven days, after 4PM, UTC' do
+
+      around { |example| Timecop.travel(Time.parse('May 30 2011 17:00 UTC')) { example.run } }
+
+      it { should be_voting }
+
+    end
+
+    context 'after fourteen days, before 4PM, UTC' do
+
+      around { |example| Timecop.travel(Time.parse('June 6 2011 11:00 UTC')) { example.run } }
+
+      it { should be_voting }
+
+    end
+
+    context 'after fourteen days, after 4PM, UTC' do
+
+      around { |example| Timecop.travel(Time.parse('June 6 2011 17:00 UTC')) { example.run } }
+
+      it { should be_finished }
 
     end
 
@@ -212,12 +259,24 @@ describe Contest do
     let(:entry) { Fabricate.build(:entry) }
     let(:contest) { entry.contest }
 
-    before { entry.stubs(:votes_from?).with(user).returns(true) }
+    context 'when not passing a user' do
 
-    subject { contest.voted_entries(user) }
+      subject { contest.voted_entries(nil) }
 
-    it 'returns entries the user has voted on' do
-      should == [entry]
+      it { should == [] }
+
+    end
+
+    context 'when passing a user with votes' do
+
+      before { entry.stubs(:votes_from?).with(user).returns(true) }
+
+      subject { contest.voted_entries(user) }
+
+      it 'returns entries the user has voted on' do
+        should == [entry]
+      end
+
     end
 
   end

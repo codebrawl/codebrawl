@@ -1,7 +1,6 @@
 class ContestsController < ApplicationController
-  def index
-    return redirect_to root_path if request.path == '/contests'
 
+  def index
     @contests = Contest.active
 
     respond_to do |format|
@@ -11,13 +10,9 @@ class ContestsController < ApplicationController
   end
 
   def show
-    not_found unless @contest = Contest.find_by_slug(params[:id])
-
-    if current_user
-      @voted_entries = @contest.voted_entries(current_user)
-      @entry = @contest.entries.where(:user_id => current_user.id).first
-    end
-    @voted_entries ||= []
+    @contest = Contest.by_slug(params[:id])
+    @entry = @contest.entries.by_user(current_user)
+    @voted_entries = @contest.voted_entries(current_user)
   end
 
 end

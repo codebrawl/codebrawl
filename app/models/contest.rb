@@ -1,5 +1,6 @@
 require 'state'
 require 'time_from_date_field'
+require 'mongoid_extensions'
 
 class Contest
   include Mongoid::Document
@@ -19,7 +20,7 @@ class Contest
   include TimeFromDateField
   include State
 
-  validates :user, :name, :description, :starting_on, :presence => true
+  validates :user, :name, :description, :starting_on, :tagline, :presence => true
   validates :tagline, :length => { :minimum => 50 }
 
   before_create :set_voting_and_closing_dates
@@ -33,6 +34,15 @@ class Contest
 
   def self.active
     scoped.order_by([:starting_on, :desc]).reject { |c| c.pending? }
+  end
+
+  def self.by_slug(slug)
+    contest = first(:conditions => {:slug => slug})
+    contest || raise(Mongoid::Errors::DocumentNotFound.new(Contest, slug))
+  end
+
+  def if_open
+    open? ? self : not_found
   end
 
   def set_voting_and_closing_dates
@@ -59,7 +69,7 @@ class Contest
   end
 
   def voted_entries(user)
-    entries.select { |e| e.votes_from?(user) }
+    user ? entries.select { |e| e.votes_from?(user) } : []
   end
 
 end
