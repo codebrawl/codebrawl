@@ -1,13 +1,13 @@
 require 'spec_config'
 
 module Mongoid
-  module Document
-  end
+  module Document; end
 
-  class Errors
-    class DocumentNotFound < StandardError
-      def initialize(*args)
-      end
+  module Errors
+    class MongoidError < StandardError; end
+
+    class DocumentNotFound < MongoidError
+      def initialize(*args); end
     end
   end
 end
