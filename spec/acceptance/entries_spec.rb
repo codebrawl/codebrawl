@@ -87,4 +87,24 @@ feature 'Entries' do
 
   end
 
+  context 'on an entry page' do
+
+    let(:entry) { Fabricate(:entry) }
+
+    let(:contest) { entry.contest }
+
+    background do
+      visit "/contests/#{contest.slug}/entries/#{entry.id}"
+    end
+
+    it "should show the entry filenames" do
+      page.should have_content 'gistfile1.rb'
+    end
+
+    it "should show the entry files" do
+      page.should have_content 'ActiveRecord::Base.establish_connection'
+    end
+
+  end
+
 end

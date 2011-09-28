@@ -1,6 +1,12 @@
 class EntriesController < ApplicationController
   before_filter :authenticate_user!, :only => :new
 
+  def show
+    @contest = Contest.by_slug(params[:contest_id])
+    @entry = @contest.entries.find(params[:id])
+    render :layout => false
+  end
+
   def new
     @contest = Contest.by_slug(params[:contest_id]).if_open
     @entry = @contest.entries.new

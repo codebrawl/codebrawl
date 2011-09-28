@@ -1,0 +1,5 @@
+%ul
+  - @entry.files.each do |file|
+    %li
+      = file.first
+      = file.last['content']
