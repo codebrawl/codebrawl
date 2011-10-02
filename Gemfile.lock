@@ -1,4 +1,10 @@
 GIT
+  remote: git://gist.github.com/1232884.git
+  revision: 798e950a55d535ddbb95fee8f6b87a959c7df88e
+  specs:
+    bang (0.1.0)
+
+GIT
   remote: git://github.com/codebrawl/arnold.git
   revision: 66c5dae2dd51183816114e9e7b584657c222f022
   branch: develop
@@ -23,12 +29,6 @@ GIT
       rack-test (>= 0.5.4)
       selenium-webdriver (>= 0.0.27)
       xpath (~> 0.1.3)
-
-GIT
-  remote: git@gist.github.com:1232884.git
-  revision: 798e950a55d535ddbb95fee8f6b87a959c7df88e
-  specs:
-    bang (0.1.0)
 
 GEM
   remote: http://rubygems.org/
