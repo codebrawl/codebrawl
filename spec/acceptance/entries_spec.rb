@@ -105,6 +105,10 @@ feature 'Entries' do
       page.should have_content 'ActiveRecord::Base.establish_connection'
     end
 
+    it "should link to the contest" do
+      page.should have_link contest.name, :href => "/contests/#{contest.slug}"
+    end
+
   end
 
 end
