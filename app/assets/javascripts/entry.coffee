@@ -1,5 +1,7 @@
 #= require jquery
 #= require address
+$('document').ready ->
+  $('ul.tabs').show()
 
 $.address.change (event) ->
   filename = event.value.substring(1)

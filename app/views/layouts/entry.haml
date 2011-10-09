@@ -7,6 +7,7 @@
     - if yield(:description).present?
       %meta{:name => 'description', :content => yield(:description) }
     = auto_discovery_link_tag :atom, 'http://feeds.feedburner.com/codebrawl'
+    = stylesheet_link_tag 'entry'
     = javascript_include_tag 'entry'
     = csrf_meta_tags
 
