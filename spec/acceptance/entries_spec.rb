@@ -101,8 +101,8 @@ feature 'Entries' do
       page.should have_content 'gistfile1.rb'
     end
 
-    it "should show the entry files" do
-      page.should have_content 'ActiveRecord::Base.establish_connection'
+    it "should show the entry files, with syntax highlighting" do
+      body.should include '<span class="no">ActiveRecord</span>'
     end
 
     it "should link to the contest" do

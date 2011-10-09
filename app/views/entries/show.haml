@@ -1,7 +1,8 @@
 = link_to @contest.name, @contest
 
 %ul
-  - @entry.files.each do |file|
+  - @entry.files.each do |name, file|
     %li
-      = file.first
-      = file.last['content']
+      = name
+      - cache "#{@entry.id}_#{name}" do
+        = raw Gust.parse(file['content'], :filename => name, :url => file['raw_url'])
