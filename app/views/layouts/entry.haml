@@ -1,0 +1,15 @@
+!!!
+
+%html.no-js
+  %head
+    %meta{'charset' => 'utf-8'}
+    %title= "#{yield(:title).present? ? "#{yield(:title)} - " : ''}Codebrawl"
+    - if yield(:description).present?
+      %meta{:name => 'description', :content => yield(:description) }
+    = auto_discovery_link_tag :atom, 'http://feeds.feedburner.com/codebrawl'
+    = javascript_include_tag 'entry'
+    = csrf_meta_tags
+
+    = yield
+
+    = render 'analytics'

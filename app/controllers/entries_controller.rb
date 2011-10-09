@@ -4,7 +4,7 @@ class EntriesController < ApplicationController
   def show
     @contest = Contest.by_slug(params[:contest_id])
     @entry = @contest.entries.find(params[:id])
-    render :layout => false
+    render :layout => 'entry'
   end
 
   def new
