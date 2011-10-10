@@ -5,7 +5,7 @@
   %h1= @contest.name
   %footer#submitter
     Submitted by
-    =link_to @contest.user.login, @contest.user
+    =link_to_profile @contest.user
 
   = raw Kramdown::Document.new(@contest.description).to_html
 

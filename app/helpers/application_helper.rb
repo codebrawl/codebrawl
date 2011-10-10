@@ -8,8 +8,8 @@ module ApplicationHelper
 
   def link_to_profile(user)
     link_text = image_tag(user.gravatar_url(:size => 20, :default => avatar_url), :class => 'gravatar')
-    link_text << " " << user.login
-    link_to link_text, user_path(user), :name => user.login
+    link_text << " " << user.name
+    link_to link_text, user_path(user), :name => user.name
   end
 
   def clean_url(url)

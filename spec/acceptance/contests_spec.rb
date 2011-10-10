@@ -77,7 +77,7 @@ feature 'Contests' do
           :description => 'Write an [RSpec](http://relishapp.com/rspec) extension that solves a problem you are having.',
           :starting_on => Date.yesterday.to_time,
           :entries => [ Fabricate(:entry_with_files), @entry ],
-          :user => Fabricate(:user, :login => 'bob')
+          :user => Fabricate(:user, :login => 'bob', :name => 'Bob')
         )
       end
     end
@@ -88,9 +88,9 @@ feature 'Contests' do
     end
 
     scenario 'see the contest submitter' do
-      page.should have_content 'Submitted by bob'
-      page.should have_link 'bob'
+      page.should have_link 'Bob'
       body.should include 'href="/users/bob"'
+      body.should include 'avatar/1dae832a3c5ae2702f34ed50a40010e8.png'
     end
 
     scenario 'read the markdown contest description' do

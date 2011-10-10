@@ -13,7 +13,7 @@ describe GistValidator do
 
   before do
     Gist.stubs(:fetch).returns(
-      Gist.new(200, '{"user": {"id": 12345}}')
+      Gist.new(200, '{"public":false, "user": {"id": 12345}}')
     )
   end
 
@@ -70,11 +70,26 @@ describe GistValidator do
 
   end
 
+  context 'with a public gist' do
+    before do
+      Gist.stubs(:fetch).returns(Gist.new(200, '{"public":true, "user": {"id": 54321}}'))
+      object.valid?
+    end
+
+    it { should have(1).error_on(:gist_id) }
+
+    context 'the error' do
+      subject { object.errors[:gist_id].first }
+
+      it { should == "can't be public" }
+    end
+  end
+
 
   context 'with a gist that does not belong to the user' do
 
     before do
-      Gist.stubs(:fetch).returns(Gist.new(200, '{"user": {"id": 54321}}'))
+      Gist.stubs(:fetch).returns(Gist.new(200, '{"public":false, "user": {"id": 54321}}'))
       object.valid?
     end
 
