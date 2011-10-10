@@ -21,7 +21,7 @@ gem 'mongoid_slug', :require => 'mongoid/slug'
 
 gem 'omniauth'
 
-gem 'gravtastic', :git => 'git://github.com/jeffkreeftmeijer/gravtastic.git'
+gem 'gravtastic', :git => 'https://github.com/jeffkreeftmeijer/gravtastic.git'
 
 gem 'wufoo'
 gem 'gust'
@@ -30,12 +30,12 @@ gem 'rpm_contrib'
 gem 'hoptoad_notifier'
 
 gem 'hashr'
-gem 'arnold', :git => 'git://github.com/codebrawl/arnold.git', :branch => 'develop'
+gem 'arnold', :git => 'https://github.com/codebrawl/arnold.git', :branch => 'develop'
 
 group :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
-  gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git', :ref => '549e6733'
+  gem 'capybara', :git => 'https://github.com/jnicklas/capybara.git', :ref => '549e6733'
   gem 'launchy'
 
   gem 'mocha'
