@@ -3,7 +3,11 @@ require 'spec_helper'
 describe ApplicationHelper do
   describe "link_to_profile" do
     before :each do
-      @user = stub(:login => 'charlie', :to_param => 'charlie', :gravatar_url => 'http://gravatar.org/profile.png')
+      @user = stub(
+        :name => 'Charlie',
+        :to_param => 'charlie',
+        :gravatar_url => 'http://gravatar.org/profile.png'
+      )
     end
 
     let(:output) { helper.link_to_profile(@user) }
@@ -14,7 +18,7 @@ describe ApplicationHelper do
     end
 
     it "should include the username" do
-      output.should include("charlie")
+      output.should include("Charlie")
     end
 
     it "should html escape the username" do

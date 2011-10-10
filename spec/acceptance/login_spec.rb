@@ -5,7 +5,7 @@ feature 'Log in' do
   scenario 'log in via Github' do
     visit '/'
     click_link 'log in via Github'
-    page.should have_content 'charlie'
+    page.should have_content 'Charlie'
   end
 
   scenario 'fail to log in using invalid credentials' do
