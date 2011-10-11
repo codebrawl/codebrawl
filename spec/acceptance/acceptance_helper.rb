@@ -4,9 +4,8 @@ require 'capybara/rspec'
 Capybara.default_host = 'example.org'
 OmniAuth.config.test_mode = true
 
-RSpec.configure do |config|
-  config.before(:each) do
-    OmniAuth.config.mock_auth[:github] = {
+def mock_login
+  OmniAuth.config.mock_auth[:github] = {
       'provider' => 'github',
       'uid' => '1763',
       'user_info' => {
@@ -23,7 +22,6 @@ RSpec.configure do |config|
         }
       }
     }
-  end
 end
 
 def login_via_github

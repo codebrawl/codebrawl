@@ -18,14 +18,17 @@ feature 'Voting' do
     (1..5).to_a.each { |i| page.should have_no_field i.to_s }
     page.should have_no_button 'Vote'
   end
-  
+
   scenario 'do not see the entry gist urls' do
     page.should have_no_link 'Gist'
     body.should_not include 'href="https://gist.github.com/866948"'
   end
 
   context 'when logged in' do
-    background { login_via_github }
+    background do
+      mock_login
+      login_via_github
+    end
 
     scenario 'vote without selecting any scores' do
       click_button 'Vote'
@@ -45,7 +48,7 @@ feature 'Voting' do
       end
 
     end
-    
+
     scenario 'do not see the entry gist urls' do
       page.should have_no_link 'Gist'
       body.should_not include 'href="https://gist.github.com/866948"'
@@ -66,7 +69,7 @@ feature 'Voting' do
       scenario 'see the contestant names' do
         page.should have_content 'bob'
       end
-      
+
       scenario 'see the entry gist urls' do
         page.should have_link 'Gist'
         body.should include 'href="https://gist.github.com/866948"'

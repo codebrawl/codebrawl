@@ -25,6 +25,7 @@ feature 'Entries' do
     context 'when logged in' do
 
       background :all do
+        mock_login
         login_via_github
         visit "/contests/#{@contest.slug}/entries/new"
       end
@@ -57,12 +58,16 @@ feature 'Entries' do
     end
 
     scenario 'fail to add another entry' do
-      expect { click_link 'Enter' }.to raise_error Mongoid::Errors::DocumentNotFound
+      mock_login
+      expect {
+        visit "/contests/#{@contest.slug}/entries/new"
+      }.to raise_error Mongoid::Errors::DocumentNotFound
     end
 
     context 'when logged in' do
 
       background(:all) do
+        mock_login
         login_via_github
         visit "/contests/#{@contest.slug}"
       end

@@ -3,6 +3,7 @@ require 'acceptance/acceptance_helper'
 feature 'Log in' do
 
   scenario 'log in via Github' do
+    mock_login
     visit '/'
     click_link 'log in via Github'
     page.should have_content 'charlie'
@@ -17,7 +18,10 @@ feature 'Log in' do
 
   context 'when logged in' do
 
-    background { login_via_github }
+    background do
+      mock_login
+      login_via_github
+    end
 
     scenario 'see my gravatar' do
       body.should include 'http://gravatar.com/avatar/1dae832a3c5ae2702f34ed50a40010e8.png'

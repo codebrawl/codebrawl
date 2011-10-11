@@ -84,6 +84,7 @@ feature 'Contests' do
 
     background do
       visit "/contests/#{@contest.slug}"
+      mock_login
       login_via_github
     end
 

@@ -91,7 +91,10 @@ feature 'Homepage' do
 
       context 'after logging in' do
 
-        background { login_via_github }
+        background do
+          mock_login
+          login_via_github
+        end
 
         scenario 'visit my profile page' do
           click_link 'charlie'
