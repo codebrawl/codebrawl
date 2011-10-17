@@ -1,4 +1,7 @@
-require 'spec_helper'
+require 'mongoid'
+require 'gravtastic'
+require 'shoulda-matchers'
+require File.expand_path('app/models/user')
 
 describe User do
 
