@@ -1,3 +1,6 @@
+require 'kramdown'
+require 'gust'
+
 class ContestsController < ApplicationController
 
   def index

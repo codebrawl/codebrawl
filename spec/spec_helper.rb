@@ -1,4 +1,8 @@
 require 'spork'
+require 'database_cleaner'
+require 'fabrication'
+require 'faker'
+require 'timecop'
 
 Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
@@ -9,6 +13,8 @@ Spork.prefork do
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
   require 'spec_config'
+
+  require 'shoulda-matchers'
 
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 

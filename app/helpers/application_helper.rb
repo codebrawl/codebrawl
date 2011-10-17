@@ -1,4 +1,7 @@
+require 'sprockets/helpers/rails_helper'
+
 module ApplicationHelper
+  include Sprockets::Helpers::RailsHelper
 
   def avatar_url
     "http://#{request.subdomain.present? ? "#{request.subdomain}." : ''}" <<

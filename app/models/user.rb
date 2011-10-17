@@ -1,3 +1,6 @@
+require 'mongoid'
+require 'gravtastic'
+
 require 'points'
 require 'scores'
 require 'participations'

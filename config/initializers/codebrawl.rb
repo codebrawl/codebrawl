@@ -1,3 +1,5 @@
+require 'hashr'
+
 module Codebrawl
   class Config < Hashr
     define(

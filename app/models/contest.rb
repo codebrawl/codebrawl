@@ -1,3 +1,6 @@
+require 'mongoid'
+require 'mongoid/slug'
+require 'gravtastic'
 require 'state'
 require 'time_from_date_field'
 require 'mongoid_extensions'
