@@ -57,4 +57,6 @@ group :development, :test do
   gem 'faker'
 
   gem 'rack-webconsole'
+
+  gem 'therubyracer'
 end

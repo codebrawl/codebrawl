@@ -12,6 +12,8 @@ Bundler.setup(:default, Rails.env) if defined?(Bundler)
 
 require 'haml'
 require 'sass-rails'
+require 'compass'
+require 'jquery-rails'
 
 module Codebrawl
   class Application < Rails::Application
