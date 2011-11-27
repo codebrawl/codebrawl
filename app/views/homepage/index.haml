@@ -2,10 +2,10 @@
 
 - unless @contests.map(&:state).include? 'open'
   %section.tip
-    %h1 Get ready for next week's contest!
+    %h1 Get ready for the next season of Codebrawl!
     %p
       :erb
-        Our next contest will start next Monday at 14:00 (UTC). If you want to be sure you don't miss it, just subscribe to our <%= link_to 'contests feed', 'http://feeds.feedburner.com/codebrawl' %>. Also, don't forget to check out and vote for the entries in <%= link_to "last week's contest", @contests.first %>.
+        After a very successful first season, Codebrawl is having a winterstop and will return in the beginning of 2012. If you want to be sure you don't miss it, just subscribe to our <%= link_to 'contests feed', 'http://feeds.feedburner.com/codebrawl' %> or <%= link_to 'follow us on twitter', 'http://twitter.com/codebrawl' %>. See you next year!
 
 #contests
   = render @contests

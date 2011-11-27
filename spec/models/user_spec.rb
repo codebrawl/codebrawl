@@ -1,4 +1,5 @@
-require 'spec_helper'
+require File.expand_path('app/models/user')
+require 'shoulda-matchers'
 
 describe User do
 
