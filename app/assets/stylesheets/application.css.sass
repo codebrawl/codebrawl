@@ -5,7 +5,7 @@
 
 // Variables
 $hover-color: #ec1d25   // Light red
-$bg-color: #222         // Dark grey
+$bg-color: #333         // Dark grey
 $light-color: #eee      // Light grey
 
 // Mixins
@@ -28,9 +28,8 @@ html
 
 body
   +blueprint-typography-body(14px)
-  //background-color: $bg-color
   color: $bg-color
-  +data-uri-bg('bg_body.jpg', #333)
+  +data-uri-bg('bg_body.jpg', $bg-color)
 
 body,
 input
