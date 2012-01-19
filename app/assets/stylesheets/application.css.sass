@@ -5,7 +5,7 @@
 
 // Variables
 $hover-color: #ec1d25   // Light red
-$bg-color: #222         // Dark grey
+$bg-color: #333         // Dark grey
 $light-color: #eee      // Light grey
 
 // Mixins
@@ -28,8 +28,8 @@ html
 
 body
   +blueprint-typography-body(14px)
-  background-color: $bg-color
   color: $bg-color
+  +data-uri-bg('bg_body.jpg', $bg-color)
 
 body,
 input
@@ -150,23 +150,25 @@ form
 
 #header
   text-align: center
-  margin: 25px auto
+  margin: -70px auto 25px
 
   h1 a
-    height: 94px
+    width: 400px
+    height: 285px
     display: block
+    margin: 0 auto
     +hide-text
-    +data-uri-bg("logo.png", center no-repeat)
+    +data-uri-bg("logo.jpg", center no-repeat)
 
     h1 a
       height: 75px
       background-size: 75%
 
   p
-    margin: 0
+    margin: -68px 0 0
     font-family: "Courier New", Courier, monospace
     font-size: 13px
-    color: #444
+    color: #888
     -webkit-text-size-adjust: none
 
     span
@@ -187,7 +189,7 @@ form
     font-size: 70%
     line-height: 120%
     position: absolute
-    top: 174px
+    top: 203px
     right: 0
     width: 120px
 
