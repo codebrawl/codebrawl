@@ -11,14 +11,14 @@ feature 'Voting' do
       :voting_on => Date.yesterday.to_time
     )
 
-    visit "contests/#{@contest.slug}"
+    visit "/contests/#{@contest.slug}"
   end
 
   scenario 'do not see the voting controls' do
     (1..5).to_a.each { |i| page.should have_no_field i.to_s }
     page.should have_no_button 'Vote'
   end
-  
+
   scenario 'do not see the entry gist urls' do
     page.should have_no_link 'Gist'
     body.should_not include 'href="https://gist.github.com/866948"'
@@ -45,7 +45,7 @@ feature 'Voting' do
       end
 
     end
-    
+
     scenario 'do not see the entry gist urls' do
       page.should have_no_link 'Gist'
       body.should_not include 'href="https://gist.github.com/866948"'
@@ -66,7 +66,7 @@ feature 'Voting' do
       scenario 'see the contestant names' do
         page.should have_content 'bob'
       end
-      
+
       scenario 'see the entry gist urls' do
         page.should have_link 'Gist'
         body.should include 'href="https://gist.github.com/866948"'

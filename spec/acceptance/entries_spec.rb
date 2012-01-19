@@ -26,8 +26,9 @@ feature 'Entries' do
 
       background :all do
         login_via_github
-        visit "/contests/#{@contest.slug}/entries/new"
       end
+
+      background { visit "/contests/#{@contest.slug}/entries/new" }
 
       scenario 'fail to add an entry when forgetting the Gist id' do
         click_button 'Submit your entry'
@@ -53,8 +54,9 @@ feature 'Entries' do
           :user => @user
         )
       end
-      visit "/contests/#{@contest.slug}"
     end
+
+    background { visit "/contests/#{@contest.slug}" }
 
     scenario 'fail to add another entry' do
       expect { click_link 'Enter' }.to raise_error Mongoid::Errors::DocumentNotFound
@@ -62,7 +64,7 @@ feature 'Entries' do
 
     context 'when logged in' do
 
-      background(:all) do
+      background do
         login_via_github
         visit "/contests/#{@contest.slug}"
       end
