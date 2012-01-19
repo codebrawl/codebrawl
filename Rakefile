@@ -4,6 +4,7 @@
 
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
+require 'rspec/core/rake_task'
 
 Codebrawl::Application.load_tasks
 
@@ -45,6 +46,11 @@ namespace :codebrawl do
 
   end
 end
+
+desc 'Run all specs in spec directory'
+RSpec::Core::RakeTask.new
+
+task :default => :spec
 
 def table(title, content)
   output = line

@@ -1,6 +1,8 @@
 source 'http://rubygems.org'
 
-gem 'rails'
+gem 'rails', '3.2.0.rc2'
+
+gem 'rack', :git => 'https://github.com/rack/rack.git'
 
 gem 'thin'
 
