@@ -26,9 +26,9 @@ feature 'Homepage' do
         :tagline => 'Giving back to RSpec by building the funniest or most useful RSpec formatter',
         :starting_on => Date.tomorrow.to_time
       )
-
-      visit '/'
     end
+
+    background { visit '/' }
 
     scenario 'see the "no open contests"-message' do
       within('.tip') do
