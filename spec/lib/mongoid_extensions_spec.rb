@@ -1,17 +1,4 @@
-require 'spec_config'
-
-module Mongoid
-  module Document; end
-
-  module Errors
-    class MongoidError < StandardError; end
-
-    class DocumentNotFound < MongoidError
-      def initialize(*args); end
-    end
-  end
-end
-
+require 'spec_helper'
 require File.expand_path('lib/mongoid_extensions.rb')
 
 class ExtendedDocument
