@@ -17,10 +17,9 @@ feature 'Contest index' do
         ]
       )
     end
-
-    visit '/contests'
-
   end
+
+  background { visit '/contests' }
 
   scenario 'see links to the contests' do
     page.should have_link 'Fun with ChunkyPNG'

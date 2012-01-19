@@ -20,6 +20,7 @@ gem 'kramdown'
 gem 'mongoid_slug', :require => 'mongoid/slug'
 
 gem 'omniauth'
+gem 'omniauth-github'
 
 gem 'gravtastic', :git => 'https://github.com/jeffkreeftmeijer/gravtastic.git'
 
@@ -35,7 +36,7 @@ gem 'arnold', :git => 'https://github.com/codebrawl/arnold.git', :branch => 'dev
 group :test do
   gem 'rspec-rails'
   gem 'shoulda-matchers'
-  gem 'capybara', :git => 'https://github.com/jnicklas/capybara.git', :ref => '549e6733'
+  gem 'capybara'
   gem 'launchy'
 
   gem 'mocha'

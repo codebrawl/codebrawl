@@ -192,10 +192,9 @@ feature 'Users' do
           }
         ]
       )
-
-      visit '/users/eric'
-
     end
+
+    background { visit '/users/eric' }
 
     scenario 'view a user profile' do
       page.should have_content 'eric'

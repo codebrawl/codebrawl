@@ -47,14 +47,14 @@ feature 'Log in' do
       OmniAuth.config.mock_auth[:github] = {
         'provider' => 'github',
         'uid' => '1763',
-        'user_info' => {
+        'info' => {
           'nickname' => 'charlie'
         },
         'credentials' => {
           'token' => 't0k3n'
         },
         'extra' => {
-          'user_hash' => {
+          'raw_info' => {
             'gravatar_id' => '12345'
           }
         }
