@@ -10,9 +10,9 @@ class Contest
   include Mongoid::Timestamps
   include Mongoid::Slug
 
-  field :name, :type => String
-  field :tagline, :type => String
-  field :description, :type => String
+  field :name
+  field :tagline
+  field :description
 
   field :starting_on, :type => Date
   field :voting_on, :type => Date
