@@ -19,16 +19,17 @@ class User
   extend Bang
   extend AttributeFallback
 
-  field 'login', :type => String
-  field 'email', :type => String
-  field 'token', :type => String
-  field 'name', :type => String
-  field 'github_id', :type => Integer
-  field 'participations', :type => Array, :default => []
-  field 'points', :type => Integer, :default => 0
-  field 'average_score', :type => Float, :default => 0.0
-  field 'urls', :type => Hash, :default => {}
-  field 'contributions', :type => Integer
+  field :login
+  field :email
+  field :token
+  field :name
+
+  field :github_id, :type => Integer
+  field :participations, :type => Array, :default => []
+  field :points, :type => Integer, :default => 0
+  field :average_score, :type => Float, :default => 0.0
+  field :urls, :type => Hash, :default => {}
+  field :contributions, :type => Integer
 
   validates :login, :presence => true
 

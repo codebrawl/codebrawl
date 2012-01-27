@@ -11,7 +11,7 @@
     = f.text_area :comment
 
     %fieldset
-      - (1..5).to_a.each do |score|
+      - (1..5).each do |score|
         = f.label "score_#{score}", score
         = f.radio_button :score, score
     = f.submit 'Vote'
