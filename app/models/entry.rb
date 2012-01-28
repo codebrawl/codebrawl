@@ -2,7 +2,7 @@ class Entry
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field :gist_id, :type => String
+  field :gist_id
   field :files, :type => Hash, :default => {}
   field :score, :type => Float, :default => 0.0
 

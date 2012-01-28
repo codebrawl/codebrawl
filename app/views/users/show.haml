@@ -27,7 +27,7 @@
         %td Score
         %td Points
       - @user.participations.each do |participation|
-        - if @entered_contests.map {|p| p.id }.include? participation['contest_id']
+        - if @entered_contests.map(&:id).include? participation['contest_id']
           %tr
             %td.narrow= image_tag("#{@medals[participation['position']]}.png")
             %td= link_to participation['contest_name'], "/contests/#{participation['contest_slug']}"

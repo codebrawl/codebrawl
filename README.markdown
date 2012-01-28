@@ -22,7 +22,7 @@ Use [Bundler](http://gembundler.com/) to install the dependencies:
 
 Now, run the tests and make sure they all pass:
 
-    bundle exec rspec spec
+    bundle exec rake
 
 If you get a spec failure, please create an [issue](https://github.com/codebrawl/codebrawl/issues) explaining what went wrong.
 

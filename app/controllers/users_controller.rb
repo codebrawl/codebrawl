@@ -24,10 +24,10 @@ class UsersController < ApplicationController
     ]).map(&:id)
 
     not_found unless @user = User.where(:login => params[:id]).first
-    @entered_contests = Contest.all.where('entries.user_id' => @user.id).select do |contest|
+    @entered_contests = Contest.where('entries.user_id' => @user.id).select do |contest|
       contest.state == 'finished'
     end
-    @submitted_contests = Contest.all.where('user_id' => @user.id)
+    @submitted_contests = Contest.where(:user_id => @user.id)
     @medals = { 1 => 'medal_gold', 2 => 'medal_silver', 3 => 'medal_bronze'}
     @medals.default = 'rosette'
   end
